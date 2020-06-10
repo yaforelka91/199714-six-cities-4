@@ -1,10 +1,8 @@
 import React from 'react';
 import Main from '../main/main.jsx';
 
-const App = (props) => {
-  // eslint-disable-next-line react/prop-types
-  const {offersCount} = props;
-
+// eslint-disable-next-line react/prop-types
+const App = ({offersCount}) => {
   return <Main offersCount={offersCount} />;
 };
 
