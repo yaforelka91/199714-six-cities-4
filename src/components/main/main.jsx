@@ -144,7 +144,7 @@ const Main = ({offersCount, offersList}) => {
 
 Main.propTypes = {
   offersCount: PropTypes.number.isRequired,
-  offersList: PropTypes.arrayOf(PropTypes.string),
+  offersList: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default Main;
