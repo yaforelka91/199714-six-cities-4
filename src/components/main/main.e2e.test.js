@@ -25,9 +25,9 @@ describe(`MainE2E`, () => {
 
     const offerLinks = main.find(`.place-card__name a`);
 
-    offerLinks.forEach((node) => {
+    offerLinks.forEach((node, index) => {
       node.simulate(`click`);
-      expect(onOfferTitleClick).toHaveBeenCalled();
+      expect(onOfferTitleClick).toHaveBeenCalledTimes(index + 1);
     });
   });
 });
