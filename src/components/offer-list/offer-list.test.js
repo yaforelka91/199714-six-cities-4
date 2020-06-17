@@ -1,8 +1,8 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import App from './app.jsx';
+import OfferList from './offer-list.jsx';
 
-const offersList = [
+const offers = [
   {
     title: `Offer 1`,
     picture: `pic1`,
@@ -37,16 +37,16 @@ const offersList = [
   },
 ];
 
-const offersCount = 200;
-describe(`AppSnapshot`, () => {
-  it(`should render App`, () => {
+describe(`OfferListSnapshot`, () => {
+  it(`should render OfferList`, () => {
     const tree = renderer.create(
-        <App
-          offersCount={offersCount}
-          offersList={offersList}
+        <OfferList
+          offers={offers}
+          onOfferTitleClick={() => {}}
         />
     )
     .toJSON();
+
     expect(tree).toMatchSnapshot();
   });
 });
