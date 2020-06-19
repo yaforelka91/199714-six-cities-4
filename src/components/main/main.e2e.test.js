@@ -46,7 +46,7 @@ const offersCount = 200;
 
 describe(`MainE2E`, () => {
   it(`Should offer title be pressed`, () => {
-    const onOfferTitleClick = jest.fn();
+    const onOfferTitleClick = jest.fn((...args) => [...args]);
 
     const main = mount(
         <Main

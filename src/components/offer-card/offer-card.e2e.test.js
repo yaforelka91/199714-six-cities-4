@@ -33,4 +33,23 @@ describe(`OfferCardE2E`, () => {
     expect(onOfferCardEnter).toHaveBeenCalledTimes(1);
     expect(onOfferCardEnter.mock.calls[0][0]).toMatchObject(offer);
   });
+
+  it(`Check data-format in callback after title was pressed`, () => {
+    const onOfferTitleClick = jest.fn();
+
+    const card = shallow(
+        <OfferCard
+          offer={offer}
+          onOfferCardEnter={()=>{}}
+          onOfferTitleClick={onOfferTitleClick}
+        />
+    );
+
+    const link = card.find(`.place-card__name a`);
+
+    link.simulate(`click`, {preventDefault() {}});
+
+    expect(onOfferTitleClick).toHaveBeenCalledTimes(1);
+    expect(onOfferTitleClick.mock.calls[0][0]).toMatchObject(offer);
+  });
 });

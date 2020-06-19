@@ -43,7 +43,15 @@ const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter}) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#" onClick={onOfferTitleClick}>{title}</a>
+          <a
+            href="#"
+            onClick={(evt) => {
+              evt.preventDefault();
+              onOfferTitleClick(offer);
+            }}
+          >
+            {title}
+          </a>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

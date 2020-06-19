@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import OfferCard from '../offer-card/offer-card.jsx';
 import {OfferTypes} from '../../const.js';
 
-class OfferList extends Component {
+class OfferList extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -22,7 +22,9 @@ class OfferList extends Component {
             <OfferCard
               key={`${offer.title}-${index}`}
               offer={offer}
-              onOfferTitleClick={onOfferTitleClick}
+              onOfferTitleClick={() => {
+                onOfferTitleClick(offer);
+              }}
               onOfferCardEnter={() => {
                 this.setState({
                   activeCard: offer,
