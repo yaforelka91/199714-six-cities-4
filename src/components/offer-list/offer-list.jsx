@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import OfferCard from '../offer-card/offer-card.jsx';
 import {OfferTypes} from '../../const.js';
 
-class OfferList extends Component {
+class OfferList extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -12,8 +12,22 @@ class OfferList extends Component {
     };
   }
 
+  _handleTitleClick(offer, evt) {
+    evt.preventDefault();
+
+    const {onOfferTitleClick} = this.props;
+
+    onOfferTitleClick(offer);
+  }
+
+  _handleCardMouseEnter(offer) {
+    this.setState({
+      activeCard: offer,
+    });
+  }
+
   render() {
-    const {offers, onOfferTitleClick} = this.props;
+    const {offers} = this.props;
 
     return (
       <div className="cities__places-list places__list tabs__content">
@@ -22,12 +36,8 @@ class OfferList extends Component {
             <OfferCard
               key={`${offer.title}-${index}`}
               offer={offer}
-              onOfferTitleClick={onOfferTitleClick}
-              onOfferCardEnter={() => {
-                this.setState({
-                  activeCard: offer,
-                });
-              }}
+              onOfferTitleClick={this._handleTitleClick.bind(this, offer)}
+              onOfferCardEnter={this._handleCardMouseEnter.bind(this, offer)}
             />
           );
         })}

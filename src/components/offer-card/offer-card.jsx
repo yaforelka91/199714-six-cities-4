@@ -8,10 +8,7 @@ const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter}) => {
   return (
     <article
       className="cities__place-card place-card"
-      onMouseEnter={
-        () => {
-          onOfferCardEnter(offer);
-        }}
+      onMouseEnter={onOfferCardEnter}
     >
       {
         isPremium && <div className="place-card__mark">
@@ -43,7 +40,12 @@ const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter}) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#" onClick={onOfferTitleClick}>{title}</a>
+          <a
+            href="#"
+            onClick={onOfferTitleClick}
+          >
+            {title}
+          </a>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

@@ -4,37 +4,23 @@ import App from './app.jsx';
 
 const offersList = [
   {
-    title: `Offer 1`,
+    title: `Offer`,
+    description: [`text1`],
     picture: `pic1`,
+    pictures: [`pic1`],
     price: 120,
     type: `Apartment`,
     isPremium: true,
     rating: 4.1,
-  },
-  {
-    title: `Offer 2`,
-    picture: `pic2`,
-    price: 80,
-    type: `Private room`,
-    isPremium: false,
-    rating: 4.2,
-  },
-  {
-    title: `Offer 3`,
-    picture: `pic3`,
-    price: 132,
-    type: `Hotel`,
-    isPremium: false,
-    rating: 4.3,
-  },
-  {
-    title: `Offer 4`,
-    picture: `pic4`,
-    price: 180,
-    type: `House`,
-    isPremium: true,
-    rating: 4.9,
-  },
+    bedrooms: `3 Bedrooms`,
+    guests: `Max 4 adults`,
+    services: [`item 1`],
+    host: {
+      name: `Host`,
+      picture: `photo`,
+      isSuper: true,
+    },
+  }
 ];
 
 const offersCount = 200;
