@@ -12,8 +12,22 @@ class OfferList extends PureComponent {
     };
   }
 
+  _handleTitleClick(offer, evt) {
+    evt.preventDefault();
+
+    const {onOfferTitleClick} = this.props;
+
+    onOfferTitleClick(offer);
+  }
+
+  _handleCardMouseEnter(offer) {
+    this.setState({
+      activeCard: offer,
+    });
+  }
+
   render() {
-    const {offers, onOfferTitleClick} = this.props;
+    const {offers} = this.props;
 
     return (
       <div className="cities__places-list places__list tabs__content">
@@ -22,14 +36,8 @@ class OfferList extends PureComponent {
             <OfferCard
               key={`${offer.title}-${index}`}
               offer={offer}
-              onOfferTitleClick={() => {
-                onOfferTitleClick(offer);
-              }}
-              onOfferCardEnter={() => {
-                this.setState({
-                  activeCard: offer,
-                });
-              }}
+              onOfferTitleClick={this._handleTitleClick.bind(this, offer)}
+              onOfferCardEnter={this._handleCardMouseEnter.bind(this, offer)}
             />
           );
         })}

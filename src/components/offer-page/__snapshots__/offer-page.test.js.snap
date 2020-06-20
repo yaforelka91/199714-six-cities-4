@@ -78,15 +78,6 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
               src="pic1"
             />
           </div>
-          <div
-            className="property__image-wrapper"
-          >
-            <img
-              alt="Photo studio"
-              className="property__image"
-              src="pic2"
-            />
-          </div>
         </div>
       </div>
       <div
@@ -212,11 +203,6 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
               >
                 item 1
               </li>
-              <li
-                className="property__inside-item"
-              >
-                item 2
-              </li>
             </ul>
           </div>
           <div
@@ -254,11 +240,6 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
                 className="property__text"
               >
                 text1
-              </p>
-              <p
-                className="property__text"
-              >
-                text2
               </p>
             </div>
           </div>

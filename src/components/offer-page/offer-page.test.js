@@ -4,15 +4,15 @@ import OfferPage from './offer-page.jsx';
 
 const offer = {
   title: `Offer`,
-  description: [`text1`, `text2`],
-  pictures: [`pic1`, `pic2`],
+  description: [`text1`],
+  pictures: [`pic1`],
   price: 120,
   type: `Apartment`,
   isPremium: true,
   rating: 4.1,
   bedrooms: `3 Bedrooms`,
   guests: `Max 4 adults`,
-  services: [`item 1`, `item 2`],
+  services: [`item 1`],
   host: {
     name: `Host`,
     picture: `photo`,

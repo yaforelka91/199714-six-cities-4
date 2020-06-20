@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Main from '../main/main.jsx';
 import OfferPage from '../offer-page/offer-page.jsx';
-import {OfferTypes} from '../../const.js';
 
 class App extends PureComponent {
   constructor(props) {
@@ -12,6 +11,14 @@ class App extends PureComponent {
     this.state = {
       selectedOffer: null,
     };
+
+    this._handleOfferTitleClick = this._handleOfferTitleClick.bind(this);
+  }
+
+  _handleOfferTitleClick(offer) {
+    this.setState({
+      selectedOffer: offer,
+    });
   }
 
   _renderApp() {
@@ -23,11 +30,7 @@ class App extends PureComponent {
         <Main
           offersCount={offersCount}
           offersList={offersList}
-          onOfferTitleClick={(offer) => {
-            this.setState({
-              selectedOffer: offer,
-            });
-          }}
+          onOfferTitleClick={this._handleOfferTitleClick}
         />
       );
     }
@@ -62,28 +65,7 @@ class App extends PureComponent {
 App.propTypes = {
   offersCount: PropTypes.number.isRequired,
   offersList: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        description: PropTypes.arrayOf(PropTypes.string).isRequired,
-        pictures: PropTypes.arrayOf(PropTypes.string).isRequired,
-        picture: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        type: PropTypes.oneOf([
-          OfferTypes.APARTMENT,
-          OfferTypes.ROOM,
-          OfferTypes.HOUSE,
-          OfferTypes.HOTEL]).isRequired,
-        isPremium: PropTypes.bool.isRequired,
-        rating: PropTypes.number.isRequired,
-        bedrooms: PropTypes.string.isRequired,
-        guests: PropTypes.string.isRequired,
-        services: PropTypes.arrayOf(PropTypes.string).isRequired,
-        host: PropTypes.shape({
-          name: PropTypes.string.isRequired,
-          picture: PropTypes.string.isRequired,
-          isSuper: PropTypes.bool.isRequired,
-        })
-      }).isRequired
+      PropTypes.shape().isRequired
   ).isRequired,
 };
 
