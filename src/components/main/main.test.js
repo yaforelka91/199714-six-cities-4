@@ -34,7 +34,7 @@ describe(`MainSnapshot`, () => {
         />,
         {
           createNodeMock: () => {
-            return {};
+            return document.createElement(`div`);
           }
         }
     )

@@ -17,6 +17,7 @@ class Map extends PureComponent {
   componentDidMount() {
     const mapElement = this._mapRef.current;
     const {offers} = this.props;
+
     const mapObject = leaflet.map(mapElement, {
       center: this.state.currentCoords,
       zoom: this.state.zoom,

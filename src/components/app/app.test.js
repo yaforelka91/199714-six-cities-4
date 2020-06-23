@@ -34,7 +34,7 @@ describe(`AppSnapshot`, () => {
         />,
         {
           createNodeMock: () => {
-            return {};
+            return document.createElement(`div`);
           }
         }
     )
