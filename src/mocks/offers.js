@@ -1,5 +1,6 @@
 export default [
   {
+    coords: [52.3909553943508, 4.85309666406198],
     title: `Beautiful & luxurious apartment at great location`,
     description: [
       `A quiet cozy and picturesque that hides behind a 
@@ -44,6 +45,7 @@ export default [
     },
   },
   {
+    coords: [52.369553943508, 4.85309666406198],
     title: `Wood and stone place`,
     description: [
       `A quiet cozy and picturesque that hides behind a 
@@ -84,6 +86,7 @@ export default [
     },
   },
   {
+    coords: [52.3909553943508, 4.929309666406198],
     title: `Canal View Prinsengracht`,
     description: [
       `A quiet cozy and picturesque that hides behind a 
@@ -128,6 +131,7 @@ export default [
     },
   },
   {
+    coords: [52.3809553943508, 4.939309666406198],
     title: `Nice, cozy, warm big bed apartment`,
     description: [
       `A quiet cozy and picturesque that hides behind a 

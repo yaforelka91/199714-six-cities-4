@@ -4,6 +4,7 @@ import App from './app.jsx';
 
 const offersList = [
   {
+    coords: [52.3909553943508, 4.85309666406198],
     title: `Offer`,
     description: [`text1`],
     picture: `pic1`,
@@ -30,7 +31,12 @@ describe(`AppSnapshot`, () => {
         <App
           offersCount={offersCount}
           offersList={offersList}
-        />
+        />,
+        {
+          createNodeMock: () => {
+            return {};
+          }
+        }
     )
     .toJSON();
     expect(tree).toMatchSnapshot();
