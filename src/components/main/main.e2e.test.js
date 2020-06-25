@@ -28,24 +28,21 @@ const offersList = [
   },
 ];
 
-const offersCount = 200;
-
 describe(`MainE2E`, () => {
   it(`Should offer title be pressed`, () => {
     const onOfferTitleClick = jest.fn();
 
     const main = mount(
         <Main
-          offersCount={offersCount}
           offersList={offersList}
           onOfferTitleClick={onOfferTitleClick}
         />
     );
 
     const offerLinks = main.find(`.place-card__name a`);
-    offerLinks.forEach((node, index) => {
+    offerLinks.forEach((node) => {
       node.simulate(`click`);
-      expect(onOfferTitleClick).toHaveBeenCalledTimes(index + 1);
     });
+    expect(onOfferTitleClick).toHaveBeenCalledTimes(offersList.length);
   });
 });

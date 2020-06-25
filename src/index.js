@@ -4,12 +4,13 @@ import App from './components/app/app.jsx';
 import offersList from './mocks/offers.js';
 
 const init = () => {
-  const offersData = {
-    offersCount: 312
+  const settings = {
+    offersList,
+    offersCount: offersList.length,
   };
 
   reactDOM.render(
-      <App offersCount={offersData.offersCount} offersList={offersList} />,
+      <App settings={settings} />,
       document.querySelector(`#root`)
   );
 };

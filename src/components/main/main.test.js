@@ -22,13 +22,10 @@ const offersList = [
     rating: 4.2,
   }
 ];
-
-const offersCount = 200;
 describe(`MainSnapshot`, () => {
   it(`should render correctly`, () => {
     const tree = renderer.create(
         <Main
-          offersCount={offersCount}
           offersList={offersList}
           onOfferTitleClick={()=>{}}
         />,

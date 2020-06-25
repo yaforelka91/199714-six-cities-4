@@ -1,8 +1,9 @@
-import React, {PureComponent} from 'react';
+import React, {PureComponent, Fragment} from 'react';
 import PropTypes from 'prop-types';
+import {OfferType, ListType} from '../../const.js';
+import OfferCardCities from '../offer-card-cities/offer-card-cities.jsx';
+import OfferCardNear from '../offer-card-near/offer-card-near.jsx';
 import OfferCard from '../offer-card/offer-card.jsx';
-import {OfferTypes} from '../../const.js';
-
 class OfferList extends PureComponent {
   constructor(props) {
     super(props);
@@ -27,24 +28,49 @@ class OfferList extends PureComponent {
   }
 
   render() {
-    const {offers} = this.props;
-
-    return (
-      <div className="cities__places-list places__list tabs__content">
-        {offers.map((offer, index) => {
+    const {offers, className, listType} = this.props;
+    const getComponentByType = (type, offer) => {
+      switch (type) {
+        case ListType.CITIES:
           return (
-            <OfferCard
-              key={`${offer.title}-${index}`}
+            <OfferCardCities
               offer={offer}
               onOfferTitleClick={this._handleTitleClick.bind(this, offer)}
               onOfferCardEnter={this._handleCardMouseEnter.bind(this, offer)}
             />
           );
-        })}
+        case ListType.NEAR:
+          return (
+            <OfferCardNear
+              offer={offer}
+              onOfferTitleClick={this._handleTitleClick.bind(this, offer)}
+            />
+          );
+        default:
+          return (
+            <OfferCard
+              offer={offer}
+              onOfferTitleClick={this._handleTitleClick.bind(this, offer)}
+            />
+          );
+      }
+    };
+    return (
+      <div className={`places__list ${className}`}>
+
+        {offers.map((offer) => (
+          <Fragment key={offer.id}>
+            {getComponentByType(listType, offer)}
+          </Fragment>
+        ))}
       </div>
     );
   }
 }
+
+OfferList.defaultProps = {
+  className: ``,
+};
 
 OfferList.propTypes = {
   offers: PropTypes.arrayOf(
@@ -53,14 +79,15 @@ OfferList.propTypes = {
         picture: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
         type: PropTypes.oneOf([
-          OfferTypes.APARTMENT,
-          OfferTypes.ROOM,
-          OfferTypes.HOUSE,
-          OfferTypes.HOTEL]).isRequired,
+          OfferType.APARTMENT,
+          OfferType.ROOM,
+          OfferType.HOUSE,
+          OfferType.HOTEL]).isRequired,
         isPremium: PropTypes.bool.isRequired,
         rating: PropTypes.number.isRequired,
       }).isRequired
   ).isRequired,
+  className: PropTypes.string,
   onOfferTitleClick: PropTypes.func.isRequired,
 };
 

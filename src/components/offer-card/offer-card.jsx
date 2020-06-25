@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {OfferTypes} from '../../const.js';
+import {OfferType} from '../../const.js';
 
-const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter}) => {
+const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, className}) => {
   const {title, picture, price, type, isPremium, rating} = offer;
 
   return (
     <article
-      className="cities__place-card place-card"
+      className={`place-card ${className}`}
       onMouseEnter={onOfferCardEnter}
     >
       {
@@ -53,19 +53,24 @@ const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter}) => {
   );
 };
 
+OfferCard.defaultProps = {
+  className: ``,
+};
+
 OfferCard.propTypes = {
   offer: PropTypes.shape({
     title: PropTypes.string.isRequired,
     picture: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     type: PropTypes.oneOf([
-      OfferTypes.APARTMENT,
-      OfferTypes.ROOM,
-      OfferTypes.HOUSE,
-      OfferTypes.HOTEL]).isRequired,
+      OfferType.APARTMENT,
+      OfferType.ROOM,
+      OfferType.HOUSE,
+      OfferType.HOTEL]).isRequired,
     isPremium: PropTypes.bool.isRequired,
     rating: PropTypes.number.isRequired,
   }).isRequired,
+  className: PropTypes.string,
   onOfferTitleClick: PropTypes.func.isRequired,
   onOfferCardEnter: PropTypes.func.isRequired,
 };

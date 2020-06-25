@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import OfferList from '../offer-list/offer-list.jsx';
-import {OfferTypes} from '../../const.js';
+import {OfferType, ListType} from '../../const.js';
 import Map from '../map/map.jsx';
-
-const Main = ({offersCount, offersList, onOfferTitleClick}) => {
+const Main = ({offersList, onOfferTitleClick}) => {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -72,7 +71,7 @@ const Main = ({offersCount, offersList, onOfferTitleClick}) => {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offersCount} places to stay in Amsterdam</b>
+              <b className="places__found">{offersList.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -94,9 +93,12 @@ const Main = ({offersCount, offersList, onOfferTitleClick}) => {
               <option className="places__option" value="top-rated">Top rated first</option>
             </select> */}
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                <OfferList offers={offersList} onOfferTitleClick={onOfferTitleClick} />
-              </div>
+              <OfferList
+                offers={offersList}
+                onOfferTitleClick={onOfferTitleClick}
+                className='cities__places-list tabs__content'
+                listType={ListType.CITIES}
+              />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
@@ -111,17 +113,16 @@ const Main = ({offersCount, offersList, onOfferTitleClick}) => {
 };
 
 Main.propTypes = {
-  offersCount: PropTypes.number.isRequired,
   offersList: PropTypes.arrayOf(
       PropTypes.shape({
         title: PropTypes.string.isRequired,
         picture: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
         type: PropTypes.oneOf([
-          OfferTypes.APARTMENT,
-          OfferTypes.ROOM,
-          OfferTypes.HOUSE,
-          OfferTypes.HOTEL]).isRequired,
+          OfferType.APARTMENT,
+          OfferType.ROOM,
+          OfferType.HOUSE,
+          OfferType.HOTEL]).isRequired,
         isPremium: PropTypes.bool.isRequired,
         rating: PropTypes.number.isRequired,
       }).isRequired
