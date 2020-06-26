@@ -18,6 +18,7 @@ describe(`OfferCardSnapshot`, () => {
           offer={offer}
           onOfferTitleClick={() => {}}
           onOfferCardEnter={() => {}}
+          isNear={false}
         />
     )
     .toJSON();

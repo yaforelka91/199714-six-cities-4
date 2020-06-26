@@ -236,7 +236,7 @@ exports[`AppSnapshot should render App 1`] = `
                 </span>
               </div>
               <div
-                className="cities__image-wrapper place-card__image-wrapper"
+                className="place-card__image-wrapper cities__image-wrapper"
               >
                 <a
                   href="#"

@@ -5,6 +5,7 @@ import App from './app.jsx';
 const settings = {
   offersList: [
     {
+      id: 1,
       coords: [52.3909553943508, 4.85309666406198],
       title: `Offer`,
       description: [`text1`],

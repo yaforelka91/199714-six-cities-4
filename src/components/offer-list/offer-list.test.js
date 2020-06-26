@@ -4,6 +4,7 @@ import OfferList from './offer-list.jsx';
 
 const offers = [
   {
+    id: 1,
     title: `Offer 1`,
     picture: `pic1`,
     price: 120,
@@ -12,6 +13,7 @@ const offers = [
     rating: 4.1,
   },
   {
+    id: 2,
     title: `Offer 2`,
     picture: `pic2`,
     price: 80,
@@ -42,6 +44,7 @@ describe(`OfferListSnapshot`, () => {
     const tree = renderer.create(
         <OfferList
           offers={offers}
+          isNear={false}
           onOfferTitleClick={() => {}}
         />
     )

@@ -12,25 +12,26 @@ class Map extends PureComponent {
       currentCoords: [52.38333, 4.9],
       zoom: 12,
     };
+
+    this.mapObject = null;
   }
 
   componentDidMount() {
     const mapElement = this._mapRef.current;
     const {offers} = this.props;
-
-    const mapObject = leaflet.map(mapElement, {
+    this.mapObject = leaflet.map(mapElement, {
       center: this.state.currentCoords,
       zoom: this.state.zoom,
       zoomControl: false,
       marker: true
     });
 
-    mapObject.setView(this.state.currentCoords, this.state.zoom);
+    this.mapObject.setView(this.state.currentCoords, this.state.zoom);
 
     leaflet.tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
       attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
     })
-      .addTo(mapObject);
+      .addTo(this.mapObject);
 
     const icon = leaflet.icon({
       iconUrl: `img/pin.svg`,
@@ -40,13 +41,13 @@ class Map extends PureComponent {
     offers.forEach((offer) => {
       leaflet
       .marker(offer.coords, {icon})
-      .addTo(mapObject);
+      .addTo(this.mapObject);
     });
   }
 
   componentWillUnmount() {
-    const mapElement = this._mapRef.current;
-    mapElement.remove();
+    this.mapObject.remove();
+    this.mapObject = null;
   }
 
   render() {

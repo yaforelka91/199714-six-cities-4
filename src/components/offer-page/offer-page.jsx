@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {OfferType, ListType} from '../../const.js';
+import {OfferType} from '../../const.js';
 import ReviewList from '../review-list/review-list.jsx';
 import reviewsList from '../../mocks/reviews.js';
 import Map from '../map/map.jsx';
@@ -8,6 +8,7 @@ import OfferList from '../offer-list/offer-list.jsx';
 
 const OfferPage = ({offer, offersList, onOfferTitleClick}) => {
   const {
+    id,
     title,
     description,
     pictures,
@@ -23,8 +24,7 @@ const OfferPage = ({offer, offersList, onOfferTitleClick}) => {
   } = offer;
 
   const filteredReviews = reviews.map((item) => reviewsList[item]);
-  const filteredOffers = offersList.filter((item) => item !== offer);
-
+  const filteredOffers = offersList.filter((item) => item.id !== id);
   return (
     <div className="page">
       <header className="header">
@@ -202,10 +202,10 @@ const OfferPage = ({offer, offersList, onOfferTitleClick}) => {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <OfferList
-              offers={offersList}
+              offers={filteredOffers}
               onOfferTitleClick={onOfferTitleClick}
               className='near-places__list'
-              listType={ListType.NEAR}
+              isNear={true}
             />
           </section>
         </div>
@@ -216,6 +216,7 @@ const OfferPage = ({offer, offersList, onOfferTitleClick}) => {
 
 OfferPage.propTypes = {
   offer: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     description: PropTypes.arrayOf(PropTypes.string).isRequired,
     pictures: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -239,16 +240,17 @@ OfferPage.propTypes = {
   }).isRequired,
   offersList: PropTypes.arrayOf(
       PropTypes.shape({
-        // title: PropTypes.string.isRequired,
-        // picture: PropTypes.string.isRequired,
-        // price: PropTypes.number.isRequired,
-        // type: PropTypes.oneOf([
-        //   OfferType.APARTMENT,
-        //   OfferType.ROOM,
-        //   OfferType.HOUSE,
-        //   OfferType.HOTEL]).isRequired,
-        // isPremium: PropTypes.bool.isRequired,
-        // rating: PropTypes.number.isRequired,
+        id: PropTypes.number.isRequired,
+        title: PropTypes.string.isRequired,
+        picture: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+        type: PropTypes.oneOf([
+          OfferType.APARTMENT,
+          OfferType.ROOM,
+          OfferType.HOUSE,
+          OfferType.HOTEL]).isRequired,
+        isPremium: PropTypes.bool.isRequired,
+        rating: PropTypes.number.isRequired,
       }).isRequired
   ).isRequired,
   onOfferTitleClick: PropTypes.func.isRequired,

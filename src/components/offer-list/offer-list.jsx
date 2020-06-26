@@ -1,8 +1,6 @@
-import React, {PureComponent, Fragment} from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import {OfferType, ListType} from '../../const.js';
-import OfferCardCities from '../offer-card-cities/offer-card-cities.jsx';
-import OfferCardNear from '../offer-card-near/offer-card-near.jsx';
+import {OfferType} from '../../const.js';
 import OfferCard from '../offer-card/offer-card.jsx';
 class OfferList extends PureComponent {
   constructor(props) {
@@ -13,6 +11,12 @@ class OfferList extends PureComponent {
     };
   }
 
+  _handleCardMouseEnter(offer) {
+    this.setState({
+      activeCard: offer,
+    });
+  }
+
   _handleTitleClick(offer, evt) {
     evt.preventDefault();
 
@@ -21,60 +25,28 @@ class OfferList extends PureComponent {
     onOfferTitleClick(offer);
   }
 
-  _handleCardMouseEnter(offer) {
-    this.setState({
-      activeCard: offer,
-    });
-  }
-
   render() {
-    const {offers, className, listType} = this.props;
-    const getComponentByType = (type, offer) => {
-      switch (type) {
-        case ListType.CITIES:
-          return (
-            <OfferCardCities
-              offer={offer}
-              onOfferTitleClick={this._handleTitleClick.bind(this, offer)}
-              onOfferCardEnter={this._handleCardMouseEnter.bind(this, offer)}
-            />
-          );
-        case ListType.NEAR:
-          return (
-            <OfferCardNear
-              offer={offer}
-              onOfferTitleClick={this._handleTitleClick.bind(this, offer)}
-            />
-          );
-        default:
-          return (
-            <OfferCard
-              offer={offer}
-              onOfferTitleClick={this._handleTitleClick.bind(this, offer)}
-            />
-          );
-      }
-    };
+    const {offers, className, isNear} = this.props;
     return (
       <div className={`places__list ${className}`}>
-
         {offers.map((offer) => (
-          <Fragment key={offer.id}>
-            {getComponentByType(listType, offer)}
-          </Fragment>
+          <OfferCard
+            key={offer.id}
+            offer={offer}
+            onOfferTitleClick={this._handleTitleClick.bind(this, offer)}
+            onOfferCardEnter={!isNear ? this._handleCardMouseEnter.bind(this, offer) : undefined}
+            isNear={isNear}
+          />
         ))}
       </div>
     );
   }
 }
 
-OfferList.defaultProps = {
-  className: ``,
-};
-
 OfferList.propTypes = {
   offers: PropTypes.arrayOf(
       PropTypes.shape({
+        id: PropTypes.number.isRequired,
         title: PropTypes.string.isRequired,
         picture: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
@@ -88,6 +60,7 @@ OfferList.propTypes = {
       }).isRequired
   ).isRequired,
   className: PropTypes.string,
+  isNear: PropTypes.bool.isRequired,
   onOfferTitleClick: PropTypes.func.isRequired,
 };
 

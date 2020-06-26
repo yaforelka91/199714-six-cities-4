@@ -279,7 +279,7 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
                   <span
                     className="reviews__user-name"
                   >
-                    Max
+                    Maria
                   </span>
                 </div>
                 <div
@@ -294,7 +294,7 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
                       <span
                         style={
                           Object {
-                            "width": "80%",
+                            "width": "100%",
                           }
                         }
                       />
@@ -312,9 +312,9 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
                   </p>
                   <time
                     className="reviews__time"
-                    dateTime="2019-04-24"
+                    dateTime="2018-05-25"
                   >
-                    April 2019
+                    May 2018
                   </time>
                 </div>
               </li>
@@ -510,7 +510,6 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
         >
           <article
             className="place-card near-places__card"
-            onMouseEnter={[Function]}
           >
             <div
               className="place-card__mark"
@@ -520,7 +519,7 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
               </span>
             </div>
             <div
-              className="cities__image-wrapper place-card__image-wrapper"
+              className="place-card__image-wrapper near-places__image-wrapper"
             >
               <a
                 href="#"
@@ -614,10 +613,9 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
           </article>
           <article
             className="place-card near-places__card"
-            onMouseEnter={[Function]}
           >
             <div
-              className="cities__image-wrapper place-card__image-wrapper"
+              className="place-card__image-wrapper near-places__image-wrapper"
             >
               <a
                 href="#"

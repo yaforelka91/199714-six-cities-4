@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import OfferList from '../offer-list/offer-list.jsx';
-import {OfferType, ListType} from '../../const.js';
+import {OfferType} from '../../const.js';
 import Map from '../map/map.jsx';
 const Main = ({offersList, onOfferTitleClick}) => {
   return (
@@ -97,7 +97,7 @@ const Main = ({offersList, onOfferTitleClick}) => {
                 offers={offersList}
                 onOfferTitleClick={onOfferTitleClick}
                 className='cities__places-list tabs__content'
-                listType={ListType.CITIES}
+                isNear={false}
               />
             </section>
             <div className="cities__right-section">
@@ -115,6 +115,7 @@ const Main = ({offersList, onOfferTitleClick}) => {
 Main.propTypes = {
   offersList: PropTypes.arrayOf(
       PropTypes.shape({
+        id: PropTypes.number.isRequired,
         title: PropTypes.string.isRequired,
         picture: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,

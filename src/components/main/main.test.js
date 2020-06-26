@@ -4,6 +4,7 @@ import Main from './main.jsx';
 
 const offersList = [
   {
+    id: 1,
     coords: [52.3909553943508, 4.85309666406198],
     title: `Offer 1`,
     picture: `pic1`,
@@ -13,6 +14,7 @@ const offersList = [
     rating: 4.1,
   },
   {
+    id: 2,
     coords: [52.369553943508, 4.85309666406198],
     title: `Offer 2`,
     picture: `pic2`,

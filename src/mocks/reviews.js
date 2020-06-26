@@ -1,6 +1,6 @@
 export default {
-  '1': {
-    id: 1,
+  '0': {
+    id: 0,
     user: {
       name: `Max`,
       picture: `http://placekitten.com/54/54`,
@@ -9,8 +9,8 @@ export default {
     feedback: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
     visitTime: `2019-04-24`,
   },
-  '2': {
-    id: 2,
+  '1': {
+    id: 1,
     user: {
       name: `Maria`,
       picture: `http://placekitten.com/54/54`,
@@ -19,8 +19,8 @@ export default {
     feedback: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
     visitTime: `2018-05-25`,
   },
-  '3': {
-    id: 3,
+  '2': {
+    id: 2,
     user: {
       name: `Mike`,
       picture: `http://placekitten.com/54/54`,
@@ -29,8 +29,8 @@ export default {
     feedback: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
     visitTime: `2019-01-01`,
   },
-  '4': {
-    id: 4,
+  '3': {
+    id: 3,
     user: {
       name: `Alice`,
       picture: `http://placekitten.com/54/54`,
@@ -39,8 +39,8 @@ export default {
     feedback: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
     visitTime: `2016-12-30`,
   },
-  '5': {
-    id: 5,
+  '4': {
+    id: 4,
     user: {
       name: `John`,
       picture: `http://placekitten.com/54/54`,

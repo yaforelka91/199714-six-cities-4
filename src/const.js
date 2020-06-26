@@ -4,8 +4,3 @@ export const OfferType = {
   HOUSE: `House`,
   HOTEL: `Hotel`,
 };
-
-export const ListType = {
-  NEAR: `near`,
-  CITIES: `cities`,
-};

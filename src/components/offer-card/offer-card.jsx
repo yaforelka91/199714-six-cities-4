@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {OfferType} from '../../const.js';
 
-const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, className}) => {
+const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, isNear}) => {
   const {title, picture, price, type, isPremium, rating} = offer;
 
   return (
     <article
-      className={`place-card ${className}`}
+      className={`place-card ${isNear ? `near-places__card` : `cities__place-card`}`}
       onMouseEnter={onOfferCardEnter}
     >
       {
@@ -15,7 +15,7 @@ const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, className}) => {
           <span>Premium</span>
         </div>
       }
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`place-card__image-wrapper ${isNear ? `near-places__image-wrapper` : `cities__image-wrapper`}`}>
         <a href="#">
           <img className="place-card__image" src={picture} width="260" height="200" alt="Place image" />
         </a>
@@ -53,10 +53,6 @@ const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, className}) => {
   );
 };
 
-OfferCard.defaultProps = {
-  className: ``,
-};
-
 OfferCard.propTypes = {
   offer: PropTypes.shape({
     title: PropTypes.string.isRequired,
@@ -70,9 +66,9 @@ OfferCard.propTypes = {
     isPremium: PropTypes.bool.isRequired,
     rating: PropTypes.number.isRequired,
   }).isRequired,
-  className: PropTypes.string,
+  isNear: PropTypes.bool.isRequired,
   onOfferTitleClick: PropTypes.func.isRequired,
-  onOfferCardEnter: PropTypes.func.isRequired,
+  onOfferCardEnter: PropTypes.func,
 };
 
 export default OfferCard;
