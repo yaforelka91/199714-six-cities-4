@@ -24,6 +24,7 @@ describe(`OfferCardE2E`, () => {
         <OfferCard
           offer={offer}
           onOfferCardEnter={onOfferCardEnter}
+          isNear={false}
           onOfferTitleClick={()=>{}}
         />
     );
@@ -40,6 +41,7 @@ describe(`OfferCardE2E`, () => {
     const card = shallow(
         <OfferCard
           offer={offer}
+          isNear={false}
           onOfferCardEnter={()=>{}}
           onOfferTitleClick={onOfferTitleClick}
         />

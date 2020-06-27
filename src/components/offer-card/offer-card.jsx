@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {OfferTypes} from '../../const.js';
+import {OfferType} from '../../const.js';
 
-const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter}) => {
+const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, isNear}) => {
   const {title, picture, price, type, isPremium, rating} = offer;
 
   return (
     <article
-      className="cities__place-card place-card"
+      className={`place-card ${isNear ? `near-places__card` : `cities__place-card`}`}
       onMouseEnter={onOfferCardEnter}
     >
       {
@@ -15,7 +15,7 @@ const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter}) => {
           <span>Premium</span>
         </div>
       }
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`place-card__image-wrapper ${isNear ? `near-places__image-wrapper` : `cities__image-wrapper`}`}>
         <a href="#">
           <img className="place-card__image" src={picture} width="260" height="200" alt="Place image" />
         </a>
@@ -59,15 +59,16 @@ OfferCard.propTypes = {
     picture: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     type: PropTypes.oneOf([
-      OfferTypes.APARTMENT,
-      OfferTypes.ROOM,
-      OfferTypes.HOUSE,
-      OfferTypes.HOTEL]).isRequired,
+      OfferType.APARTMENT,
+      OfferType.ROOM,
+      OfferType.HOUSE,
+      OfferType.HOTEL]).isRequired,
     isPremium: PropTypes.bool.isRequired,
     rating: PropTypes.number.isRequired,
   }).isRequired,
+  isNear: PropTypes.bool.isRequired,
   onOfferTitleClick: PropTypes.func.isRequired,
-  onOfferCardEnter: PropTypes.func.isRequired,
+  onOfferCardEnter: PropTypes.func,
 };
 
 export default OfferCard;

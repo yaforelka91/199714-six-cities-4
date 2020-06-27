@@ -1,8 +1,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import {OfferType} from '../../const.js';
 import OfferCard from '../offer-card/offer-card.jsx';
-import {OfferTypes} from '../../const.js';
-
 class OfferList extends PureComponent {
   constructor(props) {
     super(props);
@@ -10,6 +9,12 @@ class OfferList extends PureComponent {
     this.state = {
       activeCard: null,
     };
+  }
+
+  _handleCardMouseEnter(offer) {
+    this.setState({
+      activeCard: offer,
+    });
   }
 
   _handleTitleClick(offer, evt) {
@@ -20,27 +25,19 @@ class OfferList extends PureComponent {
     onOfferTitleClick(offer);
   }
 
-  _handleCardMouseEnter(offer) {
-    this.setState({
-      activeCard: offer,
-    });
-  }
-
   render() {
-    const {offers} = this.props;
-
+    const {offers, className, isNear} = this.props;
     return (
-      <div className="cities__places-list places__list tabs__content">
-        {offers.map((offer, index) => {
-          return (
-            <OfferCard
-              key={`${offer.title}-${index}`}
-              offer={offer}
-              onOfferTitleClick={this._handleTitleClick.bind(this, offer)}
-              onOfferCardEnter={this._handleCardMouseEnter.bind(this, offer)}
-            />
-          );
-        })}
+      <div className={`places__list ${className}`}>
+        {offers.map((offer) => (
+          <OfferCard
+            key={offer.id}
+            offer={offer}
+            onOfferTitleClick={this._handleTitleClick.bind(this, offer)}
+            onOfferCardEnter={!isNear ? this._handleCardMouseEnter.bind(this, offer) : undefined}
+            isNear={isNear}
+          />
+        ))}
       </div>
     );
   }
@@ -49,18 +46,21 @@ class OfferList extends PureComponent {
 OfferList.propTypes = {
   offers: PropTypes.arrayOf(
       PropTypes.shape({
+        id: PropTypes.number.isRequired,
         title: PropTypes.string.isRequired,
         picture: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
         type: PropTypes.oneOf([
-          OfferTypes.APARTMENT,
-          OfferTypes.ROOM,
-          OfferTypes.HOUSE,
-          OfferTypes.HOTEL]).isRequired,
+          OfferType.APARTMENT,
+          OfferType.ROOM,
+          OfferType.HOUSE,
+          OfferType.HOTEL]).isRequired,
         isPremium: PropTypes.bool.isRequired,
         rating: PropTypes.number.isRequired,
       }).isRequired
   ).isRequired,
+  className: PropTypes.string,
+  isNear: PropTypes.bool.isRequired,
   onOfferTitleClick: PropTypes.func.isRequired,
 };
 

@@ -2,10 +2,10 @@
 
 exports[`OfferListSnapshot should render OfferList 1`] = `
 <div
-  className="cities__places-list places__list tabs__content"
+  className="places__list undefined"
 >
   <article
-    className="cities__place-card place-card"
+    className="place-card cities__place-card"
     onMouseEnter={[Function]}
   >
     <div
@@ -16,7 +16,7 @@ exports[`OfferListSnapshot should render OfferList 1`] = `
       </span>
     </div>
     <div
-      className="cities__image-wrapper place-card__image-wrapper"
+      className="place-card__image-wrapper cities__image-wrapper"
     >
       <a
         href="#"
@@ -109,11 +109,11 @@ exports[`OfferListSnapshot should render OfferList 1`] = `
     </div>
   </article>
   <article
-    className="cities__place-card place-card"
+    className="place-card cities__place-card"
     onMouseEnter={[Function]}
   >
     <div
-      className="cities__image-wrapper place-card__image-wrapper"
+      className="place-card__image-wrapper cities__image-wrapper"
     >
       <a
         href="#"
@@ -206,11 +206,11 @@ exports[`OfferListSnapshot should render OfferList 1`] = `
     </div>
   </article>
   <article
-    className="cities__place-card place-card"
+    className="place-card cities__place-card"
     onMouseEnter={[Function]}
   >
     <div
-      className="cities__image-wrapper place-card__image-wrapper"
+      className="place-card__image-wrapper cities__image-wrapper"
     >
       <a
         href="#"
@@ -303,7 +303,7 @@ exports[`OfferListSnapshot should render OfferList 1`] = `
     </div>
   </article>
   <article
-    className="cities__place-card place-card"
+    className="place-card cities__place-card"
     onMouseEnter={[Function]}
   >
     <div
@@ -314,7 +314,7 @@ exports[`OfferListSnapshot should render OfferList 1`] = `
       </span>
     </div>
     <div
-      className="cities__image-wrapper place-card__image-wrapper"
+      className="place-card__image-wrapper cities__image-wrapper"
     >
       <a
         href="#"
