@@ -29,7 +29,9 @@ class App extends PureComponent {
       return (
         <Main
           offersList={offersList}
-          onOfferTitleClick={this._handleOfferTitleClick}
+          onOfferTitleClick={(offer)=>{
+            this._handleOfferTitleClick(offer);
+          }}
         />
       );
     }

@@ -5,10 +5,22 @@ import {OfferType} from '../../const.js';
 const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, isNear}) => {
   const {title, picture, price, type, isPremium, rating} = offer;
 
+  const handleCardMouseEnter = () => {
+    if (isNear) {
+      return;
+    }
+    onOfferCardEnter(offer);
+  };
+
+  const handleTitleClick = (offerData, evt) => {
+    evt.preventDefault();
+    onOfferTitleClick(offerData);
+  };
+
   return (
     <article
       className={`place-card ${isNear ? `near-places__card` : `cities__place-card`}`}
-      onMouseEnter={onOfferCardEnter}
+      onMouseEnter={handleCardMouseEnter}
     >
       {
         isPremium && <div className="place-card__mark">
@@ -42,7 +54,7 @@ const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, isNear}) => {
         <h2 className="place-card__name">
           <a
             href="#"
-            onClick={onOfferTitleClick}
+            onClick={(evt) => handleTitleClick(offer, evt)}
           >
             {title}
           </a>
@@ -68,7 +80,7 @@ OfferCard.propTypes = {
   }).isRequired,
   isNear: PropTypes.bool.isRequired,
   onOfferTitleClick: PropTypes.func.isRequired,
-  onOfferCardEnter: PropTypes.func,
+  onOfferCardEnter: PropTypes.func.isRequired,
 };
 
 export default OfferCard;

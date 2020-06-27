@@ -49,8 +49,7 @@ describe(`OfferListSnapshot`, () => {
           isNear={false}
           onOfferTitleClick={() => {}}
         />
-    )
-    .toJSON();
+    ).toJSON();
 
     expect(tree).toMatchSnapshot();
   });

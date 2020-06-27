@@ -62,6 +62,7 @@ describe(`OfferPageSnapshot`, () => {
           }
         }
     ).toJSON();
+
     expect(tree).toMatchSnapshot();
   });
 });

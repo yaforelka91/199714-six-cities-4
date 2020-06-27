@@ -40,8 +40,8 @@ describe(`AppSnapshot`, () => {
             return document.createElement(`div`);
           }
         }
-    )
-    .toJSON();
+    ).toJSON();
+
     expect(tree).toMatchSnapshot();
   });
 });

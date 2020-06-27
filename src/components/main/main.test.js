@@ -36,8 +36,8 @@ describe(`MainSnapshot`, () => {
             return document.createElement(`div`);
           }
         }
-    )
-    .toJSON();
+    ).toJSON();
+
     expect(tree).toMatchSnapshot();
   });
 });

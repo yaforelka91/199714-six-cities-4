@@ -4,6 +4,10 @@ import OfferList from '../offer-list/offer-list.jsx';
 import {OfferType} from '../../const.js';
 import Map from '../map/map.jsx';
 
+import withActiveCard from '../../hocs/with-active-card/with-active-card.js';
+const OfferListWrapped = withActiveCard(OfferList);
+
+
 const Main = ({offersList, onOfferTitleClick}) => {
   return (
     <div className="page page--gray page--main">
@@ -94,7 +98,7 @@ const Main = ({offersList, onOfferTitleClick}) => {
               <option className="places__option" value="top-rated">Top rated first</option>
             </select> */}
               </form>
-              <OfferList
+              <OfferListWrapped
                 offers={offersList}
                 onOfferTitleClick={onOfferTitleClick}
                 className='cities__places-list tabs__content'

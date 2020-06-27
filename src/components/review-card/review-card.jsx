@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {monthsList} from '../../const.js';
 
 const ReviewCard = ({review}) => {
   const {user, rating, feedback, visitTime} = review;
 
   const getFormattedDate = (dateStr) => {
     const date = new Date(dateStr);
-    const months = [`January`, `February`, `March`, `April`, `May`, `June`, `July`, `August`, `September`, `October`, `November`, `December`];
-    return `${months[date.getMonth()]} ${date.getFullYear()}`;
+    return `${monthsList[date.getMonth()]} ${date.getFullYear()}`;
   };
 
   return (

@@ -1,47 +1,27 @@
-import React, {PureComponent} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {OfferType} from '../../const.js';
 import OfferCard from '../offer-card/offer-card.jsx';
-class OfferList extends PureComponent {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      activeCard: null,
-    };
-  }
+const OfferList = ({offers, className, isNear, onOfferTitleClick, onOfferCardEnter}) => {
+  return (
+    <div className={`places__list ${className}`}>
+      {offers.map((offer) => (
+        <OfferCard
+          key={offer.id}
+          offer={offer}
+          onOfferTitleClick={onOfferTitleClick}
+          onOfferCardEnter={onOfferCardEnter}
+          isNear={isNear}
+        />
+      ))}
+    </div>
+  );
+};
 
-  _handleCardMouseEnter(offer) {
-    this.setState({
-      activeCard: offer,
-    });
-  }
-
-  _handleTitleClick(offer, evt) {
-    evt.preventDefault();
-
-    const {onOfferTitleClick} = this.props;
-
-    onOfferTitleClick(offer);
-  }
-
-  render() {
-    const {offers, className, isNear} = this.props;
-    return (
-      <div className={`places__list ${className}`}>
-        {offers.map((offer) => (
-          <OfferCard
-            key={offer.id}
-            offer={offer}
-            onOfferTitleClick={this._handleTitleClick.bind(this, offer)}
-            onOfferCardEnter={!isNear ? this._handleCardMouseEnter.bind(this, offer) : undefined}
-            isNear={isNear}
-          />
-        ))}
-      </div>
-    );
-  }
-}
+OfferList.defaultProps = {
+  onOfferCardEnter: () => {}
+};
 
 OfferList.propTypes = {
   offers: PropTypes.arrayOf(
@@ -62,6 +42,7 @@ OfferList.propTypes = {
   className: PropTypes.string,
   isNear: PropTypes.bool.isRequired,
   onOfferTitleClick: PropTypes.func.isRequired,
+  onOfferCardEnter: PropTypes.func,
 };
 
 export default OfferList;

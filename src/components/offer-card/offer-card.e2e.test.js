@@ -51,6 +51,6 @@ describe(`OfferCardE2E`, () => {
 
     link.simulate(`click`, {preventDefault() {}}, offer);
     expect(onOfferTitleClick).toHaveBeenCalledTimes(1);
-    expect(onOfferTitleClick.mock.calls[0][1]).toMatchObject(offer);
+    expect(onOfferTitleClick.mock.calls[0][0]).toMatchObject(offer);
   });
 });

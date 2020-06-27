@@ -31,8 +31,7 @@ describe(`ReviewListSnapshot`, () => {
         <ReviewList
           reviews={reviews}
         />
-    )
-    .toJSON();
+    ).toJSON();
 
     expect(tree).toMatchSnapshot();
   });

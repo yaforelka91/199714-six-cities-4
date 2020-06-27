@@ -20,8 +20,8 @@ describe(`OfferCardSnapshot`, () => {
           onOfferCardEnter={() => {}}
           isNear={false}
         />
-    )
-    .toJSON();
+    ).toJSON();
+
     expect(tree).toMatchSnapshot();
   });
 });

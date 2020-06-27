@@ -19,8 +19,8 @@ describe(`ReviewCardSnapshot`, () => {
         <ReviewCard
           review={review}
         />
-    )
-    .toJSON();
+    ).toJSON();
+
     expect(tree).toMatchSnapshot();
   });
 });
