@@ -20,6 +20,7 @@ describe(`MapSnapshot`, () => {
           }
         }
     ).toJSON();
+
     expect(tree).toMatchSnapshot();
   });
 });

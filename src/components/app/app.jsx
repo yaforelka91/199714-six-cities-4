@@ -22,13 +22,12 @@ class App extends PureComponent {
   }
 
   _renderApp() {
-    const {offersCount, offersList} = this.props;
+    const {offersList} = this.props.settings;
     const {selectedOffer} = this.state;
 
     if (!selectedOffer) {
       return (
         <Main
-          offersCount={offersCount}
           offersList={offersList}
           onOfferTitleClick={this._handleOfferTitleClick}
         />
@@ -37,7 +36,11 @@ class App extends PureComponent {
 
     if (selectedOffer) {
       return (
-        <OfferPage offer={selectedOffer} />
+        <OfferPage
+          offer={selectedOffer}
+          offersList={offersList}
+          onOfferTitleClick={this._handleOfferTitleClick}
+        />
       );
     }
 
@@ -45,7 +48,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const {offersList} = this.props;
+    const {offersList} = this.props.settings;
 
     return (
       <BrowserRouter>
@@ -54,7 +57,11 @@ class App extends PureComponent {
             {this._renderApp()}
           </Route>
           <Route exact path="/offer-page">
-            <OfferPage offer={offersList[0]}/>
+            <OfferPage
+              offer={offersList[0]}
+              offersList={offersList}
+              onOfferTitleClick={this._handleOfferTitleClick}
+            />
           </Route>
         </Switch>
       </BrowserRouter>
@@ -63,10 +70,11 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
-  offersCount: PropTypes.number.isRequired,
-  offersList: PropTypes.arrayOf(
-      PropTypes.shape().isRequired
-  ).isRequired,
+  settings: PropTypes.shape({
+    offersList: PropTypes.arrayOf(
+        PropTypes.shape().isRequired
+    ).isRequired,
+  })
 };
 
 export default App;

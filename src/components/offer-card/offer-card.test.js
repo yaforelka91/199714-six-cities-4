@@ -18,9 +18,10 @@ describe(`OfferCardSnapshot`, () => {
           offer={offer}
           onOfferTitleClick={() => {}}
           onOfferCardEnter={() => {}}
+          isNear={false}
         />
-    )
-    .toJSON();
+    ).toJSON();
+
     expect(tree).toMatchSnapshot();
   });
 });
