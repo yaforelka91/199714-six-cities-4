@@ -21,8 +21,8 @@ const withActiveCard = (Component) => {
     render() {
       return (
         <Component
-          onOfferCardEnter={this._handleCardMouseEnter}
           {...this.props}
+          onOfferCardEnter={this._handleCardMouseEnter}
         />
       );
     }

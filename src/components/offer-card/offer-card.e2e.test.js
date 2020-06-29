@@ -50,6 +50,7 @@ describe(`OfferCardE2E`, () => {
     const link = card.find(`.place-card__name a`);
 
     link.simulate(`click`, {preventDefault() {}}, offer);
+
     expect(onOfferTitleClick).toHaveBeenCalledTimes(1);
     expect(onOfferTitleClick.mock.calls[0][0]).toMatchObject(offer);
   });

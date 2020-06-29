@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import OfferList from '../offer-list/offer-list.jsx';
 import {OfferType} from '../../const.js';
 import Map from '../map/map.jsx';
-
 import withActiveCard from '../../hocs/with-active-card/with-active-card.js';
+
 const OfferListWrapped = withActiveCard(OfferList);
-
-
 const Main = ({offersList, onOfferTitleClick}) => {
   return (
     <div className="page page--gray page--main">

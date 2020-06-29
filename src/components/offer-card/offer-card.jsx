@@ -12,9 +12,9 @@ const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, isNear}) => {
     onOfferCardEnter(offer);
   };
 
-  const handleTitleClick = (offerData, evt) => {
+  const handleTitleClick = (evt) => {
     evt.preventDefault();
-    onOfferTitleClick(offerData);
+    onOfferTitleClick(offer);
   };
 
   return (
@@ -54,7 +54,7 @@ const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, isNear}) => {
         <h2 className="place-card__name">
           <a
             href="#"
-            onClick={(evt) => handleTitleClick(offer, evt)}
+            onClick={handleTitleClick}
           >
             {title}
           </a>
