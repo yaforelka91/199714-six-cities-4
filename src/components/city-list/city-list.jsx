@@ -1,9 +1,9 @@
 import React from 'react';
 
 const CityList = ({citiesList, activeCity, onCityNameClick}) => {
-  const handleCityClick = (cityId, evt) => {
+  const handleCityClick = (evt, city) => {
     evt.preventDefault();
-    onCityNameClick(cityId);
+    onCityNameClick(city);
   };
 
   return (
@@ -14,9 +14,7 @@ const CityList = ({citiesList, activeCity, onCityNameClick}) => {
             <a
               className={`locations__item-link tabs__item ${city.id === activeCity.id ? `tabs__item--active` : ``}`}
               href="#"
-              onClick={(evt) => {
-                handleCityClick(city.id, evt);
-              }}
+              onClick={(evt)=>(handleCityClick(evt, city))}
             >
               <span>{city.name}</span>
             </a>

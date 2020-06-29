@@ -8,44 +8,57 @@ class Map extends PureComponent {
 
     this._mapRef = createRef();
 
-    this.state = {
-      currentCoords: [52.38333, 4.9],
-      zoom: 12,
-    };
-
     this.mapObject = null;
   }
 
-  componentDidMount() {
+  _renderMap() {
     const mapElement = this._mapRef.current;
-    const {offers} = this.props;
 
-    if (mapElement) {
-      this.mapObject = leaflet.map(mapElement, {
-        center: this.state.currentCoords,
-        zoom: this.state.zoom,
-        zoomControl: false,
-        marker: true
-      });
+    if (!mapElement) {
+      return;
+    }
 
-      this.mapObject.setView(this.state.currentCoords, this.state.zoom);
+    if (this.mapObject) {
+      this.mapObject.remove();
+    }
 
-      leaflet.tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
-        attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
-      })
+    const zoom = 12;
+
+    const {offers, activeCity} = this.props;
+
+    this.mapObject = leaflet.map(mapElement, {
+      center: activeCity,
+      zoom,
+      zoomControl: false,
+      marker: true
+    });
+
+    this.mapObject.setView(activeCity, zoom);
+
+    leaflet.tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
+      attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
+    })
         .addTo(this.mapObject);
 
-      const icon = leaflet.icon({
-        iconUrl: `img/pin.svg`,
-        iconSize: [27, 39]
-      });
+    const icon = leaflet.icon({
+      iconUrl: `img/pin.svg`,
+      iconSize: [27, 39]
+    });
 
-      offers.forEach((offer) => {
-        leaflet
+    offers.forEach((offer) => {
+      leaflet
         .marker(offer.coords, {icon})
         .addTo(this.mapObject);
-      });
-    }
+    });
+
+  }
+
+  componentDidMount() {
+    this._renderMap();
+  }
+
+  componentDidUpdate() {
+    this._renderMap();
   }
 
   componentWillUnmount() {
@@ -66,6 +79,7 @@ Map.propTypes = {
         coords: PropTypes.arrayOf(PropTypes.number.isRequired),
       }).isRequired
   ).isRequired,
+  activeCity: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
 
 export default Map;

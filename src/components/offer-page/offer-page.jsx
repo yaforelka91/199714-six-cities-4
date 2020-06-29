@@ -6,7 +6,7 @@ import reviewsList from '../../mocks/reviews.js';
 import Map from '../map/map.jsx';
 import OfferList from '../offer-list/offer-list.jsx';
 
-const OfferPage = ({offer, offersList, onOfferTitleClick}) => {
+const OfferPage = ({offer, offersList, city, onOfferTitleClick}) => {
   const {
     id,
     title,
@@ -195,7 +195,7 @@ const OfferPage = ({offer, offersList, onOfferTitleClick}) => {
             </div>
           </div>
           <section className="property__map map">
-            <Map offers={filteredOffers} />
+            <Map offers={filteredOffers} activeCity={city.coords} />
           </section>
         </section>
         <div className="container">
@@ -253,6 +253,9 @@ OfferPage.propTypes = {
         rating: PropTypes.number.isRequired,
       }).isRequired
   ).isRequired,
+  city: PropTypes.shape({
+    coords: PropTypes.arrayOf(PropTypes.number.isRequired),
+  }).isRequired,
   onOfferTitleClick: PropTypes.func.isRequired,
 };
 

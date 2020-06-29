@@ -1,4 +1,6 @@
 import React, {PureComponent} from 'react';
+import {connect} from 'react-redux';
+import {ActionCreator} from '../../reducer.js';
 import PropTypes from 'prop-types';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Main from '../main/main.jsx';
@@ -22,14 +24,23 @@ class App extends PureComponent {
   }
 
   _renderApp() {
-    const {offersList} = this.props.settings;
+    const {
+      offersList,
+      citiesList,
+      city,
+      onCityNameClick
+    } = this.props;
+
     const {selectedOffer} = this.state;
 
     if (!selectedOffer) {
       return (
         <Main
+          city={city}
           offersList={offersList}
+          citiesList={citiesList}
           onOfferTitleClick={this._handleOfferTitleClick}
+          onCityNameClick={onCityNameClick}
         />
       );
     }
@@ -39,6 +50,7 @@ class App extends PureComponent {
         <OfferPage
           offer={selectedOffer}
           offersList={offersList}
+          city={city}
           onOfferTitleClick={this._handleOfferTitleClick}
         />
       );
@@ -48,7 +60,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const {offersList} = this.props.settings;
+    const {offersList} = this.props;
 
     return (
       <BrowserRouter>
@@ -57,11 +69,7 @@ class App extends PureComponent {
             {this._renderApp()}
           </Route>
           <Route exact path="/offer-page">
-            <OfferPage
-              offer={offersList[0]}
-              offersList={offersList}
-              onOfferTitleClick={this._handleOfferTitleClick}
-            />
+            <OfferPage offer={offersList[0].offers}/>
           </Route>
         </Switch>
       </BrowserRouter>
@@ -70,11 +78,25 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
-  settings: PropTypes.shape({
-    offersList: PropTypes.arrayOf(
-        PropTypes.shape().isRequired
-    ).isRequired,
-  })
+  offersList: PropTypes.arrayOf(
+      PropTypes.shape().isRequired
+  ).isRequired,
+  city: PropTypes.number.isRequired,
+  onCityNameClick: PropTypes.func.isRequired,
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  city: state.city,
+  offersList: state.offersList.find((offer) => offer.city.id === state.city.id).offers,
+  citiesList: state.offersList.map((offer) => offer.city),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onCityNameClick(cityId) {
+    dispatch(ActionCreator.changeCity(cityId));
+    dispatch(ActionCreator.getOffers(cityId));
+  }
+});
+
+export {App};
+export default connect(mapStateToProps, mapDispatchToProps)(App);

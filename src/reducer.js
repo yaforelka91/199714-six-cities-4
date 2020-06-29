@@ -11,35 +11,28 @@ const ActionType = {
   GET_OFFERS: `GET_OFFERS`,
 };
 
-const filterOffers = (cityId) => {
-  return offersList.filter((offer) => offer.city.id === cityId);
-};
-
 const ActionCreator = {
-  changeCity: (cityId) => ({
+  changeCity: (cityName) => ({
     type: ActionType.CHANGE_CITY,
-    payload: cityId,
+    payload: cityName,
   }),
-  getOffers: (cityId) => {
-    let filteredOffers = filterOffers(cityId);
+  getOffers: (city) => {
     return {
       type: ActionType.GET_OFFERS,
-      payload: filteredOffers,
+      payload: city,
     };
   }
 };
 
 const reducer = (state = initialState, action) => {
-  switch (ActionType) {
+  switch (action.type) {
     case ActionType.CHANGE_CITY:
       return extend(state, {
         city: action.payload,
       });
 
     case ActionType.GET_OFFERS:
-      return extend(state, {
-        offersList: action.payload,
-      });
+      return state;
   }
   return state;
 };
