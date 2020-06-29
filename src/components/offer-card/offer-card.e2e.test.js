@@ -24,6 +24,7 @@ describe(`OfferCardE2E`, () => {
         <OfferCard
           offer={offer}
           onOfferCardEnter={onOfferCardEnter}
+          isNear={false}
           onOfferTitleClick={()=>{}}
         />
     );
@@ -40,6 +41,7 @@ describe(`OfferCardE2E`, () => {
     const card = shallow(
         <OfferCard
           offer={offer}
+          isNear={false}
           onOfferCardEnter={()=>{}}
           onOfferTitleClick={onOfferTitleClick}
         />
@@ -48,7 +50,8 @@ describe(`OfferCardE2E`, () => {
     const link = card.find(`.place-card__name a`);
 
     link.simulate(`click`, {preventDefault() {}}, offer);
+
     expect(onOfferTitleClick).toHaveBeenCalledTimes(1);
-    expect(onOfferTitleClick.mock.calls[0][1]).toMatchObject(offer);
+    expect(onOfferTitleClick.mock.calls[0][0]).toMatchObject(offer);
   });
 });

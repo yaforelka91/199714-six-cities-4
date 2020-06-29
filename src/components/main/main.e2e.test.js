@@ -9,6 +9,7 @@ Enzyme.configure({
 
 const offersList = [
   {
+    id: 1,
     coords: [52.3909553943508, 4.85309666406198],
     title: `Offer 1`,
     picture: `pic1`,
@@ -18,6 +19,7 @@ const offersList = [
     rating: 4.1,
   },
   {
+    id: 2,
     coords: [52.369553943508, 4.85309666406198],
     title: `Offer 2`,
     picture: `pic2`,
@@ -28,24 +30,21 @@ const offersList = [
   },
 ];
 
-const offersCount = 200;
-
 describe(`MainE2E`, () => {
   it(`Should offer title be pressed`, () => {
     const onOfferTitleClick = jest.fn();
 
     const main = mount(
         <Main
-          offersCount={offersCount}
           offersList={offersList}
           onOfferTitleClick={onOfferTitleClick}
         />
     );
 
     const offerLinks = main.find(`.place-card__name a`);
-    offerLinks.forEach((node, index) => {
+    offerLinks.forEach((node) => {
       node.simulate(`click`);
-      expect(onOfferTitleClick).toHaveBeenCalledTimes(index + 1);
     });
+    expect(onOfferTitleClick).toHaveBeenCalledTimes(offersList.length);
   });
 });
