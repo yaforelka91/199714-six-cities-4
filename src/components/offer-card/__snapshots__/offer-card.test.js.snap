@@ -22,7 +22,7 @@ exports[`OfferCardSnapshot should render OfferCard 1`] = `
         alt="Place image"
         className="place-card__image"
         height="200"
-        src="pic1"
+        src="http://placeimg.com/260/200/arch"
         width="260"
       />
     </a>
@@ -95,7 +95,7 @@ exports[`OfferCardSnapshot should render OfferCard 1`] = `
         href="#"
         onClick={[Function]}
       >
-        Offer Title
+        Beautiful & luxurious apartment at great location
       </a>
     </h2>
     <p

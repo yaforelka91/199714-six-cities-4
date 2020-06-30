@@ -1,7 +1,8 @@
 import React, {Fragment} from 'react';
-import PropTypes from 'prop-types';
 import ReviewCard from '../review-card/review-card.jsx';
+import {reviewListTypes} from '../../types/types.js';
 
+const MAX_COUNT_REVIEWS = 10;
 const ReviewList = ({reviews}) => {
   return (
     <Fragment>
@@ -9,7 +10,12 @@ const ReviewList = ({reviews}) => {
       {reviews.length > 0 ?
         <ul className="reviews__list">
           {
-            reviews.map((review) => {
+            reviews
+            .slice(0, MAX_COUNT_REVIEWS)
+            .sort(({visitTime: date1}, {visitTime: date2})=> {
+              return (new Date(date2)).valueOf() - (new Date(date1)).valueOf();
+            })
+            .map((review) => {
               return (
                 <ReviewCard key={review.id} review={review} />
               );
@@ -22,10 +28,6 @@ const ReviewList = ({reviews}) => {
   );
 };
 
-ReviewList.propTypes = {
-  reviews: PropTypes.arrayOf(
-      PropTypes.shape().isRequired
-  ).isRequired,
-};
+ReviewList.propTypes = reviewListTypes;
 
 export default ReviewList;

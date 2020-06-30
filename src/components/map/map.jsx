@@ -1,6 +1,6 @@
 import React, {PureComponent, createRef} from 'react';
-import PropTypes from 'prop-types';
 import leaflet from 'leaflet';
+import {mapTypes} from '../../types/types.js';
 
 class Map extends PureComponent {
   constructor(props) {
@@ -73,13 +73,7 @@ class Map extends PureComponent {
   }
 }
 
-Map.propTypes = {
-  offers: PropTypes.arrayOf(
-      PropTypes.shape({
-        coords: PropTypes.arrayOf(PropTypes.number.isRequired),
-      }).isRequired
-  ).isRequired,
-  activeCity: PropTypes.arrayOf(PropTypes.number).isRequired,
-};
+Map.propTypes = mapTypes;
+
 
 export default Map;

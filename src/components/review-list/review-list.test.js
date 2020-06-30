@@ -11,7 +11,7 @@ const reviews = [
     },
     rating: 4.2,
     feedback: `Text`,
-    visitTime: `2019-04-24`,
+    visitTime: `2018-04-24`,
   },
   {
     id: 2,
@@ -21,7 +21,7 @@ const reviews = [
     },
     rating: 5,
     feedback: `Text`,
-    visitTime: `2018-05-25`,
+    visitTime: `2019-05-25`,
   },
 ];
 

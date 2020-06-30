@@ -1,4 +1,5 @@
 import React from 'react';
+import {cityListTypes} from '../../types/types';
 
 const CityList = ({citiesList, activeCity, onCityNameClick}) => {
   const handleCityClick = (evt, city) => {
@@ -14,7 +15,7 @@ const CityList = ({citiesList, activeCity, onCityNameClick}) => {
             <a
               className={`locations__item-link tabs__item ${city.id === activeCity.id ? `tabs__item--active` : ``}`}
               href="#"
-              onClick={(evt)=>(handleCityClick(evt, city))}
+              onClick={(evt)=>(handleCityClick(evt, city.id))}
             >
               <span>{city.name}</span>
             </a>
@@ -24,5 +25,7 @@ const CityList = ({citiesList, activeCity, onCityNameClick}) => {
     </ul>
   );
 };
+
+CityList.propTypes = cityListTypes;
 
 export default CityList;

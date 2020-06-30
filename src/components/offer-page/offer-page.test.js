@@ -46,7 +46,6 @@ const mock = {
   ],
 };
 
-
 describe(`OfferPageSnapshot`, () => {
   const {offer, offersList} = mock;
   it(`should render OfferPage`, () => {

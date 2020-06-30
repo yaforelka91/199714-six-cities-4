@@ -1,10 +1,12 @@
 import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../reducer.js';
-import PropTypes from 'prop-types';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Main from '../main/main.jsx';
 import OfferPage from '../offer-page/offer-page.jsx';
+import {appTypes} from '../../types/types.js';
+
+const MAX_CITIES_COUNT = 6;
 
 class App extends PureComponent {
   constructor(props) {
@@ -30,9 +32,7 @@ class App extends PureComponent {
       city,
       onCityNameClick
     } = this.props;
-
     const {selectedOffer} = this.state;
-
     if (!selectedOffer) {
       return (
         <Main
@@ -60,8 +60,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const {offersList} = this.props;
-
+    const {offersList, city} = this.props;
     return (
       <BrowserRouter>
         <Switch>
@@ -69,7 +68,12 @@ class App extends PureComponent {
             {this._renderApp()}
           </Route>
           <Route exact path="/offer-page">
-            <OfferPage offer={offersList[0].offers}/>
+            <OfferPage
+              offer={offersList[0]}
+              offersList={offersList}
+              city={city}
+              onOfferTitleClick={this._handleOfferTitleClick}
+            />
           </Route>
         </Switch>
       </BrowserRouter>
@@ -77,24 +81,20 @@ class App extends PureComponent {
   }
 }
 
-App.propTypes = {
-  offersList: PropTypes.arrayOf(
-      PropTypes.shape().isRequired
-  ).isRequired,
-  city: PropTypes.number.isRequired,
-  onCityNameClick: PropTypes.func.isRequired,
-};
+App.propTypes = appTypes;
 
 const mapStateToProps = (state) => ({
   city: state.city,
-  offersList: state.offersList.find((offer) => offer.city.id === state.city.id).offers,
-  citiesList: state.offersList.map((offer) => offer.city),
+  offersList: state.filteredOffers,
+  citiesList: state.offersList
+  .map((offer) => offer.city)
+  .slice(0, MAX_CITIES_COUNT)
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onCityNameClick(cityId) {
-    dispatch(ActionCreator.changeCity(cityId));
-    dispatch(ActionCreator.getOffers(cityId));
+  onCityNameClick(city) {
+    dispatch(ActionCreator.changeCity(city));
+    dispatch(ActionCreator.getOffers(city));
   }
 });
 

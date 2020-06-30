@@ -1,10 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import OfferList from '../offer-list/offer-list.jsx';
 import CityList from '../city-list/city-list.jsx';
-import {OfferType} from '../../const.js';
 import Map from '../map/map.jsx';
 import withActiveCard from '../../hocs/with-active-card/with-active-card.js';
+import {mainTypes} from '../../types/types.js';
 
 const OfferListWrapped = withActiveCard(OfferList);
 const Main = ({
@@ -95,23 +94,6 @@ const Main = ({
   );
 };
 
-Main.propTypes = {
-  offersList: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
-        picture: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        type: PropTypes.oneOf([
-          OfferType.APARTMENT,
-          OfferType.ROOM,
-          OfferType.HOUSE,
-          OfferType.HOTEL]).isRequired,
-        isPremium: PropTypes.bool.isRequired,
-        rating: PropTypes.number.isRequired,
-      }).isRequired
-  ).isRequired,
-  onOfferTitleClick: PropTypes.func.isRequired,
-};
+Main.propTypes = mainTypes;
 
 export default Main;

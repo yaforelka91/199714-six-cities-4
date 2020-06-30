@@ -1,11 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {OfferType} from '../../const.js';
 import ReviewList from '../review-list/review-list.jsx';
 import reviewsList from '../../mocks/reviews.js';
 import Map from '../map/map.jsx';
 import OfferList from '../offer-list/offer-list.jsx';
+import {offerPageTypes} from '../../types/types.js';
 
+const MAX_COUNT_PICTURES = 6;
 const OfferPage = ({offer, offersList, city, onOfferTitleClick}) => {
   const {
     id,
@@ -55,7 +55,9 @@ const OfferPage = ({offer, offersList, city, onOfferTitleClick}) => {
           <div className="property__gallery-container container">
             <div className="property__gallery">
               {
-                pictures.map((picture, index) => {
+                pictures
+                .slice(0, MAX_COUNT_PICTURES)
+                .map((picture, index) => {
                   return (
                     <div className="property__image-wrapper" key={`${picture}-${index}`}>
                       <img className="property__image" src={picture} alt="Photo studio" />
@@ -214,49 +216,6 @@ const OfferPage = ({offer, offersList, city, onOfferTitleClick}) => {
   );
 };
 
-OfferPage.propTypes = {
-  offer: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    description: PropTypes.arrayOf(PropTypes.string).isRequired,
-    pictures: PropTypes.arrayOf(PropTypes.string).isRequired,
-    price: PropTypes.number.isRequired,
-    type: PropTypes.oneOf([
-      OfferType.APARTMENT,
-      OfferType.ROOM,
-      OfferType.HOUSE,
-      OfferType.HOTEL]).isRequired,
-    isPremium: PropTypes.bool.isRequired,
-    rating: PropTypes.number.isRequired,
-    bedrooms: PropTypes.string.isRequired,
-    guests: PropTypes.string.isRequired,
-    services: PropTypes.arrayOf(PropTypes.string).isRequired,
-    host: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      picture: PropTypes.string.isRequired,
-      isSuper: PropTypes.bool.isRequired,
-    }),
-    reviews: PropTypes.arrayOf(PropTypes.string).isRequired,
-  }).isRequired,
-  offersList: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
-        picture: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        type: PropTypes.oneOf([
-          OfferType.APARTMENT,
-          OfferType.ROOM,
-          OfferType.HOUSE,
-          OfferType.HOTEL]).isRequired,
-        isPremium: PropTypes.bool.isRequired,
-        rating: PropTypes.number.isRequired,
-      }).isRequired
-  ).isRequired,
-  city: PropTypes.shape({
-    coords: PropTypes.arrayOf(PropTypes.number.isRequired),
-  }).isRequired,
-  onOfferTitleClick: PropTypes.func.isRequired,
-};
+OfferPage.propTypes = offerPageTypes;
 
 export default OfferPage;

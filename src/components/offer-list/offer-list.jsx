@@ -1,7 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {OfferType} from '../../const.js';
 import OfferCard from '../offer-card/offer-card.jsx';
+import {offerListTypes} from '../../types/types.js';
 
 const OfferList = ({offers, className, isNear, onOfferTitleClick, onOfferCardEnter}) => {
   return (
@@ -20,29 +19,10 @@ const OfferList = ({offers, className, isNear, onOfferTitleClick, onOfferCardEnt
 };
 
 OfferList.defaultProps = {
-  onOfferCardEnter: () => {}
+  onOfferCardEnter: () => {},
+  className: ``,
 };
 
-OfferList.propTypes = {
-  offers: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
-        picture: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        type: PropTypes.oneOf([
-          OfferType.APARTMENT,
-          OfferType.ROOM,
-          OfferType.HOUSE,
-          OfferType.HOTEL]).isRequired,
-        isPremium: PropTypes.bool.isRequired,
-        rating: PropTypes.number.isRequired,
-      }).isRequired
-  ).isRequired,
-  className: PropTypes.string,
-  isNear: PropTypes.bool.isRequired,
-  onOfferTitleClick: PropTypes.func.isRequired,
-  onOfferCardEnter: PropTypes.func,
-};
+OfferList.propTypes = offerListTypes;
 
 export default OfferList;
