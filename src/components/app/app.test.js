@@ -81,14 +81,17 @@ const cities = [
 describe(`AppSnapshot`, () => {
   it(`should render App`, () => {
     const store = mockStore({
-      city: 4,
+      city: offersList[0].city,
+      offersList,
+      filteredOffers: offersList[0].offers,
     });
 
     const tree = renderer.create(
         <Provider store={store}>
           <App
+            city={offersList[0].city}
+            offersList={offersList[0].offers}
             citiesList={cities}
-            offersList={offersList.offers}
             onCityNameClick={()=>{}}
           />
         </Provider>,

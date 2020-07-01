@@ -10,7 +10,7 @@ const getFilteredOffers = (cityId, offers) => {
 const initialState = {
   city: offersList[0].city,
   offersList,
-  filteredOffers: getFilteredOffers(offersList[0].city.id, offersList),
+  filteredOffers: offersList[0].offers,
 };
 
 const ActionType = {
@@ -32,11 +32,19 @@ const ActionCreator = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.CHANGE_CITY:
+      if (action.payload === state.city) {
+        return extend({}, initialState);
+      }
+
       return extend(state, {
         city: state.offersList.find((offer) => offer.city.id === action.payload).city,
       });
 
     case ActionType.GET_OFFERS:
+      if (action.payload === state.city) {
+        return extend({}, initialState);
+      }
+
       return extend(state, {
         filteredOffers: getFilteredOffers(action.payload, state.offersList),
       });

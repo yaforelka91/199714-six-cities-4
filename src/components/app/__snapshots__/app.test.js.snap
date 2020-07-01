@@ -77,43 +77,9 @@ exports[`AppSnapshot should render App 1`] = `
             className="locations__item"
           >
             <a
-              className="locations__item-link tabs__item"
-              href="#"
-            >
-              <span>
-                Paris
-              </span>
-            </a>
-          </li>
-          <li
-            className="locations__item"
-          >
-            <a
-              className="locations__item-link tabs__item"
-              href="#"
-            >
-              <span>
-                Cologne
-              </span>
-            </a>
-          </li>
-          <li
-            className="locations__item"
-          >
-            <a
-              className="locations__item-link tabs__item"
-              href="#"
-            >
-              <span>
-                Brussels
-              </span>
-            </a>
-          </li>
-          <li
-            className="locations__item"
-          >
-            <a
               className="locations__item-link tabs__item tabs__item--active"
+              href="#"
+              onClick={[Function]}
             >
               <span>
                 Amsterdam
@@ -124,23 +90,12 @@ exports[`AppSnapshot should render App 1`] = `
             className="locations__item"
           >
             <a
-              className="locations__item-link tabs__item"
+              className="locations__item-link tabs__item "
               href="#"
+              onClick={[Function]}
             >
               <span>
-                Hamburg
-              </span>
-            </a>
-          </li>
-          <li
-            className="locations__item"
-          >
-            <a
-              className="locations__item-link tabs__item"
-              href="#"
-            >
-              <span>
-                Dusseldorf
+                Paris
               </span>
             </a>
           </li>
@@ -165,7 +120,8 @@ exports[`AppSnapshot should render App 1`] = `
             className="places__found"
           >
             1
-             places to stay in Amsterdam
+             places to stay in 
+            Amsterdam
           </b>
           <form
             action="#"
@@ -245,7 +201,7 @@ exports[`AppSnapshot should render App 1`] = `
                     alt="Place image"
                     className="place-card__image"
                     height="200"
-                    src="pic1"
+                    src="http://placeimg.com/260/200/arch"
                     width="260"
                   />
                 </a>
@@ -318,7 +274,7 @@ exports[`AppSnapshot should render App 1`] = `
                     href="#"
                     onClick={[Function]}
                   >
-                    Offer
+                    Beautiful & luxurious apartment at great location
                   </a>
                 </h2>
                 <p

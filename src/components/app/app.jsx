@@ -32,7 +32,9 @@ class App extends PureComponent {
       city,
       onCityNameClick
     } = this.props;
+
     const {selectedOffer} = this.state;
+
     if (!selectedOffer) {
       return (
         <Main

@@ -75,7 +75,52 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
             <img
               alt="Photo studio"
               className="property__image"
-              src="pic1"
+              src="http://placeimg.com/260/200/arch"
+            />
+          </div>
+          <div
+            className="property__image-wrapper"
+          >
+            <img
+              alt="Photo studio"
+              className="property__image"
+              src="http://placeimg.com/260/200/arch"
+            />
+          </div>
+          <div
+            className="property__image-wrapper"
+          >
+            <img
+              alt="Photo studio"
+              className="property__image"
+              src="http://placeimg.com/260/200/arch"
+            />
+          </div>
+          <div
+            className="property__image-wrapper"
+          >
+            <img
+              alt="Photo studio"
+              className="property__image"
+              src="http://placeimg.com/260/200/arch"
+            />
+          </div>
+          <div
+            className="property__image-wrapper"
+          >
+            <img
+              alt="Photo studio"
+              className="property__image"
+              src="http://placeimg.com/260/200/arch"
+            />
+          </div>
+          <div
+            className="property__image-wrapper"
+          >
+            <img
+              alt="Photo studio"
+              className="property__image"
+              src="http://placeimg.com/260/200/arch"
             />
           </div>
         </div>
@@ -99,7 +144,7 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
             <h1
               className="property__name"
             >
-              Offer
+              Beautiful & luxurious apartment at great location
             </h1>
             <button
               className="property__bookmark-button button"
@@ -201,7 +246,52 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
               <li
                 className="property__inside-item"
               >
-                item 1
+                Wi-Fi
+              </li>
+              <li
+                className="property__inside-item"
+              >
+                Washing machine
+              </li>
+              <li
+                className="property__inside-item"
+              >
+                Towels
+              </li>
+              <li
+                className="property__inside-item"
+              >
+                Heating
+              </li>
+              <li
+                className="property__inside-item"
+              >
+                Coffee machine
+              </li>
+              <li
+                className="property__inside-item"
+              >
+                Baby seat
+              </li>
+              <li
+                className="property__inside-item"
+              >
+                Kitchen
+              </li>
+              <li
+                className="property__inside-item"
+              >
+                Dishwasher
+              </li>
+              <li
+                className="property__inside-item"
+              >
+                Cabel TV
+              </li>
+              <li
+                className="property__inside-item"
+              >
+                Fridge
               </li>
             </ul>
           </div>
@@ -223,14 +313,14 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
                   alt="Host avatar"
                   className="property__avatar user__avatar"
                   height="74"
-                  src="photo"
+                  src="http://placekitten.com/74/74"
                   width="74"
                 />
               </div>
               <span
                 className="property__user-name"
               >
-                Host
+                Angelina
               </span>
             </div>
             <div
@@ -239,7 +329,17 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
               <p
                 className="property__text"
               >
-                text1
+                A quiet cozy and picturesque that hides behind a 
+  river by the unique lightness of Amsterdam.
+  The building is green and from 18th century.
+              </p>
+              <p
+                className="property__text"
+              >
+                An independent House, strategically located 
+  between Rembrand Square and National Opera, 
+  but where the bustle of the city comes to rest 
+  in this alley flowery and colorful.
               </p>
             </div>
           </div>
@@ -253,12 +353,71 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
               <span
                 className="reviews__amount"
               >
-                1
+                2
               </span>
             </h2>
             <ul
               className="reviews__list"
             >
+              <li
+                className="reviews__item"
+              >
+                <div
+                  className="reviews__user user"
+                >
+                  <div
+                    className="reviews__avatar-wrapper user__avatar-wrapper"
+                  >
+                    <img
+                      alt="Reviews avatar"
+                      className="reviews__avatar user__avatar"
+                      height="54"
+                      src="http://placekitten.com/54/54"
+                      width="54"
+                    />
+                  </div>
+                  <span
+                    className="reviews__user-name"
+                  >
+                    Max
+                  </span>
+                </div>
+                <div
+                  className="reviews__info"
+                >
+                  <div
+                    className="reviews__rating rating"
+                  >
+                    <div
+                      className="reviews__stars rating__stars"
+                    >
+                      <span
+                        style={
+                          Object {
+                            "width": "80%",
+                          }
+                        }
+                      />
+                      <span
+                        className="visually-hidden"
+                      >
+                        Rating
+                      </span>
+                    </div>
+                  </div>
+                  <p
+                    className="reviews__text"
+                  >
+                    A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
+                  </p>
+                  <time
+                    className="reviews__time"
+                    dateTime="2019-04-24"
+                  >
+                    April 2019
+                  </time>
+                </div>
+              </li>
               <li
                 className="reviews__item"
               >
@@ -529,7 +688,7 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
                   alt="Place image"
                   className="place-card__image"
                   height="200"
-                  src="pic1"
+                  src="http://placeimg.com/260/200/arch"
                   width="260"
                 />
               </a>
@@ -602,7 +761,7 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
                   href="#"
                   onClick={[Function]}
                 >
-                  Offer 1
+                  Beautiful & luxurious apartment at great location
                 </a>
               </h2>
               <p
@@ -617,6 +776,13 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
             onMouseEnter={[Function]}
           >
             <div
+              className="place-card__mark"
+            >
+              <span>
+                Premium
+              </span>
+            </div>
+            <div
               className="place-card__image-wrapper near-places__image-wrapper"
             >
               <a
@@ -626,7 +792,7 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
                   alt="Place image"
                   className="place-card__image"
                   height="200"
-                  src="pic2"
+                  src="http://placeimg.com/260/200/arch"
                   width="260"
                 />
               </a>
@@ -644,7 +810,7 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
                     className="place-card__price-value"
                   >
                     €
-                    80
+                    120
                   </b>
                   <span
                     className="place-card__price-text"
@@ -699,13 +865,13 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
                   href="#"
                   onClick={[Function]}
                 >
-                  Offer 2
+                  Beautiful & luxurious apartment at great location
                 </a>
               </h2>
               <p
                 className="place-card__type"
               >
-                Private room
+                Apartment
               </p>
             </div>
           </article>
