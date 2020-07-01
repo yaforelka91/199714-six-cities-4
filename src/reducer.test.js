@@ -1,5 +1,5 @@
 import {reducer, ActionCreator, ActionType} from './reducer.js';
-import {CityList} from './const.js';
+import {CityList, SortType} from './const.js';
 
 const offersList = [
   {
@@ -476,7 +476,6 @@ const offersList = [
     ]
   }
 ];
-
 describe(`Reducer works correctly`, () => {
   it(`Reducer without additional parameters should return initialState`, () => {
     expect(reducer(undefined, {})).toEqual({
@@ -549,8 +548,51 @@ describe(`Reducer works correctly`, () => {
       filteredOffers: offersList[0].offers,
     });
   });
-});
 
+  it(`Reducer should sort offers from high price to low for type TO_LOW`, () => {
+    expect(reducer({
+      city: offersList[0].city,
+      offersList,
+      filteredOffers: [
+        {
+          price: 2,
+        },
+        {
+          price: 3,
+        }
+      ],
+    }, {
+      type: ActionType.SORT_OFFERS,
+      payload: SortType.TO_LOW,
+    })).toEqual({
+      city: offersList[0].city,
+      offersList,
+      filteredOffers: [
+        {
+          price: 3,
+        },
+        {
+          price: 2,
+        },
+      ],
+    });
+  });
+
+  it(`Reducer should return filtered offers for type POPULAR`, () => {
+    expect(reducer({
+      city: offersList[0].city,
+      offersList,
+      filteredOffers: offersList[0].offers,
+    }, {
+      type: ActionType.SORT_OFFERS,
+      payload: SortType.POPULAR,
+    })).toEqual({
+      city: offersList[0].city,
+      offersList,
+      filteredOffers: offersList[0].offers,
+    });
+  });
+});
 
 describe(`Action creators work correctly`, () => {
   it(`Action creator for changing city returns action that change city`, () => {
@@ -564,6 +606,13 @@ describe(`Action creators work correctly`, () => {
     expect(ActionCreator.getOffers(1)).toEqual({
       type: ActionType.GET_OFFERS,
       payload: 1,
+    });
+  });
+
+  it(`Action creator for sorting offers returns action with POPULAR payload`, ()=> {
+    expect(ActionCreator.sortOffers(SortType.POPULAR)).toEqual({
+      type: ActionType.SORT_OFFERS,
+      payload: SortType.POPULAR,
     });
   });
 });

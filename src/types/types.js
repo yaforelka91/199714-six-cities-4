@@ -100,3 +100,7 @@ export const reviewListTypes = {
   reviews: PropTypes.arrayOf(reviewShape).isRequired,
 };
 
+export const sortingTypes = {
+  sortList: PropTypes.func.isRequired,
+};
+

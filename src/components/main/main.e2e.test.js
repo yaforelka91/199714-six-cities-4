@@ -1,11 +1,15 @@
 import React from 'react';
 import Enzyme, {mount} from 'enzyme';
+import configureStore from 'redux-mock-store';
+import {Provider} from 'react-redux';
 import Adapter from 'enzyme-adapter-react-16';
 import Main from './main.jsx';
 
 Enzyme.configure({
   adapter: new Adapter(),
 });
+
+const mockStore = configureStore([]);
 
 const offersList = [
   {
@@ -67,16 +71,24 @@ const cities = [
 
 describe(`MainE2E`, () => {
   it(`Should offer title be pressed`, () => {
+    const store = mockStore({
+      city: offersList[0].city,
+      offersList,
+      filteredOffers: offersList[0].offers,
+    });
+
     const onOfferTitleClick = jest.fn();
 
     const main = mount(
-        <Main
-          offersList={offersList}
-          onOfferTitleClick={onOfferTitleClick}
-          citiesList={cities}
-          city={cities[0]}
-          onCityNameClick={()=>{}}
-        />
+        <Provider store={store}>
+          <Main
+            offersList={offersList}
+            onOfferTitleClick={onOfferTitleClick}
+            citiesList={cities}
+            city={cities[0]}
+            onCityNameClick={()=>{}}
+          />
+        </Provider>
     );
 
     const offerLinks = main.find(`.place-card__name a`);
@@ -88,16 +100,24 @@ describe(`MainE2E`, () => {
   });
 
   it(`Should city name be pressed`, () => {
+    const store = mockStore({
+      city: offersList[0].city,
+      offersList,
+      filteredOffers: offersList[0].offers,
+    });
+
     const onCityNameClick = jest.fn();
 
     const main = mount(
-        <Main
-          offersList={offersList}
-          onOfferTitleClick={()=>{}}
-          citiesList={cities}
-          city={cities[0]}
-          onCityNameClick={onCityNameClick}
-        />
+        <Provider store={store}>
+          <Main
+            offersList={offersList}
+            onOfferTitleClick={()=>{}}
+            citiesList={cities}
+            city={cities[0]}
+            onCityNameClick={onCityNameClick}
+          />
+        </Provider>
     );
 
     const cityLink = main.find(`.locations__item-link`).at(0);
