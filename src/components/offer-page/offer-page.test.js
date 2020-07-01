@@ -1,6 +1,10 @@
 import React from 'react';
+import configureStore from 'redux-mock-store';
+import {Provider} from 'react-redux';
 import renderer from 'react-test-renderer';
 import OfferPage from './offer-page.jsx';
+
+const mockStore = configureStore([]);
 
 const mock = {
   offer: {
@@ -155,14 +159,18 @@ const mock = {
 
 describe(`OfferPageSnapshot`, () => {
   const {offer, offersList, city} = mock;
+  const store = mockStore({});
+
   it(`should render OfferPage`, () => {
     const tree = renderer.create(
-        <OfferPage
-          city={city}
-          offer={offer}
-          offersList={offersList}
-          onOfferTitleClick={() => {}}
-        />,
+        <Provider store={store}>
+          <OfferPage
+            city={city}
+            offer={offer}
+            offersList={offersList}
+            onOfferTitleClick={() => {}}
+          />
+        </Provider>,
         {
           createNodeMock: () => {
             return document.createElement(`div`);

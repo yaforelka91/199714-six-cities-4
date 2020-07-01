@@ -76,6 +76,7 @@ export const offerCardTypes = {
   isNear: PropTypes.bool.isRequired,
   onOfferTitleClick: PropTypes.func.isRequired,
   onOfferCardEnter: PropTypes.func.isRequired,
+  onOfferCardLeave: PropTypes.func.isRequired,
 };
 
 export const offerListTypes = {

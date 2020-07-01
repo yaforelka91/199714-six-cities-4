@@ -197,7 +197,7 @@ const OfferPage = ({offer, offersList, city, onOfferTitleClick}) => {
             </div>
           </div>
           <section className="property__map map">
-            <Map offers={filteredOffers} activeCity={city.coords} />
+            <Map offers={offersList} activeCity={city.coords} activeCard={offer.id} />
           </section>
         </section>
         <div className="container">

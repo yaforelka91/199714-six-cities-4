@@ -80,11 +80,7 @@ const cities = [
 
 describe(`AppSnapshot`, () => {
   it(`should render App`, () => {
-    const store = mockStore({
-      city: offersList[0].city,
-      offersList,
-      filteredOffers: offersList[0].offers,
-    });
+    const store = mockStore({});
 
     const tree = renderer.create(
         <Provider store={store}>

@@ -66,11 +66,7 @@ const cities = [
 
 describe(`MainSnapshot`, () => {
   it(`should render correctly`, () => {
-    const store = mockStore({
-      city: offersList[0].city,
-      offersList,
-      filteredOffers: offersList[0].offers,
-    });
+    const store = mockStore({});
 
     const tree = renderer.create(
         <Provider store={store}>

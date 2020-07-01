@@ -1,7 +1,9 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import {ActionCreator} from '../../reducer.js';
 import {offerCardTypes} from '../../types/types.js';
 
-const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, isNear}) => {
+const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, onOfferCardLeave, isNear}) => {
   const {title, picture, price, type, isPremium, rating} = offer;
 
   const handleCardMouseEnter = () => {
@@ -9,6 +11,13 @@ const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, isNear}) => {
       return;
     }
     onOfferCardEnter(offer);
+  };
+
+  const handleCardMouseLeave = () => {
+    if (isNear) {
+      return;
+    }
+    onOfferCardLeave();
   };
 
   const handleTitleClick = (evt) => {
@@ -20,6 +29,7 @@ const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, isNear}) => {
     <article
       className={`place-card ${isNear ? `near-places__card` : `cities__place-card`}`}
       onMouseEnter={handleCardMouseEnter}
+      onMouseLeave={handleCardMouseLeave}
     >
       {
         isPremium && <div className="place-card__mark">
@@ -66,4 +76,15 @@ const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, isNear}) => {
 
 OfferCard.propTypes = offerCardTypes;
 
-export default OfferCard;
+const mapDispatchToProps = (dispatch) => ({
+  onOfferCardEnter(offer) {
+    dispatch(ActionCreator.setActiveCard(offer));
+  },
+  onOfferCardLeave() {
+    dispatch(ActionCreator.setActiveCard(null));
+  }
+});
+
+export {OfferCard};
+
+export default connect(null, mapDispatchToProps)(OfferCard);

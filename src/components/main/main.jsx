@@ -2,11 +2,9 @@ import React from 'react';
 import OfferList from '../offer-list/offer-list.jsx';
 import CityList from '../city-list/city-list.jsx';
 import Map from '../map/map.jsx';
-import withActiveCard from '../../hocs/with-active-card/with-active-card.js';
 import {mainTypes} from '../../types/types.js';
 import Sorting from '../sorting/sorting.jsx';
 
-const OfferListWrapped = withActiveCard(OfferList);
 const Main = ({
   offersList,
   citiesList,
@@ -56,7 +54,7 @@ const Main = ({
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offersList.length} places to stay in {city.name}</b>
               <Sorting />
-              <OfferListWrapped
+              <OfferList
                 offers={offersList}
                 onOfferTitleClick={onOfferTitleClick}
                 className='cities__places-list tabs__content'

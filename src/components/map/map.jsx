@@ -1,5 +1,6 @@
 import React, {PureComponent, createRef} from 'react';
 import leaflet from 'leaflet';
+import {connect} from 'react-redux';
 import {mapTypes} from '../../types/types.js';
 
 class Map extends PureComponent {
@@ -24,7 +25,7 @@ class Map extends PureComponent {
 
     const zoom = 12;
 
-    const {offers, activeCity} = this.props;
+    const {offers, activeCity, activeCard} = this.props;
 
     this.mapObject = leaflet.map(mapElement, {
       center: activeCity,
@@ -45,9 +46,16 @@ class Map extends PureComponent {
       iconSize: [27, 39]
     });
 
+    const iconActive = leaflet.icon({
+      iconUrl: `/img/pin-active.svg`,
+      iconSize: [27, 39]
+    });
+
     offers.forEach((offer) => {
       leaflet
-        .marker(offer.coords, {icon})
+        .marker(offer.coords, {
+          icon: offer === activeCard ? iconActive : icon,
+        })
         .addTo(this.mapObject);
     });
 
@@ -75,5 +83,9 @@ class Map extends PureComponent {
 
 Map.propTypes = mapTypes;
 
+const mapStateToProps = (state) => ({
+  activeCard: state.activeCard,
+});
 
-export default Map;
+export {Map};
+export default connect(mapStateToProps)(Map);

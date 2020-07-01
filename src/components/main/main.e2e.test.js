@@ -71,11 +71,7 @@ const cities = [
 
 describe(`MainE2E`, () => {
   it(`Should offer title be pressed`, () => {
-    const store = mockStore({
-      city: offersList[0].city,
-      offersList,
-      filteredOffers: offersList[0].offers,
-    });
+    const store = mockStore({});
 
     const onOfferTitleClick = jest.fn();
 
@@ -100,11 +96,7 @@ describe(`MainE2E`, () => {
   });
 
   it(`Should city name be pressed`, () => {
-    const store = mockStore({
-      city: offersList[0].city,
-      offersList,
-      filteredOffers: offersList[0].offers,
-    });
+    const store = mockStore({});
 
     const onCityNameClick = jest.fn();
 
