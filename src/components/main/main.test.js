@@ -66,7 +66,10 @@ const cities = [
 
 describe(`MainSnapshot`, () => {
   it(`should render correctly`, () => {
-    const store = mockStore({});
+    const store = mockStore({
+      activeSorting: `popular`,
+      activeCard: {},
+    });
 
     const tree = renderer.create(
         <Provider store={store}>

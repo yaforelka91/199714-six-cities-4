@@ -45,6 +45,7 @@ export const reviewShape = PropTypes.shape({
 
 export const appTypes = {
   offersList: PropTypes.arrayOf(offerShape).isRequired,
+  citiesList: PropTypes.arrayOf(cityShape).isRequired,
   city: cityShape.isRequired,
   onCityNameClick: PropTypes.func.isRequired,
 };
@@ -57,6 +58,7 @@ export const cityListTypes = {
 
 export const mainTypes = {
   offersList: PropTypes.arrayOf(offerShape).isRequired,
+  citiesList: PropTypes.arrayOf(cityShape).isRequired,
   city: cityShape.isRequired,
   onOfferTitleClick: PropTypes.func.isRequired,
   onCityNameClick: PropTypes.func.isRequired,
@@ -72,7 +74,7 @@ export const mapTypes = {
   activeCity: PropTypes.arrayOf(PropTypes.number).isRequired,
   activeCard: PropTypes.shape({
     id: PropTypes.number,
-  }).isRequired
+  }),
 };
 
 export const offerCardTypes = {
@@ -88,11 +90,13 @@ export const offerListTypes = {
   className: PropTypes.string.isRequired,
   isNear: PropTypes.bool.isRequired,
   onOfferTitleClick: PropTypes.func.isRequired,
-  onOfferCardEnter: PropTypes.func,
+  onOfferCardEnter: PropTypes.func.isRequired,
+  onOfferCardLeave: PropTypes.func.isRequired,
 };
 
 export const offerPageTypes = {
   offer: offerShape.isRequired,
+  city: cityShape.isRequired,
   offersList: PropTypes.arrayOf(offerShape).isRequired,
   onOfferTitleClick: PropTypes.func.isRequired,
 };
@@ -106,5 +110,5 @@ export const reviewListTypes = {
 };
 
 export const sortingTypes = {
-  sortList: PropTypes.func.isRequired,
+  onSortItemClick: PropTypes.func.isRequired,
 };

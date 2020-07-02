@@ -36,6 +36,17 @@ class Sorting extends PureComponent {
     this._selectRef = createRef();
   }
 
+  componentDidUpdate() {
+    const selectElement = this._selectRef.current;
+
+    if (!selectElement) {
+      return;
+    }
+
+    const {activeSorting} = this.props;
+    selectElement.value = activeSorting;
+  }
+
   _handleMenuClick() {
     this.setState((prevState) => ({
       isOpen: !prevState.isOpen,
@@ -47,24 +58,13 @@ class Sorting extends PureComponent {
       isOpen: false,
     });
 
-    this.props.sortList(sortType);
+    this.props.onSortItemClick(sortType);
 
     const selectElement = this._selectRef.current;
 
     if (!selectElement) {
       return;
     }
-    const {activeSorting} = this.props;
-    selectElement.value = activeSorting;
-  }
-
-  componentDidUpdate() {
-    const selectElement = this._selectRef.current;
-
-    if (!selectElement) {
-      return;
-    }
-
     const {activeSorting} = this.props;
     selectElement.value = activeSorting;
   }
@@ -130,12 +130,13 @@ class Sorting extends PureComponent {
 
 Sorting.propTypes = sortingTypes;
 
+
 const mapStateToProps = (state) => ({
   activeSorting: state.activeSorting,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  sortList(sortType) {
+  onSortItemClick(sortType) {
     dispatch(ActionCreator.sortOffers(sortType));
   },
 });
