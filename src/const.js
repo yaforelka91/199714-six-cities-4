@@ -29,4 +29,11 @@ export const CityList = {
   DUSSELDORF: `Dusseldorf`,
 };
 
+export const SortType = {
+  POPULAR: `popular`,
+  TO_HIGH: `to-high`,
+  TO_LOW: `to-low`,
+  TOP_RATED: `top-rated`,
+};
+
 export const cities = Object.values(CityList);

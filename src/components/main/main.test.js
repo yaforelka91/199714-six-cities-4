@@ -1,6 +1,10 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import configureStore from 'redux-mock-store';
+import {Provider} from 'react-redux';
 import Main from './main.jsx';
+
+const mockStore = configureStore([]);
 
 const offersList = [
   {
@@ -62,14 +66,18 @@ const cities = [
 
 describe(`MainSnapshot`, () => {
   it(`should render correctly`, () => {
+    const store = mockStore({});
+
     const tree = renderer.create(
-        <Main
-          offersList={offersList}
-          citiesList={cities}
-          city={cities[0]}
-          onOfferTitleClick={()=>{}}
-          onCityNameClick={()=>{}}
-        />,
+        <Provider store={store}>
+          <Main
+            offersList={offersList}
+            citiesList={cities}
+            city={cities[0]}
+            onOfferTitleClick={()=>{}}
+            onCityNameClick={()=>{}}
+          />
+        </Provider>,
         {
           createNodeMock: () => {
             return document.createElement(`div`);

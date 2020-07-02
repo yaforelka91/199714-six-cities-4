@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import OfferCard from './offer-card.jsx';
+import {OfferCard} from './offer-card.jsx';
 
 const offer = {
   id: 0,
@@ -57,6 +57,7 @@ describe(`OfferCardSnapshot`, () => {
           offer={offer}
           onOfferTitleClick={() => {}}
           onOfferCardEnter={() => {}}
+          onOfferCardLeave={() => {}}
           isNear={false}
         />
     ).toJSON();
