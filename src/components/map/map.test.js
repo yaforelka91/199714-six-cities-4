@@ -8,11 +8,14 @@ const offers = [
   }
 ];
 
+const activeCity = [52.3909553943508, 4.85309666406198];
+
 describe(`MapSnapshot`, () => {
   it(`should render Map`, () => {
     const tree = renderer.create(
         <Map
           offers={offers}
+          activeCity={activeCity}
         />,
         {
           createNodeMock: () => {

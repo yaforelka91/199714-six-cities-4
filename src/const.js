@@ -19,3 +19,14 @@ export const monthsList = [
   `November`,
   `December`
 ];
+
+export const CityList = {
+  PARIS: `Paris`,
+  COLOGNE: `Cologne`,
+  BRUSSELS: `Brussels`,
+  AMSTERDAM: `Amsterdam`,
+  HAMBURG: `Hamburg`,
+  DUSSELDORF: `Dusseldorf`,
+};
+
+export const cities = Object.values(CityList);

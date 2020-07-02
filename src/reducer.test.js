@@ -1,6 +1,7 @@
-import {CityList} from '../const.js';
+import {reducer, ActionCreator, ActionType} from './reducer.js';
+import {CityList} from './const.js';
 
-export default [
+const offersList = [
   {
     city: {
       id: 4,
@@ -475,3 +476,94 @@ export default [
     ]
   }
 ];
+
+describe(`Reducer works correctly`, () => {
+  it(`Reducer without additional parameters should return initialState`, () => {
+    expect(reducer(undefined, {})).toEqual({
+      city: offersList[0].city,
+      offersList,
+      filteredOffers: offersList[0].offers,
+    });
+  });
+
+  it(`Reducer should change current city by a given value`, () => {
+    expect(reducer({
+      city: offersList[0].city,
+      offersList,
+      filteredOffers: offersList[0].offers,
+    }, {
+      type: ActionType.CHANGE_CITY,
+      payload: 1,
+    })).toEqual({
+      city: {
+        id: 1,
+        name: CityList.PARIS,
+        coords: [48.856663, 2.351556],
+      },
+      offersList,
+      filteredOffers: offersList[0].offers,
+    });
+  });
+
+  it(`Reducer should return initial state if current city is equal by a given value`, () => {
+    expect(reducer({
+      city: offersList[0].city,
+      offersList,
+      filteredOffers: offersList[0].offers,
+    }, {
+      type: ActionType.CHANGE_CITY,
+      payload: 4,
+    })).toEqual({
+      city: offersList[0].city,
+      offersList,
+      filteredOffers: offersList[0].offers,
+    });
+  });
+
+  it(`Reducer should get offers from given city`, () => {
+    expect(reducer({
+      city: offersList[0].city,
+      offersList,
+      filteredOffers: offersList[0].offers,
+    }, {
+      type: ActionType.GET_OFFERS,
+      payload: 1,
+    })).toEqual({
+      city: offersList[0].city,
+      offersList,
+      filteredOffers: offersList[1].offers,
+    });
+  });
+
+  it(`Reducer should return initial state if offers is filtered by a given value`, () => {
+    expect(reducer({
+      city: offersList[0].city,
+      offersList,
+      filteredOffers: offersList[0].offers,
+    }, {
+      type: ActionType.GET_OFFERS,
+      payload: 4,
+    })).toEqual({
+      city: offersList[0].city,
+      offersList,
+      filteredOffers: offersList[0].offers,
+    });
+  });
+});
+
+
+describe(`Action creators work correctly`, () => {
+  it(`Action creator for changing city returns action that change city`, () => {
+    expect(ActionCreator.changeCity(1)).toEqual({
+      type: ActionType.CHANGE_CITY,
+      payload: 1,
+    });
+  });
+
+  it(`Action creator for getting offers returns action with 1 payload`, () => {
+    expect(ActionCreator.getOffers(1)).toEqual({
+      type: ActionType.GET_OFFERS,
+      payload: 1,
+    });
+  });
+});

@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {monthsList} from '../../const.js';
+import {reviewCardTypes} from '../../types/types.js';
 
 const ReviewCard = ({review}) => {
   const {user, rating, feedback, visitTime} = review;
@@ -34,16 +34,6 @@ const ReviewCard = ({review}) => {
   );
 };
 
-ReviewCard.propTypes = {
-  review: PropTypes.shape({
-    user: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      picture: PropTypes.string.isRequired,
-    }),
-    rating: PropTypes.number.isRequired,
-    feedback: PropTypes.string.isRequired,
-    visitTime: PropTypes.string.isRequired,
-  }).isRequired,
-};
+ReviewCard.propTypes = reviewCardTypes;
 
 export default ReviewCard;

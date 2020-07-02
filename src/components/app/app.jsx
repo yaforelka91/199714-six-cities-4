@@ -1,8 +1,12 @@
 import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {ActionCreator} from '../../reducer.js';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Main from '../main/main.jsx';
 import OfferPage from '../offer-page/offer-page.jsx';
+import {appTypes} from '../../types/types.js';
+
+const MAX_CITIES_COUNT = 6;
 
 class App extends PureComponent {
   constructor(props) {
@@ -22,14 +26,23 @@ class App extends PureComponent {
   }
 
   _renderApp() {
-    const {offersList} = this.props.settings;
+    const {
+      offersList,
+      citiesList,
+      city,
+      onCityNameClick
+    } = this.props;
+
     const {selectedOffer} = this.state;
 
     if (!selectedOffer) {
       return (
         <Main
+          city={city}
           offersList={offersList}
+          citiesList={citiesList}
           onOfferTitleClick={this._handleOfferTitleClick}
+          onCityNameClick={onCityNameClick}
         />
       );
     }
@@ -39,6 +52,7 @@ class App extends PureComponent {
         <OfferPage
           offer={selectedOffer}
           offersList={offersList}
+          city={city}
           onOfferTitleClick={this._handleOfferTitleClick}
         />
       );
@@ -48,8 +62,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const {offersList} = this.props.settings;
-
+    const {offersList, city} = this.props;
     return (
       <BrowserRouter>
         <Switch>
@@ -60,6 +73,7 @@ class App extends PureComponent {
             <OfferPage
               offer={offersList[0]}
               offersList={offersList}
+              city={city}
               onOfferTitleClick={this._handleOfferTitleClick}
             />
           </Route>
@@ -69,12 +83,22 @@ class App extends PureComponent {
   }
 }
 
-App.propTypes = {
-  settings: PropTypes.shape({
-    offersList: PropTypes.arrayOf(
-        PropTypes.shape().isRequired
-    ).isRequired,
-  })
-};
+App.propTypes = appTypes;
 
-export default App;
+const mapStateToProps = (state) => ({
+  city: state.city,
+  offersList: state.filteredOffers,
+  citiesList: state.offersList
+  .map((offer) => offer.city)
+  .slice(0, MAX_CITIES_COUNT)
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onCityNameClick(city) {
+    dispatch(ActionCreator.changeCity(city));
+    dispatch(ActionCreator.getOffers(city));
+  }
+});
+
+export {App};
+export default connect(mapStateToProps, mapDispatchToProps)(App);
