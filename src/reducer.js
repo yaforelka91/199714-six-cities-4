@@ -2,11 +2,14 @@ import offersList from './mocks/offers.js';
 import {extend} from './utils.js';
 import {SortType} from './const.js';
 
-const getFilteredOffers = (cityId, offers) => {
-  return offers
+const getFilteredOffers = (cityId, sortType, offers) => {
+  const filteredList = offers
       .find((offer) => offer.city.id === cityId)
       .offers;
+  return getSortedOffers(sortType, filteredList);
+
 };
+
 
 const getSortedOffers = (sortType, offers) => {
   switch (sortType) {
@@ -25,7 +28,8 @@ const initialState = {
   city: offersList[0].city,
   offersList,
   filteredOffers: offersList[0].offers,
-  activeCard: null,
+  activeCard: {},
+  activeSorting: SortType.POPULAR,
 };
 
 const ActionType = {
@@ -71,14 +75,13 @@ const reducer = (state = initialState, action) => {
       }
 
       return extend(state, {
-        filteredOffers: getFilteredOffers(action.payload, state.offersList),
+        filteredOffers: getFilteredOffers(action.payload, state.activeSorting, state.offersList),
       });
 
     case ActionType.SORT_OFFERS:
       return extend(state, {
-        filteredOffers: action.payload === SortType.POPULAR
-          ? getFilteredOffers(state.city.id, state.offersList)
-          : getSortedOffers(action.payload, state.filteredOffers),
+        activeSorting: action.payload,
+        filteredOffers: getSortedOffers(action.payload, state.filteredOffers),
       });
 
     case ActionType.SET_ACTIVE_CARD:

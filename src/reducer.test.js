@@ -482,7 +482,7 @@ describe(`Reducer works correctly`, () => {
       city: offersList[0].city,
       offersList,
       filteredOffers: offersList[0].offers,
-      activeCard: null,
+      activeCard: {},
     });
   });
 
@@ -657,7 +657,7 @@ describe(`Reducer works correctly`, () => {
       city: offersList[0].city,
       offersList,
       filteredOffers: offersList[0].offers,
-      activeCard: null,
+      activeCard: {},
     }, {
       type: ActionType.SET_ACTIVE_CARD,
       payload: {id: 1},
@@ -674,15 +674,15 @@ describe(`Reducer works correctly`, () => {
       city: offersList[0].city,
       offersList,
       filteredOffers: offersList[0].offers,
-      activeCard: null,
+      activeCard: {id: 1},
     }, {
       type: ActionType.SET_ACTIVE_CARD,
-      payload: null,
+      payload: {},
     })).toEqual({
       city: offersList[0].city,
       offersList,
       filteredOffers: offersList[0].offers,
-      activeCard: null,
+      activeCard: {},
     });
   });
 });

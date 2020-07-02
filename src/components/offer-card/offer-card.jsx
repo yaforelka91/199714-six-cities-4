@@ -1,6 +1,4 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {ActionCreator} from '../../reducer.js';
 import {offerCardTypes} from '../../types/types.js';
 
 const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, onOfferCardLeave, isNear}) => {
@@ -76,15 +74,4 @@ const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, onOfferCardLeave
 
 OfferCard.propTypes = offerCardTypes;
 
-const mapDispatchToProps = (dispatch) => ({
-  onOfferCardEnter(offer) {
-    dispatch(ActionCreator.setActiveCard(offer));
-  },
-  onOfferCardLeave() {
-    dispatch(ActionCreator.setActiveCard(null));
-  }
-});
-
-export {OfferCard};
-
-export default connect(null, mapDispatchToProps)(OfferCard);
+export default OfferCard;

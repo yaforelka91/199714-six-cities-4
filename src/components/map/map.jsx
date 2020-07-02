@@ -12,6 +12,19 @@ class Map extends PureComponent {
     this.mapObject = null;
   }
 
+  componentDidMount() {
+    this._renderMap();
+  }
+
+  componentDidUpdate() {
+    this._renderMap();
+  }
+
+  componentWillUnmount() {
+    this.mapObject.remove();
+    this.mapObject = null;
+  }
+
   _renderMap() {
     const mapElement = this._mapRef.current;
 
@@ -54,24 +67,10 @@ class Map extends PureComponent {
     offers.forEach((offer) => {
       leaflet
         .marker(offer.coords, {
-          icon: offer === activeCard ? iconActive : icon,
+          icon: offer.id === activeCard.id ? iconActive : icon,
         })
         .addTo(this.mapObject);
     });
-
-  }
-
-  componentDidMount() {
-    this._renderMap();
-  }
-
-  componentDidUpdate() {
-    this._renderMap();
-  }
-
-  componentWillUnmount() {
-    this.mapObject.remove();
-    this.mapObject = null;
   }
 
   render() {
@@ -83,9 +82,9 @@ class Map extends PureComponent {
 
 Map.propTypes = mapTypes;
 
-const mapStateToProps = (state) => ({
-  activeCard: state.activeCard,
-});
+const mapStateToProps = (state) => {
+  return {activeCard: state.activeCard};
+};
 
 export {Map};
 export default connect(mapStateToProps)(Map);

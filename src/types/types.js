@@ -37,7 +37,7 @@ export const reviewShape = PropTypes.shape({
   user: PropTypes.shape({
     name: PropTypes.string.isRequired,
     picture: PropTypes.string.isRequired,
-  }),
+  }).isRequired,
   rating: PropTypes.number.isRequired,
   feedback: PropTypes.string.isRequired,
   visitTime: PropTypes.string.isRequired,
@@ -65,10 +65,14 @@ export const mainTypes = {
 export const mapTypes = {
   offers: PropTypes.arrayOf(
       PropTypes.shape({
-        coords: PropTypes.arrayOf(PropTypes.number.isRequired),
+        coords: PropTypes.arrayOf(PropTypes.number).isRequired,
+        id: PropTypes.number.isRequired,
       }).isRequired
   ).isRequired,
   activeCity: PropTypes.arrayOf(PropTypes.number).isRequired,
+  activeCard: PropTypes.shape({
+    id: PropTypes.number,
+  }).isRequired
 };
 
 export const offerCardTypes = {
