@@ -30,7 +30,7 @@ const OfferList = ({
 
 OfferList.defaultProps = {
   onOfferCardEnter: () => {},
-  onOfferCardLeave: ()=>{},
+  onOfferCardLeave: () => {},
   className: ``,
 };
 

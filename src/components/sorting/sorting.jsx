@@ -1,4 +1,4 @@
-import React, {PureComponent, createRef} from 'react';
+import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../reducer.js';
 import {SortType} from '../../const.js';
@@ -29,22 +29,10 @@ class Sorting extends PureComponent {
 
     this.state = {
       isOpen: false,
+      activeType: this.props.activeSorting,
     };
 
     this._handleMenuClick = this._handleMenuClick.bind(this);
-
-    this._selectRef = createRef();
-  }
-
-  componentDidUpdate() {
-    const selectElement = this._selectRef.current;
-
-    if (!selectElement) {
-      return;
-    }
-
-    const {activeSorting} = this.props;
-    selectElement.value = activeSorting;
   }
 
   _handleMenuClick() {
@@ -56,29 +44,21 @@ class Sorting extends PureComponent {
   _handleSortClick(sortType) {
     this.setState({
       isOpen: false,
+      activeType: sortType,
     });
 
     this.props.onSortItemClick(sortType);
-
-    const selectElement = this._selectRef.current;
-
-    if (!selectElement) {
-      return;
-    }
-    const {activeSorting} = this.props;
-    selectElement.value = activeSorting;
   }
 
   render() {
-    const {isOpen} = this.state;
-    const {activeSorting} = this.props;
+    const {isOpen, activeType} = this.state;
 
     return (
       <form className="places__sorting" action="#" method="get">
         <span className="places__sorting-caption">Sort by</span>
         {`\u00A0`}
         <span className="places__sorting-type" tabIndex="0" onClick={this._handleMenuClick}>
-          {sortItems.find((item) => item.type === activeSorting).text}
+          {sortItems.find((item) => item.type === activeType).text}
           <svg className="places__sorting-arrow" width="7" height="4">
             <use xlinkHref="#icon-arrow-select"></use>
           </svg>
@@ -88,7 +68,7 @@ class Sorting extends PureComponent {
             sortItems.map((item)=>(
               <li
                 key={item.type}
-                className={`places__option ${item.type === activeSorting ? `places__option--active` : ``}`}
+                className={`places__option ${item.type === activeType ? `places__option--active` : ``}`}
                 tabIndex="0"
                 onClick={this._handleSortClick.bind(this, item.type)}
               >
@@ -100,7 +80,10 @@ class Sorting extends PureComponent {
         <select
           className="places__sorting-type"
           id="places-sorting"
-          ref={this._selectRef}
+          value={activeType}
+          onChange={(evt)=>{
+            this._handleSortClick(evt.target.value);
+          }}
           style={{
             clip: `rect(1px, 1px, 1px, 1px)`,
             height: `1px`,
@@ -129,7 +112,6 @@ class Sorting extends PureComponent {
 }
 
 Sorting.propTypes = sortingTypes;
-
 
 const mapStateToProps = (state) => ({
   activeSorting: state.activeSorting,

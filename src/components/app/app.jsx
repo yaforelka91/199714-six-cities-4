@@ -91,12 +91,12 @@ const mapStateToProps = (state) => ({
   offersList: sortOffers(
       state.activeSorting,
       state.offersList
-      .find((offer) => offer.city.id === state.city.id)
-      .offers
+        .find((offer) => offer.city.id === state.city.id)
+        .offers
   ),
   citiesList: state.offersList
-              .map((offer) => offer.city)
-              .slice(0, MAX_CITIES_COUNT),
+    .map((offer) => offer.city)
+    .slice(0, MAX_CITIES_COUNT),
 });
 
 const mapDispatchToProps = (dispatch) => ({

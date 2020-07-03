@@ -63,6 +63,7 @@ exports[`SortingSnapshot Should render Sorting 1`] = `
   <select
     className="places__sorting-type"
     id="places-sorting"
+    onChange={[Function]}
     style={
       Object {
         "border": 0,
@@ -74,6 +75,7 @@ exports[`SortingSnapshot Should render Sorting 1`] = `
         "width": "1px",
       }
     }
+    value="popular"
   >
     <option
       className="places__option"

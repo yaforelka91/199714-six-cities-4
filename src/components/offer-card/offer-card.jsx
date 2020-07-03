@@ -12,9 +12,6 @@ const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, onOfferCardLeave
   };
 
   const handleCardMouseLeave = () => {
-    if (isNear) {
-      return;
-    }
     onOfferCardLeave();
   };
 
@@ -71,6 +68,12 @@ const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, onOfferCardLeave
     </article>
   );
 };
+
+OfferCard.defaultProps = {
+  onOfferCardEnter: () => {},
+  onOfferCardLeave: () => {},
+};
+
 
 OfferCard.propTypes = offerCardTypes;
 
