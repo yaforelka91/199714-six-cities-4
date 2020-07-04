@@ -5,6 +5,7 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Main from '../main/main.jsx';
 import OfferPage from '../offer-page/offer-page.jsx';
 import {appTypes} from '../../types/types.js';
+import {sortOffers} from '../../utils.js';
 
 const MAX_CITIES_COUNT = 6;
 
@@ -87,16 +88,20 @@ App.propTypes = appTypes;
 
 const mapStateToProps = (state) => ({
   city: state.city,
-  offersList: state.filteredOffers,
+  offersList: sortOffers(
+      state.activeSorting,
+      state.offersList
+        .find((offer) => offer.city.id === state.city.id)
+        .offers
+  ),
   citiesList: state.offersList
-  .map((offer) => offer.city)
-  .slice(0, MAX_CITIES_COUNT)
+    .map((offer) => offer.city)
+    .slice(0, MAX_CITIES_COUNT),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onCityNameClick(city) {
     dispatch(ActionCreator.changeCity(city));
-    dispatch(ActionCreator.getOffers(city));
   }
 });
 

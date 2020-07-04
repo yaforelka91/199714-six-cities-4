@@ -1,8 +1,17 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import {ActionCreator} from '../../reducer.js';
 import OfferCard from '../offer-card/offer-card.jsx';
 import {offerListTypes} from '../../types/types.js';
 
-const OfferList = ({offers, className, isNear, onOfferTitleClick, onOfferCardEnter}) => {
+const OfferList = ({
+  offers,
+  className,
+  isNear,
+  onOfferTitleClick,
+  onOfferCardEnter,
+  onOfferCardLeave
+}) => {
   return (
     <div className={`places__list ${className}`}>
       {offers.map((offer) => (
@@ -11,6 +20,7 @@ const OfferList = ({offers, className, isNear, onOfferTitleClick, onOfferCardEnt
           offer={offer}
           onOfferTitleClick={onOfferTitleClick}
           onOfferCardEnter={onOfferCardEnter}
+          onOfferCardLeave={onOfferCardLeave}
           isNear={isNear}
         />
       ))}
@@ -20,9 +30,20 @@ const OfferList = ({offers, className, isNear, onOfferTitleClick, onOfferCardEnt
 
 OfferList.defaultProps = {
   onOfferCardEnter: () => {},
+  onOfferCardLeave: () => {},
   className: ``,
 };
 
 OfferList.propTypes = offerListTypes;
 
-export default OfferList;
+const mapDispatchToProps = (dispatch) => ({
+  onOfferCardEnter(offer) {
+    dispatch(ActionCreator.setActiveCard(offer));
+  },
+  onOfferCardLeave() {
+    dispatch(ActionCreator.setActiveCard({}));
+  }
+});
+
+export {OfferList};
+export default connect(null, mapDispatchToProps)(OfferList);

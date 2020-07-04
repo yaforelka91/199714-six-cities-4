@@ -1,5 +1,5 @@
 import {reducer, ActionCreator, ActionType} from './reducer.js';
-import {CityList} from './const.js';
+import {CityList, SortType} from './const.js';
 
 const offersList = [
   {
@@ -476,13 +476,13 @@ const offersList = [
     ]
   }
 ];
-
 describe(`Reducer works correctly`, () => {
   it(`Reducer without additional parameters should return initialState`, () => {
     expect(reducer(undefined, {})).toEqual({
       city: offersList[0].city,
       offersList,
-      filteredOffers: offersList[0].offers,
+      activeCard: {},
+      activeSorting: SortType.POPULAR,
     });
   });
 
@@ -490,10 +490,15 @@ describe(`Reducer works correctly`, () => {
     expect(reducer({
       city: offersList[0].city,
       offersList,
-      filteredOffers: offersList[0].offers,
+      activeCard: {},
+      activeSorting: SortType.POPULAR,
     }, {
       type: ActionType.CHANGE_CITY,
-      payload: 1,
+      payload: {
+        id: 1,
+        name: CityList.PARIS,
+        coords: [48.856663, 2.351556],
+      },
     })).toEqual({
       city: {
         id: 1,
@@ -501,69 +506,87 @@ describe(`Reducer works correctly`, () => {
         coords: [48.856663, 2.351556],
       },
       offersList,
-      filteredOffers: offersList[0].offers,
+      activeCard: {},
+      activeSorting: SortType.POPULAR,
     });
   });
 
-  it(`Reducer should return initial state if current city is equal by a given value`, () => {
+  it(`Reducer should get offers`, () => {
     expect(reducer({
       city: offersList[0].city,
       offersList,
-      filteredOffers: offersList[0].offers,
-    }, {
-      type: ActionType.CHANGE_CITY,
-      payload: 4,
-    })).toEqual({
-      city: offersList[0].city,
-      offersList,
-      filteredOffers: offersList[0].offers,
-    });
-  });
-
-  it(`Reducer should get offers from given city`, () => {
-    expect(reducer({
-      city: offersList[0].city,
-      offersList,
-      filteredOffers: offersList[0].offers,
+      activeCard: {},
+      activeSorting: SortType.POPULAR,
     }, {
       type: ActionType.GET_OFFERS,
-      payload: 1,
     })).toEqual({
       city: offersList[0].city,
       offersList,
-      filteredOffers: offersList[1].offers,
+      activeCard: {},
+      activeSorting: SortType.POPULAR,
     });
   });
 
-  it(`Reducer should return initial state if offers is filtered by a given value`, () => {
+  it(`Reducer should change active sorting by a given value`, () => {
     expect(reducer({
-      city: offersList[0].city,
+      city: {},
       offersList,
-      filteredOffers: offersList[0].offers,
+      activeCard: {},
+      activeSorting: SortType.POPULAR,
     }, {
-      type: ActionType.GET_OFFERS,
-      payload: 4,
+      type: ActionType.SORT_OFFERS,
+      payload: SortType.TO_LOW,
     })).toEqual({
-      city: offersList[0].city,
+      city: {},
       offersList,
-      filteredOffers: offersList[0].offers,
+      activeCard: {},
+      activeSorting: SortType.TO_LOW,
+    });
+  });
+
+  it(`Reducer should change active offer by a given value`, () => {
+    expect(reducer({
+      city: {},
+      offersList: [],
+      activeCard: {},
+      activeSorting: SortType.POPULAR,
+    }, {
+      type: ActionType.SET_ACTIVE_CARD,
+      payload: {},
+    })).toEqual({
+      city: {},
+      offersList: [],
+      activeCard: {},
+      activeSorting: SortType.POPULAR,
     });
   });
 });
 
-
 describe(`Action creators work correctly`, () => {
-  it(`Action creator for changing city returns action that change city`, () => {
+  it(`Action creator for changing city returns action with 1 payload`, () => {
     expect(ActionCreator.changeCity(1)).toEqual({
       type: ActionType.CHANGE_CITY,
       payload: 1,
     });
   });
 
-  it(`Action creator for getting offers returns action with 1 payload`, () => {
-    expect(ActionCreator.getOffers(1)).toEqual({
+  it(`Action creator for getting offers returns action that get offers`, () => {
+    expect(ActionCreator.getOffers()).toEqual({
       type: ActionType.GET_OFFERS,
-      payload: 1,
+    });
+  });
+
+  it(`Action creator for sorting offers returns action with POPULAR payload`, ()=> {
+    expect(ActionCreator.sortOffers(SortType.POPULAR)).toEqual({
+      type: ActionType.SORT_OFFERS,
+      payload: SortType.POPULAR,
+    });
+  });
+
+  it(`Action creator for setting active card returns action with offer payload`, ()=> {
+    expect(ActionCreator.setActiveCard({})).toEqual({
+      type: ActionType.SET_ACTIVE_CARD,
+      payload: {},
     });
   });
 });

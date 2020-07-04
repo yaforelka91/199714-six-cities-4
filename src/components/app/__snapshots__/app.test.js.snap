@@ -82,7 +82,7 @@ exports[`AppSnapshot should render App 1`] = `
               onClick={[Function]}
             >
               <span>
-                Amsterdam
+                Hamburg
               </span>
             </a>
           </li>
@@ -95,7 +95,7 @@ exports[`AppSnapshot should render App 1`] = `
               onClick={[Function]}
             >
               <span>
-                Paris
+                Dusseldorf
               </span>
             </a>
           </li>
@@ -121,7 +121,7 @@ exports[`AppSnapshot should render App 1`] = `
           >
             1
              places to stay in 
-            Amsterdam
+            Hamburg
           </b>
           <form
             action="#"
@@ -133,8 +133,10 @@ exports[`AppSnapshot should render App 1`] = `
             >
               Sort by
             </span>
+             
             <span
               className="places__sorting-type"
+              onClick={[Function]}
               tabIndex="0"
             >
               Popular
@@ -149,33 +151,79 @@ exports[`AppSnapshot should render App 1`] = `
               </svg>
             </span>
             <ul
-              className="places__options places__options--custom places__options--opened"
+              className="places__options places__options--custom "
             >
               <li
                 className="places__option places__option--active"
+                onClick={[Function]}
                 tabIndex="0"
               >
                 Popular
               </li>
               <li
-                className="places__option"
+                className="places__option "
+                onClick={[Function]}
                 tabIndex="0"
               >
                 Price: low to high
               </li>
               <li
-                className="places__option"
+                className="places__option "
+                onClick={[Function]}
                 tabIndex="0"
               >
                 Price: high to low
               </li>
               <li
-                className="places__option"
+                className="places__option "
+                onClick={[Function]}
                 tabIndex="0"
               >
                 Top rated first
               </li>
             </ul>
+            <select
+              className="places__sorting-type"
+              id="places-sorting"
+              onChange={[Function]}
+              style={
+                Object {
+                  "border": 0,
+                  "clip": "rect(1px, 1px, 1px, 1px)",
+                  "height": "1px",
+                  "overflow": "hidden",
+                  "position": "absolute",
+                  "whiteSpace": "nowrap",
+                  "width": "1px",
+                }
+              }
+              value="popular"
+            >
+              <option
+                className="places__option"
+                value="popular"
+              >
+                Popular
+              </option>
+              <option
+                className="places__option"
+                value="to-high"
+              >
+                Price: low to high
+              </option>
+              <option
+                className="places__option"
+                value="to-low"
+              >
+                Price: high to low
+              </option>
+              <option
+                className="places__option"
+                value="top-rated"
+              >
+                Top rated first
+              </option>
+            </select>
           </form>
           <div
             className="places__list cities__places-list tabs__content"
@@ -183,6 +231,7 @@ exports[`AppSnapshot should render App 1`] = `
             <article
               className="place-card cities__place-card"
               onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
             >
               <div
                 className="place-card__mark"
@@ -219,7 +268,7 @@ exports[`AppSnapshot should render App 1`] = `
                       className="place-card__price-value"
                     >
                       €
-                      120
+                      180
                     </b>
                     <span
                       className="place-card__price-text"
@@ -256,7 +305,7 @@ exports[`AppSnapshot should render App 1`] = `
                     <span
                       style={
                         Object {
-                          "width": "80%",
+                          "width": "100%",
                         }
                       }
                     />
@@ -274,7 +323,7 @@ exports[`AppSnapshot should render App 1`] = `
                     href="#"
                     onClick={[Function]}
                   >
-                    Beautiful & luxurious apartment at great location
+                    Apartment in Hamburg
                   </a>
                 </h2>
                 <p

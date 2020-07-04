@@ -1,8 +1,8 @@
 import React from 'react';
 import ReviewList from '../review-list/review-list.jsx';
 import reviewsList from '../../mocks/reviews.js';
-import Map from '../map/map.jsx';
-import OfferList from '../offer-list/offer-list.jsx';
+import {Map} from '../map/map.jsx';
+import {OfferList} from '../offer-list/offer-list.jsx';
 import {offerPageTypes} from '../../types/types.js';
 
 const MAX_COUNT_PICTURES = 6;
@@ -197,7 +197,7 @@ const OfferPage = ({offer, offersList, city, onOfferTitleClick}) => {
             </div>
           </div>
           <section className="property__map map">
-            <Map offers={filteredOffers} activeCity={city.coords} />
+            <Map offers={offersList} activeCity={city.coords} activeCard={offer} />
           </section>
         </section>
         <div className="container">

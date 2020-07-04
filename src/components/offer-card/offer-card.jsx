@@ -1,7 +1,7 @@
 import React from 'react';
 import {offerCardTypes} from '../../types/types.js';
 
-const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, isNear}) => {
+const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, onOfferCardLeave, isNear}) => {
   const {title, picture, price, type, isPremium, rating} = offer;
 
   const handleCardMouseEnter = () => {
@@ -9,6 +9,10 @@ const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, isNear}) => {
       return;
     }
     onOfferCardEnter(offer);
+  };
+
+  const handleCardMouseLeave = () => {
+    onOfferCardLeave();
   };
 
   const handleTitleClick = (evt) => {
@@ -20,6 +24,7 @@ const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, isNear}) => {
     <article
       className={`place-card ${isNear ? `near-places__card` : `cities__place-card`}`}
       onMouseEnter={handleCardMouseEnter}
+      onMouseLeave={handleCardMouseLeave}
     >
       {
         isPremium && <div className="place-card__mark">
@@ -63,6 +68,12 @@ const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, isNear}) => {
     </article>
   );
 };
+
+OfferCard.defaultProps = {
+  onOfferCardEnter: () => {},
+  onOfferCardLeave: () => {},
+};
+
 
 OfferCard.propTypes = offerCardTypes;
 

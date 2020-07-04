@@ -63,6 +63,7 @@ describe(`OfferCardE2E`, () => {
         <OfferCard
           offer={offer}
           onOfferCardEnter={onOfferCardEnter}
+          onOfferCardLeave={()=>{}}
           isNear={false}
           onOfferTitleClick={()=>{}}
         />
@@ -82,6 +83,7 @@ describe(`OfferCardE2E`, () => {
           offer={offer}
           isNear={false}
           onOfferCardEnter={()=>{}}
+          onOfferCardLeave={()=>{}}
           onOfferTitleClick={onOfferTitleClick}
         />
     );
@@ -92,5 +94,22 @@ describe(`OfferCardE2E`, () => {
 
     expect(onOfferTitleClick).toHaveBeenCalledTimes(1);
     expect(onOfferTitleClick.mock.calls[0][0]).toMatchObject(offer);
+  });
+
+  it(`Check offer object in callback in mouseleave event`, () => {
+    const onOfferCardLeave = jest.fn();
+
+    const card = shallow(
+        <OfferCard
+          offer={offer}
+          onOfferCardEnter={()=>{}}
+          onOfferCardLeave={onOfferCardLeave}
+          isNear={false}
+          onOfferTitleClick={()=>{}}
+        />
+    );
+
+    card.simulate(`mouseleave`);
+    expect(onOfferCardLeave).toHaveBeenCalledTimes(1);
   });
 });

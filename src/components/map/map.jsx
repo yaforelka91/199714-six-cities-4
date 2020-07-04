@@ -1,5 +1,6 @@
 import React, {PureComponent, createRef} from 'react';
 import leaflet from 'leaflet';
+import {connect} from 'react-redux';
 import {mapTypes} from '../../types/types.js';
 
 class Map extends PureComponent {
@@ -11,6 +12,18 @@ class Map extends PureComponent {
     this.mapObject = null;
   }
 
+  componentDidMount() {
+    this._renderMap();
+  }
+
+  componentDidUpdate() {
+    this._renderMap();
+  }
+
+  componentWillUnmount() {
+    this.mapObject.remove();
+    this.mapObject = null;
+  }
   _renderMap() {
     const mapElement = this._mapRef.current;
 
@@ -24,7 +37,7 @@ class Map extends PureComponent {
 
     const zoom = 12;
 
-    const {offers, activeCity} = this.props;
+    const {offers, activeCity, activeCard} = this.props;
 
     this.mapObject = leaflet.map(mapElement, {
       center: activeCity,
@@ -45,25 +58,18 @@ class Map extends PureComponent {
       iconSize: [27, 39]
     });
 
-    offers.forEach((offer) => {
-      leaflet
-        .marker(offer.coords, {icon})
-        .addTo(this.mapObject);
+    const iconActive = leaflet.icon({
+      iconUrl: `/img/pin-active.svg`,
+      iconSize: [27, 39]
     });
 
-  }
-
-  componentDidMount() {
-    this._renderMap();
-  }
-
-  componentDidUpdate() {
-    this._renderMap();
-  }
-
-  componentWillUnmount() {
-    this.mapObject.remove();
-    this.mapObject = null;
+    offers.forEach((offer) => {
+      leaflet
+        .marker(offer.coords, {
+          icon: offer.id === activeCard.id ? iconActive : icon,
+        })
+        .addTo(this.mapObject);
+    });
   }
 
   render() {
@@ -75,5 +81,9 @@ class Map extends PureComponent {
 
 Map.propTypes = mapTypes;
 
+const mapStateToProps = (state) => {
+  return {activeCard: state.activeCard};
+};
 
-export default Map;
+export {Map};
+export default connect(mapStateToProps)(Map);

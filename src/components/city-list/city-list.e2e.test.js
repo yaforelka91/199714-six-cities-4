@@ -33,9 +33,9 @@ describe(`CityListE2E`, () => {
     );
 
     const cityLink = cityList.find(`.locations__item-link`).at(1);
-    cityLink.simulate(`click`, {preventDefault() {}}, cities[1].id);
+    cityLink.simulate(`click`, {preventDefault() {}}, cities[1]);
 
     expect(onCityNameClick).toHaveBeenCalledTimes(1);
-    expect(onCityNameClick.mock.calls[0][0]).toBe(2);
+    expect(onCityNameClick.mock.calls[0][0]).toMatchObject(cities[1]);
   });
 });
