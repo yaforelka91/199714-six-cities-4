@@ -68,17 +68,17 @@ describe(`MainSnapshot`, () => {
   it(`should render correctly`, () => {
     const store = mockStore({
       activeSorting: `popular`,
-      activeCard: {},
     });
 
     const tree = renderer.create(
         <Provider store={store}>
           <Main
+            activeSorting='popular'
             offersList={offersList}
             citiesList={cities}
             city={cities[0]}
-            onOfferTitleClick={()=>{}}
-            onCityNameClick={()=>{}}
+            onOfferTitleClick={() => {}}
+            onCityNameClick={() => {}}
           />
         </Provider>,
         {

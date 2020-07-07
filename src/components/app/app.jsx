@@ -5,56 +5,44 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Main from '../main/main.jsx';
 import OfferPage from '../offer-page/offer-page.jsx';
 import {appTypes} from '../../types/types.js';
-import {sortOffers} from '../../utils.js';
+import withActiveItem from '../../hocs/with-active-item/with-active-item.js';
 
 const MAX_CITIES_COUNT = 6;
+const MainWrapped = withActiveItem(Main);
 
 class App extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      selectedOffer: null,
-    };
-
-    this._handleOfferTitleClick = this._handleOfferTitleClick.bind(this);
-  }
-
-  _handleOfferTitleClick(offer) {
-    this.setState({
-      selectedOffer: offer,
-    });
-  }
 
   _renderApp() {
     const {
+      activeCard,
       offersList,
       citiesList,
       city,
-      onCityNameClick
+      activeSorting,
+      onCityNameClick,
+      onOfferTitleClick,
     } = this.props;
 
-    const {selectedOffer} = this.state;
-
-    if (!selectedOffer) {
+    if (activeCard < 0) {
       return (
-        <Main
+        <MainWrapped
+          activeSorting={activeSorting}
           city={city}
           offersList={offersList}
           citiesList={citiesList}
-          onOfferTitleClick={this._handleOfferTitleClick}
+          onOfferTitleClick={onOfferTitleClick}
           onCityNameClick={onCityNameClick}
         />
       );
     }
 
-    if (selectedOffer) {
+    if (activeCard >= 0) {
       return (
         <OfferPage
-          offer={selectedOffer}
+          offer={offersList.find((offer) => offer.id === activeCard)}
           offersList={offersList}
           city={city}
-          onOfferTitleClick={this._handleOfferTitleClick}
+          onOfferTitleClick={onOfferTitleClick}
         />
       );
     }
@@ -63,7 +51,8 @@ class App extends PureComponent {
   }
 
   render() {
-    const {offersList, city} = this.props;
+    const {offersList, city, onOfferTitleClick} = this.props;
+
     return (
       <BrowserRouter>
         <Switch>
@@ -75,7 +64,7 @@ class App extends PureComponent {
               offer={offersList[0]}
               offersList={offersList}
               city={city}
-              onOfferTitleClick={this._handleOfferTitleClick}
+              onOfferTitleClick={onOfferTitleClick}
             />
           </Route>
         </Switch>
@@ -87,13 +76,12 @@ class App extends PureComponent {
 App.propTypes = appTypes;
 
 const mapStateToProps = (state) => ({
+  activeCard: state.activeCard,
   city: state.city,
-  offersList: sortOffers(
-      state.activeSorting,
-      state.offersList
-        .find((offer) => offer.city.id === state.city.id)
-        .offers
-  ),
+  offersList: state.offersList
+    .find((offer) => offer.city.id === state.city.id)
+    .offers,
+  activeSorting: state.activeSorting,
   citiesList: state.offersList
     .map((offer) => offer.city)
     .slice(0, MAX_CITIES_COUNT),
@@ -102,6 +90,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onCityNameClick(city) {
     dispatch(ActionCreator.changeCity(city));
+  },
+  onOfferTitleClick(offer) {
+    dispatch(ActionCreator.setActiveCard(offer));
   }
 });
 

@@ -1,30 +1,25 @@
 import React from 'react';
 import {offerCardTypes} from '../../types/types.js';
 
-const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, onOfferCardLeave, isNear}) => {
+const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, isNear}) => {
   const {title, picture, price, type, isPremium, rating} = offer;
 
   const handleCardMouseEnter = () => {
     if (isNear) {
       return;
     }
-    onOfferCardEnter(offer);
-  };
-
-  const handleCardMouseLeave = () => {
-    onOfferCardLeave();
+    onOfferCardEnter(offer.id);
   };
 
   const handleTitleClick = (evt) => {
     evt.preventDefault();
-    onOfferTitleClick(offer);
+    onOfferTitleClick(offer.id);
   };
 
   return (
     <article
       className={`place-card ${isNear ? `near-places__card` : `cities__place-card`}`}
       onMouseEnter={handleCardMouseEnter}
-      onMouseLeave={handleCardMouseLeave}
     >
       {
         isPremium && <div className="place-card__mark">
@@ -71,7 +66,6 @@ const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, onOfferCardLeave
 
 OfferCard.defaultProps = {
   onOfferCardEnter: () => {},
-  onOfferCardLeave: () => {},
 };
 
 

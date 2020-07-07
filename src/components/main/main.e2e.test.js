@@ -73,7 +73,6 @@ describe(`MainE2E`, () => {
   it(`Should offer title be pressed`, () => {
     const store = mockStore({
       activeSorting: `popular`,
-      activeCard: {},
     });
 
     const onOfferTitleClick = jest.fn();
@@ -82,10 +81,11 @@ describe(`MainE2E`, () => {
         <Provider store={store}>
           <Main
             offersList={offersList}
-            onOfferTitleClick={onOfferTitleClick}
             citiesList={cities}
             city={cities[0]}
-            onCityNameClick={()=>{}}
+            activeSorting='popular'
+            onCityNameClick={() => {}}
+            onOfferTitleClick={onOfferTitleClick}
           />
         </Provider>
     );
@@ -101,7 +101,6 @@ describe(`MainE2E`, () => {
   it(`Should city name be pressed`, () => {
     const store = mockStore({
       activeSorting: `popular`,
-      activeCard: {},
     });
 
     const onCityNameClick = jest.fn();
@@ -110,9 +109,10 @@ describe(`MainE2E`, () => {
         <Provider store={store}>
           <Main
             offersList={offersList}
-            onOfferTitleClick={()=>{}}
             citiesList={cities}
             city={cities[0]}
+            activeSorting='popular'
+            onOfferTitleClick={() => {}}
             onCityNameClick={onCityNameClick}
           />
         </Provider>

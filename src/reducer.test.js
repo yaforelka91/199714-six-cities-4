@@ -481,7 +481,7 @@ describe(`Reducer works correctly`, () => {
     expect(reducer(undefined, {})).toEqual({
       city: offersList[0].city,
       offersList,
-      activeCard: {},
+      activeCard: -1,
       activeSorting: SortType.POPULAR,
     });
   });
@@ -490,7 +490,7 @@ describe(`Reducer works correctly`, () => {
     expect(reducer({
       city: offersList[0].city,
       offersList,
-      activeCard: {},
+      activeCard: -1,
       activeSorting: SortType.POPULAR,
     }, {
       type: ActionType.CHANGE_CITY,
@@ -506,7 +506,7 @@ describe(`Reducer works correctly`, () => {
         coords: [48.856663, 2.351556],
       },
       offersList,
-      activeCard: {},
+      activeCard: -1,
       activeSorting: SortType.POPULAR,
     });
   });
@@ -515,14 +515,14 @@ describe(`Reducer works correctly`, () => {
     expect(reducer({
       city: offersList[0].city,
       offersList,
-      activeCard: {},
+      activeCard: -1,
       activeSorting: SortType.POPULAR,
     }, {
       type: ActionType.GET_OFFERS,
     })).toEqual({
       city: offersList[0].city,
       offersList,
-      activeCard: {},
+      activeCard: -1,
       activeSorting: SortType.POPULAR,
     });
   });
@@ -531,15 +531,15 @@ describe(`Reducer works correctly`, () => {
     expect(reducer({
       city: {},
       offersList,
-      activeCard: {},
+      activeCard: -1,
       activeSorting: SortType.POPULAR,
     }, {
-      type: ActionType.SORT_OFFERS,
+      type: ActionType.CHANGE_SORT,
       payload: SortType.TO_LOW,
     })).toEqual({
       city: {},
       offersList,
-      activeCard: {},
+      activeCard: -1,
       activeSorting: SortType.TO_LOW,
     });
   });
@@ -548,15 +548,15 @@ describe(`Reducer works correctly`, () => {
     expect(reducer({
       city: {},
       offersList: [],
-      activeCard: {},
+      activeCard: -1,
       activeSorting: SortType.POPULAR,
     }, {
       type: ActionType.SET_ACTIVE_CARD,
-      payload: {},
+      payload: 1,
     })).toEqual({
       city: {},
       offersList: [],
-      activeCard: {},
+      activeCard: 1,
       activeSorting: SortType.POPULAR,
     });
   });
@@ -577,16 +577,16 @@ describe(`Action creators work correctly`, () => {
   });
 
   it(`Action creator for sorting offers returns action with POPULAR payload`, ()=> {
-    expect(ActionCreator.sortOffers(SortType.POPULAR)).toEqual({
-      type: ActionType.SORT_OFFERS,
+    expect(ActionCreator.changeSort(SortType.POPULAR)).toEqual({
+      type: ActionType.CHANGE_SORT,
       payload: SortType.POPULAR,
     });
   });
 
   it(`Action creator for setting active card returns action with offer payload`, ()=> {
-    expect(ActionCreator.setActiveCard({})).toEqual({
+    expect(ActionCreator.setActiveCard(1)).toEqual({
       type: ActionType.SET_ACTIVE_CARD,
-      payload: {},
+      payload: 1,
     });
   });
 });

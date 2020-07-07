@@ -670,7 +670,6 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
           <article
             className="place-card near-places__card"
             onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
           >
             <div
               className="place-card__mark"
@@ -775,7 +774,6 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
           <article
             className="place-card near-places__card"
             onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
           >
             <div
               className="place-card__mark"

@@ -4,7 +4,6 @@ exports[`OfferCardSnapshot should render OfferCard 1`] = `
 <article
   className="place-card cities__place-card"
   onMouseEnter={[Function]}
-  onMouseLeave={[Function]}
 >
   <div
     className="place-card__mark"
