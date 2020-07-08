@@ -47,7 +47,19 @@ export const appTypes = {
   offersList: PropTypes.arrayOf(offerShape).isRequired,
   citiesList: PropTypes.arrayOf(cityShape).isRequired,
   city: cityShape.isRequired,
+  activeCard: PropTypes.number.isRequired,
+  activeSorting: PropTypes.string.isRequired,
+  onOfferTitleClick: PropTypes.func.isRequired,
   onCityNameClick: PropTypes.func.isRequired,
+};
+
+export const citiesTypes = {
+  offers: PropTypes.arrayOf(offerShape).isRequired,
+  city: cityShape.isRequired,
+  activeCard: PropTypes.number.isRequired,
+  activeSorting: PropTypes.string.isRequired,
+  onOfferCardEnter: PropTypes.func.isRequired,
+  onOfferTitleClick: PropTypes.func.isRequired,
 };
 
 export const cityListTypes = {
@@ -56,10 +68,17 @@ export const cityListTypes = {
   onCityNameClick: PropTypes.func.isRequired,
 };
 
+export const cityListItemTypes = {
+  city: cityShape.isRequired,
+  activeCity: cityShape.isRequired,
+  onCityNameClick: PropTypes.func.isRequired,
+};
+
 export const mainTypes = {
   offersList: PropTypes.arrayOf(offerShape).isRequired,
   citiesList: PropTypes.arrayOf(cityShape).isRequired,
   city: cityShape.isRequired,
+  activeSorting: PropTypes.string.isRequired,
   onOfferTitleClick: PropTypes.func.isRequired,
   onCityNameClick: PropTypes.func.isRequired,
 };
@@ -67,14 +86,12 @@ export const mainTypes = {
 export const mapTypes = {
   offers: PropTypes.arrayOf(
       PropTypes.shape({
+        offerId: PropTypes.number.isRequired,
         coords: PropTypes.arrayOf(PropTypes.number).isRequired,
-        id: PropTypes.number.isRequired,
-      }).isRequired
+      })
   ).isRequired,
   activeCity: PropTypes.arrayOf(PropTypes.number).isRequired,
-  activeCard: PropTypes.shape({
-    id: PropTypes.number,
-  }),
+  activeCard: PropTypes.number.isRequired,
 };
 
 export const offerCardTypes = {
@@ -82,7 +99,6 @@ export const offerCardTypes = {
   isNear: PropTypes.bool.isRequired,
   onOfferTitleClick: PropTypes.func.isRequired,
   onOfferCardEnter: PropTypes.func.isRequired,
-  onOfferCardLeave: PropTypes.func.isRequired,
 };
 
 export const offerListTypes = {
@@ -91,7 +107,6 @@ export const offerListTypes = {
   isNear: PropTypes.bool.isRequired,
   onOfferTitleClick: PropTypes.func.isRequired,
   onOfferCardEnter: PropTypes.func.isRequired,
-  onOfferCardLeave: PropTypes.func.isRequired,
 };
 
 export const offerPageTypes = {
@@ -110,5 +125,9 @@ export const reviewListTypes = {
 };
 
 export const sortingTypes = {
+  activeSorting: PropTypes.string.isRequired,
+  isOpen: PropTypes.bool.isRequired,
   onSortItemClick: PropTypes.func.isRequired,
+  onToggleMenu: PropTypes.func.isRequired,
+  onSelectMenu: PropTypes.func.isRequired,
 };

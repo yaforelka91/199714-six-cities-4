@@ -1,11 +1,6 @@
 import React from 'react';
-import Enzyme, {shallow} from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import {shallow} from 'enzyme';
 import OfferCard from './offer-card.jsx';
-
-Enzyme.configure({
-  adapter: new Adapter(),
-});
 
 const offer = {
   id: 0,
@@ -63,16 +58,16 @@ describe(`OfferCardE2E`, () => {
         <OfferCard
           offer={offer}
           onOfferCardEnter={onOfferCardEnter}
-          onOfferCardLeave={()=>{}}
+          onOfferCardLeave={() => {}}
           isNear={false}
-          onOfferTitleClick={()=>{}}
+          onOfferTitleClick={() => {}}
         />
     );
 
     card.simulate(`mouseenter`, offer);
 
     expect(onOfferCardEnter).toHaveBeenCalledTimes(1);
-    expect(onOfferCardEnter.mock.calls[0][0]).toMatchObject(offer);
+    expect(onOfferCardEnter.mock.calls[0][0]).toBe(0);
   });
 
   it(`Check data-format in callback after title was pressed`, () => {
@@ -82,34 +77,15 @@ describe(`OfferCardE2E`, () => {
         <OfferCard
           offer={offer}
           isNear={false}
-          onOfferCardEnter={()=>{}}
-          onOfferCardLeave={()=>{}}
           onOfferTitleClick={onOfferTitleClick}
         />
     );
 
     const link = card.find(`.place-card__name a`);
 
-    link.simulate(`click`, {preventDefault() {}}, offer);
+    link.simulate(`click`, {preventDefault() {}}, offer.id);
 
     expect(onOfferTitleClick).toHaveBeenCalledTimes(1);
-    expect(onOfferTitleClick.mock.calls[0][0]).toMatchObject(offer);
-  });
-
-  it(`Check offer object in callback in mouseleave event`, () => {
-    const onOfferCardLeave = jest.fn();
-
-    const card = shallow(
-        <OfferCard
-          offer={offer}
-          onOfferCardEnter={()=>{}}
-          onOfferCardLeave={onOfferCardLeave}
-          isNear={false}
-          onOfferTitleClick={()=>{}}
-        />
-    );
-
-    card.simulate(`mouseleave`);
-    expect(onOfferCardLeave).toHaveBeenCalledTimes(1);
+    expect(onOfferTitleClick.mock.calls[0][0]).toBe(0);
   });
 });

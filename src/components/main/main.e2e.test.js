@@ -1,13 +1,8 @@
 import React from 'react';
-import Enzyme, {mount} from 'enzyme';
+import {mount} from 'enzyme';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
-import Adapter from 'enzyme-adapter-react-16';
 import Main from './main.jsx';
-
-Enzyme.configure({
-  adapter: new Adapter(),
-});
 
 const mockStore = configureStore([]);
 
@@ -73,7 +68,6 @@ describe(`MainE2E`, () => {
   it(`Should offer title be pressed`, () => {
     const store = mockStore({
       activeSorting: `popular`,
-      activeCard: {},
     });
 
     const onOfferTitleClick = jest.fn();
@@ -82,10 +76,11 @@ describe(`MainE2E`, () => {
         <Provider store={store}>
           <Main
             offersList={offersList}
-            onOfferTitleClick={onOfferTitleClick}
             citiesList={cities}
             city={cities[0]}
-            onCityNameClick={()=>{}}
+            activeSorting='popular'
+            onCityNameClick={() => {}}
+            onOfferTitleClick={onOfferTitleClick}
           />
         </Provider>
     );
@@ -101,7 +96,6 @@ describe(`MainE2E`, () => {
   it(`Should city name be pressed`, () => {
     const store = mockStore({
       activeSorting: `popular`,
-      activeCard: {},
     });
 
     const onCityNameClick = jest.fn();
@@ -110,9 +104,10 @@ describe(`MainE2E`, () => {
         <Provider store={store}>
           <Main
             offersList={offersList}
-            onOfferTitleClick={()=>{}}
             citiesList={cities}
             city={cities[0]}
+            activeSorting='popular'
+            onOfferTitleClick={() => {}}
             onCityNameClick={onCityNameClick}
           />
         </Provider>

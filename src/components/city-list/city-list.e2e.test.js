@@ -1,11 +1,6 @@
 import React from 'react';
-import Enzyme, {shallow} from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import {mount} from 'enzyme';
 import CityList from './city-list.jsx';
-
-Enzyme.configure({
-  adapter: new Adapter(),
-});
 
 const cities = [
   {
@@ -24,7 +19,7 @@ describe(`CityListE2E`, () => {
   it(`Should city title be pressed`, () => {
     const onCityNameClick = jest.fn();
 
-    const cityList = shallow(
+    const cityList = mount(
         <CityList
           citiesList={cities}
           activeCity={cities[0]}
@@ -36,6 +31,10 @@ describe(`CityListE2E`, () => {
     cityLink.simulate(`click`, {preventDefault() {}}, cities[1]);
 
     expect(onCityNameClick).toHaveBeenCalledTimes(1);
-    expect(onCityNameClick.mock.calls[0][0]).toMatchObject(cities[1]);
+    expect(onCityNameClick.mock.calls[0][0]).toMatchObject({
+      id: 2,
+      name: `city 2`,
+      coords: [0, 0],
+    });
   });
 });

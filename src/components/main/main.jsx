@@ -1,16 +1,18 @@
 import React from 'react';
-import OfferList from '../offer-list/offer-list.jsx';
 import CityList from '../city-list/city-list.jsx';
-import Map from '../map/map.jsx';
 import {mainTypes} from '../../types/types.js';
-import Sorting from '../sorting/sorting.jsx';
+import Cities from '../cities/cities.jsx';
+import withActiveItem from '../../hocs/with-active-item/with-active-item.js';
+
+const CitiesWrapped = withActiveItem(Cities);
 
 const Main = ({
+  activeSorting,
   offersList,
   citiesList,
   city,
   onCityNameClick,
-  onOfferTitleClick
+  onOfferTitleClick,
 }) => {
   return (
     <div className="page page--gray page--main">
@@ -48,26 +50,12 @@ const Main = ({
             />
           </section>
         </div>
-        <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offersList.length} places to stay in {city.name}</b>
-              <Sorting />
-              <OfferList
-                offers={offersList}
-                onOfferTitleClick={onOfferTitleClick}
-                className='cities__places-list tabs__content'
-                isNear={false}
-              />
-            </section>
-            <div className="cities__right-section">
-              <section className="cities__map map">
-                <Map offers={offersList} activeCity={city.coords} />
-              </section>
-            </div>
-          </div>
-        </div>
+        <CitiesWrapped
+          offers={offersList}
+          onOfferTitleClick={onOfferTitleClick}
+          city={city}
+          activeSorting={activeSorting}
+        />
       </main>
     </div>
   );

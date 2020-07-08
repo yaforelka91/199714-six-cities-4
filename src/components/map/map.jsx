@@ -1,29 +1,45 @@
 import React, {PureComponent, createRef} from 'react';
 import leaflet from 'leaflet';
-import {connect} from 'react-redux';
 import {mapTypes} from '../../types/types.js';
+
+const ICON = leaflet.icon({
+  iconUrl: `img/pin.svg`,
+  iconSize: [27, 39]
+});
+
+const ICON_ACTIVE = leaflet.icon({
+  iconUrl: `/img/pin-active.svg`,
+  iconSize: [27, 39]
+});
 
 class Map extends PureComponent {
   constructor(props) {
     super(props);
 
     this._mapRef = createRef();
-
-    this.mapObject = null;
+    this._mapObject = null;
+    this._markers = [];
+    this._zoom = 12;
   }
 
   componentDidMount() {
     this._renderMap();
   }
 
-  componentDidUpdate() {
-    this._renderMap();
+  componentDidUpdate(prevProps) {
+    if (prevProps.activeCity !== this.props.activeCity) {
+      this._mapObject.setView(this.props.activeCity, this._zoom);
+    }
+
+    this._clearMarkers();
+    this._renderMarkers();
   }
 
   componentWillUnmount() {
-    this.mapObject.remove();
-    this.mapObject = null;
+    this._mapObject.remove();
+    this._mapObject = null;
   }
+
   _renderMap() {
     const mapElement = this._mapRef.current;
 
@@ -31,44 +47,42 @@ class Map extends PureComponent {
       return;
     }
 
-    if (this.mapObject) {
-      this.mapObject.remove();
+    if (this._mapObject) {
+      this._mapObject.remove();
     }
 
-    const zoom = 12;
+    const {activeCity} = this.props;
 
-    const {offers, activeCity, activeCard} = this.props;
-
-    this.mapObject = leaflet.map(mapElement, {
+    this._mapObject = leaflet.map(mapElement, {
       center: activeCity,
-      zoom,
+      zoom: this._zoom,
       zoomControl: false,
       marker: true
     });
 
-    this.mapObject.setView(activeCity, zoom);
+    this._mapObject.setView(activeCity, this._zoom);
 
     leaflet.tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
       attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
-    })
-        .addTo(this.mapObject);
+    }).addTo(this._mapObject);
 
-    const icon = leaflet.icon({
-      iconUrl: `img/pin.svg`,
-      iconSize: [27, 39]
-    });
+    this._renderMarkers();
+  }
 
-    const iconActive = leaflet.icon({
-      iconUrl: `/img/pin-active.svg`,
-      iconSize: [27, 39]
-    });
+  _clearMarkers() {
+    this._markers.forEach(({marker}) => marker.remove());
+    this._markers = [];
+  }
 
-    offers.forEach((offer) => {
-      leaflet
-        .marker(offer.coords, {
-          icon: offer.id === activeCard.id ? iconActive : icon,
+  _renderMarkers() {
+    const {offers, activeCard} = this.props;
+    offers.forEach(({offerId, coords}) => {
+      const marker = leaflet
+        .marker(coords, {
+          icon: offerId === activeCard ? ICON_ACTIVE : ICON,
         })
-        .addTo(this.mapObject);
+        .addTo(this._mapObject);
+      this._markers.push({offerId, marker});
     });
   }
 
@@ -79,11 +93,10 @@ class Map extends PureComponent {
   }
 }
 
-Map.propTypes = mapTypes;
-
-const mapStateToProps = (state) => {
-  return {activeCard: state.activeCard};
+Map.defaultProps = {
+  activeCard: -1,
 };
 
-export {Map};
-export default connect(mapStateToProps)(Map);
+Map.propTypes = mapTypes;
+
+export default Map;

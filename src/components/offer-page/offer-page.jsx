@@ -1,11 +1,13 @@
 import React from 'react';
 import ReviewList from '../review-list/review-list.jsx';
 import reviewsList from '../../mocks/reviews.js';
-import {Map} from '../map/map.jsx';
-import {OfferList} from '../offer-list/offer-list.jsx';
+import Map from '../map/map.jsx';
+import OfferList from '../offer-list/offer-list.jsx';
 import {offerPageTypes} from '../../types/types.js';
 
 const MAX_COUNT_PICTURES = 6;
+const MAX_COUNT_MARKERS = 3;
+
 const OfferPage = ({offer, offersList, city, onOfferTitleClick}) => {
   const {
     id,
@@ -24,7 +26,9 @@ const OfferPage = ({offer, offersList, city, onOfferTitleClick}) => {
   } = offer;
 
   const filteredReviews = reviews.map((item) => reviewsList[item]);
-  const filteredOffers = offersList.filter((item) => item.id !== id);
+  const filteredOffers = offersList.filter((item) => item.id !== id).slice(0, MAX_COUNT_MARKERS);
+  const offersCoords = [...filteredOffers, offer].map(({id: offerId, coords}) => ({offerId, coords}));
+
   return (
     <div className="page">
       <header className="header">
@@ -197,7 +201,7 @@ const OfferPage = ({offer, offersList, city, onOfferTitleClick}) => {
             </div>
           </div>
           <section className="property__map map">
-            <Map offers={offersList} activeCity={city.coords} activeCard={offer} />
+            <Map offers={offersCoords} activeCity={city.coords} activeCard={offer.id} />
           </section>
         </section>
         <div className="container">

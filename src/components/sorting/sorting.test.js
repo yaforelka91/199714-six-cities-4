@@ -14,7 +14,10 @@ describe(`SortingSnapshot`, ()=>{
         <Provider store={store}>
           <Sorting
             activeSorting='popular'
-            onSortItemClick={()=>{}}
+            onSortItemClick={() => {}}
+            isOpen={false}
+            onToggleMenu={() => {}}
+            onSelectMenu={() => {}}
           />
         </Provider>
     ).toJSON();

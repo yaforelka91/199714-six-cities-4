@@ -5,14 +5,14 @@ import {SortType} from './const.js';
 const initialState = {
   city: offersList[0].city,
   offersList,
-  activeCard: {},
+  activeCard: -1,
   activeSorting: SortType.POPULAR,
 };
 
 const ActionType = {
   CHANGE_CITY: `CHANGE_CITY`,
   GET_OFFERS: `GET_OFFERS`,
-  SORT_OFFERS: `SORT_OFFERS`,
+  CHANGE_SORT: `CHANGE_SORT`,
   SET_ACTIVE_CARD: `SET_ACTIVE_CARD`,
 };
 
@@ -24,13 +24,13 @@ const ActionCreator = {
   getOffers: () => ({
     type: ActionType.GET_OFFERS,
   }),
-  sortOffers: (sortType) => ({
-    type: ActionType.SORT_OFFERS,
+  changeSort: (sortType) => ({
+    type: ActionType.CHANGE_SORT,
     payload: sortType,
   }),
-  setActiveCard: (offer) => ({
+  setActiveCard: (offerId) => ({
     type: ActionType.SET_ACTIVE_CARD,
-    payload: offer,
+    payload: offerId,
   })
 };
 
@@ -44,7 +44,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.GET_OFFERS:
       return extend({}, initialState);
 
-    case ActionType.SORT_OFFERS:
+    case ActionType.CHANGE_SORT:
       return extend(state, {
         activeSorting: action.payload,
       });

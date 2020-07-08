@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "description": "Личный проект «Шесть городов» от HTML Academy",
+  "jest": {
+    "setupFilesAfterEnv": [
+      "<rootDir>test-setup.js"
+    ]
+  },
   "scripts": {
     "build": "webpack --mode production",
     "start": "webpack-dev-server",

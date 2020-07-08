@@ -123,26 +123,63 @@ const offersList = [
 ];
 
 describe(`AppSnapshot`, () => {
-  it(`should render App`, () => {
+  it(`should render Main page`, () => {
     const store = mockStore({
-      city: offersList[0].city,
-      offersList,
+      city: {
+        id: 5,
+        name: CityList.HAMBURG,
+        coords: [53.552645, 9.966287],
+      },
       activeSorting: `popular`,
-      activeCard: {}
+      activeCard: -1,
     });
 
     const tree = renderer.create(
         <Provider store={store}>
           <App
             city={offersList[0].city}
+            activeSorting='popular'
+            activeCard={-1}
             offersList={offersList[0].offers}
             citiesList={
               offersList
               .map((offer) => offer.city)
               .slice(0, 6)
             }
-            onCityNameClick={()=>{}}
-            onOfferTitleClick={()=>{}}
+            onCityNameClick={() => {}}
+            onOfferTitleClick={() => {}}
+          />
+        </Provider>,
+        {
+          createNodeMock: () => {
+            return document.createElement(`div`);
+          }
+        }
+    ).toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
+  it(`should render Offer page`, () => {
+    const store = mockStore({
+      activeCard: offersList[0].offers[0].id,
+      activeSorting: `popular`,
+    });
+
+    const tree = renderer.create(
+        <Provider store={store}>
+          <App
+            city={offersList[0].city}
+            activeSorting='popular'
+            activeCard={offersList[0].offers[0].id}
+            offersList={offersList[0].offers}
+            citiesList={
+              offersList
+              .map((offer) => offer.city)
+              .slice(0, 6)
+            }
+            onCityNameClick={() => {}}
+            onOfferTitleClick={() => {}}
           />
         </Provider>,
         {
