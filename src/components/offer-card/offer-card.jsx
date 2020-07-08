@@ -68,7 +68,6 @@ OfferCard.defaultProps = {
   onOfferCardEnter: () => {},
 };
 
-
 OfferCard.propTypes = offerCardTypes;
 
 export default OfferCard;

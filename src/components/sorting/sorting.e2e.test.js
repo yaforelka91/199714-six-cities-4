@@ -1,11 +1,6 @@
 import React from 'react';
-import {configure, shallow} from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import {shallow} from 'enzyme';
 import {Sorting} from './sorting.jsx';
-
-configure({
-  adapter: new Adapter(),
-});
 
 describe(`Sorting E2E`, () => {
   it(`Sorting option should be pressed`, () => {

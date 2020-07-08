@@ -1,11 +1,6 @@
 import React from 'react';
-import Enzyme, {shallow} from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import {shallow} from 'enzyme';
 import CityListItem from './city-list-item.jsx';
-
-Enzyme.configure({
-  adapter: new Adapter(),
-});
 
 const city = {
   id: 1,
@@ -20,7 +15,7 @@ describe(`CityListItemE2E`, () => {
     const cityListItem = shallow(
         <CityListItem
           city={city}
-          activeCity={1}
+          activeCity={city}
           onCityNameClick={onCityNameClick}
         />
     );

@@ -4,22 +4,8 @@ import {sortOffers} from '../../utils.js';
 
 const withSortedItems = (Component) => {
   class WithSortedItems extends PureComponent {
-    constructor(props) {
-      super(props);
-
-      this.state = {
-        activeSorting: props.activeSorting,
-      };
-    }
-
-    componentDidUpdate() {
-      this.setState({
-        activeSorting: this.props.activeSorting
-      });
-    }
-
     render() {
-      const sortedOffers = sortOffers(this.state.activeSorting, this.props.offers);
+      const sortedOffers = sortOffers(this.props.activeSorting, this.props.offers);
 
       return (
         <Component
