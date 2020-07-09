@@ -140,7 +140,7 @@ describe(`AppSnapshot`, () => {
             city={offersList[0].city}
             activeSorting='popular'
             activeCard={-1}
-            offersList={offersList[0].offers}
+            offersList={offersList}
             citiesList={
               offersList
               .map((offer) => offer.city)
@@ -172,7 +172,7 @@ describe(`AppSnapshot`, () => {
             city={offersList[0].city}
             activeSorting='popular'
             activeCard={offersList[0].offers[0].id}
-            offersList={offersList[0].offers}
+            offersList={offersList}
             citiesList={
               offersList
               .map((offer) => offer.city)
