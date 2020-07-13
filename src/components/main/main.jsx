@@ -2,35 +2,27 @@ import React from 'react';
 import CityList from '../city-list/city-list.jsx';
 import {mainTypes} from '../../types/types.js';
 import Cities from '../cities/cities.jsx';
-import withActiveItem from '../../hocs/with-active-item/with-active-item.js';
+import withActiveCard from '../../hocs/with-active-card/with-active-card.js';
+import withActiveCity from '../../hocs/with-active-city/with-active-city.js';
 
-const CitiesWrapped = withActiveItem(Cities);
+const CitiesWrapped = withActiveCity(withActiveCard(Cities));
+const CityListWrapped = withActiveCity(CityList);
 
 const Main = ({
-  activeSorting,
   offersList,
-  citiesList,
-  city,
-  onCityNameClick,
-  onOfferTitleClick,
+  onOfferTitleClick
 }) => {
   return (
     <main className={`page__main page__main--index${offersList.length === 0 ? ` page__main--index-empty` : ``}`}>
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
-          <CityList
-            citiesList={citiesList}
-            activeCity={city}
-            onCityNameClick={onCityNameClick}
-          />
+          <CityListWrapped />
         </section>
       </div>
       <CitiesWrapped
         offers={offersList}
         onOfferTitleClick={onOfferTitleClick}
-        city={city}
-        activeSorting={activeSorting}
       />
     </main>
   );

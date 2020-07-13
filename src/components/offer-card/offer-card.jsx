@@ -1,5 +1,6 @@
 import React from 'react';
 import {offerCardTypes} from '../../types/types.js';
+import {capitalize} from '../../utils.js';
 
 const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, isNear}) => {
   const {title, picture, price, type, isPremium, rating} = offer;
@@ -58,7 +59,7 @@ const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, isNear}) => {
             {title}
           </a>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{capitalize(type)}</p>
       </div>
     </article>
   );

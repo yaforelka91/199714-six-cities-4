@@ -19,7 +19,6 @@ class Map extends PureComponent {
     this._mapRef = createRef();
     this._mapObject = null;
     this._markers = [];
-    this._zoom = 12;
   }
 
   componentDidMount() {
@@ -28,7 +27,7 @@ class Map extends PureComponent {
 
   componentDidUpdate(prevProps) {
     if (prevProps.activeCity !== this.props.activeCity) {
-      this._mapObject.setView(this.props.activeCity, this._zoom);
+      this._mapObject.setView(this.props.activeCity, this.props.zoom);
     }
 
     this._clearMarkers();
@@ -51,16 +50,16 @@ class Map extends PureComponent {
       this._mapObject.remove();
     }
 
-    const {activeCity} = this.props;
+    const {activeCity, zoom} = this.props;
 
     this._mapObject = leaflet.map(mapElement, {
       center: activeCity,
-      zoom: this._zoom,
+      zoom,
       zoomControl: false,
       marker: true
     });
 
-    this._mapObject.setView(activeCity, this._zoom);
+    this._mapObject.setView(activeCity, zoom);
 
     leaflet.tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
       attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
@@ -76,13 +75,13 @@ class Map extends PureComponent {
 
   _renderMarkers() {
     const {offers, activeCard} = this.props;
-    offers.forEach(({offerId, coords}) => {
+    offers.forEach(({id, coords}) => {
       const marker = leaflet
         .marker(coords, {
-          icon: offerId === activeCard ? ICON_ACTIVE : ICON,
+          icon: id === activeCard ? ICON_ACTIVE : ICON,
         })
         .addTo(this._mapObject);
-      this._markers.push({offerId, marker});
+      this._markers.push({id, marker});
     });
   }
 

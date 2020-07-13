@@ -1,7 +1,7 @@
 import {SortType} from './const.js';
 
-export const extend = (a, b) => {
-  return Object.assign({}, a, b);
+export const extend = (object1, object2) => {
+  return Object.assign({}, object1, object2);
 };
 
 export const sortOffers = (sortType, offers) => {
@@ -9,12 +9,16 @@ export const sortOffers = (sortType, offers) => {
     case SortType.POPULAR:
       return offers.slice();
     case SortType.TO_HIGH:
-      return offers.slice().sort((a, b) => a.price - b.price);
+      return offers.slice().sort((prevOffer, nextOffer) => prevOffer.price - nextOffer.price);
     case SortType.TO_LOW:
-      return offers.slice().sort((a, b) => b.price - a.price);
+      return offers.slice().sort((prevOffer, nextOffer) => prevOffer.price - nextOffer.price);
     case SortType.TOP_RATED:
-      return offers.slice().sort((a, b) => b.rating - a.rating);
+      return offers.slice().sort((prevOffer, nextOffer) => prevOffer.rating - nextOffer.rating);
     default:
       return offers;
   }
+};
+
+export const capitalize = (word) => {
+  return word.charAt(0).toUpperCase() + word.slice(1);
 };

@@ -1,9 +1,9 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-import withActiveItem from './with-active-item.js';
+import withActiveCard from './with-active-card.js';
 
 const MockComponent = () => <div />;
-const MockComponentWrapped = withActiveItem(MockComponent);
+const MockComponentWrapped = withActiveCard(MockComponent);
 
 const mock = {
   offers: [
@@ -16,8 +16,8 @@ const mock = {
   ],
 };
 
-describe(`withActiveItemE2E`, ()=>{
-  it(`Should change active item`, () => {
+describe(`withActiveCardE2E`, ()=>{
+  it(`Should change active card`, () => {
     const wrapper = shallow(
         <MockComponentWrapped
           activeCard={-1}

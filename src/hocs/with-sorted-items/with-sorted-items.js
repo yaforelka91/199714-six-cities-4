@@ -1,27 +1,32 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import {sortOffers} from '../../utils.js';
+import {getSortedOffers} from '../../reducer/catalog/selectors.js';
+import {connect} from 'react-redux';
+import {offerShape} from '../../types/types.js';
 
 const withSortedItems = (Component) => {
   class WithSortedItems extends PureComponent {
     render() {
-      const sortedOffers = sortOffers(this.props.activeSorting, this.props.offers);
+      const {offers} = this.props;
 
       return (
         <Component
           {...this.props}
-          offers={sortedOffers}
+          offers={offers}
         />
       );
     }
   }
 
   WithSortedItems.propTypes = {
-    activeSorting: PropTypes.string.isRequired,
-    offers: PropTypes.arrayOf(PropTypes.shape({})).isRequired
+    offers: PropTypes.arrayOf(offerShape).isRequired
   };
 
-  return WithSortedItems;
+  const mapStateToProps = (state) => ({
+    offers: getSortedOffers(state),
+  });
+
+  return connect(mapStateToProps)(WithSortedItems);
 };
 
 export default withSortedItems;

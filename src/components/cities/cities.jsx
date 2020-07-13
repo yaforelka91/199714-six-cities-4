@@ -6,7 +6,13 @@ import {citiesTypes} from '../../types/types.js';
 
 class Cities extends PureComponent {
   render() {
-    const {offers, city, activeCard, onOfferCardEnter, activeSorting, onOfferTitleClick} = this.props;
+    const {
+      offers,
+      activeCity,
+      activeCard,
+      onOfferCardEnter,
+      onOfferTitleClick
+    } = this.props;
     return (
       <div className="cities">
         <div className={`cities__places-container container${offers.length === 0 ? ` cities__places-container--empty` : ``}`}>
@@ -14,18 +20,18 @@ class Cities extends PureComponent {
             <Places
               className={`cities__places`}
               offers={offers}
-              city={city}
-              activeSorting={activeSorting}
+              city={activeCity}
               onOfferCardEnter={onOfferCardEnter}
               onOfferTitleClick={onOfferTitleClick}
             /> :
-            <NoPlaces city={city.name}/>
+            <NoPlaces city={activeCity.name} />
           }
           <div className="cities__right-section">
             {offers.length > 0 &&
               <Map
-                offers={offers.map(({id: offerId, coords}) => ({offerId, coords}))}
-                activeCity={city.coords}
+                offers={offers}
+                activeCity={activeCity.coords}
+                zoom={activeCity.zoom}
                 activeCard={activeCard}
                 className={`cities__map`}
               />

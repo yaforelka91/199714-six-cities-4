@@ -4,15 +4,15 @@ import CityList from './city-list.jsx';
 
 const cities = [
   {
-    id: 1,
     name: `city 1`,
     coords: [0, 0],
+    zoom: 1,
   },
   {
-    id: 2,
     name: `city 2`,
     coords: [0, 0],
-  }
+    zoom: 1,
+  },
 ];
 
 describe(`CityListSnapshot`, () => {

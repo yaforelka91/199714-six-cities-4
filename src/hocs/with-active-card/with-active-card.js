@@ -1,12 +1,12 @@
 import React, {PureComponent} from 'react';
 
-const withActiveItem = (Component) => {
-  class WithActiveItem extends PureComponent {
+const withActiveCard = (Component) => {
+  class WithActiveCard extends PureComponent {
     constructor(props) {
       super(props);
 
       this.state = {
-        activeItem: -1,
+        activeCard: -1,
       };
 
       this._handleActiveChange = this._handleActiveChange.bind(this);
@@ -14,24 +14,24 @@ const withActiveItem = (Component) => {
 
     _handleActiveChange(item) {
       this.setState({
-        activeItem: item,
+        activeCard: item,
       });
     }
 
     render() {
-      const {activeItem} = this.state;
+      const {activeCard} = this.state;
 
       return (
         <Component
           {...this.props}
-          activeCard={activeItem}
+          activeCard={activeCard}
           onOfferCardEnter={this._handleActiveChange}
         />
       );
     }
   }
 
-  return WithActiveItem;
+  return WithActiveCard;
 };
 
-export default withActiveItem;
+export default withActiveCard;

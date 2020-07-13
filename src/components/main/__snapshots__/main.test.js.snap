@@ -341,6 +341,7 @@ exports[`MainSnapshot should render placeholder if offers array is empty 1`] = `
             className="cities__status-description"
           >
             We could not find any property availbale at the moment in 
+            city 1
           </p>
         </div>
       </section>

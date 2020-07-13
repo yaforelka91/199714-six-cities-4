@@ -3,6 +3,11 @@ import renderer from 'react-test-renderer';
 import OfferCard from './offer-card.jsx';
 
 const offer = {
+  city: {
+    name: `city`,
+    coords: [0, 0],
+    zoom: 1,
+  },
   id: 0,
   coords: [52.3909553943508, 4.85309666406198],
   title: `Beautiful & luxurious apartment at great location`,
@@ -25,11 +30,12 @@ in this alley flowery and colorful.`
     `http://placeimg.com/260/200/arch`
   ],
   price: 120,
-  type: `Apartment`,
+  type: `apartment`,
   isPremium: true,
+  isFavorite: false,
   rating: 4.1,
-  bedrooms: `3 Bedrooms`,
-  guests: `Max 4 adults`,
+  bedrooms: 3,
+  guests: 4,
   services: [
     `Wi-Fi`,
     `Washing machine`,
@@ -43,13 +49,12 @@ in this alley flowery and colorful.`
     `Fridge`,
   ],
   host: {
+    id: 1,
     name: `Angelina`,
     picture: `http://placekitten.com/74/74`,
     isSuper: true,
   },
-  reviews: [`0`, `1`],
 };
-
 describe(`OfferCardSnapshot`, () => {
   it(`should render OfferCard`, () => {
     const tree = renderer.create(

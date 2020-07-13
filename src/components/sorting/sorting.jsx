@@ -1,8 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../reducer.js';
 import {SortType} from '../../const.js';
 import {sortingTypes} from '../../types/types.js';
+import {getSorting} from '../../reducer/catalog/selectors.js';
+import {ActionCreator} from '../../reducer/catalog/catalog.js';
 
 const sortItems = [
   {
@@ -87,7 +88,7 @@ const Sorting = ({activeSorting, isOpen, onSortItemClick, onToggleMenu, onSelect
 Sorting.propTypes = sortingTypes;
 
 const mapStateToProps = (state) => ({
-  activeSorting: state.activeSorting,
+  activeSorting: getSorting(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
