@@ -6,7 +6,7 @@ const Page = (props) => {
   const {className, children} = props;
 
   return (
-    <div className={`page ${className}`}>
+    <div className={`page${className}`}>
       <Header />
 
       {children}

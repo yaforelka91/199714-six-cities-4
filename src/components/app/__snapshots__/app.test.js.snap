@@ -357,7 +357,7 @@ exports[`AppSnapshot should render Main page 1`] = `
 
 exports[`AppSnapshot should render Offer page 1`] = `
 <div
-  className="page "
+  className="page"
 >
   <header
     className="header"

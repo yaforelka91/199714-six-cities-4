@@ -28,7 +28,7 @@ class App extends PureComponent {
 
     if (activeCard < 0) {
       return (
-        <Page className='page--gray page--main'>
+        <Page className=' page--gray page--main'>
           <MainWrapped
             activeSorting={activeSorting}
             city={city}
