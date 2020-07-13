@@ -71,7 +71,7 @@ describe(`Sorting E2E`, () => {
           activeSorting='popular'
           onSortItemClick={onSortItemClick}
           isOpen={false}
-          onToggleMenu={()=>{}}
+          onToggleMenu={() => {}}
           onSelectMenu={() => {}}
         />
     );

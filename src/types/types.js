@@ -54,6 +54,7 @@ export const citiesTypes = {
   offers: PropTypes.arrayOf(offerShape).isRequired,
   activeCity: cityShape.isRequired,
   activeCard: PropTypes.number.isRequired,
+  isError: PropTypes.bool.isRequired,
   onOfferCardEnter: PropTypes.func.isRequired,
   onOfferTitleClick: PropTypes.func.isRequired,
 };
@@ -89,6 +90,7 @@ export const mapTypes = {
 
 export const noPlacesTypes = {
   city: PropTypes.string.isRequired,
+  isError: PropTypes.bool.isRequired,
 };
 
 export const offerCardTypes = {

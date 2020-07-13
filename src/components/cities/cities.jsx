@@ -11,7 +11,8 @@ class Cities extends PureComponent {
       activeCity,
       activeCard,
       onOfferCardEnter,
-      onOfferTitleClick
+      onOfferTitleClick,
+      isError
     } = this.props;
     return (
       <div className="cities">
@@ -24,7 +25,7 @@ class Cities extends PureComponent {
               onOfferCardEnter={onOfferCardEnter}
               onOfferTitleClick={onOfferTitleClick}
             /> :
-            <NoPlaces city={activeCity.name} />
+            <NoPlaces city={activeCity.name} isError={isError} />
           }
           <div className="cities__right-section">
             {offers.length > 0 &&
@@ -42,6 +43,10 @@ class Cities extends PureComponent {
     );
   }
 }
+
+Cities.defaultProps = {
+  isError: false,
+};
 
 Cities.propTypes = citiesTypes;
 

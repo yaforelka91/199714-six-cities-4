@@ -5,13 +5,10 @@ import withOpenMenu from './with-open-menu.js';
 const MockComponent = () => <div />;
 const MockComponentWrapped = withOpenMenu(MockComponent);
 
-describe(`withOpenMenuE2E`, ()=>{
+describe(`withOpenMenuE2E`, () => {
   it(`Should open menu`, () => {
     const wrapper = shallow(
-        <MockComponentWrapped
-          activeSorting='option 1'
-          onSortItemClick={() => {}}
-        />
+        <MockComponentWrapped/>
     );
 
     expect(wrapper.props().isOpen).toEqual(false);

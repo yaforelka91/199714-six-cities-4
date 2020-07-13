@@ -11,9 +11,9 @@ export const sortOffers = (sortType, offers) => {
     case SortType.TO_HIGH:
       return offers.slice().sort((prevOffer, nextOffer) => prevOffer.price - nextOffer.price);
     case SortType.TO_LOW:
-      return offers.slice().sort((prevOffer, nextOffer) => prevOffer.price - nextOffer.price);
+      return offers.slice().sort((prevOffer, nextOffer) => nextOffer.price - prevOffer.price);
     case SortType.TOP_RATED:
-      return offers.slice().sort((prevOffer, nextOffer) => prevOffer.rating - nextOffer.rating);
+      return offers.slice().sort((prevOffer, nextOffer) => nextOffer.rating - prevOffer.rating);
     default:
       return offers;
   }

@@ -77,17 +77,14 @@ describe(`PlacesSnapshot`, () => {
     const store = mockStore({
       [NameSpace.CATALOG]: {
         activeSorting: `popular`,
-        city: {
-          name: ``,
-          location: {
-            latitude: 0,
-            longitude: 0,
-            zoom: 0,
-          }
-        },
       },
       [NameSpace.DATA]: {
-        offersList: [],
+        offersList: mock.offers,
+        city: {
+          name: `city`,
+          coords: [0, 0],
+          zoom: 1,
+        },
       }
     });
 

@@ -64,12 +64,9 @@ const offersList = [
 ];
 
 const city = {
-  name: `city`,
-  location: {
-    latitude: 0,
-    longitude: 0,
-    zoom: 1,
-  }
+  name: `city 1`,
+  coords: [0, 0],
+  zoom: 1,
 };
 
 describe(`MainE2E`, () => {
@@ -77,10 +74,10 @@ describe(`MainE2E`, () => {
     const store = mockStore({
       [NameSpace.CATALOG]: {
         activeSorting: `popular`,
-        city,
       },
       [NameSpace.DATA]: {
         offersList,
+        city
       },
     });
 

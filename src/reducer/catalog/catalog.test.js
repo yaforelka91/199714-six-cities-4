@@ -37,14 +37,14 @@ describe(`Reducer works correctly`, () => {
 });
 
 describe(`Action creators work correctly`, () => {
-  it(`Action creator for sorting offers returns action with POPULAR payload`, ()=> {
+  it(`Action creator for sorting offers returns action with POPULAR payload`, () => {
     expect(ActionCreator.changeSort(SortType.POPULAR)).toEqual({
       type: ActionType.CHANGE_SORT,
       payload: SortType.POPULAR,
     });
   });
 
-  it(`Action creator for setting active card returns action with offer payload`, ()=> {
+  it(`Action creator for setting active card returns action with offer payload`, () => {
     expect(ActionCreator.setActiveCard(1)).toEqual({
       type: ActionType.SET_ACTIVE_CARD,
       payload: 1,

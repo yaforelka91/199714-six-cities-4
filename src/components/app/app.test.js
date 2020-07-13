@@ -178,52 +178,52 @@ const city = {
 };
 
 describe(`AppSnapshot`, () => {
-  // it(`should render Main page`, () => {
-  //   const store = mockStore({
-  //     [NameSpace.CATALOG]: {
-  //       activeSorting: `popular`,
-  //       city,
-  //       activeCard: -1,
-  //     },
-  //     [NameSpace.DATA]: {
-  //       offersList,
-  //     },
-  //   });
-
-  //   const tree = renderer.create(
-  //       <Provider store={store}>
-  //         <App
-  //           offersList={getFilteredOffers(store)}
-  //           activeCard={-1}
-  //           onOfferTitleClick={() => {}}
-  //         />
-  //       </Provider>,
-  //       {
-  //         createNodeMock: () => {
-  //           return document.createElement(`div`);
-  //         }
-  //       }
-  //   ).toJSON();
-
-  //   expect(tree).toMatchSnapshot();
-  // });
-
-  it(`should render Offer page`, () => {
+  it(`should render Main page`, () => {
     const store = mockStore({
       [NameSpace.CATALOG]: {
-        activeCard: 7,
-        city,
+        activeSorting: `popular`,
+        activeCard: -1,
       },
       [NameSpace.DATA]: {
         offersList,
+        city,
       },
     });
 
     const tree = renderer.create(
         <Provider store={store}>
           <App
-            activeCard={offersList[0].id}
-            offersList={getFilteredOffers(store)}
+            offersList={getFilteredOffers(store.getState())}
+            activeCard={-1}
+            onOfferTitleClick={() => {}}
+          />
+        </Provider>,
+        {
+          createNodeMock: () => {
+            return document.createElement(`div`);
+          }
+        }
+    ).toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
+  it(`should render Offer page`, () => {
+    const store = mockStore({
+      [NameSpace.CATALOG]: {
+        activeCard: 8,
+      },
+      [NameSpace.DATA]: {
+        offersList,
+        city,
+      },
+    });
+
+    const tree = renderer.create(
+        <Provider store={store}>
+          <App
+            activeCard={8}
+            offersList={getFilteredOffers(store.getState())}
             onOfferTitleClick={() => {}}
           />
         </Provider>,

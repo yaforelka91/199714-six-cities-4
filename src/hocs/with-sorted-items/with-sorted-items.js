@@ -2,7 +2,6 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {getSortedOffers} from '../../reducer/catalog/selectors.js';
 import {connect} from 'react-redux';
-import {offerShape} from '../../types/types.js';
 
 const withSortedItems = (Component) => {
   class WithSortedItems extends PureComponent {
@@ -19,7 +18,13 @@ const withSortedItems = (Component) => {
   }
 
   WithSortedItems.propTypes = {
-    offers: PropTypes.arrayOf(offerShape).isRequired
+    offers: PropTypes.arrayOf(PropTypes.shape({
+      city: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+      }).isRequired,
+      price: PropTypes.number.isRequired,
+      rating: PropTypes.number.isRequired,
+    })).isRequired
   };
 
   const mapStateToProps = (state) => ({

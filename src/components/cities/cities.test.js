@@ -65,11 +65,8 @@ const mock = {
   ],
   city: {
     name: `city`,
-    location: {
-      latitude: 0,
-      longitude: 0,
-      zoom: 1,
-    }
+    coords: [0, 0],
+    zoom: 1,
   }
 };
 
@@ -80,10 +77,10 @@ describe(`CitiesSnapshot`, () => {
     const store = mockStore({
       [NameSpace.CATALOG]: {
         activeSorting: `popular`,
-        city,
       },
       [NameSpace.DATA]: {
-        offersList: offers
+        offersList: offers,
+        city,
       },
     });
 

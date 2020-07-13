@@ -16,12 +16,12 @@ const mock = {
   ],
 };
 
-describe(`withActiveCardE2E`, ()=>{
-  it(`Should change active card`, () => {
+describe(`withActiveCardE2E`, () => {
+  it(`Should change active card by a given value`, () => {
     const wrapper = shallow(
         <MockComponentWrapped
           activeCard={-1}
-          onOfferCardEnter={()=>{}}
+          onOfferCardEnter={() => {}}
         />
     );
 

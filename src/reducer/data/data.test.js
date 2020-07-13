@@ -120,43 +120,32 @@ describe(`Reducer works correctly`, () => {
       offersList: [],
       city: {
         name: ``,
-        location: {
-          latitude: 0,
-          longitude: 0,
-          zoom: 0,
-        }
-      }
+        coords: [0, 0],
+        zoom: 0,
+      },
+      error: false,
     });
   });
 
   it(`Reducer should change current city by a given value`, () => {
     expect(reducer({
       city: {
-        name: `city 1`,
-        location: {
-          latitude: 0,
-          longitude: 0,
-          zoom: 0,
-        }
+        name: ``,
+        coords: [0, 0],
+        zoom: 0,
       },
     }, {
       type: ActionType.CHANGE_CITY,
       payload: {
-        name: `city 2`,
-        location: {
-          latitude: 1,
-          longitude: 1,
-          zoom: 1,
-        }
+        name: `city`,
+        coords: [1, 1],
+        zoom: 1,
       },
     })).toEqual({
       city: {
-        name: `city 2`,
-        location: {
-          latitude: 1,
-          longitude: 1,
-          zoom: 1,
-        }
+        name: `city`,
+        coords: [1, 1],
+        zoom: 1,
       },
     });
   });
@@ -171,13 +160,39 @@ describe(`Reducer works correctly`, () => {
       offersList,
     });
   });
+
+  it(`Reducer should set error`, () => {
+    expect(reducer({
+      error: false,
+    }, {
+      type: ActionType.CATCH_ERROR,
+      payload: true,
+    })).toEqual({
+      error: true,
+    });
+  });
 });
 
 describe(`Action creators work correctly`, () => {
   it(`Action creator for changing city returns action with 1 payload`, () => {
-    expect(ActionCreator.changeCity(1)).toEqual({
+    expect(ActionCreator.changeCity({
+      name: `city 3`,
+      coords: [2, 2],
+      zoom: 3,
+    })).toEqual({
       type: ActionType.CHANGE_CITY,
-      payload: 1,
+      payload: {
+        name: `city 3`,
+        coords: [2, 2],
+        zoom: 3,
+      },
+    });
+  });
+
+  it(`Action creator for set error returns action with true payload`, () => {
+    expect(ActionCreator.catchError(true)).toEqual({
+      type: ActionType.CATCH_ERROR,
+      payload: true,
     });
   });
 });
@@ -198,6 +213,27 @@ describe(`Operation works correctly`, () => {
           expect(dispatch).toHaveBeenNthCalledWith(1, {
             type: ActionType.LOAD_OFFERS,
             payload: [{fake: true}],
+          });
+        });
+  });
+
+  it(`Should catch error with API connection`, function () {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const offersLoader = Operation.loadOffers();
+
+    apiMock
+        .onGet(`/hotels`)
+        .reply(404);
+
+    return offersLoader(dispatch, () => {}, api)
+        .then(() => {
+          expect(dispatch).toHaveBeenCalledTimes(0);
+        })
+        .catch(() => {
+          expect(dispatch).toHaveBeenNthCalledWith(1, {
+            type: ActionType.CATCH_ERROR,
+            payload: true,
           });
         });
   });

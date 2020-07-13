@@ -1,5 +1,5 @@
 import NameSpace from '../name-space.js';
-import {getAllOffers, getCity} from '../data/selectors.js';
+import {getOffers, getCity} from '../data/selectors.js';
 import {sortOffers} from '../../utils.js';
 import {createSelector} from 'reselect';
 
@@ -15,7 +15,7 @@ export const getActiveCard = (state) => {
 
 export const getFilteredOffers = createSelector(
     getCity,
-    getAllOffers,
+    getOffers,
     (activeCity, offers) => {
       return offers.filter((offer) => {
         return offer.city.name === activeCity.name;

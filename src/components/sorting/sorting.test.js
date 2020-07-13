@@ -6,7 +6,7 @@ import {Sorting} from './sorting.jsx';
 
 const mockStore = configureStore([]);
 
-describe(`SortingSnapshot`, ()=>{
+describe(`SortingSnapshot`, () => {
   it(`Should render Sorting`, () => {
     const store = mockStore({});
 

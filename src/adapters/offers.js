@@ -1,4 +1,8 @@
 const adaptOffers = (loadedOffers) => {
+  if (loadedOffers[0].fake) {
+    return loadedOffers;
+  }
+
   return loadedOffers.map((offer) => {
     return {
       city: {
