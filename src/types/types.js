@@ -44,7 +44,10 @@ export const reviewShape = PropTypes.shape({
 });
 
 export const appTypes = {
-  offersList: PropTypes.arrayOf(offerShape).isRequired,
+  offersList: PropTypes.arrayOf(PropTypes.shape({
+    city: cityShape.isRequired,
+    offers: PropTypes.arrayOf(offerShape).isRequired,
+  })).isRequired,
   citiesList: PropTypes.arrayOf(cityShape).isRequired,
   city: cityShape.isRequired,
   activeCard: PropTypes.number.isRequired,
@@ -92,6 +95,11 @@ export const mapTypes = {
   ).isRequired,
   activeCity: PropTypes.arrayOf(PropTypes.number).isRequired,
   activeCard: PropTypes.number.isRequired,
+  className: PropTypes.string,
+};
+
+export const noPlacesTypes = {
+  city: PropTypes.string.isRequired,
 };
 
 export const offerCardTypes = {
@@ -114,6 +122,24 @@ export const offerPageTypes = {
   city: cityShape.isRequired,
   offersList: PropTypes.arrayOf(offerShape).isRequired,
   onOfferTitleClick: PropTypes.func.isRequired,
+};
+
+export const pageTypes = {
+  className: PropTypes.string.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]).isRequired,
+};
+
+
+export const placesTypes = {
+  offers: PropTypes.arrayOf(offerShape).isRequired,
+  city: cityShape.isRequired,
+  activeSorting: PropTypes.string.isRequired,
+  onOfferCardEnter: PropTypes.func.isRequired,
+  onOfferTitleClick: PropTypes.func.isRequired,
+  className: PropTypes.string,
 };
 
 export const reviewCardTypes = {

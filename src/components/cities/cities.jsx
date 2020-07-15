@@ -1,41 +1,35 @@
 import React, {PureComponent} from 'react';
-import Sorting from '../sorting/sorting.jsx';
-import withOpenMenu from '../../hocs/with-open-menu/with-open-menu.js';
-import OfferList from '../offer-list/offer-list.jsx';
 import Map from '../map/map.jsx';
-import withOSortedItems from '../../hocs/with-sorted-items/with-sorted-items.js';
+import Places from '../places/places.jsx';
+import NoPlaces from '../no-places/no-places.jsx';
 import {citiesTypes} from '../../types/types.js';
-
-const SortingWrapped = withOpenMenu(Sorting);
-const OfferListWrapped = withOSortedItems(OfferList);
 
 class Cities extends PureComponent {
   render() {
     const {offers, city, activeCard, onOfferCardEnter, activeSorting, onOfferTitleClick} = this.props;
     return (
       <div className="cities">
-        <div className="cities__places-container container">
-          <section className="cities__places places">
-            <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{offers.length} places to stay in {city.name}</b>
-            <SortingWrapped />
-            <OfferListWrapped
-              activeSorting={activeSorting}
+        <div className={`cities__places-container container${offers.length === 0 ? ` cities__places-container--empty` : ``}`}>
+          {offers.length > 0 ?
+            <Places
+              className={`cities__places`}
               offers={offers}
-              isNear={false}
-              className='cities__places-list tabs__content'
+              city={city}
+              activeSorting={activeSorting}
               onOfferCardEnter={onOfferCardEnter}
               onOfferTitleClick={onOfferTitleClick}
-            />
-          </section>
+            /> :
+            <NoPlaces city={city.name}/>
+          }
           <div className="cities__right-section">
-            <section className="cities__map map">
+            {offers.length > 0 &&
               <Map
                 offers={offers.map(({id: offerId, coords}) => ({offerId, coords}))}
                 activeCity={city.coords}
                 activeCard={activeCard}
+                className={`cities__map`}
               />
-            </section>
+            }
           </div>
         </div>
       </div>

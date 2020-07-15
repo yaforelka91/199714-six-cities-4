@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../reducer.js';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import Page from '../page/page.jsx';
 import Main from '../main/main.jsx';
 import OfferPage from '../offer-page/offer-page.jsx';
 import {appTypes} from '../../types/types.js';
@@ -23,27 +24,33 @@ class App extends PureComponent {
       onOfferTitleClick,
     } = this.props;
 
+    const offersToRender = offersList.find((offer) => offer.city.id === city.id).offers;
+
     if (activeCard < 0) {
       return (
-        <MainWrapped
-          activeSorting={activeSorting}
-          city={city}
-          offersList={offersList}
-          citiesList={citiesList}
-          onOfferTitleClick={onOfferTitleClick}
-          onCityNameClick={onCityNameClick}
-        />
+        <Page className='page--gray page--main'>
+          <MainWrapped
+            activeSorting={activeSorting}
+            city={city}
+            offersList={offersToRender}
+            citiesList={citiesList}
+            onOfferTitleClick={onOfferTitleClick}
+            onCityNameClick={onCityNameClick}
+          />
+        </Page>
       );
     }
 
     if (activeCard >= 0) {
       return (
-        <OfferPage
-          offer={offersList.find((offer) => offer.id === activeCard)}
-          offersList={offersList}
-          city={city}
-          onOfferTitleClick={onOfferTitleClick}
-        />
+        <Page>
+          <OfferPage
+            offer={offersToRender.find((offer) => offer.id === activeCard)}
+            offersList={offersToRender}
+            city={city}
+            onOfferTitleClick={onOfferTitleClick}
+          />
+        </Page>
       );
     }
 
@@ -60,12 +67,14 @@ class App extends PureComponent {
             {this._renderApp()}
           </Route>
           <Route exact path="/offer-page">
-            <OfferPage
-              offer={offersList[0]}
-              offersList={offersList}
-              city={city}
-              onOfferTitleClick={onOfferTitleClick}
-            />
+            <Page>
+              <OfferPage
+                offer={offersList[0].offers[0]}
+                offersList={offersList[0].offers}
+                city={city}
+                onOfferTitleClick={onOfferTitleClick}
+              />
+            </Page>
           </Route>
         </Switch>
       </BrowserRouter>
@@ -78,9 +87,7 @@ App.propTypes = appTypes;
 const mapStateToProps = (state) => ({
   activeCard: state.activeCard,
   city: state.city,
-  offersList: state.offersList
-    .find((offer) => offer.city.id === state.city.id)
-    .offers,
+  offersList: state.offersList,
   activeSorting: state.activeSorting,
   citiesList: state.offersList
     .map((offer) => offer.city)

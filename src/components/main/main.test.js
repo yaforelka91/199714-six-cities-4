@@ -90,4 +90,31 @@ describe(`MainSnapshot`, () => {
 
     expect(tree).toMatchSnapshot();
   });
+
+  it(`should render placeholder if offers array is empty`, () => {
+    const store = mockStore({
+      activeSorting: `popular`,
+    });
+
+    const tree = renderer.create(
+        <Provider store={store}>
+          <Main
+            activeSorting='popular'
+            offersList={[]}
+            citiesList={cities}
+            city={cities[0]}
+            onOfferTitleClick={() => {}}
+            onCityNameClick={() => {}}
+          />
+        </Provider>,
+        {
+          createNodeMock: () => {
+            return document.createElement(`div`);
+          }
+        }
+    ).toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
 });

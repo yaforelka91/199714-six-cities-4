@@ -87,14 +87,19 @@ class Map extends PureComponent {
   }
 
   render() {
+    const {className} = this.props;
+
     return (
-      <div ref={this._mapRef} style={{height: `100%`}}></div>
+      <section className={`${className} map`}>
+        <div ref={this._mapRef} style={{height: `100%`}}></div>
+      </section>
     );
   }
 }
 
 Map.defaultProps = {
   activeCard: -1,
+  className: ``,
 };
 
 Map.propTypes = mapTypes;

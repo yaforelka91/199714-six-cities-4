@@ -201,55 +201,7 @@ const offersList = [
       name: CityList.PARIS,
       coords: [48.856663, 2.351556],
     },
-    offers: [
-      {
-        id: 4,
-        coords: [48.858126, 2.330508],
-        title: `Apartment in Paris`,
-        description: [
-          `A quiet cozy and picturesque that hides behind a 
-          river by the unique lightness of Amsterdam.
-          The building is green and from 18th century.`,
-          `An independent House, strategically located 
-          between Rembrand Square and National Opera, 
-          but where the bustle of the city comes to rest 
-          in this alley flowery and colorful.`
-        ],
-        picture: `http://placeimg.com/260/200/arch`,
-        pictures: [
-          `http://placeimg.com/260/200/arch`,
-          `http://placeimg.com/260/200/arch`,
-          `http://placeimg.com/260/200/arch`,
-          `http://placeimg.com/260/200/arch`,
-          `http://placeimg.com/260/200/arch`,
-          `http://placeimg.com/260/200/arch`
-        ],
-        price: 180,
-        type: `Apartment`,
-        isPremium: true,
-        rating: 4.9,
-        bedrooms: `4 Bedroom`,
-        guests: `Max 6 adults`,
-        services: [
-          `Wi-Fi`,
-          `Washing machine`,
-          `Towels`,
-          `Heating`,
-          `Coffee machine`,
-          `Baby seat`,
-          `Kitchen`,
-          `Dishwasher`,
-          `Cabel TV`,
-          `Fridge`,
-        ],
-        host: {
-          name: `Bob`,
-          picture: `http://placekitten.com/74/74`,
-          isSuper: true,
-        },
-        reviews: [`3`],
-      },
-    ]
+    offers: []
   },
   {
     city: {
@@ -257,55 +209,7 @@ const offersList = [
       name: CityList.COLOGNE,
       coords: [50.930779, 6.938399],
     },
-    offers: [
-      {
-        id: 5,
-        coords: [50.936311, 6.958560],
-        title: `Apartment in Cologne`,
-        description: [
-          `A quiet cozy and picturesque that hides behind a 
-          river by the unique lightness of Amsterdam.
-          The building is green and from 18th century.`,
-          `An independent House, strategically located 
-          between Rembrand Square and National Opera, 
-          but where the bustle of the city comes to rest 
-          in this alley flowery and colorful.`
-        ],
-        picture: `http://placeimg.com/260/200/arch`,
-        pictures: [
-          `http://placeimg.com/260/200/arch`,
-          `http://placeimg.com/260/200/arch`,
-          `http://placeimg.com/260/200/arch`,
-          `http://placeimg.com/260/200/arch`,
-          `http://placeimg.com/260/200/arch`,
-          `http://placeimg.com/260/200/arch`
-        ],
-        price: 180,
-        type: `Apartment`,
-        isPremium: true,
-        rating: 4.9,
-        bedrooms: `4 Bedroom`,
-        guests: `Max 6 adults`,
-        services: [
-          `Wi-Fi`,
-          `Washing machine`,
-          `Towels`,
-          `Heating`,
-          `Coffee machine`,
-          `Baby seat`,
-          `Kitchen`,
-          `Dishwasher`,
-          `Cabel TV`,
-          `Fridge`,
-        ],
-        host: {
-          name: `Bob`,
-          picture: `http://placekitten.com/74/74`,
-          isSuper: true,
-        },
-        reviews: [`3`],
-      },
-    ]
+    offers: []
   },
   {
     city: {
@@ -476,6 +380,7 @@ const offersList = [
     ]
   }
 ];
+
 describe(`Reducer works correctly`, () => {
   it(`Reducer without additional parameters should return initialState`, () => {
     expect(reducer(undefined, {})).toEqual({
