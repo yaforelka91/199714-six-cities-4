@@ -90,7 +90,7 @@ exports[`AppSnapshot should render Main page 1`] = `
             className="locations__item"
           >
             <a
-              className="locations__item-link tabs__item "
+              className="locations__item-link tabs__item"
               href="#"
               onClick={[Function]}
             >
@@ -151,7 +151,7 @@ exports[`AppSnapshot should render Main page 1`] = `
               </svg>
             </span>
             <ul
-              className="places__options places__options--custom "
+              className="places__options places__options--custom"
             >
               <li
                 className="places__option places__option--active"
@@ -161,21 +161,21 @@ exports[`AppSnapshot should render Main page 1`] = `
                 Popular
               </li>
               <li
-                className="places__option "
+                className="places__option"
                 onClick={[Function]}
                 tabIndex="0"
               >
                 Price: low to high
               </li>
               <li
-                className="places__option "
+                className="places__option"
                 onClick={[Function]}
                 tabIndex="0"
               >
                 Price: high to low
               </li>
               <li
-                className="places__option "
+                className="places__option"
                 onClick={[Function]}
                 tabIndex="0"
               >
@@ -357,7 +357,7 @@ exports[`AppSnapshot should render Main page 1`] = `
 
 exports[`AppSnapshot should render Offer page 1`] = `
 <div
-  className="page "
+  className="page"
 >
   <header
     className="header"

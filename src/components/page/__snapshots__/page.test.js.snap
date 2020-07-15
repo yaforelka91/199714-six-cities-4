@@ -2,7 +2,7 @@
 
 exports[`PageSnapshot should render Page 1`] = `
 <div
-  className="page "
+  className="page"
 >
   <header
     className="header"
