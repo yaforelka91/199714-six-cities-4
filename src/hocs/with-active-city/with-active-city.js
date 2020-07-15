@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {cityShape} from '../../types/types';
+import {getFilteredOffers} from '../../utils';
 
 const withActiveCity = (Component) => {
   class WithActiveCity extends PureComponent {
@@ -9,27 +10,29 @@ const withActiveCity = (Component) => {
 
       this.state = {
         activeCity: this.props.offersList[0].city,
+        offers: getFilteredOffers({
+          activeCity: this.props.offersList[0].city,
+          offers: this.props.offersList,
+        }),
       };
 
       this._handleActiveChange = this._handleActiveChange.bind(this);
     }
 
-    _handleActiveChange(item) {
+    _handleActiveChange(activeCity) {
       this.setState({
-        activeCity: item,
+        activeCity,
+        offers: getFilteredOffers({activeCity, offers: this.props.offersList}),
       });
     }
 
     render() {
-      const {activeCity} = this.state;
-      const filteredOffers = this.props.offersList.filter((offer) => {
-        return offer.city.name === activeCity.name;
-      });
+      const {activeCity, offers} = this.state;
 
       return (
         <Component
           {...this.props}
-          offersList={filteredOffers}
+          offersList={offers}
           activeCity={activeCity}
           onCityNameClick={this._handleActiveChange}
         />

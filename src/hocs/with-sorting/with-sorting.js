@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {SortType} from '../../const';
 import Sorting from '../../components/sorting/sorting.jsx';
 import withOpenMenu from '../with-open-menu/with-open-menu.js';
-import {sortOffers} from '../../utils';
+import {getSortedOffers} from '../../utils';
 
 const SortingWrapped = withOpenMenu(Sorting);
 
@@ -14,6 +14,7 @@ const withSorting = (Component) => {
 
       this.state = {
         activeSorting: SortType.POPULAR,
+        offers: props.offers,
       };
 
       this._handleSortItemClick = this._handleSortItemClick.bind(this);
@@ -22,16 +23,25 @@ const withSorting = (Component) => {
     _handleSortItemClick(sortType) {
       this.setState({
         activeSorting: sortType,
+        offers: getSortedOffers({sortType, offers: this.props.offers}),
       });
     }
 
+    componentDidUpdate(prevProps) {
+      if (prevProps.offers !== this.props.offers) {
+        this.setState({
+          offers: getSortedOffers({sortType: this.state.activeSorting, offers: this.props.offers}),
+        });
+      }
+    }
+
     render() {
-      const {activeSorting} = this.state;
-      const sortedOffers = sortOffers(activeSorting, this.props.offers);
+      const {activeSorting, offers} = this.state;
+
       return (
         <Component
           {...this.props}
-          offers={sortedOffers}
+          offers={offers}
           renderSorting={() => {
             return (
               <SortingWrapped
