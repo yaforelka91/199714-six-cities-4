@@ -1,6 +1,6 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-import {Sorting} from './sorting.jsx';
+import Sorting from './sorting.jsx';
 
 describe(`Sorting E2E`, () => {
   it(`Sorting option should be pressed`, () => {

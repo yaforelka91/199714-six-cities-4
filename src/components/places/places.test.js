@@ -1,12 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import configureStore from 'redux-mock-store';
-import {Provider} from 'react-redux';
 import Places from './places.jsx';
-import NameSpace from '../../reducer/name-space.js';
-
-
-const mockStore = configureStore([]);
 
 const mock = {
   offers: [
@@ -74,29 +68,15 @@ const mock = {
 describe(`PlacesSnapshot`, () => {
   it(`should render Places`, () => {
     const {offers, city} = mock;
-    const store = mockStore({
-      [NameSpace.CATALOG]: {
-        activeSorting: `popular`,
-      },
-      [NameSpace.DATA]: {
-        offersList: mock.offers,
-        city: {
-          name: `city`,
-          coords: [0, 0],
-          zoom: 1,
-        },
-      }
-    });
 
     const tree = renderer.create(
-        <Provider store={store}>
-          <Places
-            offers={offers}
-            city={city}
-            onOfferCardEnter={() => {}}
-            onOfferTitleClick={() => {}}
-          />
-        </Provider>
+        <Places
+          offers={offers}
+          city={city}
+          onOfferCardEnter={() => {}}
+          onOfferTitleClick={() => {}}
+          renderSorting={() => {}}
+        />
     ).toJSON();
 
     expect(tree).toMatchSnapshot();

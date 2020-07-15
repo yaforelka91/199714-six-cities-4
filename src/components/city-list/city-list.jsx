@@ -1,15 +1,14 @@
-import React, {PureComponent} from 'react';
+import React from 'react';
 import {cityListTypes} from '../../types/types';
 import CityListItem from '../city-list-item/city-list-item.jsx';
+import {connect} from 'react-redux';
+import {getCities} from '../../reducer/data/selectors';
 
-class CityList extends PureComponent {
-  render() {
-    const {citiesList, activeCity, onCityNameClick} = this.props;
-
-    return (
-      <ul className="locations__list tabs__list">
-        {
-          citiesList
+const CityList = ({citiesList, activeCity, onCityNameClick}) => {
+  return (
+    <ul className="locations__list tabs__list">
+      {
+        citiesList
             .map((city)=>(
               <CityListItem
                 key={city.name}
@@ -18,13 +17,17 @@ class CityList extends PureComponent {
                 onCityNameClick={onCityNameClick}
               />
             ))
-        }
-      </ul>
-    );
-  }
-
-}
+      }
+    </ul>
+  );
+};
 
 CityList.propTypes = cityListTypes;
 
-export default CityList;
+const mapStateToProps = (state) => ({
+  citiesList: getCities(state),
+});
+
+
+export {CityList};
+export default connect(mapStateToProps)(CityList);

@@ -72,12 +72,8 @@ const city = {
 describe(`MainSnapshot`, () => {
   it(`should render correctly`, () => {
     const store = mockStore({
-      [NameSpace.CATALOG]: {
-        activeSorting: `popular`,
-      },
       [NameSpace.DATA]: {
         offersList,
-        city
       },
     });
 
@@ -85,8 +81,10 @@ describe(`MainSnapshot`, () => {
         <Provider store={store}>
           <Main
             offersList={offersList}
+            activeCity={city}
             onOfferTitleClick={() => {}}
-          />
+            onCityNameClick={()=>{}}
+          />,
         </Provider>,
         {
           createNodeMock: () => {
@@ -100,12 +98,8 @@ describe(`MainSnapshot`, () => {
 
   it(`should render placeholder if offers array is empty`, () => {
     const store = mockStore({
-      [NameSpace.CATALOG]: {
-        activeSorting: `popular`,
-      },
       [NameSpace.DATA]: {
         offersList: [],
-        city
       },
     });
 
@@ -113,6 +107,8 @@ describe(`MainSnapshot`, () => {
         <Provider store={store}>
           <Main
             offersList={[]}
+            activeCity={city}
+            onCityNameClick={() => {}}
             onOfferTitleClick={() => {}}
           />
         </Provider>,

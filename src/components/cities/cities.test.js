@@ -1,11 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import configureStore from 'redux-mock-store';
-import {Provider} from 'react-redux';
 import Cities from './cities.jsx';
-import NameSpace from '../../reducer/name-space.js';
-
-const mockStore = configureStore([]);
 
 const mock = {
   offers: [
@@ -74,26 +69,14 @@ describe(`CitiesSnapshot`, () => {
   it(`should render Cities`, () => {
     const {offers, city} = mock;
 
-    const store = mockStore({
-      [NameSpace.CATALOG]: {
-        activeSorting: `popular`,
-      },
-      [NameSpace.DATA]: {
-        offersList: offers,
-        city,
-      },
-    });
-
     const tree = renderer.create(
-        <Provider store={store}>
-          <Cities
-            offers={offers}
-            activeCard={-1}
-            activeCity={city}
-            onOfferCardEnter={() => {}}
-            onOfferTitleClick={() => {}}
-          />
-        </Provider>,
+        <Cities
+          offers={offers}
+          activeCard={-1}
+          activeCity={city}
+          onOfferCardEnter={() => {}}
+          onOfferTitleClick={() => {}}
+        />,
         {
           createNodeMock: () => {
             return document.createElement(`div`);

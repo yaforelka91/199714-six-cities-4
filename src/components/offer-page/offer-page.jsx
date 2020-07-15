@@ -24,7 +24,13 @@ const OfferPage = ({offer, offersList, onOfferTitleClick}) => {
     host,
   } = offer;
 
-  const filteredOffers = offersList.filter(({id}) => id !== offerId).slice(0, MAX_COUNT_MARKERS);
+  const filteredOffers = offersList
+  .filter((item) => {
+    return item.city.name === offer.city.name;
+  })
+  .filter(({id}) => id !== offerId)
+  .slice(0, MAX_COUNT_MARKERS);
+
   const offersCoords = [...filteredOffers, offer].map(({id, coords}) => ({id, coords}));
 
   return (

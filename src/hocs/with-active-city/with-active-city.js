@@ -1,61 +1,49 @@
 import React, {PureComponent} from 'react';
-import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {ActionCreator} from '../../reducer/data/data.js';
-import {getOffers, getCity, getError} from '../../reducer/data/selectors';
 import {cityShape} from '../../types/types';
 
 const withActiveCity = (Component) => {
   class WithActiveCity extends PureComponent {
     constructor(props) {
       super(props);
+
+      this.state = {
+        activeCity: this.props.offersList[0].city,
+      };
+
+      this._handleActiveChange = this._handleActiveChange.bind(this);
     }
+
+    _handleActiveChange(item) {
+      this.setState({
+        activeCity: item,
+      });
+    }
+
     render() {
-      const {activeCity, onCityNameClick, offers, isError} = this.props;
-      const citiesList = [...new Set(offers
-        .map((offer) => offer.city)
-        .map((o) => JSON.stringify(o))
-      )]
-        .map((s) => JSON.parse(s));
+      const {activeCity} = this.state;
+      const filteredOffers = this.props.offersList.filter((offer) => {
+        return offer.city.name === activeCity.name;
+      });
 
       return (
         <Component
           {...this.props}
+          offersList={filteredOffers}
           activeCity={activeCity}
-          citiesList={citiesList}
-          onCityNameClick={onCityNameClick}
-          isError={isError}
+          onCityNameClick={this._handleActiveChange}
         />
       );
     }
   }
 
-  WithActiveCity.defaultProps = {
-    isError: false,
-  };
-
   WithActiveCity.propTypes = {
-    offers: PropTypes.arrayOf(PropTypes.shape({
+    offersList: PropTypes.arrayOf(PropTypes.shape({
       city: cityShape.isRequired,
     })).isRequired,
-    activeCity: cityShape.isRequired,
-    onCityNameClick: PropTypes.func.isRequired,
-    isError: PropTypes.bool.isRequired,
   };
 
-  const mapStateToProps = (state) => ({
-    activeCity: getCity(state),
-    offers: getOffers(state),
-    isError: getError(state),
-  });
-
-  const mapDispatchToProps = (dispatch) => ({
-    onCityNameClick(city) {
-      dispatch(ActionCreator.changeCity(city));
-    },
-  });
-
-  return connect(mapStateToProps, mapDispatchToProps)(WithActiveCity);
+  return WithActiveCity;
 };
 
 export default withActiveCity;

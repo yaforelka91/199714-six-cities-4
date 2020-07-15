@@ -72,12 +72,8 @@ const city = {
 describe(`MainE2E`, () => {
   it(`Should offer title be pressed`, () => {
     const store = mockStore({
-      [NameSpace.CATALOG]: {
-        activeSorting: `popular`,
-      },
       [NameSpace.DATA]: {
         offersList,
-        city
       },
     });
 
@@ -87,6 +83,8 @@ describe(`MainE2E`, () => {
         <Provider store={store}>
           <Main
             offersList={offersList}
+            activeCity={city}
+            onCityNameClick={()=>{}}
             onOfferTitleClick={onOfferTitleClick}
           />
         </Provider>

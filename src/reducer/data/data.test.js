@@ -118,35 +118,7 @@ describe(`Reducer works correctly`, () => {
   it(`Reducer without additional parameters should return initialState`, () => {
     expect(reducer(undefined, {})).toEqual({
       offersList: [],
-      city: {
-        name: ``,
-        coords: [0, 0],
-        zoom: 0,
-      },
       error: false,
-    });
-  });
-
-  it(`Reducer should change current city by a given value`, () => {
-    expect(reducer({
-      city: {
-        name: ``,
-        coords: [0, 0],
-        zoom: 0,
-      },
-    }, {
-      type: ActionType.CHANGE_CITY,
-      payload: {
-        name: `city`,
-        coords: [1, 1],
-        zoom: 1,
-      },
-    })).toEqual({
-      city: {
-        name: `city`,
-        coords: [1, 1],
-        zoom: 1,
-      },
     });
   });
 
@@ -174,21 +146,6 @@ describe(`Reducer works correctly`, () => {
 });
 
 describe(`Action creators work correctly`, () => {
-  it(`Action creator for changing city returns action with 1 payload`, () => {
-    expect(ActionCreator.changeCity({
-      name: `city 3`,
-      coords: [2, 2],
-      zoom: 3,
-    })).toEqual({
-      type: ActionType.CHANGE_CITY,
-      payload: {
-        name: `city 3`,
-        coords: [2, 2],
-        zoom: 3,
-      },
-    });
-  });
-
   it(`Action creator for set error returns action with true payload`, () => {
     expect(ActionCreator.catchError(true)).toEqual({
       type: ActionType.CATCH_ERROR,
@@ -209,7 +166,7 @@ describe(`Operation works correctly`, () => {
 
     return offersLoader(dispatch, () => {}, api)
         .then(() => {
-          expect(dispatch).toHaveBeenCalledTimes(2);
+          expect(dispatch).toHaveBeenCalledTimes(1);
           expect(dispatch).toHaveBeenNthCalledWith(1, {
             type: ActionType.LOAD_OFFERS,
             payload: [{fake: true}],

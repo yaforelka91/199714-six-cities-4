@@ -77,12 +77,12 @@ exports[`AppSnapshot should render Main page 1`] = `
             className="locations__item"
           >
             <a
-              className="locations__item-link tabs__item "
+              className="locations__item-link tabs__item tabs__item--active"
               href="#"
               onClick={[Function]}
             >
               <span>
-                Hamburg
+                Dusseldorf
               </span>
             </a>
           </li>
@@ -90,12 +90,12 @@ exports[`AppSnapshot should render Main page 1`] = `
             className="locations__item"
           >
             <a
-              className="locations__item-link tabs__item tabs__item--active"
+              className="locations__item-link tabs__item "
               href="#"
               onClick={[Function]}
             >
               <span>
-                Dusseldorf
+                Hamburg
               </span>
             </a>
           </li>
@@ -119,7 +119,7 @@ exports[`AppSnapshot should render Main page 1`] = `
           <b
             className="places__found"
           >
-            3
+            2
              places to stay in 
             Dusseldorf
           </b>

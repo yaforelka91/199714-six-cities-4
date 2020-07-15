@@ -1,9 +1,6 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import {SortType} from '../../const.js';
 import {sortingTypes} from '../../types/types.js';
-import {getSorting} from '../../reducer/catalog/selectors.js';
-import {ActionCreator} from '../../reducer/catalog/catalog.js';
 
 const sortItems = [
   {
@@ -23,7 +20,6 @@ const sortItems = [
     text: `Top rated first`,
   },
 ];
-
 const Sorting = ({activeSorting, isOpen, onSortItemClick, onToggleMenu, onSelectMenu}) => {
   return (
     <form className="places__sorting" action="#" method="get">
@@ -87,15 +83,4 @@ const Sorting = ({activeSorting, isOpen, onSortItemClick, onToggleMenu, onSelect
 
 Sorting.propTypes = sortingTypes;
 
-const mapStateToProps = (state) => ({
-  activeSorting: getSorting(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onSortItemClick(sortType) {
-    dispatch(ActionCreator.changeSort(sortType));
-  },
-});
-
-export {Sorting};
-export default connect(mapStateToProps, mapDispatchToProps)(Sorting);
+export default Sorting;

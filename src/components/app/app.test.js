@@ -5,64 +5,12 @@ import configureStore from 'redux-mock-store';
 import {App} from './app.jsx';
 import {CityList} from '../../const.js';
 import NameSpace from '../../reducer/name-space.js';
-import {getFilteredOffers} from '../../reducer/catalog/selectors.js';
+import {getActiveOffer} from '../../reducer/catalog/selectors.js';
+import {getOffers} from '../../reducer/data/selectors.js';
 
 const mockStore = configureStore([]);
 
 const offersList = [
-  {
-    city: {
-      name: CityList.HAMBURG,
-      coords: [53.552645, 9.966287],
-      zoom: 1,
-    },
-    id: 7,
-    coords: [53.553542, 9.912283],
-    title: `Apartment in Hamburg`,
-    description: [
-      `A quiet cozy and picturesque that hides behind a 
-          river by the unique lightness of Amsterdam.
-          The building is green and from 18th century.`,
-      `An independent House, strategically located 
-          between Rembrand Square and National Opera, 
-          but where the bustle of the city comes to rest 
-          in this alley flowery and colorful.`
-    ],
-    picture: `http://placeimg.com/260/200/arch`,
-    pictures: [
-      `http://placeimg.com/260/200/arch`,
-      `http://placeimg.com/260/200/arch`,
-      `http://placeimg.com/260/200/arch`,
-      `http://placeimg.com/260/200/arch`,
-      `http://placeimg.com/260/200/arch`,
-      `http://placeimg.com/260/200/arch`
-    ],
-    price: 180,
-    type: `Apartment`,
-    isPremium: true,
-    isFavorite: false,
-    rating: 4.9,
-    bedrooms: 4,
-    guests: 6,
-    services: [
-      `Wi-Fi`,
-      `Washing machine`,
-      `Towels`,
-      `Heating`,
-      `Coffee machine`,
-      `Baby seat`,
-      `Kitchen`,
-      `Dishwasher`,
-      `Cabel TV`,
-      `Fridge`,
-    ],
-    host: {
-      id: 1,
-      name: `Bob`,
-      picture: `http://placekitten.com/74/74`,
-      isSuper: true,
-    },
-  },
   {
     city: {
       name: CityList.DUSSELDORF,
@@ -111,6 +59,59 @@ const offersList = [
     ],
     host: {
       id: 2,
+      name: `Bob`,
+      picture: `http://placekitten.com/74/74`,
+      isSuper: true,
+    },
+  },
+  {
+    city: {
+      name: CityList.HAMBURG,
+      coords: [53.552645, 9.966287],
+      zoom: 1,
+    },
+    id: 7,
+    coords: [53.553542, 9.912283],
+    title: `Apartment in Hamburg`,
+    description: [
+      `A quiet cozy and picturesque that hides behind a 
+          river by the unique lightness of Amsterdam.
+          The building is green and from 18th century.`,
+      `An independent House, strategically located 
+          between Rembrand Square and National Opera, 
+          but where the bustle of the city comes to rest 
+          in this alley flowery and colorful.`
+    ],
+    picture: `http://placeimg.com/260/200/arch`,
+    pictures: [
+      `http://placeimg.com/260/200/arch`,
+      `http://placeimg.com/260/200/arch`,
+      `http://placeimg.com/260/200/arch`,
+      `http://placeimg.com/260/200/arch`,
+      `http://placeimg.com/260/200/arch`,
+      `http://placeimg.com/260/200/arch`
+    ],
+    price: 180,
+    type: `Apartment`,
+    isPremium: true,
+    isFavorite: false,
+    rating: 4.9,
+    bedrooms: 4,
+    guests: 6,
+    services: [
+      `Wi-Fi`,
+      `Washing machine`,
+      `Towels`,
+      `Heating`,
+      `Coffee machine`,
+      `Baby seat`,
+      `Kitchen`,
+      `Dishwasher`,
+      `Cabel TV`,
+      `Fridge`,
+    ],
+    host: {
+      id: 1,
       name: `Bob`,
       picture: `http://placekitten.com/74/74`,
       isSuper: true,
@@ -171,30 +172,22 @@ const offersList = [
   },
 ];
 
-const city = {
-  name: CityList.DUSSELDORF,
-  coords: [51.230569, 6.787428],
-  zoom: 1,
-};
-
 describe(`AppSnapshot`, () => {
   it(`should render Main page`, () => {
     const store = mockStore({
       [NameSpace.CATALOG]: {
-        activeSorting: `popular`,
         activeCard: -1,
       },
       [NameSpace.DATA]: {
         offersList,
-        city,
       },
     });
 
     const tree = renderer.create(
         <Provider store={store}>
           <App
-            offersList={getFilteredOffers(store.getState())}
-            activeCard={-1}
+            offersList={offersList}
+            activeCard={getActiveOffer(store.getState())}
             onOfferTitleClick={() => {}}
           />
         </Provider>,
@@ -215,15 +208,14 @@ describe(`AppSnapshot`, () => {
       },
       [NameSpace.DATA]: {
         offersList,
-        city,
       },
     });
 
     const tree = renderer.create(
         <Provider store={store}>
           <App
-            activeCard={8}
-            offersList={getFilteredOffers(store.getState())}
+            activeCard={getActiveOffer(store.getState())}
+            offersList={getOffers(store.getState())}
             onOfferTitleClick={() => {}}
           />
         </Provider>,

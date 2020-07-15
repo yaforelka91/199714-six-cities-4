@@ -3,17 +3,11 @@ import adaptOffers from '../../adapters/offers.js';
 
 const initialState = {
   offersList: [],
-  city: {
-    name: ``,
-    coords: [0, 0],
-    zoom: 0,
-  },
   error: false,
 };
 
 const ActionType = {
   LOAD_OFFERS: `LOAD_OFFERS`,
-  CHANGE_CITY: `CHANGE_CITY`,
   CATCH_ERROR: `CATH_ERROR`,
 };
 
@@ -24,10 +18,6 @@ const ActionCreator = {
       payload: offers,
     };
   },
-  changeCity: (cityName) => ({
-    type: ActionType.CHANGE_CITY,
-    payload: cityName,
-  }),
   catchError: (errorType) => ({
     type: ActionType.CATCH_ERROR,
     payload: errorType,
@@ -41,7 +31,6 @@ const Operation = {
         const adaptedOffers = adaptOffers(response.data);
 
         dispatch(ActionCreator.loadOffers(adaptedOffers));
-        dispatch(ActionCreator.changeCity(adaptedOffers[0].city));
       })
       .catch(() => {
         dispatch(ActionCreator.catchError(true));
@@ -54,10 +43,6 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOAD_OFFERS:
       return extend(state, {
         offersList: action.payload,
-      });
-    case ActionType.CHANGE_CITY:
-      return extend(state, {
-        city: action.payload,
       });
     case ActionType.CATCH_ERROR:
       return extend(state, {
