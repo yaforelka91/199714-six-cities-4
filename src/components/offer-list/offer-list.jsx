@@ -13,7 +13,7 @@ class OfferList extends PureComponent {
     } = this.props;
 
     return (
-      <div className={`places__list ${className}`}>
+      <div className={`places__list${className ? ` ${className}` : ``}`}>
         {offers.map((offer) => (
           <OfferCard
             key={offer.id}

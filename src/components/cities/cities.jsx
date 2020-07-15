@@ -12,7 +12,7 @@ class Cities extends PureComponent {
         <div className={`cities__places-container container${offers.length === 0 ? ` cities__places-container--empty` : ``}`}>
           {offers.length > 0 ?
             <Places
-              className={`cities__places`}
+              className='cities__places'
               offers={offers}
               city={city}
               activeSorting={activeSorting}
@@ -27,7 +27,7 @@ class Cities extends PureComponent {
                 offers={offers.map(({id: offerId, coords}) => ({offerId, coords}))}
                 activeCity={city.coords}
                 activeCard={activeCard}
-                className={`cities__map`}
+                className='cities__map'
               />
             }
           </div>

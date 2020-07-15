@@ -18,7 +18,7 @@ const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, isNear}) => {
 
   return (
     <article
-      className={`place-card ${isNear ? `near-places__card` : `cities__place-card`}`}
+      className={`place-card${isNear ? ` near-places__card` : ` cities__place-card`}`}
       onMouseEnter={handleCardMouseEnter}
     >
       {
@@ -26,7 +26,7 @@ const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, isNear}) => {
           <span>Premium</span>
         </div>
       }
-      <div className={`place-card__image-wrapper ${isNear ? `near-places__image-wrapper` : `cities__image-wrapper`}`}>
+      <div className={`place-card__image-wrapper${isNear ? ` near-places__image-wrapper` : ` cities__image-wrapper`}`}>
         <a href="#">
           <img className="place-card__image" src={picture} width="260" height="200" alt="Place image" />
         </a>

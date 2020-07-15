@@ -2,7 +2,7 @@
 
 exports[`MapSnapshot should render Map 1`] = `
 <section
-  className=" map"
+  className="map"
 >
   <div
     style={

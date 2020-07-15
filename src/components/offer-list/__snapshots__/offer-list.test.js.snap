@@ -2,7 +2,7 @@
 
 exports[`OfferListSnapshot should render OfferList 1`] = `
 <div
-  className="places__list "
+  className="places__list"
 >
   <article
     className="place-card cities__place-card"

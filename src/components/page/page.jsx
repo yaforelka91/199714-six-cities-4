@@ -2,11 +2,9 @@ import React from 'react';
 import Header from '../header/header.jsx';
 import {pageTypes} from '../../types/types.js';
 
-const Page = (props) => {
-  const {className, children} = props;
-
+const Page = ({className, children}) => {
   return (
-    <div className={`page${className}`}>
+    <div className={`page${className ? ` ${className}` : ``}`}>
       <Header />
 
       {children}

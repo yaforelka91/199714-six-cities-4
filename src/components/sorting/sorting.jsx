@@ -34,12 +34,12 @@ const Sorting = ({activeSorting, isOpen, onSortItemClick, onToggleMenu, onSelect
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
-      <ul className={`places__options places__options--custom ${isOpen ? `places__options--opened` : ``}`}>
+      <ul className={`places__options places__options--custom${isOpen ? ` places__options--opened` : ``}`}>
         {
           sortItems.map((item)=>(
             <li
               key={item.type}
-              className={`places__option ${item.type === activeSorting ? `places__option--active` : ``}`}
+              className={`places__option${item.type === activeSorting ? ` places__option--active` : ``}`}
               tabIndex="0"
               onClick={() => {
                 onSortItemClick(item.type);

@@ -106,7 +106,7 @@ const OfferPage = ({offer, offersList, city, onOfferTitleClick}) => {
             <div className="property__host">
               <h2 className="property__host-title">Meet the host</h2>
               <div className="property__host-user user">
-                <div className={`property__avatar-wrapper ${host.isSuper && `property__avatar-wrapper--pro`} user__avatar-wrapper`}>
+                <div className={`property__avatar-wrapper${host.isSuper && ` property__avatar-wrapper--pro`} user__avatar-wrapper`}>
                   <img className="property__avatar user__avatar" src={host.picture} width="74" height="74" alt="Host avatar" />
                 </div>
                 <span className="property__user-name">
