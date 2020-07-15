@@ -1,5 +1,5 @@
-export default {
-  '0': {
+export default [
+  {
     id: 0,
     user: {
       name: `Max`,
@@ -9,7 +9,7 @@ export default {
     feedback: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
     visitTime: `2019-04-24`,
   },
-  '1': {
+  {
     id: 1,
     user: {
       name: `Maria`,
@@ -19,7 +19,7 @@ export default {
     feedback: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
     visitTime: `2018-05-25`,
   },
-  '2': {
+  {
     id: 2,
     user: {
       name: `Mike`,
@@ -29,7 +29,7 @@ export default {
     feedback: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
     visitTime: `2019-01-01`,
   },
-  '3': {
+  {
     id: 3,
     user: {
       name: `Alice`,
@@ -39,7 +39,7 @@ export default {
     feedback: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
     visitTime: `2016-12-30`,
   },
-  '4': {
+  {
     id: 4,
     user: {
       name: `John`,
@@ -49,4 +49,4 @@ export default {
     feedback: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
     visitTime: `2020-03-08`,
   },
-};
+];

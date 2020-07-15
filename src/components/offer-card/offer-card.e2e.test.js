@@ -3,6 +3,11 @@ import {shallow} from 'enzyme';
 import OfferCard from './offer-card.jsx';
 
 const offer = {
+  city: {
+    name: `city 1`,
+    coords: [0, 0],
+    zoom: 1,
+  },
   id: 0,
   coords: [52.3909553943508, 4.85309666406198],
   title: `Beautiful & luxurious apartment at great location`,
@@ -27,9 +32,10 @@ in this alley flowery and colorful.`
   price: 120,
   type: `Apartment`,
   isPremium: true,
+  isFavorite: false,
   rating: 4.1,
-  bedrooms: `3 Bedrooms`,
-  guests: `Max 4 adults`,
+  bedrooms: 3,
+  guests: 4,
   services: [
     `Wi-Fi`,
     `Washing machine`,
@@ -43,11 +49,11 @@ in this alley flowery and colorful.`
     `Fridge`,
   ],
   host: {
+    id: 1,
     name: `Angelina`,
     picture: `http://placekitten.com/74/74`,
     isSuper: true,
   },
-  reviews: [`0`, `1`],
 };
 
 describe(`OfferCardE2E`, () => {
