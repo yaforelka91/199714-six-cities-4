@@ -67,8 +67,23 @@ export const cityListTypes = {
 
 export const cityListItemTypes = {
   city: cityShape.isRequired,
-  activeCity: PropTypes.string.isRequired,
+  classNameLink: PropTypes.string.isRequired,
   onCityNameClick: PropTypes.func.isRequired,
+};
+
+export const headerTypes = {
+  authorizationStatus: PropTypes.string.isRequired,
+  userData: PropTypes.shape({
+    email: PropTypes.string.isRequired,
+    picture: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
+export const loginTypes = {
+  activeCity: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+  }).isRequired,
+  onFormSubmit: PropTypes.func.isRequired,
 };
 
 export const mainTypes = {

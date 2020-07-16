@@ -40,6 +40,18 @@ const withActiveCity = (Component) => {
     }
   }
 
+  WithActiveCity.defaultProps = {
+    offersList: [
+      {
+        city: {
+          name: `Paris`,
+          coords: [0, 0],
+          zoom: 1,
+        }
+      }
+    ]
+  };
+
   WithActiveCity.propTypes = {
     offersList: PropTypes.arrayOf(PropTypes.shape({
       city: cityShape.isRequired,

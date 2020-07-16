@@ -13,8 +13,6 @@ describe(`CityListItemSnapshot`, () => {
     const tree = renderer.create(
         <CityListItem
           city={city}
-          activeCity='city 1'
-          onCityNameClick={() => {}}
         />
     ).toJSON();
 

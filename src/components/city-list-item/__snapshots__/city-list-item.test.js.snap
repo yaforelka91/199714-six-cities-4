@@ -5,7 +5,7 @@ exports[`CityListItemSnapshot should render CityListItem 1`] = `
   className="locations__item"
 >
   <a
-    className="locations__item-link tabs__item tabs__item--active"
+    className="locations__item-link"
     href="#"
     onClick={[Function]}
   >

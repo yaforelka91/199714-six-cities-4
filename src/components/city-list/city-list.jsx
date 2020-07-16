@@ -13,8 +13,8 @@ const CityList = ({citiesList, activeCity, onCityNameClick}) => {
               <CityListItem
                 key={city.name}
                 city={city}
-                activeCity={activeCity.name}
                 onCityNameClick={onCityNameClick}
+                classNameLink={`tabs__item${city.name === activeCity.name ? ` tabs__item--active` : ``}`}
               />
             ))
       }

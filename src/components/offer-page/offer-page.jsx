@@ -4,6 +4,7 @@ import reviewsList from '../../mocks/reviews.js';
 import Map from '../map/map.jsx';
 import OfferList from '../offer-list/offer-list.jsx';
 import {offerPageTypes} from '../../types/types.js';
+import {capitalize} from '../../utils.js';
 
 const MAX_COUNT_PICTURES = 6;
 const MAX_COUNT_MARKERS = 3;
@@ -80,10 +81,10 @@ const OfferPage = ({offer, offersList, onOfferTitleClick}) => {
             </div>
             <ul className="property__features">
               <li className="property__feature property__feature--entire">
-                {type}
+                {capitalize(type)}
               </li>
               <li className="property__feature property__feature--bedrooms">
-                {`${bedrooms} bedrooms`}
+                {`${bedrooms} ${capitalize(`bedrooms`)}`}
               </li>
               <li className="property__feature property__feature--adults">
                 {`Max ${guests} adults`}

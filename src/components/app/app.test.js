@@ -7,6 +7,8 @@ import {CityList} from '../../const.js';
 import NameSpace from '../../reducer/name-space.js';
 import {getActiveOffer} from '../../reducer/catalog/selectors.js';
 import {getOffers} from '../../reducer/data/selectors.js';
+import {AuthorizationStatus} from '../../reducer/user/user.js';
+import {getUserData, getAuthorizationStatus} from '../../reducer/user/selectors.js';
 
 const mockStore = configureStore([]);
 
@@ -172,6 +174,11 @@ const offersList = [
   },
 ];
 
+const userData = {
+  email: `test@test.com`,
+  picture: `/pic1.jpg`
+};
+
 describe(`AppSnapshot`, () => {
   it(`should render Main page`, () => {
     const store = mockStore({
@@ -181,11 +188,18 @@ describe(`AppSnapshot`, () => {
       [NameSpace.DATA]: {
         offersList,
       },
+      [NameSpace.USER]: {
+        authorizationStatus: AuthorizationStatus.AUTH,
+        userData,
+      }
     });
 
     const tree = renderer.create(
         <Provider store={store}>
           <App
+            authorizationStatus={getAuthorizationStatus(store.getState())}
+            login={() => {}}
+            userData={userData}
             offersList={offersList}
             activeCard={getActiveOffer(store.getState())}
             onOfferTitleClick={() => {}}
@@ -200,7 +214,6 @@ describe(`AppSnapshot`, () => {
 
     expect(tree).toMatchSnapshot();
   });
-
   it(`should render Offer page`, () => {
     const store = mockStore({
       [NameSpace.CATALOG]: {
@@ -209,13 +222,58 @@ describe(`AppSnapshot`, () => {
       [NameSpace.DATA]: {
         offersList,
       },
+      [NameSpace.USER]: {
+        authorizationStatus: AuthorizationStatus.AUTH,
+        userData,
+      }
     });
 
     const tree = renderer.create(
         <Provider store={store}>
           <App
+            authorizationStatus={getAuthorizationStatus(store.getState())}
+            login={() => {}}
+            userData={userData}
             activeCard={getActiveOffer(store.getState())}
             offersList={getOffers(store.getState())}
+            onOfferTitleClick={() => {}}
+          />
+        </Provider>,
+        {
+          createNodeMock: () => {
+            return document.createElement(`div`);
+          }
+        }
+    ).toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
+  it(`should render Login page`, () => {
+    const store = mockStore({
+      [NameSpace.CATALOG]: {
+        activeCard: -1,
+      },
+      [NameSpace.DATA]: {
+        offersList,
+      },
+      [NameSpace.USER]: {
+        authorizationStatus: AuthorizationStatus.NO_AUTH,
+        userData: {
+          email: ``,
+          picture: ``,
+        }
+      }
+    });
+
+    const tree = renderer.create(
+        <Provider store={store}>
+          <App
+            authorizationStatus={getAuthorizationStatus(store.getState())}
+            login={() => {}}
+            userData={getUserData(store.getState())}
+            offersList={offersList}
+            activeCard={getActiveOffer(store.getState())}
             onOfferTitleClick={() => {}}
           />
         </Provider>,

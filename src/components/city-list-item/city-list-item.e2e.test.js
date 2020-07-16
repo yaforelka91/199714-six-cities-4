@@ -15,7 +15,6 @@ describe(`CityListItemE2E`, () => {
     const cityListItem = shallow(
         <CityListItem
           city={city}
-          activeCity='city 1'
           onCityNameClick={onCityNameClick}
         />
     );
