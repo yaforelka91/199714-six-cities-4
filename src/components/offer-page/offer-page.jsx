@@ -4,9 +4,11 @@ import reviewsList from '../../mocks/reviews.js';
 import Map from '../map/map.jsx';
 import OfferList from '../offer-list/offer-list.jsx';
 import {offerPageTypes} from '../../types/types.js';
+import {capitalize} from '../../utils.js';
+import {connect} from 'react-redux';
+import {getActiveOffer, getNearestOffers} from '../../reducer/catalog/selectors.js';
 
 const MAX_COUNT_PICTURES = 6;
-const MAX_COUNT_MARKERS = 3;
 
 const OfferPage = ({offer, offersList, onOfferTitleClick}) => {
   const {
@@ -24,14 +26,8 @@ const OfferPage = ({offer, offersList, onOfferTitleClick}) => {
     host,
   } = offer;
 
-  const filteredOffers = offersList
-  .filter((item) => {
-    return item.city.name === offer.city.name;
-  })
-  .filter(({id}) => id !== offerId)
-  .slice(0, MAX_COUNT_MARKERS);
 
-  const offersCoords = [...filteredOffers, offer].map(({id, coords}) => ({id, coords}));
+  const offersCoords = [...offersList, offer].map(({id, coords}) => ({id, coords}));
 
   return (
     <main className="page__main page__main--property">
@@ -80,10 +76,10 @@ const OfferPage = ({offer, offersList, onOfferTitleClick}) => {
             </div>
             <ul className="property__features">
               <li className="property__feature property__feature--entire">
-                {type}
+                {capitalize(type)}
               </li>
               <li className="property__feature property__feature--bedrooms">
-                {`${bedrooms} bedrooms`}
+                {`${bedrooms} ${capitalize(`bedrooms`)}`}
               </li>
               <li className="property__feature property__feature--adults">
                 {`Max ${guests} adults`}
@@ -180,13 +176,13 @@ const OfferPage = ({offer, offersList, onOfferTitleClick}) => {
             </section>
           </div>
         </div>
-        <Map offers={offersCoords} activeCity={offer.city.coords} activeCard={offerId} zoom={offer.city.zoom} className={`property__map`} />
+        <Map offers={offersCoords} activeCard={offerId} className={`property__map`} />
       </section>
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <OfferList
-            offers={filteredOffers}
+            offers={offersList}
             onOfferTitleClick={onOfferTitleClick}
             className='near-places__list'
             isNear={true}
@@ -199,4 +195,10 @@ const OfferPage = ({offer, offersList, onOfferTitleClick}) => {
 
 OfferPage.propTypes = offerPageTypes;
 
-export default OfferPage;
+const mapStateToProps = (state) => ({
+  offer: getActiveOffer(state),
+  offersList: getNearestOffers(state),
+});
+
+export {OfferPage};
+export default connect(mapStateToProps)(OfferPage);

@@ -8,9 +8,14 @@ import App from './components/app/app.jsx';
 import reducer from './reducer/reducer.js';
 import {Operation as DataOperation} from './reducer/data/data.js';
 import {createAPI} from './api';
+import {AuthorizationStatus, ActionCreator, Operation as UserOperation} from './reducer/user/user.js';
 
 const init = () => {
-  const api = createAPI(() => {});
+  const onUnauthorized = () => {
+    store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
+  };
+
+  const api = createAPI(onUnauthorized);
 
   const store = createStore(
       reducer,
@@ -28,6 +33,9 @@ const init = () => {
 
         document.querySelector(`#root`)
     );
+  })
+  .then(() => {
+    store.dispatch(UserOperation.checkAuth());
   });
 };
 

@@ -153,7 +153,7 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
           <li
             className="property__feature property__feature--bedrooms"
           >
-            3 bedrooms
+            3 Bedrooms
           </li>
           <li
             className="property__feature property__feature--adults"

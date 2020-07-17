@@ -1,14 +1,15 @@
 import {extend} from '../../utils.js';
 import adaptOffers from '../../adapters/offers.js';
+import {ActionCreator as CatalogActionCreator} from '../catalog/catalog.js';
 
 const initialState = {
   offersList: [],
-  error: false,
+  errorType: ``,
 };
 
 const ActionType = {
   LOAD_OFFERS: `LOAD_OFFERS`,
-  CATCH_ERROR: `CATH_ERROR`,
+  CATCH_ERROR: `CATCH_ERROR`,
 };
 
 const ActionCreator = {
@@ -18,9 +19,9 @@ const ActionCreator = {
       payload: offers,
     };
   },
-  catchError: (errorType) => ({
+  catchError: (errorMessage) => ({
     type: ActionType.CATCH_ERROR,
-    payload: errorType,
+    payload: errorMessage,
   })
 };
 
@@ -31,9 +32,11 @@ const Operation = {
         const adaptedOffers = adaptOffers(response.data);
 
         dispatch(ActionCreator.loadOffers(adaptedOffers));
+        dispatch(CatalogActionCreator.changeCity(adaptedOffers[0].city.name));
       })
-      .catch(() => {
-        dispatch(ActionCreator.catchError(true));
+      .catch((err) => {
+        const {message} = err;
+        dispatch(ActionCreator.catchError(message));
       });
   },
 };
@@ -46,7 +49,7 @@ const reducer = (state = initialState, action) => {
       });
     case ActionType.CATCH_ERROR:
       return extend(state, {
-        error: action.payload,
+        errorType: action.payload,
       });
   }
   return state;

@@ -4,10 +4,11 @@ describe(`Reducer works correctly`, () => {
   it(`Reducer without additional parameters should return initialState`, () => {
     expect(reducer(undefined, {})).toEqual({
       activeCard: -1,
+      activeCity: ``,
     });
   });
 
-  it(`Reducer should change active offer by a given value`, () => {
+  it(`Reducer should change active offer id by a given value`, () => {
     expect(reducer({
       activeCard: -1,
     }, {
@@ -17,6 +18,17 @@ describe(`Reducer works correctly`, () => {
       activeCard: 1,
     });
   });
+
+  it(`Reducer should change active city by a given value`, () => {
+    expect(reducer({
+      activeCity: ``,
+    }, {
+      type: ActionType.CHANGE_CITY,
+      payload: `Amsterdam`,
+    })).toEqual({
+      activeCity: `Amsterdam`,
+    });
+  });
 });
 
 describe(`Action creators work correctly`, () => {
@@ -24,6 +36,13 @@ describe(`Action creators work correctly`, () => {
     expect(ActionCreator.setActiveCard(1)).toEqual({
       type: ActionType.SET_ACTIVE_CARD,
       payload: 1,
+    });
+  });
+
+  it(`Action creator for changing active city returns action with city payload`, () => {
+    expect(ActionCreator.changeCity(`Amsterdam`)).toEqual({
+      type: ActionType.CHANGE_CITY,
+      payload: `Amsterdam`,
     });
   });
 });

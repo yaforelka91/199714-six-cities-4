@@ -12,6 +12,8 @@ const ICON_ACTIVE = leaflet.icon({
   iconSize: [27, 39]
 });
 
+const ZOOM = 12;
+
 class Map extends PureComponent {
   constructor(props) {
     super(props);
@@ -25,11 +27,7 @@ class Map extends PureComponent {
     this._renderMap();
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.activeCity !== this.props.activeCity) {
-      this._mapObject.setView(this.props.activeCity, this.props.zoom);
-    }
-
+  componentDidUpdate() {
     this._clearMarkers();
     this._renderMarkers();
   }
@@ -50,16 +48,12 @@ class Map extends PureComponent {
       this._mapObject.remove();
     }
 
-    const {activeCity, zoom} = this.props;
-
     this._mapObject = leaflet.map(mapElement, {
-      center: activeCity,
-      zoom,
+      center: [0, 0],
+      zoom: ZOOM,
       zoomControl: false,
       marker: true
     });
-
-    this._mapObject.setView(activeCity, zoom);
 
     leaflet.tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
       attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
@@ -75,7 +69,23 @@ class Map extends PureComponent {
 
   _renderMarkers() {
     const {offers, activeCard} = this.props;
+
+    let minlat = 200; let minlon = 200; let maxlat = -200; let maxlon = -200;
+
     offers.forEach(({id, coords}) => {
+      if (minlat > coords[0]) {
+        minlat = coords[0];
+      }
+      if (minlon > coords[1]) {
+        minlon = coords[1];
+      }
+      if (maxlat < coords[0]) {
+        maxlat = coords[0];
+      }
+      if (maxlon < coords[1]) {
+        maxlon = coords[1];
+      }
+
       const marker = leaflet
         .marker(coords, {
           icon: id === activeCard ? ICON_ACTIVE : ICON,
@@ -83,6 +93,11 @@ class Map extends PureComponent {
         .addTo(this._mapObject);
       this._markers.push({id, marker});
     });
+
+    const c1 = leaflet.latLng(minlat, minlon);
+    const c2 = leaflet.latLng(maxlat, maxlon);
+
+    this._mapObject.fitBounds(leaflet.latLngBounds(c1, c2), {padding: [20, 20]});
   }
 
   render() {

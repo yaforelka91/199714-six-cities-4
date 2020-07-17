@@ -2,10 +2,10 @@ import React from 'react';
 import Header from '../header/header.jsx';
 import {pageTypes} from '../../types/types.js';
 
-const Page = ({className, children}) => {
+const Page = ({className, authorizationStatus, userData, children}) => {
   return (
     <div className={`page${className ? ` ${className}` : ``}`}>
-      <Header />
+      <Header authorizationStatus={authorizationStatus} userData={userData} />
 
       {children}
     </div>
