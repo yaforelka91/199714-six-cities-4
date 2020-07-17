@@ -1,18 +1,22 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Login from './login.jsx';
+import {Login} from './login.jsx';
+import {Provider} from 'react-redux';
+import configureStore from 'redux-mock-store';
+
+const mockStore = configureStore([]);
 
 describe(`LoginSnapshot`, () => {
   it(`should render Login page`, () => {
+    const store = mockStore({});
+
     const tree = renderer.create(
-        <Login
-          activeCity={{
-            name: `Amsterdam`,
-            coords: [0, 0],
-            zoom: 0,
-          }}
-          onFormSubmit={() => {}}
-        />
+        <Provider store={store}>
+          <Login
+            activeCity='Amsterdam'
+            onFormSubmit={() => {}}
+          />
+        </Provider>
     ).toJSON();
 
     expect(tree).toMatchSnapshot();

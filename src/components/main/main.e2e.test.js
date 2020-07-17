@@ -2,8 +2,7 @@ import React from 'react';
 import {mount} from 'enzyme';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
-import Main from './main.jsx';
-import NameSpace from '../../reducer/name-space.js';
+import {Main} from './main.jsx';
 
 const mockStore = configureStore([]);
 
@@ -63,19 +62,11 @@ const offersList = [
   },
 ];
 
-const city = {
-  name: `city 1`,
-  coords: [0, 0],
-  zoom: 1,
-};
+const city = `city 1`;
 
 describe(`MainE2E`, () => {
   it(`Should offer title be pressed`, () => {
-    const store = mockStore({
-      [NameSpace.DATA]: {
-        offersList,
-      },
-    });
+    const store = mockStore({});
 
     const onOfferTitleClick = jest.fn();
 
@@ -84,6 +75,7 @@ describe(`MainE2E`, () => {
           <Main
             offersList={offersList}
             activeCity={city}
+            citiesList={[city]}
             onCityNameClick={()=>{}}
             onOfferTitleClick={onOfferTitleClick}
           />
@@ -96,5 +88,34 @@ describe(`MainE2E`, () => {
     });
 
     expect(onOfferTitleClick).toHaveBeenCalledTimes(offersList.length);
+  });
+
+  it(`Should city title be pressed`, () => {
+    const store = mockStore({});
+
+    const onCityNameClick = jest.fn((cityName) => {
+      callback(cityName);
+    });
+    const callback = jest.fn();
+
+    const main = mount(
+        <Provider store={store}>
+          <Main
+            offersList={offersList}
+            activeCity={city}
+            citiesList={[city]}
+            onCityNameClick={onCityNameClick}
+            onOfferTitleClick={() => {}}
+          />
+        </Provider>
+    );
+
+    const cityLink = main.find(`.locations__item-link.tabs__item`).at(0);
+    cityLink.simulate(`click`, `city 1`, callback);
+
+    expect(onCityNameClick).toHaveBeenCalledTimes(1);
+    expect(onCityNameClick.mock.calls[0][0]).toBe(`city 1`);
+    expect(callback).toHaveBeenCalledTimes(1);
+    expect(callback.mock.calls[0][0]).toBe(`city 1`);
   });
 });

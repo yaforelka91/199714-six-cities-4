@@ -2,11 +2,7 @@ import React from 'react';
 import {shallow} from 'enzyme';
 import CityListItem from './city-list-item.jsx';
 
-const city = {
-  name: `city 1`,
-  coords: [0, 0],
-  zoom: 1,
-};
+const city = `city 1`;
 
 describe(`CityListItemE2E`, () => {
   it(`Should city title be pressed`, () => {
@@ -24,10 +20,6 @@ describe(`CityListItemE2E`, () => {
     cityLink.simulate(`click`, {preventDefault() {}}, city);
 
     expect(onCityNameClick).toHaveBeenCalledTimes(1);
-    expect(onCityNameClick.mock.calls[0][0]).toMatchObject({
-      name: `city 1`,
-      coords: [0, 0],
-      zoom: 1,
-    });
+    expect(onCityNameClick.mock.calls[0][0]).toEqual(`city 1`);
   });
 });

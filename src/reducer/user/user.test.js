@@ -8,10 +8,8 @@ describe(`Reducer works correctly`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {
     expect(reducer(undefined, {})).toEqual({
       authorizationStatus: AuthorizationStatus.NO_AUTH,
-      userData: {
-        email: ``,
-        picture: ``,
-      }
+      userData: {},
+      errorType: ``,
     });
   });
 
@@ -55,10 +53,7 @@ describe(`Reducer works correctly`, () => {
 
   it(`Reducer should set userData by a given value`, () => {
     expect(reducer({
-      userData: {
-        email: ``,
-        picture: ``,
-      }
+      userData: {}
     }, {
       type: ActionType.SET_USER_DATA,
       payload: {
@@ -124,6 +119,17 @@ describe(`Reducer works correctly`, () => {
         email: ``,
         pic: ``,
       }
+    });
+  });
+
+  it(`Reducer should set error`, () => {
+    expect(reducer({
+      errorType: ``,
+    }, {
+      type: ActionType.CATCH_ERROR,
+      payload: `Some error`,
+    })).toEqual({
+      errorType: `Some error`,
     });
   });
 });
@@ -153,6 +159,13 @@ describe(`Action creators work correctly`, () => {
       },
     });
   });
+
+  it(`Action creator for set error returns action with true payload`, () => {
+    expect(ActionCreator.catchError(`Some error`)).toEqual({
+      type: ActionType.CATCH_ERROR,
+      payload: `Some error`,
+    });
+  });
 });
 
 describe(`Operation works correctly`, () => {
@@ -179,24 +192,6 @@ describe(`Operation works correctly`, () => {
         });
   });
 
-  // it(`Should catch error with API connection`, function () {
-  //   const apiMock = new MockAdapter(api);
-  //   const dispatch = jest.fn();
-  //   const checkLogin = Operation.checkAuth();
-
-  //   apiMock
-  //       .onGet(`/login`)
-  //       .reply(401);
-
-  //   return checkLogin(dispatch, () => {}, api)
-  //       .then(() => {
-  //         expect(dispatch).toHaveBeenCalledTimes(0);
-  //       })
-  //       .catch((err) => {
-  //         throw err;
-  //       });
-  // });
-
   it(`Should make a correct POST-request to /login`, function () {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
@@ -213,7 +208,7 @@ describe(`Operation works correctly`, () => {
 
     return login(dispatch, () => {}, api)
         .then(() => {
-          expect(dispatch).toHaveBeenCalledTimes(2);
+          expect(dispatch).toHaveBeenCalledTimes(3);
           expect(dispatch).toHaveBeenNthCalledWith(1, {
             type: ActionType.REQUIRED_AUTHORIZATION,
             payload: AuthorizationStatus.AUTH,
@@ -221,6 +216,10 @@ describe(`Operation works correctly`, () => {
           expect(dispatch).toHaveBeenNthCalledWith(2, {
             type: ActionType.SET_USER_DATA,
             payload: {fake: true},
+          });
+          expect(dispatch).toHaveBeenNthCalledWith(3, {
+            type: ActionType.CATCH_ERROR,
+            payload: ``,
           });
         });
   });

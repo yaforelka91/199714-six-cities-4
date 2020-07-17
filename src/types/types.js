@@ -45,17 +45,16 @@ export const reviewShape = PropTypes.shape({
 });
 
 export const appTypes = {
-  offersList: PropTypes.arrayOf(offerShape).isRequired,
   activeCard: PropTypes.oneOfType([offerShape, PropTypes.bool]).isRequired,
-  isError: PropTypes.bool.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
   onOfferTitleClick: PropTypes.func.isRequired,
 };
 
 export const citiesTypes = {
   offers: PropTypes.arrayOf(offerShape).isRequired,
-  activeCity: cityShape.isRequired,
-  activeCard: PropTypes.number.isRequired,
-  onOfferCardEnter: PropTypes.func.isRequired,
+  activeCity: PropTypes.string.isRequired,
+  activeItem: PropTypes.number.isRequired,
+  onActiveChange: PropTypes.func.isRequired,
   onOfferTitleClick: PropTypes.func.isRequired,
 };
 
@@ -66,7 +65,7 @@ export const cityListTypes = {
 };
 
 export const cityListItemTypes = {
-  city: cityShape.isRequired,
+  city: PropTypes.string.isRequired,
   classNameLink: PropTypes.string.isRequired,
   onCityNameClick: PropTypes.func.isRequired,
 };
@@ -74,21 +73,22 @@ export const cityListItemTypes = {
 export const headerTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   userData: PropTypes.shape({
-    email: PropTypes.string.isRequired,
-    picture: PropTypes.string.isRequired,
+    email: PropTypes.string,
+    picture: PropTypes.string,
   }).isRequired,
 };
 
 export const loginTypes = {
-  activeCity: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-  }).isRequired,
+  activeCity: PropTypes.string.isRequired,
+  validationError: PropTypes.string.isRequired,
   onFormSubmit: PropTypes.func.isRequired,
 };
 
 export const mainTypes = {
   offersList: PropTypes.arrayOf(offerShape).isRequired,
-  activeCity: cityShape.isRequired,
+  activeCity: PropTypes.string.isRequired,
+  citiesList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  errorType: PropTypes.string.isRequired,
   onOfferTitleClick: PropTypes.func.isRequired,
   onCityNameClick: PropTypes.func.isRequired,
 };
@@ -100,9 +100,6 @@ export const mapTypes = {
         coords: PropTypes.arrayOf(PropTypes.number).isRequired,
       })
   ).isRequired,
-  activeCity: PropTypes.arrayOf(PropTypes.number).isRequired,
-  zoom: PropTypes.number.isRequired,
-  activeCard: PropTypes.number.isRequired,
   className: PropTypes.string,
 };
 
@@ -139,12 +136,9 @@ export const pageTypes = {
   ]).isRequired,
 };
 
-
 export const placesTypes = {
   offers: PropTypes.arrayOf(offerShape).isRequired,
-  city: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-  }).isRequired,
+  city: PropTypes.string.isRequired,
   renderSorting: PropTypes.func.isRequired,
   className: PropTypes.string,
   onOfferCardEnter: PropTypes.func.isRequired,
@@ -165,4 +159,12 @@ export const sortingTypes = {
   onSortItemClick: PropTypes.func.isRequired,
   onToggleMenu: PropTypes.func.isRequired,
   onSelectMenu: PropTypes.func.isRequired,
+};
+
+export const tabsTypes = {
+  activeItem: PropTypes.string.isRequired,
+  items: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onActiveChange: PropTypes.func.isRequired,
+  classNameList: PropTypes.string.isRequired,
+  renderItem: PropTypes.func.isRequired,
 };

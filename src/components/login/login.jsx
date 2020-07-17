@@ -1,6 +1,10 @@
 import React, {PureComponent, createRef} from 'react';
 import CityListItem from '../city-list-item/city-list-item.jsx';
 import {loginTypes} from '../../types/types.js';
+import {connect} from 'react-redux';
+import {getCity} from '../../reducer/catalog/selectors.js';
+import {Operation} from '../../reducer/user/user.js';
+import {getError} from '../../reducer/user/selectors.js';
 
 class Login extends PureComponent {
   constructor(props) {
@@ -24,12 +28,14 @@ class Login extends PureComponent {
   }
 
   render() {
-    const {activeCity} = this.props;
+    const {activeCity, validationError} = this.props;
+
     return (
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
+            {validationError && <p>{validationError}</p>}
             <form className="login__form form" action="#" method="post" onSubmit={this._handleFormSubmit}>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
@@ -51,6 +57,22 @@ class Login extends PureComponent {
   }
 }
 
+Login.defaultProps = {
+  validationError: ``,
+};
+
 Login.propTypes = loginTypes;
 
-export default Login;
+const mapStateToProps = (state) => ({
+  activeCity: getCity(state),
+  validationError: getError(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onFormSubmit(authData) {
+    dispatch(Operation.login(authData));
+  },
+});
+
+export {Login};
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

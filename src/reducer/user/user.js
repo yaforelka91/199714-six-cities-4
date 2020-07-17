@@ -8,15 +8,14 @@ const AuthorizationStatus = {
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
-  userData: {
-    email: ``,
-    picture: ``,
-  },
+  userData: {},
+  errorType: ``,
 };
 
 const ActionType = {
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
   SET_USER_DATA: `SET_USER_DATA`,
+  CATCH_ERROR: `CATCH_ERROR`,
 };
 
 const ActionCreator = {
@@ -32,6 +31,12 @@ const ActionCreator = {
       payload: authData,
     };
   },
+  catchError: (errorMessage) => {
+    return {
+      type: ActionType.CATCH_ERROR,
+      payload: errorMessage,
+    };
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -44,6 +49,11 @@ const reducer = (state = initialState, action) => {
     case ActionType.SET_USER_DATA:
       return extend(state, {
         userData: action.payload,
+      });
+
+    case ActionType.CATCH_ERROR:
+      return extend(state, {
+        errorType: action.payload,
       });
   }
 
@@ -69,9 +79,11 @@ const Operation = {
       .then((response) => {
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
         dispatch(ActionCreator.setUserData(adaptUser(response.data)));
+        dispatch(ActionCreator.catchError(``));
       })
       .catch((err) => {
-        throw err;
+        const errorMsg = err.response.data.error.match(/\[(.*?)\]/)[1];
+        dispatch(ActionCreator.catchError(errorMsg));
       });
   },
 };
