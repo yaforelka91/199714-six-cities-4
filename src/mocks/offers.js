@@ -1,9 +1,7 @@
-import {CityList} from '../const.js';
-
 export default [
   {
     city: {
-      name: CityList.AMSTERDAM,
+      name: `Amsterdam`,
       coords: [52.373057, 4.892557],
       zoom: 12,
     },
@@ -56,7 +54,7 @@ export default [
   },
   {
     city: {
-      name: CityList.AMSTERDAM,
+      name: `Amsterdam`,
       coords: [52.373057, 4.892557],
       zoom: 12,
     },
@@ -105,7 +103,7 @@ export default [
   },
   {
     city: {
-      name: CityList.AMSTERDAM,
+      name: `Amsterdam`,
       coords: [52.373057, 4.892557],
       zoom: 12,
     },
@@ -158,7 +156,7 @@ export default [
   },
   {
     city: {
-      name: CityList.AMSTERDAM,
+      name: `Amsterdam`,
       coords: [52.373057, 4.892557],
       zoom: 12,
     },

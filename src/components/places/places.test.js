@@ -58,11 +58,7 @@ const mock = {
       },
     },
   ],
-  city: {
-    name: `city`,
-    coords: [0, 0],
-    zoom: 1,
-  }
+  city: `city`
 };
 
 describe(`PlacesSnapshot`, () => {

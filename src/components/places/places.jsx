@@ -7,7 +7,7 @@ const Places = ({offers, city, className, renderSorting, onOfferCardEnter, onOff
   return (
     <section className={`${className ? `${className} ` : ``}places`}>
       <h2 className="visually-hidden">Places</h2>
-      <b className="places__found">{offers.length} places to stay in {city.name}</b>
+      <b className="places__found">{offers.length} places to stay in {city}</b>
       {renderSorting()}
       <OfferList
         offers={offers}

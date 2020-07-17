@@ -2,8 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
-import Main from './main.jsx';
-import NameSpace from '../../reducer/name-space.js';
+import {Main} from './main.jsx';
 
 const mockStore = configureStore([]);
 
@@ -63,25 +62,18 @@ const offersList = [
   },
 ];
 
-const city = {
-  name: `city 1`,
-  coords: [0, 0],
-  zoom: 1,
-};
+const city = `city 1`;
 
 describe(`MainSnapshot`, () => {
   it(`should render correctly`, () => {
-    const store = mockStore({
-      [NameSpace.DATA]: {
-        offersList,
-      },
-    });
+    const store = mockStore({});
 
     const tree = renderer.create(
         <Provider store={store}>
           <Main
             offersList={offersList}
             activeCity={city}
+            citiesList={[city]}
             onOfferTitleClick={() => {}}
             onCityNameClick={()=>{}}
           />,
@@ -97,17 +89,14 @@ describe(`MainSnapshot`, () => {
   });
 
   it(`should render placeholder if offers array is empty`, () => {
-    const store = mockStore({
-      [NameSpace.DATA]: {
-        offersList: [],
-      },
-    });
+    const store = mockStore({});
 
     const tree = renderer.create(
         <Provider store={store}>
           <Main
             offersList={[]}
             activeCity={city}
+            citiesList={[city]}
             onCityNameClick={() => {}}
             onOfferTitleClick={() => {}}
           />

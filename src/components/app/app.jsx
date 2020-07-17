@@ -8,23 +8,16 @@ import Main from '../main/main.jsx';
 import OfferPage from '../offer-page/offer-page.jsx';
 import {appTypes} from '../../types/types.js';
 import offersMock from '../../mocks/offers.js';
-import withActiveCity from '../../hocs/with-active-city/with-active-city.js';
-import {getOffers, getError} from '../../reducer/data/selectors.js';
 import Login from '../login/login.jsx';
 import {getAuthorizationStatus, getUserData} from '../../reducer/user/selectors.js';
 import {Operation as UserOperation, AuthorizationStatus} from '../../reducer/user/user.js';
-const MainWrapped = withActiveCity(Main);
-const LoginWrapped = withActiveCity(Login);
 
 class App extends PureComponent {
   _renderApp() {
     const {
       activeCard,
-      offersList,
       authorizationStatus,
-      login,
       userData,
-      isError,
       onOfferTitleClick,
     } = this.props;
 
@@ -32,24 +25,15 @@ class App extends PureComponent {
       if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
         return (
           <Page className='page--gray page--login' authorizationStatus={authorizationStatus} userData={userData}>
-            <LoginWrapped
-              onFormSubmit={login}
-            />
+            <Login />
           </Page>
         );
       } else {
         return (
           <Page className='page--gray page--main' authorizationStatus={authorizationStatus} userData={userData}>
-            {
-              isError ?
-                <p style={{fontSize: 32, textAlign: `center`}}>
-                  <b>Sorry, something went wrong :( Please, come back later</b>
-                </p> :
-                <MainWrapped
-                  offersList={offersList}
-                  onOfferTitleClick={onOfferTitleClick}
-                />
-            }
+            <Main
+              onOfferTitleClick={onOfferTitleClick}
+            />
           </Page>
         );
       }
@@ -59,8 +43,6 @@ class App extends PureComponent {
       return (
         <Page authorizationStatus={authorizationStatus} userData={userData}>
           <OfferPage
-            offer={activeCard}
-            offersList={offersList}
             onOfferTitleClick={onOfferTitleClick}
           />
         </Page>
@@ -79,7 +61,7 @@ class App extends PureComponent {
           <Route exact path="/">
             {this._renderApp()}
           </Route>
-          <Route exact path="/offer-page">
+          <Route exact path="/dev-offer">
             <Page authorizationStatus={authorizationStatus} userData={userData}>
               <OfferPage
                 offer={offersMock[0]}
@@ -91,11 +73,7 @@ class App extends PureComponent {
           <Route exact path="/dev-login">
             <Page className='page--gray page--login' authorizationStatus={authorizationStatus} userData={userData}>
               <Login
-                activeCity={{
-                  name: `Amsterdam`,
-                  coords: [0, 0],
-                  zoom: 0,
-                }}
+                activeCity={`Amsterdam`}
                 onFormSubmit={login}
               />
             </Page>
@@ -106,18 +84,12 @@ class App extends PureComponent {
   }
 }
 
-App.defaultProps = {
-  isError: false,
-};
-
 App.propTypes = appTypes;
 
 const mapStateToProps = (state) => ({
   activeCard: getActiveOffer(state),
-  offersList: getOffers(state),
   authorizationStatus: getAuthorizationStatus(state),
   userData: getUserData(state),
-  isError: getError(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

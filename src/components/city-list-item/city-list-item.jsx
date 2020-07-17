@@ -12,7 +12,7 @@ const CityListItem = ({city, onCityNameClick, classNameLink}) => {
           onCityNameClick(city);
         }}
       >
-        <span>{city.name}</span>
+        <span>{city}</span>
       </a>
     </li>
   );

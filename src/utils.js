@@ -24,20 +24,6 @@ export const capitalize = (word) => {
   return word.charAt(0).toUpperCase() + word.slice(1);
 };
 
-export const getFilteredOffers = createSelector(
-    (state) => {
-      return state.activeCity;
-    },
-    (state) => {
-      return state.offers;
-    },
-    (city, offers) => {
-      return offers.filter((offer) => {
-        return offer.city.name === city.name;
-      });
-    }
-);
-
 export const getSortedOffers = createSelector(
     (state) => {
       return state.sortType;

@@ -1,20 +1,23 @@
 import React from 'react';
-import {shallow} from 'enzyme';
-import Login from './login.jsx';
+import {mount} from 'enzyme';
+import {Login} from './login.jsx';
+import configureStore from 'redux-mock-store';
+import {Provider} from 'react-redux';
+
+const mockStore = configureStore([]);
 
 describe(`LoginE2E`, () => {
   it(`Check object with data after form was submit`, () => {
+    const store = mockStore({});
     const onFormSubmit = jest.fn();
 
-    const wrapper = shallow(
-        <Login
-          activeCity={{
-            name: `city`,
-            coords: [0, 0],
-            zoom: 0,
-          }}
-          onFormSubmit={onFormSubmit}
-        />,
+    const wrapper = mount(
+        <Provider store={store}>
+          <Login
+            activeCity='city'
+            onFormSubmit={onFormSubmit}
+          />
+        </Provider>,
         {
           createNodeMock: () => {
             return {};
@@ -22,7 +25,7 @@ describe(`LoginE2E`, () => {
         }
     );
 
-    const {_loginRef, _passwordRef} = wrapper.instance();
+    const {_loginRef, _passwordRef} = wrapper.children().instance();
 
     _loginRef.current = {
       value: `test@test.com`,

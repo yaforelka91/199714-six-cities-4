@@ -15,6 +15,7 @@ exports[`LoginSnapshot should render Login page 1`] = `
       >
         Sign in
       </h1>
+      
       <form
         action="#"
         className="login__form form"
