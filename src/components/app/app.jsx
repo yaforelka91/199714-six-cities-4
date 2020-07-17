@@ -1,53 +1,49 @@
 import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../reducer.js';
+import {ActionCreator} from '../../reducer/catalog/catalog.js';
+import {getActiveOffer} from '../../reducer/catalog/selectors.js';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Page from '../page/page.jsx';
 import Main from '../main/main.jsx';
 import OfferPage from '../offer-page/offer-page.jsx';
 import {appTypes} from '../../types/types.js';
-import withActiveItem from '../../hocs/with-active-item/with-active-item.js';
-
-const MAX_CITIES_COUNT = 6;
-const MainWrapped = withActiveItem(Main);
+import offersMock from '../../mocks/offers.js';
+import withActiveCity from '../../hocs/with-active-city/with-active-city.js';
+import {getOffers, getError} from '../../reducer/data/selectors.js';
+const MainWrapped = withActiveCity(Main);
 
 class App extends PureComponent {
-
   _renderApp() {
     const {
       activeCard,
       offersList,
-      citiesList,
-      city,
-      activeSorting,
-      onCityNameClick,
-      onOfferTitleClick,
+      isError,
+      onOfferTitleClick
     } = this.props;
 
-    const offersToRender = offersList.find((offer) => offer.city.id === city.id).offers;
-
-    if (activeCard < 0) {
+    if (!activeCard) {
       return (
         <Page className='page--gray page--main'>
-          <MainWrapped
-            activeSorting={activeSorting}
-            city={city}
-            offersList={offersToRender}
-            citiesList={citiesList}
-            onOfferTitleClick={onOfferTitleClick}
-            onCityNameClick={onCityNameClick}
-          />
+          {
+            isError ?
+              <p style={{fontSize: 32, textAlign: `center`}}>
+                <b>Sorry, something went wrong :( Please, come back later</b>
+              </p> :
+              <MainWrapped
+                offersList={offersList}
+                onOfferTitleClick={onOfferTitleClick}
+              />
+          }
         </Page>
       );
     }
 
-    if (activeCard >= 0) {
+    if (activeCard) {
       return (
         <Page>
           <OfferPage
-            offer={offersToRender.find((offer) => offer.id === activeCard)}
-            offersList={offersToRender}
-            city={city}
+            offer={activeCard}
+            offersList={offersList}
             onOfferTitleClick={onOfferTitleClick}
           />
         </Page>
@@ -58,7 +54,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const {offersList, city, onOfferTitleClick} = this.props;
+    const {onOfferTitleClick} = this.props;
 
     return (
       <BrowserRouter>
@@ -69,9 +65,8 @@ class App extends PureComponent {
           <Route exact path="/offer-page">
             <Page>
               <OfferPage
-                offer={offersList[0].offers[0]}
-                offersList={offersList[0].offers}
-                city={city}
+                offer={offersMock[0]}
+                offersList={offersMock}
                 onOfferTitleClick={onOfferTitleClick}
               />
             </Page>
@@ -82,22 +77,19 @@ class App extends PureComponent {
   }
 }
 
+App.defaultProps = {
+  isError: false,
+};
+
 App.propTypes = appTypes;
 
 const mapStateToProps = (state) => ({
-  activeCard: state.activeCard,
-  city: state.city,
-  offersList: state.offersList,
-  activeSorting: state.activeSorting,
-  citiesList: state.offersList
-    .map((offer) => offer.city)
-    .slice(0, MAX_CITIES_COUNT),
+  activeCard: getActiveOffer(state),
+  offersList: getOffers(state),
+  isError: getError(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onCityNameClick(city) {
-    dispatch(ActionCreator.changeCity(city));
-  },
   onOfferTitleClick(offer) {
     dispatch(ActionCreator.setActiveCard(offer));
   }

@@ -4,7 +4,7 @@ import Map from './map.jsx';
 
 const offers = [
   {
-    offerId: 1,
+    id: 1,
     coords: [52.3909553943508, 4.85309666406198],
   }
 ];
@@ -18,6 +18,7 @@ describe(`MapSnapshot`, () => {
         <Map
           offers={offers}
           activeCity={activeCity}
+          zoom={12}
         />,
         {
           createNodeMock: () => {

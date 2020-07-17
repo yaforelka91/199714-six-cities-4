@@ -8,9 +8,9 @@ import {offerPageTypes} from '../../types/types.js';
 const MAX_COUNT_PICTURES = 6;
 const MAX_COUNT_MARKERS = 3;
 
-const OfferPage = ({offer, offersList, city, onOfferTitleClick}) => {
+const OfferPage = ({offer, offersList, onOfferTitleClick}) => {
   const {
-    id,
+    id: offerId,
     title,
     description,
     pictures,
@@ -22,12 +22,16 @@ const OfferPage = ({offer, offersList, city, onOfferTitleClick}) => {
     guests,
     services,
     host,
-    reviews
   } = offer;
 
-  const filteredReviews = reviews.map((item) => reviewsList[item]);
-  const filteredOffers = offersList.filter((item) => item.id !== id).slice(0, MAX_COUNT_MARKERS);
-  const offersCoords = [...filteredOffers, offer].map(({id: offerId, coords}) => ({offerId, coords}));
+  const filteredOffers = offersList
+  .filter((item) => {
+    return item.city.name === offer.city.name;
+  })
+  .filter(({id}) => id !== offerId)
+  .slice(0, MAX_COUNT_MARKERS);
+
+  const offersCoords = [...filteredOffers, offer].map(({id, coords}) => ({id, coords}));
 
   return (
     <main className="page__main page__main--property">
@@ -79,10 +83,10 @@ const OfferPage = ({offer, offersList, city, onOfferTitleClick}) => {
                 {type}
               </li>
               <li className="property__feature property__feature--bedrooms">
-                {bedrooms}
+                {`${bedrooms} bedrooms`}
               </li>
               <li className="property__feature property__feature--adults">
-                {guests}
+                {`Max ${guests} adults`}
               </li>
             </ul>
             <div className="property__price">
@@ -126,7 +130,7 @@ const OfferPage = ({offer, offersList, city, onOfferTitleClick}) => {
               </div>
             </div>
             <section className="property__reviews reviews">
-              <ReviewList reviews={filteredReviews} />
+              <ReviewList reviews={reviewsList} />
               <form className="reviews__form form" action="#" method="post">
                 <label className="reviews__label form__label" htmlFor="review">Your review</label>
                 <div className="reviews__rating-form form__rating">
@@ -176,7 +180,7 @@ const OfferPage = ({offer, offersList, city, onOfferTitleClick}) => {
             </section>
           </div>
         </div>
-        <Map offers={offersCoords} activeCity={city.coords} activeCard={offer.id} className={`property__map`} />
+        <Map offers={offersCoords} activeCity={offer.city.coords} activeCard={offerId} zoom={offer.city.zoom} className={`property__map`} />
       </section>
       <div className="container">
         <section className="near-places places">

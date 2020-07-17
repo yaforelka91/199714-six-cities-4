@@ -3,9 +3,9 @@ import renderer from 'react-test-renderer';
 import CityListItem from './city-list-item.jsx';
 
 const city = {
-  id: 1,
   name: `city 1`,
   coords: [0, 0],
+  zoom: 1,
 };
 
 describe(`CityListItemSnapshot`, () => {
@@ -13,7 +13,7 @@ describe(`CityListItemSnapshot`, () => {
     const tree = renderer.create(
         <CityListItem
           city={city}
-          activeCity={city}
+          activeCity='city 1'
           onCityNameClick={() => {}}
         />
     ).toJSON();

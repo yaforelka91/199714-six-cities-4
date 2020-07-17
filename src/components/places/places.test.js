@@ -1,14 +1,15 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import configureStore from 'redux-mock-store';
-import {Provider} from 'react-redux';
 import Places from './places.jsx';
-
-const mockStore = configureStore([]);
 
 const mock = {
   offers: [
     {
+      city: {
+        name: `city`,
+        coords: [0, 0],
+        zoom: 1,
+      },
       id: 0,
       coords: [52.3909553943508, 4.85309666406198],
       title: `Beautiful & luxurious apartment at great location`,
@@ -33,9 +34,10 @@ const mock = {
       price: 120,
       type: `Apartment`,
       isPremium: true,
+      isFavorite: false,
       rating: 4.1,
-      bedrooms: `3 Bedrooms`,
-      guests: `Max 4 adults`,
+      bedrooms: 3,
+      guests: 3,
       services: [
         `Wi-Fi`,
         `Washing machine`,
@@ -49,37 +51,32 @@ const mock = {
         `Fridge`,
       ],
       host: {
+        id: 1,
         name: `Angelina`,
         picture: `http://placekitten.com/74/74`,
         isSuper: true,
       },
-      reviews: [`0`, `1`],
     },
   ],
   city: {
-    id: 1,
     name: `city`,
-    coords: [1, 1]
+    coords: [0, 0],
+    zoom: 1,
   }
 };
 
 describe(`PlacesSnapshot`, () => {
   it(`should render Places`, () => {
     const {offers, city} = mock;
-    const store = mockStore({
-      activeSorting: `popular`,
-    });
 
     const tree = renderer.create(
-        <Provider store={store}>
-          <Places
-            offers={offers}
-            activeSorting='popular'
-            city={city}
-            onOfferCardEnter={() => {}}
-            onOfferTitleClick={() => {}}
-          />
-        </Provider>
+        <Places
+          offers={offers}
+          city={city}
+          onOfferCardEnter={() => {}}
+          onOfferTitleClick={() => {}}
+          renderSorting={() => {}}
+        />
     ).toJSON();
 
     expect(tree).toMatchSnapshot();
