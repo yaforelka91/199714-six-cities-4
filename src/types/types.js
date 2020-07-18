@@ -100,6 +100,7 @@ export const mapTypes = {
         coords: PropTypes.arrayOf(PropTypes.number).isRequired,
       })
   ).isRequired,
+  activeCity: PropTypes.string.isRequired,
   className: PropTypes.string,
 };
 

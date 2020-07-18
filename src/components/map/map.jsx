@@ -1,15 +1,16 @@
 import React, {PureComponent, createRef} from 'react';
 import leaflet from 'leaflet';
 import {mapTypes} from '../../types/types.js';
+import {IconSizes} from '../../const.js';
 
 const ICON = leaflet.icon({
   iconUrl: `img/pin.svg`,
-  iconSize: [27, 39]
+  iconSize: [IconSizes.WIDTH, IconSizes.HEIGHT]
 });
 
 const ICON_ACTIVE = leaflet.icon({
   iconUrl: `/img/pin-active.svg`,
-  iconSize: [27, 39]
+  iconSize: [IconSizes.WIDTH, IconSizes.HEIGHT]
 });
 
 const ZOOM = 12;
@@ -27,12 +28,19 @@ class Map extends PureComponent {
     this._renderMap();
   }
 
-  componentDidUpdate() {
-    this._clearMarkers();
-    this._renderMarkers();
+  componentDidUpdate(prevProps) {
+    if (prevProps.activeCity !== this.props.activeCity) {
+      this._clearMarkers();
+      this._renderMarkers();
+    }
+
+    if (prevProps.activeCard !== this.props.activeCard) {
+      this._updateMarkers(this.props.activeCard, prevProps.activeCard);
+    }
   }
 
   componentWillUnmount() {
+    this._clearMarkers();
     this._mapObject.remove();
     this._mapObject = null;
   }
@@ -62,6 +70,19 @@ class Map extends PureComponent {
     this._renderMarkers();
   }
 
+  _updateMarkers(newMarkId, oldMarkId) {
+    const oldMark = this._markers.find((marker) => marker.id === oldMarkId);
+    const activeMark = this._markers.find((marker) => marker.id === newMarkId);
+
+    if (activeMark) {
+      activeMark.marker.setIcon(ICON_ACTIVE);
+    }
+
+    if (oldMark) {
+      oldMark.marker.setIcon(ICON);
+    }
+  }
+
   _clearMarkers() {
     this._markers.forEach(({marker}) => marker.remove());
     this._markers = [];
@@ -70,34 +91,22 @@ class Map extends PureComponent {
   _renderMarkers() {
     const {offers, activeCard} = this.props;
 
-    let minlat = 200; let minlon = 200; let maxlat = -200; let maxlon = -200;
-
     offers.forEach(({id, coords}) => {
-      if (minlat > coords[0]) {
-        minlat = coords[0];
-      }
-      if (minlon > coords[1]) {
-        minlon = coords[1];
-      }
-      if (maxlat < coords[0]) {
-        maxlat = coords[0];
-      }
-      if (maxlon < coords[1]) {
-        maxlon = coords[1];
-      }
-
       const marker = leaflet
         .marker(coords, {
           icon: id === activeCard ? ICON_ACTIVE : ICON,
-        })
-        .addTo(this._mapObject);
+        });
       this._markers.push({id, marker});
     });
 
-    const c1 = leaflet.latLng(minlat, minlon);
-    const c2 = leaflet.latLng(maxlat, maxlon);
-
-    this._mapObject.fitBounds(leaflet.latLngBounds(c1, c2), {padding: [20, 20]});
+    const markers = this._markers.map(({marker}) => marker);
+    const markersGroup = leaflet.featureGroup(markers).addTo(this._mapObject);
+    this._mapObject.fitBounds(
+        markersGroup.getBounds(),
+        {
+          padding: [IconSizes.WIDTH, IconSizes.HEIGHT],
+        }
+    );
   }
 
   render() {

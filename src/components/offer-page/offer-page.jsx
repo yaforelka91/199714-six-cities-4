@@ -176,7 +176,7 @@ const OfferPage = ({offer, offersList, onOfferTitleClick}) => {
             </section>
           </div>
         </div>
-        <Map offers={offersCoords} activeCard={offerId} className={`property__map`} />
+        <Map offers={offersCoords} activeCity={offer.city.name} activeCard={offerId} className={`property__map`} />
       </section>
       <div className="container">
         <section className="near-places places">

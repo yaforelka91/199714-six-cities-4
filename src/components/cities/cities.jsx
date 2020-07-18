@@ -25,8 +25,7 @@ const Cities = ({offers, activeCity, activeItem, onActiveChange, onOfferTitleCli
           {offers.length > 0 &&
               <Map
                 offers={offers}
-                // activeCity={activeCity.coords}
-                // zoom={activeCity.zoom}
+                activeCity={activeCity}
                 activeCard={activeItem}
                 className='cities__map'
               />

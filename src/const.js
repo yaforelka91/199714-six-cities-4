@@ -19,3 +19,8 @@ export const SortType = {
   TO_LOW: `to-low`,
   TOP_RATED: `top-rated`,
 };
+
+export const IconSizes = {
+  WIDTH: 27,
+  HEIGHT: 39,
+};

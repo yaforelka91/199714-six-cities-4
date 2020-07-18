@@ -13,6 +13,14 @@ const withActiveItem = (Component) => {
       this._handleActiveChange = this._handleActiveChange.bind(this);
     }
 
+    componentDidUpdate(prevProps) {
+      if (prevProps.activeCity !== this.props.activeCity) {
+        this.setState({
+          activeItem: this.props.activeItem
+        });
+      }
+    }
+
     _handleActiveChange(activeItem) {
       this.setState({
         activeItem,
@@ -38,6 +46,7 @@ const withActiveItem = (Component) => {
 
   WithActiveItem.propTypes = {
     activeItem: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    activeCity: PropTypes.string,
   };
 
   return WithActiveItem;
