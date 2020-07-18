@@ -150,8 +150,19 @@ export const reviewCardTypes = {
   review: reviewShape.isRequired,
 };
 
-export const reviewListTypes = {
+export const reviewFormTypes = {
+  offerId: PropTypes.number.isRequired,
+  serverError: PropTypes.string.isRequired,
+  onReviewFormSubmit: PropTypes.func.isRequired,
+};
+
+export const reviewsTypes = {
   reviews: PropTypes.arrayOf(reviewShape).isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  offerId: PropTypes.number.isRequired,
+  className: PropTypes.string.isRequired,
+  serverError: PropTypes.string.isRequired,
+  onReviewFormSubmit: PropTypes.func.isRequired,
 };
 
 export const sortingTypes = {

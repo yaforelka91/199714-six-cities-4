@@ -5,7 +5,7 @@ import {getActiveOffer} from '../../reducer/catalog/selectors.js';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Page from '../page/page.jsx';
 import Main from '../main/main.jsx';
-import OfferPage from '../offer-page/offer-page.jsx';
+import OfferPage, {OfferPage as DevOfferPage} from '../offer-page/offer-page.jsx';
 import {appTypes} from '../../types/types.js';
 import offersMock from '../../mocks/offers.js';
 import Login from '../login/login.jsx';
@@ -44,6 +44,8 @@ class App extends PureComponent {
         <Page authorizationStatus={authorizationStatus} userData={userData}>
           <OfferPage
             onOfferTitleClick={onOfferTitleClick}
+            authorizationStatus={authorizationStatus}
+            userData={userData}
           />
         </Page>
       );
@@ -62,13 +64,11 @@ class App extends PureComponent {
             {this._renderApp()}
           </Route>
           <Route exact path="/dev-offer">
-            <Page authorizationStatus={authorizationStatus} userData={userData}>
-              <OfferPage
-                offer={offersMock[0]}
-                offersList={offersMock}
-                onOfferTitleClick={onOfferTitleClick}
-              />
-            </Page>
+            <DevOfferPage
+              offer={offersMock[0]}
+              offersList={offersMock}
+              onOfferTitleClick={onOfferTitleClick}
+            />
           </Route>
           <Route exact path="/dev-login">
             <Page className='page--gray page--login' authorizationStatus={authorizationStatus} userData={userData}>

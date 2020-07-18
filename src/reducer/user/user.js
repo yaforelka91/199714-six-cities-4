@@ -9,12 +9,14 @@ const AuthorizationStatus = {
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
   userData: {},
+  review: [],
   errorType: ``,
 };
 
 const ActionType = {
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
   SET_USER_DATA: `SET_USER_DATA`,
+  SEND_REVIEW: `SEND_REVIEW`,
   CATCH_ERROR: `CATCH_ERROR`,
 };
 
@@ -29,6 +31,12 @@ const ActionCreator = {
     return {
       type: ActionType.SET_USER_DATA,
       payload: authData,
+    };
+  },
+  sendReview: (reviewData) => {
+    return {
+      type: ActionType.SEND_REVIEW,
+      payload: reviewData,
     };
   },
   catchError: (errorMessage) => {
@@ -49,6 +57,11 @@ const reducer = (state = initialState, action) => {
     case ActionType.SET_USER_DATA:
       return extend(state, {
         userData: action.payload,
+      });
+
+    case ActionType.SEND_REVIEW:
+      return extend(state, {
+        review: action.payload,
       });
 
     case ActionType.CATCH_ERROR:
@@ -85,6 +98,29 @@ const Operation = {
         const errorMsg = err.response.data.error.match(/\[(.*?)\]/)[1];
         dispatch(ActionCreator.catchError(errorMsg));
       });
+  },
+  sendComment: (commentData, hotelId) => (dispatch, getState, api) => {
+    return api.post(`/comments/${hotelId}`, {
+      comment: commentData.comment,
+      rating: commentData.rating,
+    })
+      .then((response) => {
+        dispatch(ActionCreator.sendReview(response.data));
+        dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+        dispatch(ActionCreator.catchError(``));
+      })
+    .catch((err) => {
+      let errorMsg = ``;
+      if (err.response.status === 401) {
+        errorMsg = err.response.data.error;
+        dispatch(ActionCreator.catchError(errorMsg));
+      }
+
+      if (err.response.status === 400) {
+        errorMsg = err.response.data.error.match(/\[(.*?)\]/)[1];
+        dispatch(ActionCreator.catchError(errorMsg));
+      }
+    });
   },
 };
 
