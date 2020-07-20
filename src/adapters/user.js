@@ -1,5 +1,5 @@
 const adaptUser = (user) => {
-  if (user.fake) {
+  if (!user.id) {
     return user;
   }
 
