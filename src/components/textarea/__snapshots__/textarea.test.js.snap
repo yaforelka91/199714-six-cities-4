@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TextareaSnapshot should render Textarea 1`] = `
+<textarea
+  className="reviews__textarea form__textarea"
+  id="review"
+  name="review"
+  onChange={[Function]}
+  placeholder="Tell how was your stay, what you like and what can be improved"
+  value=""
+/>
+`;

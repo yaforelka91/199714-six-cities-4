@@ -169,7 +169,7 @@ describe(`Action creators work correctly`, () => {
 });
 
 describe(`Operation works correctly`, () => {
-  it(`Should make a correct GET-request to /login`, function () {
+  it(`Should make a correct GET-request to /login`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const checkLogin = Operation.checkAuth();
@@ -192,7 +192,7 @@ describe(`Operation works correctly`, () => {
         });
   });
 
-  it(`Should make a correct POST-request to /login`, function () {
+  it(`Should make a correct POST-request to /login`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const mockUserData = {

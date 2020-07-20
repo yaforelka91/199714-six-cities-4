@@ -146,6 +146,11 @@ export const placesTypes = {
   onOfferTitleClick: PropTypes.func.isRequired,
 };
 
+export const ratingTypes = {
+  selectedRating: PropTypes.string.isRequired,
+  onRatingChange: PropTypes.func.isRequired,
+};
+
 export const reviewCardTypes = {
   review: reviewShape.isRequired,
 };
@@ -153,7 +158,7 @@ export const reviewCardTypes = {
 export const reviewFormTypes = {
   offerId: PropTypes.number.isRequired,
   serverError: PropTypes.string.isRequired,
-  onReviewFormSubmit: PropTypes.func.isRequired,
+  onFormSubmit: PropTypes.func.isRequired,
 };
 
 export const reviewsTypes = {
@@ -161,7 +166,6 @@ export const reviewsTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   offerId: PropTypes.number.isRequired,
   className: PropTypes.string.isRequired,
-  serverError: PropTypes.string.isRequired,
   onReviewFormSubmit: PropTypes.func.isRequired,
 };
 
@@ -179,4 +183,9 @@ export const tabsTypes = {
   onActiveChange: PropTypes.func.isRequired,
   classNameList: PropTypes.string.isRequired,
   renderItem: PropTypes.func.isRequired,
+};
+
+export const textareaTypes = {
+  currentMessage: PropTypes.string.isRequired,
+  onTextareaChange: PropTypes.func.isRequired,
 };
