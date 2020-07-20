@@ -181,7 +181,7 @@ export const tabsTypes = {
   activeItem: PropTypes.string.isRequired,
   items: PropTypes.arrayOf(PropTypes.string).isRequired,
   onActiveChange: PropTypes.func.isRequired,
-  classNameList: PropTypes.string.isRequired,
+  classNameForList: PropTypes.string.isRequired,
   renderItem: PropTypes.func.isRequired,
 };
 

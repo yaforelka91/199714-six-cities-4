@@ -1,5 +1,6 @@
 import {extend} from '../../utils.js';
 import adaptUser from '../../adapters/user.js';
+import adaptError from '../../adapters/error.js';
 
 const AuthorizationStatus = {
   AUTH: `AUTH`,
@@ -82,8 +83,11 @@ const Operation = {
         dispatch(ActionCreator.catchError(``));
       })
       .catch((err) => {
-        const errorMsg = err.response.data.error.match(/\[(.*?)\]/)[1];
-        dispatch(ActionCreator.catchError(errorMsg));
+        if (err.response.status === 400) {
+          dispatch(ActionCreator.catchError(adaptError(err.response.data.error)));
+          return;
+        }
+        throw err;
       });
   },
 };

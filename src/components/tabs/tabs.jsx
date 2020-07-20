@@ -1,11 +1,11 @@
 import React, {Fragment} from 'react';
 import {tabsTypes} from '../../types/types';
 
-const Tabs = ({activeItem, items, onActiveChange, classNameList, renderItem}) => {
+const Tabs = ({activeItem, items, onActiveChange, classNameForList, renderItem}) => {
   return (
     <div className="tabs">
       <section className="locations container">
-        <ul className={`${classNameList ? `${classNameList} ` : ``}tabs__list`}>
+        <ul className={`${classNameForList ? `${classNameForList} ` : ``}tabs__list`}>
           {items.map((item) => {
             return (
               <Fragment key={item}>
@@ -20,7 +20,7 @@ const Tabs = ({activeItem, items, onActiveChange, classNameList, renderItem}) =>
 };
 
 Tabs.defaultProps = {
-  classNameList: ``,
+  classNameForList: ``,
 };
 
 Tabs.propTypes = tabsTypes;

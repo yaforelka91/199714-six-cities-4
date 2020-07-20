@@ -1,5 +1,5 @@
 const adaptOffers = (loadedOffers) => {
-  if (loadedOffers[0].fake) {
+  if (loadedOffers.length === 0 || !loadedOffers[0].id) {
     return loadedOffers;
   }
 

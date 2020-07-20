@@ -26,7 +26,7 @@ const Main = ({
       <h1 className="visually-hidden">Cities</h1>
       <TabsWrapped
         items={citiesList}
-        classNameList='locations__list'
+        classNameForList='locations__list'
         activeItem={activeCity}
         renderItem={(item, activeItem, onActiveChange) => {
           return (
