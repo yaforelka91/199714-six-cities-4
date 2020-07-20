@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import Rating from '../../components/rating/rating.jsx';
 import Textarea from '../../components/textarea/textarea.jsx';
+import adaptError from '../../adapters/error.js';
 
 const ReviewValidLength = {
   MINIMUM: 50,
@@ -50,19 +51,22 @@ const withReview = (Component) => {
           rating: ``,
           serverError: ``,
         });
-        // onLoadNew will be here
       })
       .catch((err) => {
+        if (err.response.status === 400) {
+          this.setState({
+            serverError: adaptError(err.response.data.error),
+          });
+
+          return;
+        }
+
         if (err.response.status === 401) {
           this.setState({
             serverError: err.response.data.error,
           });
-        }
 
-        if (err.response.status === 400) {
-          this.setState({
-            serverError: err.response.data.error.match(/\[(.*?)\]/)[1],
-          });
+          return;
         }
 
         throw err;
