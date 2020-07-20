@@ -1,6 +1,8 @@
 import React from 'react';
+import {AuthorizationStatus} from '../../reducer/user/user';
+import {headerTypes} from '../../types/types.js';
 
-const Header = () => {
+const Header = ({authorizationStatus, userData}) => {
   return (
     <header className="header">
       <div className="container">
@@ -14,9 +16,13 @@ const Header = () => {
             <ul className="header__nav-list">
               <li className="header__nav-item user">
                 <a className="header__nav-link header__nav-link--profile" href="#">
-                  <div className="header__avatar-wrapper user__avatar-wrapper">
+                  <div
+                    className="header__avatar-wrapper user__avatar-wrapper"
+                  >
+                    {authorizationStatus === AuthorizationStatus.AUTH && <img src={`https://htmlacademy-react-3.appspot.com/six-cities${userData.picture}`} alt="User avatar" />}
                   </div>
-                  <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                  {authorizationStatus === AuthorizationStatus.AUTH && <span className="header__user-name user__name">{userData.email}</span>}
+                  {authorizationStatus === AuthorizationStatus.NO_AUTH && <span className="header__login">Sign in</span>}
                 </a>
               </li>
             </ul>
@@ -26,5 +32,7 @@ const Header = () => {
     </header>
   );
 };
+
+Header.propTypes = headerTypes;
 
 export default Header;

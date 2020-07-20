@@ -43,11 +43,16 @@ exports[`PageSnapshot should render Page 1`] = `
               >
                 <div
                   className="header__avatar-wrapper user__avatar-wrapper"
-                />
+                >
+                  <img
+                    alt="User avatar"
+                    src="https://htmlacademy-react-3.appspot.com/six-cities/pic.jpg"
+                  />
+                </div>
                 <span
                   className="header__user-name user__name"
                 >
-                  Oliver.conner@gmail.com
+                  test@test.com
                 </span>
               </a>
             </li>

@@ -13,15 +13,6 @@ export const monthsList = [
   `December`
 ];
 
-export const CityList = {
-  PARIS: `Paris`,
-  COLOGNE: `Cologne`,
-  BRUSSELS: `Brussels`,
-  AMSTERDAM: `Amsterdam`,
-  HAMBURG: `Hamburg`,
-  DUSSELDORF: `Dusseldorf`,
-};
-
 export const SortType = {
   POPULAR: `popular`,
   TO_HIGH: `to-high`,
@@ -29,4 +20,7 @@ export const SortType = {
   TOP_RATED: `top-rated`,
 };
 
-export const cities = Object.values(CityList);
+export const IconSizes = {
+  WIDTH: 27,
+  HEIGHT: 39,
+};

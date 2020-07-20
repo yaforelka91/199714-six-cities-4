@@ -3,17 +3,17 @@ import renderer from 'react-test-renderer';
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 import {App} from './app.jsx';
-import {CityList} from '../../const.js';
 import NameSpace from '../../reducer/name-space.js';
-import {getActiveOffer} from '../../reducer/catalog/selectors.js';
-import {getOffers} from '../../reducer/data/selectors.js';
+import {getActiveOffer, getNearestOffers, getFilteredOffers} from '../../reducer/catalog/selectors.js';
+import {AuthorizationStatus} from '../../reducer/user/user.js';
+import {getUserData, getAuthorizationStatus} from '../../reducer/user/selectors.js';
 
 const mockStore = configureStore([]);
 
 const offersList = [
   {
     city: {
-      name: CityList.DUSSELDORF,
+      name: `Dusseldorf`,
       coords: [51.230569, 6.787428],
       zoom: 1,
     },
@@ -66,7 +66,7 @@ const offersList = [
   },
   {
     city: {
-      name: CityList.HAMBURG,
+      name: `Hamburg`,
       coords: [53.552645, 9.966287],
       zoom: 1,
     },
@@ -119,7 +119,7 @@ const offersList = [
   },
   {
     city: {
-      name: CityList.DUSSELDORF,
+      name: `Dusseldorf`,
       coords: [51.230569, 6.787428],
       zoom: 1,
     },
@@ -172,21 +172,34 @@ const offersList = [
   },
 ];
 
+const userData = {
+  email: `test@test.com`,
+  picture: `/pic1.jpg`
+};
+
 describe(`AppSnapshot`, () => {
   it(`should render Main page`, () => {
     const store = mockStore({
       [NameSpace.CATALOG]: {
         activeCard: -1,
+        activeCity: offersList[0].city.name,
       },
       [NameSpace.DATA]: {
         offersList,
       },
+      [NameSpace.USER]: {
+        authorizationStatus: AuthorizationStatus.AUTH,
+        userData,
+      }
     });
 
     const tree = renderer.create(
         <Provider store={store}>
           <App
-            offersList={offersList}
+            authorizationStatus={getAuthorizationStatus(store.getState())}
+            login={() => {}}
+            userData={userData}
+            offersList={getFilteredOffers(store.getState())}
             activeCard={getActiveOffer(store.getState())}
             onOfferTitleClick={() => {}}
           />
@@ -205,17 +218,61 @@ describe(`AppSnapshot`, () => {
     const store = mockStore({
       [NameSpace.CATALOG]: {
         activeCard: 8,
+        activeCity: `Dusseldorf`,
       },
       [NameSpace.DATA]: {
         offersList,
       },
+      [NameSpace.USER]: {
+        authorizationStatus: AuthorizationStatus.AUTH,
+        userData,
+      }
     });
 
     const tree = renderer.create(
         <Provider store={store}>
           <App
+            authorizationStatus={getAuthorizationStatus(store.getState())}
+            login={() => {}}
+            userData={userData}
             activeCard={getActiveOffer(store.getState())}
-            offersList={getOffers(store.getState())}
+            offersList={getNearestOffers(store.getState())}
+            onOfferTitleClick={() => {}}
+          />
+        </Provider>,
+        {
+          createNodeMock: () => {
+            return document.createElement(`div`);
+          }
+        }
+    ).toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
+  it(`should render Login page`, () => {
+    const store = mockStore({
+      [NameSpace.CATALOG]: {
+        activeCard: -1,
+        activeCity: offersList[0].city.name,
+      },
+      [NameSpace.DATA]: {
+        offersList,
+      },
+      [NameSpace.USER]: {
+        authorizationStatus: AuthorizationStatus.NO_AUTH,
+        userData: {}
+      }
+    });
+
+    const tree = renderer.create(
+        <Provider store={store}>
+          <App
+            authorizationStatus={getAuthorizationStatus(store.getState())}
+            login={() => {}}
+            userData={getUserData(store.getState())}
+            offersList={getFilteredOffers(store.getState())}
+            activeCard={getActiveOffer(store.getState())}
             onOfferTitleClick={() => {}}
           />
         </Provider>,

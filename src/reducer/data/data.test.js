@@ -1,14 +1,14 @@
 import MockAdapter from 'axios-mock-adapter';
 import {createAPI} from '../../api.js';
 import {reducer, ActionType, ActionCreator, Operation} from './data.js';
-import {CityList} from '../../const.js';
+import {ActionType as CatalogActionType} from '../catalog/catalog.js';
 
 const api = createAPI(() => {});
 
 const offersList = [
   {
     city: {
-      name: CityList.HAMBURG,
+      name: `Hamburg`,
       coords: [53.552645, 9.966287],
       zoom: 1,
     },
@@ -61,7 +61,7 @@ const offersList = [
   },
   {
     city: {
-      name: CityList.DUSSELDORF,
+      name: `Dusseldorf`,
       coords: [51.230569, 6.787428],
       zoom: 1,
     },
@@ -118,7 +118,7 @@ describe(`Reducer works correctly`, () => {
   it(`Reducer without additional parameters should return initialState`, () => {
     expect(reducer(undefined, {})).toEqual({
       offersList: [],
-      error: false,
+      errorType: ``,
     });
   });
 
@@ -135,62 +135,61 @@ describe(`Reducer works correctly`, () => {
 
   it(`Reducer should set error`, () => {
     expect(reducer({
-      error: false,
+      errorType: ``,
     }, {
       type: ActionType.CATCH_ERROR,
-      payload: true,
+      payload: `Some error`,
     })).toEqual({
-      error: true,
+      errorType: `Some error`,
     });
   });
 });
 
 describe(`Action creators work correctly`, () => {
   it(`Action creator for set error returns action with true payload`, () => {
-    expect(ActionCreator.catchError(true)).toEqual({
+    expect(ActionCreator.catchError(`error`)).toEqual({
       type: ActionType.CATCH_ERROR,
-      payload: true,
+      payload: `error`,
+    });
+  });
+
+  it(`Action creator for get offers returns action with offers payload`, () => {
+    expect(ActionCreator.loadOffers(offersList)).toEqual({
+      type: ActionType.LOAD_OFFERS,
+      payload: offersList,
     });
   });
 });
 
 describe(`Operation works correctly`, () => {
-  it(`Should make a correct API call to /hotels`, function () {
+  it(`Should make a correct GET-request to /hotels`, function () {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const offersLoader = Operation.loadOffers();
 
     apiMock
         .onGet(`/hotels`)
-        .reply(200, [{fake: true}]);
+        .reply(200, [{
+          fake: true,
+          city: {
+            name: `city`,
+          }
+        }]);
 
     return offersLoader(dispatch, () => {}, api)
         .then(() => {
-          expect(dispatch).toHaveBeenCalledTimes(1);
           expect(dispatch).toHaveBeenNthCalledWith(1, {
             type: ActionType.LOAD_OFFERS,
-            payload: [{fake: true}],
+            payload: [{
+              fake: true,
+              city: {
+                name: `city`,
+              }
+            }],
           });
-        });
-  });
-
-  it(`Should catch error with API connection`, function () {
-    const apiMock = new MockAdapter(api);
-    const dispatch = jest.fn();
-    const offersLoader = Operation.loadOffers();
-
-    apiMock
-        .onGet(`/hotels`)
-        .reply(404);
-
-    return offersLoader(dispatch, () => {}, api)
-        .then(() => {
-          expect(dispatch).toHaveBeenCalledTimes(0);
-        })
-        .catch(() => {
-          expect(dispatch).toHaveBeenNthCalledWith(1, {
-            type: ActionType.CATCH_ERROR,
-            payload: true,
+          expect(dispatch).toHaveBeenNthCalledWith(2, {
+            type: CatalogActionType.CHANGE_CITY,
+            payload: `city`,
           });
         });
   });

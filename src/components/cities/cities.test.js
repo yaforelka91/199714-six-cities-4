@@ -58,11 +58,7 @@ const mock = {
       },
     },
   ],
-  city: {
-    name: `city`,
-    coords: [0, 0],
-    zoom: 1,
-  }
+  city: `city`,
 };
 
 describe(`CitiesSnapshot`, () => {
@@ -72,9 +68,9 @@ describe(`CitiesSnapshot`, () => {
     const tree = renderer.create(
         <Cities
           offers={offers}
-          activeCard={-1}
+          activeItem={-1}
           activeCity={city}
-          onOfferCardEnter={() => {}}
+          onActiveChange={() => {}}
           onOfferTitleClick={() => {}}
         />,
         {

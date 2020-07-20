@@ -1,21 +1,26 @@
 import React from 'react';
 import {cityListItemTypes} from '../../types/types';
 
-const CityListItem = ({city, onCityNameClick, activeCity}) => {
+const CityListItem = ({city, onCityNameClick, classNameLink}) => {
   return (
     <li className="locations__item">
       <a
-        className={`locations__item-link tabs__item${city.name === activeCity ? ` tabs__item--active` : ``}`}
+        className={`locations__item-link${classNameLink ? ` ${classNameLink}` : ``}`}
         href="#"
         onClick={(evt) => {
           evt.preventDefault();
           onCityNameClick(city);
         }}
       >
-        <span>{city.name}</span>
+        <span>{city}</span>
       </a>
     </li>
   );
+};
+
+CityListItem.defaultProps = {
+  classNameLink: ``,
+  onCityNameClick: () => {},
 };
 
 CityListItem.propTypes = cityListItemTypes;
