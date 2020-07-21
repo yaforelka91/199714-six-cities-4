@@ -146,12 +146,27 @@ export const placesTypes = {
   onOfferTitleClick: PropTypes.func.isRequired,
 };
 
+export const ratingTypes = {
+  selectedRating: PropTypes.string.isRequired,
+  onRatingChange: PropTypes.func.isRequired,
+};
+
 export const reviewCardTypes = {
   review: reviewShape.isRequired,
 };
 
-export const reviewListTypes = {
+export const reviewFormTypes = {
+  offerId: PropTypes.number.isRequired,
+  serverError: PropTypes.string.isRequired,
+  onFormSubmit: PropTypes.func.isRequired,
+};
+
+export const reviewsTypes = {
   reviews: PropTypes.arrayOf(reviewShape).isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  offerId: PropTypes.number.isRequired,
+  className: PropTypes.string.isRequired,
+  onReviewFormSubmit: PropTypes.func.isRequired,
 };
 
 export const sortingTypes = {
@@ -168,4 +183,9 @@ export const tabsTypes = {
   onActiveChange: PropTypes.func.isRequired,
   classNameForList: PropTypes.string.isRequired,
   renderItem: PropTypes.func.isRequired,
+};
+
+export const textareaTypes = {
+  currentMessage: PropTypes.string.isRequired,
+  onTextareaChange: PropTypes.func.isRequired,
 };

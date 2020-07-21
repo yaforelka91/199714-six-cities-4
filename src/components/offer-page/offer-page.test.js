@@ -3,6 +3,8 @@ import renderer from 'react-test-renderer';
 import {OfferPage} from './offer-page.jsx';
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
+import NameSpace from '../../reducer/name-space.js';
+import {AuthorizationStatus} from '../../reducer/user/user.js';
 
 const mockStore = configureStore([]);
 
@@ -174,7 +176,11 @@ describe(`OfferPageSnapshot`, () => {
   const {offer, offersList} = mock;
 
   it(`should render OfferPage`, () => {
-    const store = mockStore({});
+    const store = mockStore({
+      [NameSpace.USER]: {
+        authorizationStatus: AuthorizationStatus.AUTH,
+      }
+    });
 
     const tree = renderer.create(
         <Provider store={store}>

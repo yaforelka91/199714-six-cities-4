@@ -162,7 +162,7 @@ describe(`Action creators work correctly`, () => {
 });
 
 describe(`Operation works correctly`, () => {
-  it(`Should make a correct GET-request to /hotels`, function () {
+  it(`Should make a correct GET-request to /hotels`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const offersLoader = Operation.loadOffers();
