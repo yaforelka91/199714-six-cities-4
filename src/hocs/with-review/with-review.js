@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Rating from '../../components/rating/rating.jsx';
 import Textarea from '../../components/textarea/textarea.jsx';
 import adaptError from '../../adapters/error.js';
+import {Error} from '../../api.js';
 
 const ReviewValidLength = {
   MINIMUM: 50,
@@ -53,7 +54,7 @@ const withReview = (Component) => {
         });
       })
       .catch((err) => {
-        if (err.response.status === 400) {
+        if (err.response.status === Error.BAD_REQUEST) {
           this.setState({
             serverError: adaptError(err.response.data.error),
           });
@@ -61,7 +62,7 @@ const withReview = (Component) => {
           return;
         }
 
-        if (err.response.status === 401) {
+        if (err.response.status === Error.UNAUTHORIZED) {
           this.setState({
             serverError: err.response.data.error,
           });

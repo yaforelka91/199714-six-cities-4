@@ -1,6 +1,7 @@
 import {extend} from '../../utils.js';
 import adaptUser from '../../adapters/user.js';
 import adaptError from '../../adapters/error.js';
+import {Error} from '../../api.js';
 
 const AuthorizationStatus = {
   AUTH: `AUTH`,
@@ -83,7 +84,7 @@ const Operation = {
         dispatch(ActionCreator.catchError(``));
       })
       .catch((err) => {
-        if (err.response.status === 400) {
+        if (err.response.status === Error.BAD_REQUEST) {
           dispatch(ActionCreator.catchError(adaptError(err.response.data.error)));
           return;
         }

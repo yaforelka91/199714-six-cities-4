@@ -5,6 +5,8 @@ import withReview from './with-review.js';
 import {createAPI} from '../../api.js';
 import MockAdapter from 'axios-mock-adapter';
 import {Operation} from '../../reducer/reviews/reviews.js';
+import {Error} from '../../api.js';
+
 
 const VALID_COMMENT = `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`;
 const MockComponent = ({renderRating, renderTextarea, onFormSubmit}) => {
@@ -147,7 +149,7 @@ describe(`withReviewE2E`, () => {
     .catch((err) => {
       expect(wrapper.state().rating).toBe(`4`);
       expect(wrapper.state().review).toBe(VALID_COMMENT);
-      if (err.response.status === 400) {
+      if (err.response.status === Error.BAD_REQUEST) {
         expect(wrapper.state().serverError).toBe(`"email" must be a valid email`);
         return;
       }
@@ -207,7 +209,7 @@ describe(`withReviewE2E`, () => {
     .catch((err) => {
       expect(wrapper.state().rating).toBe(`4`);
       expect(wrapper.state().review).toBe(VALID_COMMENT);
-      if (err.response.status === 400) {
+      if (err.response.status === Error.UNAUTHORIZED) {
         expect(wrapper.state().serverError).toBe(`You are not logged in`);
         return;
       }
