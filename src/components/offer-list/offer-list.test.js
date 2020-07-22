@@ -1,6 +1,10 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import OfferList from './offer-list.jsx';
+import configureStore from 'redux-mock-store';
+import {Provider} from 'react-redux';
+import NameSpace from '../../reducer/name-space.js';
+import {AuthorizationStatus} from '../../reducer/user/user.js';
 
 const offers = [
   {
@@ -58,15 +62,24 @@ const offers = [
   },
 ];
 
+const mockStore = configureStore([]);
+
 describe(`OfferListSnapshot`, () => {
   it(`should render OfferList`, () => {
+    const store = mockStore({
+      [NameSpace.USER]: {
+        authorizationStatus: AuthorizationStatus.AUTH,
+      }
+    });
 
     const tree = renderer.create(
-        <OfferList
-          offers={offers}
-          isNear={false}
-          onOfferTitleClick={() => {}}
-        />
+        <Provider store={store}>
+          <OfferList
+            offers={offers}
+            isNear={false}
+            onOfferTitleClick={() => {}}
+          />
+        </Provider>
     ).toJSON();
 
     expect(tree).toMatchSnapshot();

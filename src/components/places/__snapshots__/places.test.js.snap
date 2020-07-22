@@ -68,6 +68,7 @@ exports[`PlacesSnapshot should render Places 1`] = `
           </div>
           <button
             className="place-card__bookmark-button button"
+            onClick={[Function]}
             type="button"
           >
             <svg
@@ -95,7 +96,7 @@ exports[`PlacesSnapshot should render Places 1`] = `
             <span
               style={
                 Object {
-                  "width": "80%",
+                  "width": "82%",
                 }
               }
             />

@@ -6,7 +6,7 @@ import {App} from './app.jsx';
 import NameSpace from '../../reducer/name-space.js';
 import {getActiveOffer, getNearestOffers, getFilteredOffers} from '../../reducer/catalog/selectors.js';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
-import {getUserData, getAuthorizationStatus} from '../../reducer/user/selectors.js';
+import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
 
 const mockStore = configureStore([]);
 
@@ -237,42 +237,6 @@ describe(`AppSnapshot`, () => {
             userData={userData}
             activeCard={getActiveOffer(store.getState())}
             offersList={getNearestOffers(store.getState())}
-            onOfferTitleClick={() => {}}
-          />
-        </Provider>,
-        {
-          createNodeMock: () => {
-            return document.createElement(`div`);
-          }
-        }
-    ).toJSON();
-
-    expect(tree).toMatchSnapshot();
-  });
-
-  it(`should render Login page`, () => {
-    const store = mockStore({
-      [NameSpace.CATALOG]: {
-        activeCard: -1,
-        activeCity: offersList[0].city.name,
-      },
-      [NameSpace.DATA]: {
-        offersList,
-      },
-      [NameSpace.USER]: {
-        authorizationStatus: AuthorizationStatus.NO_AUTH,
-        userData: {}
-      }
-    });
-
-    const tree = renderer.create(
-        <Provider store={store}>
-          <App
-            authorizationStatus={getAuthorizationStatus(store.getState())}
-            login={() => {}}
-            userData={getUserData(store.getState())}
-            offersList={getFilteredOffers(store.getState())}
-            activeCard={getActiveOffer(store.getState())}
             onOfferTitleClick={() => {}}
           />
         </Provider>,

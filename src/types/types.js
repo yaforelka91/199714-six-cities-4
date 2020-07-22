@@ -50,6 +50,17 @@ export const appTypes = {
   onOfferTitleClick: PropTypes.func.isRequired,
 };
 
+export const buttonTypes = {
+  className: PropTypes.string.isRequired,
+  activeItem: PropTypes.number.isRequired,
+  onActiveChange: PropTypes.func.isRequired,
+  onButtonClick: PropTypes.func.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]).isRequired,
+};
+
 export const citiesTypes = {
   offers: PropTypes.arrayOf(offerShape).isRequired,
   activeCity: PropTypes.string.isRequired,
@@ -113,6 +124,7 @@ export const offerCardTypes = {
   isNear: PropTypes.bool.isRequired,
   onOfferTitleClick: PropTypes.func.isRequired,
   onOfferCardEnter: PropTypes.func.isRequired,
+  onFavoriteButtonClick: PropTypes.func.isRequired,
 };
 
 export const offerListTypes = {
@@ -127,6 +139,7 @@ export const offerPageTypes = {
   offer: offerShape.isRequired,
   offersList: PropTypes.arrayOf(offerShape).isRequired,
   onOfferTitleClick: PropTypes.func.isRequired,
+  onFavoriteButtonClick: PropTypes.func.isRequired,
 };
 
 export const pageTypes = {

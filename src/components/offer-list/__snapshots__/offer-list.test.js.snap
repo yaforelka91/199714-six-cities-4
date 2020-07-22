@@ -53,6 +53,7 @@ exports[`OfferListSnapshot should render OfferList 1`] = `
         </div>
         <button
           className="place-card__bookmark-button button"
+          onClick={[Function]}
           type="button"
         >
           <svg
@@ -80,7 +81,7 @@ exports[`OfferListSnapshot should render OfferList 1`] = `
           <span
             style={
               Object {
-                "width": "80%",
+                "width": "82%",
               }
             }
           />

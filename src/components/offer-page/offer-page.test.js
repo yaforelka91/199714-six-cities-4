@@ -188,6 +188,7 @@ describe(`OfferPageSnapshot`, () => {
             offer={offer}
             offersList={offersList}
             onOfferTitleClick={() => {}}
+            onFavoriteButtonClick={() => {}}
           />
         </Provider>,
         {

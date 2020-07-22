@@ -35,3 +35,7 @@ export const getSortedOffers = createSelector(
       return sortOffers(activeSorting, offers);
     }
 );
+
+export const getRatingInPercent = (ratingValue) => {
+  return Math.round(ratingValue * 100 / 5);
+};

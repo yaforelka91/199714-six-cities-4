@@ -4,7 +4,7 @@ import {mapTypes} from '../../types/types.js';
 import {IconSizes} from '../../const.js';
 
 const ICON = leaflet.icon({
-  iconUrl: `img/pin.svg`,
+  iconUrl: `/img/pin.svg`,
   iconSize: [IconSizes.WIDTH, IconSizes.HEIGHT]
 });
 
