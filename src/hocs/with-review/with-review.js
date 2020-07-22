@@ -51,31 +51,26 @@ const withReview = (Component) => {
           review: ``,
           rating: ``,
           serverError: ``,
-          isLoading: false,
         });
       })
       .catch((err) => {
-        this.setState({
-          isLoading: false,
-        });
 
         if (err.response.status === Error.BAD_REQUEST) {
           this.setState({
             serverError: adaptError(err.response.data.error),
           });
-
-          return;
         }
 
         if (err.response.status === Error.UNAUTHORIZED) {
           this.setState({
             serverError: err.response.data.error,
           });
-
-          return;
         }
-
-        throw err;
+      })
+      .finally(() => {
+        this.setState({
+          isLoading: false,
+        });
       });
     }
 
