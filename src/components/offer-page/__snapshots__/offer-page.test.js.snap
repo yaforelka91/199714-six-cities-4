@@ -92,6 +92,7 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
           </h1>
           <button
             className="property__bookmark-button button"
+            onClick={[Function]}
             type="button"
           >
             <svg
@@ -257,7 +258,7 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
                 alt="Host avatar"
                 className="property__avatar user__avatar"
                 height="74"
-                src="http://placekitten.com/74/74"
+                src="/http://placekitten.com/74/74"
                 width="74"
               />
             </div>
@@ -850,6 +851,7 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
               </div>
               <button
                 className="place-card__bookmark-button button"
+                onClick={[Function]}
                 type="button"
               >
                 <svg
@@ -954,6 +956,7 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
               </div>
               <button
                 className="place-card__bookmark-button button"
+                onClick={[Function]}
                 type="button"
               >
                 <svg

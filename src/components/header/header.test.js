@@ -2,18 +2,24 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import Header from './header.jsx';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
+import {Router} from 'react-router-dom';
+import history from '../../history.js';
 
 
 describe(`HeaderSnapshot`, () => {
   it(`should render Header for guest`, () => {
     const tree = renderer.create(
-        <Header
-          authorizationStatus={AuthorizationStatus.NO_AUTH}
-          userData={{
-            email: ``,
-            picture: ``,
-          }}
-        />
+        <Router
+          history={history}
+        >
+          <Header
+            authorizationStatus={AuthorizationStatus.NO_AUTH}
+            userData={{
+              email: ``,
+              picture: ``,
+            }}
+          />
+        </Router>
     ).toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -21,13 +27,17 @@ describe(`HeaderSnapshot`, () => {
 
   it(`should render Header for user`, () => {
     const tree = renderer.create(
-        <Header
-          authorizationStatus={AuthorizationStatus.AUTH}
-          userData={{
-            email: `test@test.com`,
-            picture: `/pic.jpg`,
-          }}
-        />
+        <Router
+          history={history}
+        >
+          <Header
+            authorizationStatus={AuthorizationStatus.AUTH}
+            userData={{
+              email: `test@test.com`,
+              picture: `/pic.jpg`,
+            }}
+          />
+        </Router>
     ).toJSON();
 
     expect(tree).toMatchSnapshot();

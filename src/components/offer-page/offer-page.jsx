@@ -3,14 +3,16 @@ import Reviews from '../reviews/reviews.jsx';
 import reviewsList from '../../mocks/reviews.js';
 import Map from '../map/map.jsx';
 import OfferList from '../offer-list/offer-list.jsx';
+import Button from '../button/button.jsx';
 import {offerPageTypes} from '../../types/types.js';
-import {capitalize} from '../../utils.js';
+import {capitalize, extend} from '../../utils.js';
 import {connect} from 'react-redux';
-import {getActiveOffer, getNearestOffers} from '../../reducer/catalog/selectors.js';
+import {getNearestOffers} from '../../reducer/catalog/selectors.js';
+import {Operation} from '../../reducer/favorites/favorites.js';
 
 const MAX_COUNT_PICTURES = 6;
 
-const OfferPage = ({offer, offersList, onOfferTitleClick}) => {
+const OfferPage = ({offer, offersList, onOfferTitleClick, onFavoriteButtonClick}) => {
   const {
     id: offerId,
     title,
@@ -19,6 +21,7 @@ const OfferPage = ({offer, offersList, onOfferTitleClick}) => {
     price,
     type,
     isPremium,
+    isFavorite,
     rating,
     bedrooms,
     guests,
@@ -59,12 +62,20 @@ const OfferPage = ({offer, offersList, onOfferTitleClick}) => {
               <h1 className="property__name">
                 {title}
               </h1>
-              <button className="property__bookmark-button button" type="button">
+              <Button
+                activeItem={Number(isFavorite)}
+                onButtonClick={(activeStatus) => {
+                  onFavoriteButtonClick(extend(offer, {
+                    isFavorite: activeStatus
+                  }));
+                }}
+                className={`property__bookmark-button`}
+              >
                 <svg className="property__bookmark-icon" width="31" height="33">
                   <use xlinkHref="#icon-bookmark"></use>
                 </svg>
                 <span className="visually-hidden">To bookmarks</span>
-              </button>
+              </Button>
             </div>
             <div className="property__rating rating">
               <div className="property__stars rating__stars">
@@ -107,7 +118,7 @@ const OfferPage = ({offer, offersList, onOfferTitleClick}) => {
               <h2 className="property__host-title">Meet the host</h2>
               <div className="property__host-user user">
                 <div className={`property__avatar-wrapper${host.isSuper && ` property__avatar-wrapper--pro`} user__avatar-wrapper`}>
-                  <img className="property__avatar user__avatar" src={host.picture} width="74" height="74" alt="Host avatar" />
+                  <img className="property__avatar user__avatar" src={`/${host.picture}`} width="74" height="74" alt="Host avatar" />
                 </div>
                 <span className="property__user-name">
                   {host.name}
@@ -148,9 +159,14 @@ const OfferPage = ({offer, offersList, onOfferTitleClick}) => {
 OfferPage.propTypes = offerPageTypes;
 
 const mapStateToProps = (state) => ({
-  offer: getActiveOffer(state),
   offersList: getNearestOffers(state),
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  onFavoriteButtonClick(hotel) {
+    dispatch(Operation.changeFavoriteStatus(hotel));
+  },
+});
+
 export {OfferPage};
-export default connect(mapStateToProps)(OfferPage);
+export default connect(mapStateToProps, mapDispatchToProps)(OfferPage);

@@ -3,6 +3,8 @@ import {mount} from 'enzyme';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import {Main} from './main.jsx';
+import NameSpace from '../../reducer/name-space.js';
+import {AuthorizationStatus} from '../../reducer/user/user.js';
 
 const mockStore = configureStore([]);
 
@@ -66,7 +68,11 @@ const city = `city 1`;
 
 describe(`MainE2E`, () => {
   it(`Should offer title be pressed`, () => {
-    const store = mockStore({});
+    const store = mockStore({
+      [NameSpace.USER]: {
+        authorizationStatus: AuthorizationStatus.AUTH,
+      }
+    });
 
     const onOfferTitleClick = jest.fn();
 
@@ -91,7 +97,11 @@ describe(`MainE2E`, () => {
   });
 
   it(`Should city title be pressed`, () => {
-    const store = mockStore({});
+    const store = mockStore({
+      [NameSpace.USER]: {
+        authorizationStatus: AuthorizationStatus.AUTH,
+      }
+    });
 
     const onCityNameClick = jest.fn((cityName) => {
       callback(cityName);

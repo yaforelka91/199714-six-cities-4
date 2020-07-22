@@ -20,7 +20,7 @@ exports[`HeaderSnapshot should render Header for guest 1`] = `
             alt="6 cities logo"
             className="header__logo"
             height="41"
-            src="img/logo.svg"
+            src="/img/logo.svg"
             width="81"
           />
         </a>
@@ -36,7 +36,8 @@ exports[`HeaderSnapshot should render Header for guest 1`] = `
           >
             <a
               className="header__nav-link header__nav-link--profile"
-              href="#"
+              href="/login"
+              onClick={[Function]}
             >
               <div
                 className="header__avatar-wrapper user__avatar-wrapper"
@@ -75,7 +76,7 @@ exports[`HeaderSnapshot should render Header for user 1`] = `
             alt="6 cities logo"
             className="header__logo"
             height="41"
-            src="img/logo.svg"
+            src="/img/logo.svg"
             width="81"
           />
         </a>
@@ -91,7 +92,8 @@ exports[`HeaderSnapshot should render Header for user 1`] = `
           >
             <a
               className="header__nav-link header__nav-link--profile"
-              href="#"
+              href="/favorites"
+              onClick={[Function]}
             >
               <div
                 className="header__avatar-wrapper user__avatar-wrapper"
