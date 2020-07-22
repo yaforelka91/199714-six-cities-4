@@ -90,10 +90,12 @@ describe(`withReviewE2E`, () => {
       expect(wrapper.state().rating).toBe(``);
       expect(wrapper.state().review).toBe(``);
       expect(wrapper.state().serverError).toBe(``);
-      expect(wrapper.state().isLoading).toBe(false);
     })
     .catch((err) => {
       throw err;
+    })
+    .finally(() => {
+      expect(wrapper.state().isLoading).toBe(false);
     });
   });
 
@@ -147,11 +149,12 @@ describe(`withReviewE2E`, () => {
     .catch((err) => {
       expect(wrapper.state().rating).toBe(`4`);
       expect(wrapper.state().review).toBe(VALID_COMMENT);
-      expect(wrapper.state().isLoading).toBe(false);
       if (err.response.status === Error.BAD_REQUEST) {
         expect(wrapper.state().serverError).toBe(`"email" must be a valid email`);
-        return;
       }
+    })
+    .finally(() => {
+      expect(wrapper.state().isLoading).toBe(false);
     });
   });
 
@@ -205,11 +208,12 @@ describe(`withReviewE2E`, () => {
     .catch((err) => {
       expect(wrapper.state().rating).toBe(`4`);
       expect(wrapper.state().review).toBe(VALID_COMMENT);
-      expect(wrapper.state().isLoading).toBe(false);
       if (err.response.status === Error.UNAUTHORIZED) {
         expect(wrapper.state().serverError).toBe(`You are not logged in`);
-        return;
       }
+    })
+    .finally(() => {
+      expect(wrapper.state().isLoading).toBe(false);
     });
   });
 });
