@@ -140,6 +140,7 @@ exports[`ReviewFormSnapshot should render ReviewForm 1`] = `
   <textarea
     className="reviews__textarea form__textarea"
     id="review"
+    maxLength="100"
     name="review"
     onChange={[Function]}
     placeholder="Tell how was your stay, what you like and what can be improved"
@@ -173,5 +174,6 @@ exports[`ReviewFormSnapshot should render ReviewForm 1`] = `
       Submit
     </button>
   </div>
+  
 </form>
 `;

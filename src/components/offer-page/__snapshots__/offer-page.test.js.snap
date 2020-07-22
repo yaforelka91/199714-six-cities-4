@@ -739,6 +739,7 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
             <textarea
               className="reviews__textarea form__textarea"
               id="review"
+              maxLength="300"
               name="review"
               onChange={[Function]}
               placeholder="Tell how was your stay, what you like and what can be improved"
@@ -772,6 +773,7 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
                 Submit
               </button>
             </div>
+            
           </form>
         </section>
       </div>

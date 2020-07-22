@@ -13,7 +13,7 @@ const ReviewForm = ({isValid, isLoading, serverError, renderRating, renderTextar
         </p>
         <button className="reviews__submit form__submit button" type="submit" disabled={!isValid || isLoading}>Submit</button>
       </div>
-      {serverError === `` ? null : <p>{serverError}</p>}
+      {serverError && <p>{serverError}</p>}
     </form>
   );
 };
