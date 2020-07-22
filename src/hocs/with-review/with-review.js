@@ -51,9 +51,14 @@ const withReview = (Component) => {
           review: ``,
           rating: ``,
           serverError: ``,
+          isLoading: false,
         });
       })
       .catch((err) => {
+        this.setState({
+          isLoading: false,
+        });
+
         if (err.response.status === Error.BAD_REQUEST) {
           this.setState({
             serverError: adaptError(err.response.data.error),
@@ -71,11 +76,6 @@ const withReview = (Component) => {
         }
 
         throw err;
-      })
-      .finally(() => {
-        this.setState({
-          isLoading: false,
-        });
       });
     }
 
@@ -98,6 +98,7 @@ const withReview = (Component) => {
             return (
               <Textarea
                 currentMessage={review}
+                maxLength={ReviewValidLength.MAXIMUM}
                 onTextareaChange={this._handleControlChange}
               />
             );

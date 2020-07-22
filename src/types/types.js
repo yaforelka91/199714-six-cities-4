@@ -158,6 +158,10 @@ export const reviewCardTypes = {
 export const reviewFormTypes = {
   offerId: PropTypes.number.isRequired,
   serverError: PropTypes.string.isRequired,
+  isValid: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  renderRating: PropTypes.func.isRequired,
+  renderTextarea: PropTypes.func.isRequired,
   onFormSubmit: PropTypes.func.isRequired,
 };
 
@@ -187,5 +191,6 @@ export const tabsTypes = {
 
 export const textareaTypes = {
   currentMessage: PropTypes.string.isRequired,
+  maxLength: PropTypes.number.isRequired,
   onTextareaChange: PropTypes.func.isRequired,
 };
