@@ -5,6 +5,10 @@ import {PropTypes} from 'prop-types';
 
 const MockComponent = ({renderSorting}) => <div>{renderSorting()}</div>;
 
+MockComponent.propTypes = {
+  renderSorting: PropTypes.func.isRequired,
+};
+
 const MockComponentWrapped = withSorting(MockComponent);
 
 describe(`withSortingE2E`, () => {
@@ -184,7 +188,3 @@ describe(`withSortingE2E`, () => {
     ]);
   });
 });
-
-MockComponent.propTypes = {
-  renderSorting: PropTypes.func.isRequired,
-};
