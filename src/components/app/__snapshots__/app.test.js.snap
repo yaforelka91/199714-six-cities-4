@@ -311,7 +311,7 @@ exports[`AppSnapshot should render Main page 1`] = `
                     <span
                       style={
                         Object {
-                          "width": "100%",
+                          "width": "98%",
                         }
                       }
                     />
@@ -416,7 +416,7 @@ exports[`AppSnapshot should render Main page 1`] = `
                     <span
                       style={
                         Object {
-                          "width": "100%",
+                          "width": "98%",
                         }
                       }
                     />
@@ -648,14 +648,7 @@ exports[`AppSnapshot should render Offer page 1`] = `
               <span
                 style={
                   Object {
-                    "width": "80%",
-                  }
-                }
-              />
-              <span
-                style={
-                  Object {
-                    "width": "100%",
+                    "width": "98%",
                   }
                 }
               />
@@ -867,7 +860,7 @@ exports[`AppSnapshot should render Offer page 1`] = `
                       <span
                         style={
                           Object {
-                            "width": "100%",
+                            "width": "90%",
                           }
                         }
                       />
@@ -926,7 +919,7 @@ exports[`AppSnapshot should render Offer page 1`] = `
                       <span
                         style={
                           Object {
-                            "width": "80%",
+                            "width": "84%",
                           }
                         }
                       />
@@ -1103,7 +1096,7 @@ exports[`AppSnapshot should render Offer page 1`] = `
                       <span
                         style={
                           Object {
-                            "width": "100%",
+                            "width": "94%",
                           }
                         }
                       />
@@ -1409,7 +1402,7 @@ exports[`AppSnapshot should render Offer page 1`] = `
                   <span
                     style={
                       Object {
-                        "width": "100%",
+                        "width": "98%",
                       }
                     }
                   />

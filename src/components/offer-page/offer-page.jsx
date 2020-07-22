@@ -5,7 +5,7 @@ import Map from '../map/map.jsx';
 import OfferList from '../offer-list/offer-list.jsx';
 import Button from '../button/button.jsx';
 import {offerPageTypes} from '../../types/types.js';
-import {capitalize, extend} from '../../utils.js';
+import {capitalize, extend, getRatingInPercent} from '../../utils.js';
 import {connect} from 'react-redux';
 import {getNearestOffers} from '../../reducer/catalog/selectors.js';
 import {Operation} from '../../reducer/favorites/favorites.js';
@@ -79,8 +79,7 @@ const OfferPage = ({offer, offersList, onOfferTitleClick, onFavoriteButtonClick}
             </div>
             <div className="property__rating rating">
               <div className="property__stars rating__stars">
-                <span style={{width: `80%`}}></span>
-                <span style={{width: `${Math.round(rating) * 100 / 5}%`}}></span>
+                <span style={{width: `${getRatingInPercent(rating)}%`}}></span>
                 <span className="visually-hidden">Rating</span>
               </div>
               <span className="property__rating-value rating__value">{rating}</span>

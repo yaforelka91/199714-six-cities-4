@@ -1,6 +1,6 @@
 import React from 'react';
 import {offerCardTypes} from '../../types/types.js';
-import {capitalize, extend} from '../../utils.js';
+import {capitalize, extend, getRatingInPercent} from '../../utils.js';
 import {connect} from 'react-redux';
 import {Operation} from '../../reducer/favorites/favorites.js';
 import Button from '../button/button.jsx';
@@ -66,7 +66,7 @@ const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, onFavoriteButton
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${Math.round(rating) * 100 / 5}%`}}></span>
+            <span style={{width: `${getRatingInPercent(rating)}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

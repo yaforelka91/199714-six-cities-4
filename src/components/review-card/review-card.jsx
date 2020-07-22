@@ -1,6 +1,7 @@
 import React from 'react';
 import {monthsList} from '../../const.js';
 import {reviewCardTypes} from '../../types/types.js';
+import {getRatingInPercent} from '../../utils.js';
 
 const ReviewCard = ({review}) => {
   const {user, rating, feedback, visitTime} = review;
@@ -23,7 +24,7 @@ const ReviewCard = ({review}) => {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{width: `${Math.round(rating) * 100 / 5}%`}}></span>
+            <span style={{width: `${getRatingInPercent(rating)}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
