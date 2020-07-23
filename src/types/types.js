@@ -53,6 +53,7 @@ export const appTypes = {
 export const buttonTypes = {
   className: PropTypes.string.isRequired,
   activeItem: PropTypes.number.isRequired,
+  isDisabled: PropTypes.bool.isRequired,
   onActiveChange: PropTypes.func.isRequired,
   onButtonClick: PropTypes.func.isRequired,
   children: PropTypes.oneOfType([

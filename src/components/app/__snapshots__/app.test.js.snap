@@ -283,6 +283,7 @@ exports[`AppSnapshot should render Main page 1`] = `
                   </div>
                   <button
                     className="place-card__bookmark-button button"
+                    disabled={false}
                     onClick={[Function]}
                     type="button"
                   >
@@ -388,6 +389,7 @@ exports[`AppSnapshot should render Main page 1`] = `
                   </div>
                   <button
                     className="place-card__bookmark-button button"
+                    disabled={false}
                     onClick={[Function]}
                     type="button"
                   >
@@ -620,6 +622,7 @@ exports[`AppSnapshot should render Offer page 1`] = `
             </h1>
             <button
               className="property__bookmark-button button"
+              disabled={false}
               onClick={[Function]}
               type="button"
             >
@@ -1374,6 +1377,7 @@ exports[`AppSnapshot should render Offer page 1`] = `
                 </div>
                 <button
                   className="place-card__bookmark-button button"
+                  disabled={false}
                   onClick={[Function]}
                   type="button"
                 >

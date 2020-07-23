@@ -92,6 +92,7 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
           </h1>
           <button
             className="property__bookmark-button button"
+            disabled={false}
             onClick={[Function]}
             type="button"
           >
@@ -846,6 +847,7 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
               </div>
               <button
                 className="place-card__bookmark-button button"
+                disabled={false}
                 onClick={[Function]}
                 type="button"
               >
@@ -951,6 +953,7 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
               </div>
               <button
                 className="place-card__bookmark-button button"
+                disabled={false}
                 onClick={[Function]}
                 type="button"
               >

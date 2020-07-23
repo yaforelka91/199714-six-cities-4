@@ -53,6 +53,7 @@ exports[`OfferListSnapshot should render OfferList 1`] = `
         </div>
         <button
           className="place-card__bookmark-button button"
+          disabled={false}
           onClick={[Function]}
           type="button"
         >

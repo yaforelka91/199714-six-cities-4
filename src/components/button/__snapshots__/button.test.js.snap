@@ -3,6 +3,18 @@
 exports[`ButtonSnapshot should render Button 1`] = `
 <button
   className="button"
+  disabled={false}
+  onClick={[Function]}
+  type="button"
+>
+  Button
+</button>
+`;
+
+exports[`ButtonSnapshot should render disabled Button 1`] = `
+<button
+  className="button"
+  disabled={true}
   onClick={[Function]}
   type="button"
 >

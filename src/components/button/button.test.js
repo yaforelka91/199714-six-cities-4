@@ -11,4 +11,13 @@ describe(`ButtonSnapshot`, () => {
 
     expect(tree).toMatchSnapshot();
   });
+
+  it(`should render disabled Button`, () => {
+
+    const tree = renderer.create(
+        <Button isDisabled={true}>Button</Button>
+    ).toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
 });
