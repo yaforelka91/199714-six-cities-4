@@ -3,6 +3,8 @@ import renderer from 'react-test-renderer';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import {Main} from './main.jsx';
+import NameSpace from '../../reducer/name-space.js';
+import {AuthorizationStatus} from '../../reducer/user/user.js';
 
 const mockStore = configureStore([]);
 
@@ -66,7 +68,11 @@ const city = `city 1`;
 
 describe(`MainSnapshot`, () => {
   it(`should render correctly`, () => {
-    const store = mockStore({});
+    const store = mockStore({
+      [NameSpace.USER]: {
+        authorizationStatus: AuthorizationStatus.AUTH,
+      }
+    });
 
     const tree = renderer.create(
         <Provider store={store}>
@@ -110,5 +116,4 @@ describe(`MainSnapshot`, () => {
 
     expect(tree).toMatchSnapshot();
   });
-
 });

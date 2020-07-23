@@ -1,6 +1,10 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import configureStore from 'redux-mock-store';
 import Cities from './cities.jsx';
+import NameSpace from '../../reducer/name-space.js';
+import {AuthorizationStatus} from '../../reducer/user/user.js';
+import {Provider} from 'react-redux';
 
 const mock = {
   offers: [
@@ -61,18 +65,27 @@ const mock = {
   city: `city`,
 };
 
+const mockStore = configureStore([]);
+
 describe(`CitiesSnapshot`, () => {
   it(`should render Cities`, () => {
     const {offers, city} = mock;
+    const store = mockStore({
+      [NameSpace.USER]: {
+        authorizationStatus: AuthorizationStatus.AUTH,
+      }
+    });
 
     const tree = renderer.create(
-        <Cities
-          offers={offers}
-          activeItem={-1}
-          activeCity={city}
-          onActiveChange={() => {}}
-          onOfferTitleClick={() => {}}
-        />,
+        <Provider store={store}>
+          <Cities
+            offers={offers}
+            activeItem={-1}
+            activeCity={city}
+            onActiveChange={() => {}}
+            onOfferTitleClick={() => {}}
+          />
+        </Provider>,
         {
           createNodeMock: () => {
             return document.createElement(`div`);

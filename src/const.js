@@ -24,3 +24,10 @@ export const IconSizes = {
   WIDTH: 27,
   HEIGHT: 39,
 };
+
+export const AppRoute = {
+  FAVORITES: `/favorites`,
+  LOGIN: `/login`,
+  OFFER: `/offer/:id`,
+  ROOT: `/`,
+};

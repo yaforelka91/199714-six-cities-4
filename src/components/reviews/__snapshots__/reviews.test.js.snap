@@ -111,7 +111,7 @@ exports[`ReviewsSnapshot should render Review with review form 1`] = `
             <span
               style={
                 Object {
-                  "width": "80%",
+                  "width": "84%",
                 }
               }
             />
@@ -425,7 +425,7 @@ exports[`ReviewsSnapshot should render Review without review form 1`] = `
             <span
               style={
                 Object {
-                  "width": "80%",
+                  "width": "84%",
                 }
               }
             />

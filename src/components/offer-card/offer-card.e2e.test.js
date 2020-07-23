@@ -1,6 +1,7 @@
 import React from 'react';
-import {shallow} from 'enzyme';
-import OfferCard from './offer-card.jsx';
+import {mount} from 'enzyme';
+import {OfferCard} from './offer-card.jsx';
+import {extend} from '../../utils.js';
 
 const offer = {
   city: {
@@ -11,15 +12,7 @@ const offer = {
   id: 0,
   coords: [52.3909553943508, 4.85309666406198],
   title: `Beautiful & luxurious apartment at great location`,
-  description: [
-    `A quiet cozy and picturesque that hides behind a 
-river by the unique lightness of Amsterdam.
-The building is green and from 18th century.`,
-    `An independent House, strategically located 
-between Rembrand Square and National Opera, 
-but where the bustle of the city comes to rest 
-in this alley flowery and colorful.`
-  ],
+  description: [`Text`],
   picture: `http://placeimg.com/260/200/arch`,
   pictures: [
     `http://placeimg.com/260/200/arch`,
@@ -60,13 +53,13 @@ describe(`OfferCardE2E`, () => {
   it(`Check offer object in callback in mouseenter event`, () => {
     const onOfferCardEnter = jest.fn();
 
-    const card = shallow(
+    const card = mount(
         <OfferCard
           offer={offer}
           onOfferCardEnter={onOfferCardEnter}
-          onOfferCardLeave={() => {}}
           isNear={false}
           onOfferTitleClick={() => {}}
+          onFavoriteButtonClick={() => {}}
         />
     );
 
@@ -79,11 +72,12 @@ describe(`OfferCardE2E`, () => {
   it(`Check data-format in callback after title was pressed`, () => {
     const onOfferTitleClick = jest.fn();
 
-    const card = shallow(
+    const card = mount(
         <OfferCard
           offer={offer}
           isNear={false}
           onOfferTitleClick={onOfferTitleClick}
+          onFavoriteButtonClick={() => {}}
         />
     );
 
@@ -93,5 +87,68 @@ describe(`OfferCardE2E`, () => {
 
     expect(onOfferTitleClick).toHaveBeenCalledTimes(1);
     expect(onOfferTitleClick.mock.calls[0][0]).toBe(0);
+  });
+
+  it(`Check data-format in callback after To favorite button was pressed`, () => {
+    const onFavoriteButtonClick = jest.fn();
+
+    const card = mount(
+        <OfferCard
+          offer={offer}
+          isNear={false}
+          onOfferTitleClick={() => {}}
+          onFavoriteButtonClick={onFavoriteButtonClick}
+        />
+    );
+
+    const button = card.find(`button.place-card__bookmark-button`);
+    button.simulate(`click`, extend(offer, {isFavorite: 1}));
+
+    expect(onFavoriteButtonClick).toHaveBeenCalledTimes(1);
+    expect(onFavoriteButtonClick.mock.calls[0][0]).toMatchObject({
+      city: {
+        name: `city 1`,
+        coords: [0, 0],
+        zoom: 1,
+      },
+      id: 0,
+      coords: [52.3909553943508, 4.85309666406198],
+      title: `Beautiful & luxurious apartment at great location`,
+      description: [`Text`],
+      picture: `http://placeimg.com/260/200/arch`,
+      pictures: [
+        `http://placeimg.com/260/200/arch`,
+        `http://placeimg.com/260/200/arch`,
+        `http://placeimg.com/260/200/arch`,
+        `http://placeimg.com/260/200/arch`,
+        `http://placeimg.com/260/200/arch`,
+        `http://placeimg.com/260/200/arch`
+      ],
+      price: 120,
+      type: `Apartment`,
+      isPremium: true,
+      isFavorite: 1,
+      rating: 4.1,
+      bedrooms: 3,
+      guests: 4,
+      services: [
+        `Wi-Fi`,
+        `Washing machine`,
+        `Towels`,
+        `Heating`,
+        `Coffee machine`,
+        `Baby seat`,
+        `Kitchen`,
+        `Dishwasher`,
+        `Cabel TV`,
+        `Fridge`,
+      ],
+      host: {
+        id: 1,
+        name: `Angelina`,
+        picture: `http://placekitten.com/74/74`,
+        isSuper: true,
+      },
+    });
   });
 });

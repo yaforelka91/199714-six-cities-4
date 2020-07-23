@@ -1,5 +1,5 @@
 import {extend} from '../../utils.js';
-import adaptOffers from '../../adapters/offers.js';
+import adaptOffer from '../../adapters/offers.js';
 import {ActionCreator as CatalogActionCreator} from '../catalog/catalog.js';
 
 const initialState = {
@@ -29,7 +29,10 @@ const Operation = {
   loadOffers: () => (dispatch, getState, api) => {
     return api.get(`/hotels`)
       .then((response) => {
-        const adaptedOffers = adaptOffers(response.data);
+
+        const adaptedOffers = response.data.map((offer) => {
+          return adaptOffer(offer);
+        });
 
         dispatch(ActionCreator.loadOffers(adaptedOffers));
         dispatch(CatalogActionCreator.changeCity(adaptedOffers[0].city.name));

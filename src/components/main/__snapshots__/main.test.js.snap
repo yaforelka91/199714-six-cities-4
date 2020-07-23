@@ -210,6 +210,8 @@ Array [
                   </div>
                   <button
                     className="place-card__bookmark-button button"
+                    disabled={false}
+                    onClick={[Function]}
                     type="button"
                   >
                     <svg
@@ -237,7 +239,7 @@ Array [
                     <span
                       style={
                         Object {
-                          "width": "80%",
+                          "width": "82%",
                         }
                       }
                     />
