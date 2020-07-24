@@ -8,25 +8,36 @@ import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
 import history from '../../history.js';
 import {AppRoute} from '../../const.js';
+import {Link} from 'react-router-dom';
+import {Operation as DataOperation} from '../../reducer/data/data.js';
+import {Operation as ReviewsOperation} from '../../reducer/reviews/reviews.js';
 
-const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, onFavoriteButtonClick, isNear, authorizationStatus}) => {
-  const {title, picture, price, type, isPremium, isFavorite, rating} = offer;
+const OfferCard = ({
+  offer,
+  onOfferTitleClick,
+  onOfferCardEnter,
+  onFavoriteButtonClick,
+  authorizationStatus,
+  className,
+  classNameForImage,
+  classNameForInfo,
+}) => {
+  const {id, title, picture, price, type, isPremium, isFavorite, rating} = offer;
 
   const handleCardMouseEnter = () => {
-    if (isNear) {
-      return;
-    }
-    onOfferCardEnter(offer.id);
+    onOfferCardEnter(id);
   };
 
-  const handleTitleClick = (evt) => {
-    evt.preventDefault();
-    onOfferTitleClick(offer.id);
+  const handleTitleClick = () => {
+    // evt.preventDefault();
+    console.log(`from Card`);
+    // history.push(`${AppRoute.OFFER}/${id}`);
+    onOfferTitleClick(id);
   };
 
   return (
     <article
-      className={`place-card${isNear ? ` near-places__card` : ` cities__place-card`}`}
+      className={`${className ? `${className} ` : ``}place-card`}
       onMouseEnter={handleCardMouseEnter}
     >
       {
@@ -34,12 +45,12 @@ const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, onFavoriteButton
           <span>Premium</span>
         </div>
       }
-      <div className={`place-card__image-wrapper${isNear ? ` near-places__image-wrapper` : ` cities__image-wrapper`}`}>
-        <a href="#">
+      <div className={`${classNameForImage ? `${classNameForImage} ` : ``}place-card__image-wrapper`}>
+        <Link to={`${AppRoute.OFFER}/${id}`} onClick={handleTitleClick}>
           <img className="place-card__image" src={picture} width="260" height="200" alt="Place image" />
-        </a>
+        </Link>
       </div>
-      <div className="place-card__info">
+      <div className={`${classNameForInfo ? `${classNameForInfo} ` : ``}place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
@@ -48,6 +59,7 @@ const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, onFavoriteButton
           <Button
             activeItem={Number(isFavorite)}
             onButtonClick={(activeStatus) => {
+              console.log(authorizationStatus);
               if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
                 history.push(AppRoute.LOGIN);
               } else {
@@ -71,12 +83,9 @@ const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, onFavoriteButton
           </div>
         </div>
         <h2 className="place-card__name">
-          <a
-            href="#"
-            onClick={handleTitleClick}
-          >
+          <Link to={`${AppRoute.OFFER}/${id}`} onClick={handleTitleClick}>
             {title}
-          </a>
+          </Link>
         </h2>
         <p className="place-card__type">{capitalize(type)}</p>
       </div>
@@ -86,6 +95,9 @@ const OfferCard = ({offer, onOfferTitleClick, onOfferCardEnter, onFavoriteButton
 
 OfferCard.defaultProps = {
   onOfferCardEnter: () => {},
+  className: ``,
+  classNameForImage: ``,
+  classNameForInfo: ``,
 };
 
 OfferCard.propTypes = offerCardTypes;
@@ -98,6 +110,10 @@ const mapDispatchToProps = (dispatch) => ({
   onFavoriteButtonClick(hotel) {
     dispatch(Operation.changeFavoriteStatus(hotel));
   },
+  onOfferTitleClick(offerId) {
+    dispatch(DataOperation.loadNearOffers(offerId));
+    dispatch(ReviewsOperation.loadReviews(offerId));
+  }
 });
 
 export {OfferCard};

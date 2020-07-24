@@ -28,6 +28,12 @@ export const IconSizes = {
 export const AppRoute = {
   FAVORITES: `/favorites`,
   LOGIN: `/login`,
-  OFFER: `/offer/:id`,
+  OFFER: `/offer`,
   ROOT: `/`,
+};
+
+export const CardView = {
+  CITIES: `cities`,
+  NEAR: `near`,
+  FAVORITES: `favorites`,
 };

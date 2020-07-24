@@ -1,5 +1,5 @@
 import {createSelector} from 'reselect';
-import {SortType} from './const.js';
+import {SortType, CardView} from './const.js';
 
 export const extend = (object1, object2) => {
   return Object.assign({}, object1, object2);
@@ -38,4 +38,34 @@ export const getSortedOffers = createSelector(
 
 export const getRatingInPercent = (ratingValue) => {
   return Math.round(ratingValue * 100 / 5);
+};
+
+export const getArticleClassName = (viewMode) => {
+  switch (viewMode) {
+    case CardView.CITIES:
+      return {
+        classNameForArticle: `cities__place-card`,
+        classNameForImage: `cities__image-wrapper`,
+        classNameForInfo: ``,
+      };
+
+    case CardView.NEAR:
+      return {
+        classNameForArticle: `near-places__card`,
+        classNameForImage: `near-places__image-wrapper`,
+        classNameForInfo: ``,
+      };
+
+    case CardView.FAVORITES:
+      return {
+        classNameForArticle: `favorites__card`,
+        classNameForImage: `favorites__image-wrapper`,
+        classNameForInfo: `favorites__card-info`,
+      };
+  }
+  return {
+    classNameForArticle: ``,
+    classNameForImage: ``,
+    classNameForInfo: ``,
+  };
 };

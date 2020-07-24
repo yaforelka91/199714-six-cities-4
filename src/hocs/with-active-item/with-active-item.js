@@ -14,7 +14,7 @@ const withActiveItem = (Component) => {
     }
 
     componentDidUpdate(prevProps) {
-      if (prevProps.activeCity !== this.props.activeCity) {
+      if (prevProps.activeItem !== this.props.activeItem) {
         this.setState({
           activeItem: this.props.activeItem
         });

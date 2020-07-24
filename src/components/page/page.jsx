@@ -2,12 +2,12 @@ import React from 'react';
 import Header from '../header/header.jsx';
 import {pageTypes} from '../../types/types.js';
 
-const Page = ({className, authorizationStatus, userData, children}) => {
+const Page = ({className, authorizationStatus, userData, isLoading, children}) => {
+  console.log(isLoading);
   return (
     <div className={`page${className ? ` ${className}` : ``}`}>
       <Header authorizationStatus={authorizationStatus} userData={userData} />
-
-      {children}
+      {isLoading ? <p>Loading...</p> : children}
     </div>
   );
 };

@@ -7,6 +7,7 @@ import {composeWithDevTools} from 'redux-devtools-extension';
 import App from './components/app/app.jsx';
 import reducer from './reducer/reducer.js';
 import {Operation as DataOperation} from './reducer/data/data.js';
+import {Operation as ReviewsOperation} from './reducer/reviews/reviews.js';
 import {createAPI} from './api';
 import {AuthorizationStatus, ActionCreator, Operation as UserOperation} from './reducer/user/user.js';
 
@@ -24,19 +25,24 @@ const init = () => {
       )
   );
 
-  store.dispatch(DataOperation.loadOffers())
-  .then(() => {
-    reactDOM.render(
-        <Provider store={store}>
-          <App/>
-        </Provider>,
+  // const onNearbyRequest = (offerId) => {
+  //   store.dispatch(DataOperation.loadNearOffers(offerId));
+  // };
 
-        document.querySelector(`#root`)
-    );
-  })
-  .then(() => {
-    store.dispatch(UserOperation.checkAuth());
-  });
+  // const onReviewsRequest = (offerId) => {
+  //   store.dispatch(ReviewsOperation.loadReviews(offerId));
+  // };
+
+  reactDOM.render(
+      <Provider store={store}>
+        <App
+          // onNearbyRequest={onNearbyRequest}
+          // onReviewsRequest={onReviewsRequest}
+        />
+      </Provider>,
+
+      document.querySelector(`#root`)
+  );
 };
 
 init();

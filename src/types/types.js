@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import {CardView} from '../const';
 
 export const offerShape = PropTypes.shape({
   city: PropTypes.shape({
@@ -122,7 +123,9 @@ export const noPlacesTypes = {
 
 export const offerCardTypes = {
   offer: offerShape.isRequired,
-  isNear: PropTypes.bool.isRequired,
+  className: PropTypes.string.isRequired,
+  classNameForImage: PropTypes.string.isRequired,
+  classNameForInfo: PropTypes.string.isRequired,
   onOfferTitleClick: PropTypes.func.isRequired,
   onOfferCardEnter: PropTypes.func.isRequired,
   onFavoriteButtonClick: PropTypes.func.isRequired,
@@ -131,7 +134,7 @@ export const offerCardTypes = {
 export const offerListTypes = {
   offers: PropTypes.arrayOf(offerShape).isRequired,
   className: PropTypes.string.isRequired,
-  isNear: PropTypes.bool.isRequired,
+  viewMode: PropTypes.oneOf([CardView.CITIES, CardView.NEAR, CardView.FAVORITES]).isRequired,
   onOfferTitleClick: PropTypes.func.isRequired,
   onOfferCardEnter: PropTypes.func.isRequired,
 };

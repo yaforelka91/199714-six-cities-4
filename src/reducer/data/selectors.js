@@ -18,6 +18,14 @@ export const getCities = createSelector(
     }
 );
 
+export const getNearestOffers = (state) => {
+  return state[NAME_SPACE].nearOffers;
+};
+
+export const getLoadingStatus = (state) => {
+  return state[NAME_SPACE].isLoading;
+};
+
 export const getError = (state) => {
   return state[NAME_SPACE].errorType;
 };
