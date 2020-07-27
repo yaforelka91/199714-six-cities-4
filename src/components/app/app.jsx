@@ -1,7 +1,6 @@
-import React, {PureComponent} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
-import {ActionCreator as CatalogActionCreator} from '../../reducer/catalog/catalog.js';
-import {ActionCreator as DataActionCreator} from '../../reducer/data/data.js';
+import {ActionCreator} from '../../reducer/catalog/catalog.js';
 import {getActiveOffer} from '../../reducer/catalog/selectors.js';
 import {Router, Switch, Route, Redirect} from 'react-router-dom';
 import Page from '../page/page.jsx';
@@ -12,66 +11,62 @@ import Login from '../login/login.jsx';
 import {getAuthorizationStatus, getUserData} from '../../reducer/user/selectors.js';
 import {Operation as UserOperation, AuthorizationStatus} from '../../reducer/user/user.js';
 import {Operation as DataOperation} from '../../reducer/data/data.js';
-import {Operation as ReviewsOperation} from '../../reducer/reviews/reviews.js';
-
 import history from '../../history.js';
 import {AppRoute} from '../../const.js';
-import {getOffers, getLoadingStatus, getNearestOffers} from '../../reducer/data/selectors.js';
-import {OfferCard} from '../offer-card/offer-card.jsx';
+import {getOffers} from '../../reducer/data/selectors.js';
 
-class App extends PureComponent {
-  componentDidMount() {
-    const {onAuthCheck, onOffersLoad} = this.props;
-    // onAuthCheck();
-    onOffersLoad();
-  }
+const App = ({onOfferTitleClick, login, authorizationStatus, userData, offers}) => {
 
-  render() {
-    const {authorizationStatus, offers, userData, login} = this.props;
+  return (
+    <Router history={history}>
+      <Switch>
+        <Route exact path={AppRoute.ROOT} render={() => {
+          return (
+            <Page
+              className='page--gray page--main'
+              authorizationStatus={authorizationStatus}
+              userData={userData}
+              isLoading={offers.length === 0}
+              isMain={true}
+            >
+              <Main
+                onOfferTitleClick={onOfferTitleClick}
+              />
+            </Page>
+          );
+        }}
+        />
+        <Route exact path={`${AppRoute.OFFER}/:id`} render={({match}) => {
+          return (
+            <Page authorizationStatus={authorizationStatus} userData={userData} isLoading={offers.length === 0}>
+              <OfferPage
+                hotelId={+match.params.id}
+                onOfferTitleClick={onOfferTitleClick}
+              />
+            </Page>
+          );
+        }}
+        />
+        <Route exact path={AppRoute.LOGIN} render={() => {
 
-    return (
-      <Router history={history}>
-        <Switch>
-          <Route exact path={AppRoute.ROOT} render={() => {
-            return (
-              <Page className='page--gray page--main' authorizationStatus={authorizationStatus} userData={userData}>
-                <Main />
-              </Page>
-            );
-          }}
-          />
-          <Route exact path={`${AppRoute.OFFER}/:id`} render={(props) => {
-            // onOfferTitleClick(+props.match.params.id);
-            // onNearbyRequest(+props.match.params.id);
-            // onReviewsRequest(+props.match.params.id);
-
-            return (
-              <Page authorizationStatus={authorizationStatus} userData={userData}>
-                <OfferPage
-                  offer={offers.find((offer) => offer.id === +props.match.params.id)}
-                />
-              </Page>
-            );
-          }}
-          />
-          <Route exact path={AppRoute.LOGIN} render={() => {
-            if (authorizationStatus !== AuthorizationStatus.AUTH) {
-              return (
-                <Page className='page--gray page--login' authorizationStatus={authorizationStatus} userData={userData}>
-                  <Login
-                    onFormSubmit={login}
-                  />
-                </Page>
-              );
-            }
+          if (authorizationStatus === AuthorizationStatus.AUTH) {
             return <Redirect to={AppRoute.ROOT} />;
-          }}
-          />
-        </Switch>
-      </Router>
-    );
-  }
-}
+          }
+
+          return (
+            <Page className='page--gray page--login' authorizationStatus={authorizationStatus} userData={userData} isLoading={offers.length === 0}>
+              <Login
+                activeCity={`Amsterdam`}
+                onFormSubmit={login}
+              />
+            </Page>
+          );
+        }}
+        />
+      </Switch>
+    </Router>
+  );
+};
 
 App.propTypes = appTypes;
 
@@ -80,30 +75,16 @@ const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),
   userData: getUserData(state),
   offers: getOffers(state),
-  nearbyList: getNearestOffers(state),
-  isLoading: getLoadingStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  // onOfferTitleClick(offerId) {
-  //   dispatch(DataOperation.loadNearOffers(offerId));
-  //   dispatch(ReviewsOperation.loadReviews(offerId));
-  // },
-  // onNearbyRequest(offerId) {
-  //   dispatch(DataOperation.loadNearOffers(offerId));
-  // },
-  // onReviewsRequest(offerId) {
-  //   dispatch(ReviewsOperation.loadReviews(offerId));
-  // },
-  // login(authData) {
-  //   dispatch(UserOperation.login(authData));
-  // },
-  onAuthCheck() {
-    dispatch(UserOperation.checkAuth());
+  onOfferTitleClick(offer) {
+    dispatch(ActionCreator.setActiveCard(offer));
+    dispatch(DataOperation.loadNearOffers(offer));
   },
-  onOffersLoad() {
-    dispatch(DataOperation.loadOffers());
-  }
+  login(authData) {
+    dispatch(UserOperation.login(authData));
+  },
 });
 
 export {App};

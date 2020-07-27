@@ -7,7 +7,7 @@ import withSorting from '../../hocs/with-sorting/with-sorting.js';
 
 const PlacesWrapped = withSorting(Places);
 
-const Cities = ({offers, activeCity, activeItem, onActiveChange, onOfferTitleClick}) => {
+const Cities = ({offers, activeCity, activeItem, onActiveChange}) => {
   return (
     <div className="cities">
       <div className={`cities__places-container container${offers.length === 0 ? ` cities__places-container--empty` : ``}`}>
@@ -17,15 +17,15 @@ const Cities = ({offers, activeCity, activeItem, onActiveChange, onOfferTitleCli
             offers={offers}
             city={activeCity}
             onOfferCardEnter={onActiveChange}
-            onOfferTitleClick={onOfferTitleClick}
           /> :
           <NoPlaces city={activeCity} />
         }
         <div className="cities__right-section">
           {offers.length > 0 &&
               <Map
-                offers={offers}
-                activeCity={activeCity}
+                offers={offers.map(({id, coords}) => {
+                  return ({id, coords});
+                })}
                 activeCard={activeItem}
                 className='cities__map'
               />

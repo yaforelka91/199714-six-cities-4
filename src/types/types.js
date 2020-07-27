@@ -53,9 +53,7 @@ export const appTypes = {
 
 export const buttonTypes = {
   className: PropTypes.string.isRequired,
-  activeItem: PropTypes.number.isRequired,
   isDisabled: PropTypes.bool.isRequired,
-  onActiveChange: PropTypes.func.isRequired,
   onButtonClick: PropTypes.func.isRequired,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
@@ -68,7 +66,6 @@ export const citiesTypes = {
   activeCity: PropTypes.string.isRequired,
   activeItem: PropTypes.number.isRequired,
   onActiveChange: PropTypes.func.isRequired,
-  onOfferTitleClick: PropTypes.func.isRequired,
 };
 
 export const cityListTypes = {
@@ -85,6 +82,7 @@ export const cityListItemTypes = {
 
 export const headerTypes = {
   authorizationStatus: PropTypes.string.isRequired,
+  isMain: PropTypes.bool.isRequired,
   userData: PropTypes.shape({
     email: PropTypes.string,
     picture: PropTypes.string,
@@ -102,7 +100,6 @@ export const mainTypes = {
   activeCity: PropTypes.string.isRequired,
   citiesList: PropTypes.arrayOf(PropTypes.string).isRequired,
   errorType: PropTypes.string.isRequired,
-  onOfferTitleClick: PropTypes.func.isRequired,
   onCityNameClick: PropTypes.func.isRequired,
 };
 
@@ -113,7 +110,7 @@ export const mapTypes = {
         coords: PropTypes.arrayOf(PropTypes.number).isRequired,
       })
   ).isRequired,
-  activeCity: PropTypes.string.isRequired,
+  activeCard: PropTypes.number.isRequired,
   className: PropTypes.string,
 };
 
@@ -123,6 +120,7 @@ export const noPlacesTypes = {
 
 export const offerCardTypes = {
   offer: offerShape.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
   className: PropTypes.string.isRequired,
   classNameForImage: PropTypes.string.isRequired,
   classNameForInfo: PropTypes.string.isRequired,
@@ -133,10 +131,12 @@ export const offerCardTypes = {
 
 export const offerListTypes = {
   offers: PropTypes.arrayOf(offerShape).isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
   className: PropTypes.string.isRequired,
   viewMode: PropTypes.oneOf([CardView.CITIES, CardView.NEAR, CardView.FAVORITES]).isRequired,
   onOfferTitleClick: PropTypes.func.isRequired,
   onOfferCardEnter: PropTypes.func.isRequired,
+  onFavoriteButtonClick: PropTypes.func.isRequired,
 };
 
 export const offerPageTypes = {
@@ -148,6 +148,13 @@ export const offerPageTypes = {
 
 export const pageTypes = {
   className: PropTypes.string.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  userData: PropTypes.shape({
+    email: PropTypes.string,
+    picture: PropTypes.string,
+  }).isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  isMain: PropTypes.bool.isRequired,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
@@ -160,7 +167,6 @@ export const placesTypes = {
   renderSorting: PropTypes.func.isRequired,
   className: PropTypes.string,
   onOfferCardEnter: PropTypes.func.isRequired,
-  onOfferTitleClick: PropTypes.func.isRequired,
 };
 
 export const ratingTypes = {
@@ -202,8 +208,8 @@ export const tabsTypes = {
   activeItem: PropTypes.string.isRequired,
   items: PropTypes.arrayOf(PropTypes.string).isRequired,
   onActiveChange: PropTypes.func.isRequired,
+  onCityNameClick: PropTypes.func.isRequired,
   classNameForList: PropTypes.string.isRequired,
-  renderItem: PropTypes.func.isRequired,
 };
 
 export const textareaTypes = {

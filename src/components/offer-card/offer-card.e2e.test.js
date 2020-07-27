@@ -1,7 +1,10 @@
 import React from 'react';
 import {mount} from 'enzyme';
-import {OfferCard} from './offer-card.jsx';
+import OfferCard from './offer-card.jsx';
 import {extend} from '../../utils.js';
+import {Router} from 'react-router-dom';
+import history from '../../history.js';
+import {AuthorizationStatus} from '../../reducer/user/user.js';
 
 const offer = {
   city: {
@@ -54,13 +57,15 @@ describe(`OfferCardE2E`, () => {
     const onOfferCardEnter = jest.fn();
 
     const card = mount(
-        <OfferCard
-          offer={offer}
-          onOfferCardEnter={onOfferCardEnter}
-          isNear={false}
-          onOfferTitleClick={() => {}}
-          onFavoriteButtonClick={() => {}}
-        />
+        <Router history={history}>
+          <OfferCard
+            offer={offer}
+            authorizationStatus={AuthorizationStatus.AUTH}
+            onOfferCardEnter={onOfferCardEnter}
+            onOfferTitleClick={() => {}}
+            onFavoriteButtonClick={() => {}}
+          />
+        </Router>
     );
 
     card.simulate(`mouseenter`, offer);
@@ -73,12 +78,14 @@ describe(`OfferCardE2E`, () => {
     const onOfferTitleClick = jest.fn();
 
     const card = mount(
-        <OfferCard
-          offer={offer}
-          isNear={false}
-          onOfferTitleClick={onOfferTitleClick}
-          onFavoriteButtonClick={() => {}}
-        />
+        <Router history={history}>
+          <OfferCard
+            offer={offer}
+            authorizationStatus={AuthorizationStatus.AUTH}
+            onOfferTitleClick={onOfferTitleClick}
+            onFavoriteButtonClick={() => {}}
+          />
+        </Router>
     );
 
     const link = card.find(`.place-card__name a`);
@@ -93,12 +100,14 @@ describe(`OfferCardE2E`, () => {
     const onFavoriteButtonClick = jest.fn();
 
     const card = mount(
-        <OfferCard
-          offer={offer}
-          isNear={false}
-          onOfferTitleClick={() => {}}
-          onFavoriteButtonClick={onFavoriteButtonClick}
-        />
+        <Router history={history}>
+          <OfferCard
+            offer={offer}
+            authorizationStatus={AuthorizationStatus.AUTH}
+            onOfferTitleClick={() => {}}
+            onFavoriteButtonClick={onFavoriteButtonClick}
+          />
+        </Router>
     );
 
     const button = card.find(`button.place-card__bookmark-button`);

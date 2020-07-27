@@ -1,9 +1,13 @@
 import MockAdapter from 'axios-mock-adapter';
+import configureStore from 'redux-mock-store';
 import {createAPI} from '../../api.js';
 import {reducer, ActionType, ActionCreator, Operation} from './favorites.js';
+import {ActionType as DataActionType} from '../data/data.js';
 import {extend} from '../../utils.js';
+import NameSpace from '../name-space.js';
 
 const api = createAPI(() => {});
+const mockStore = configureStore([]);
 
 describe(`Reducer works correctly`, () => {
   it(`Reducer without additional parameters should return initialState`, () => {
@@ -42,23 +46,42 @@ describe(`Operation works correctly`, () => {
       isFavorite: 1
     };
 
+    const store = mockStore({
+      [NameSpace.DATA]: {
+        offersList: [{
+          id: 0,
+          isFavorite: true
+        }],
+      },
+    });
+
     const changeFavorites = Operation.changeFavoriteStatus(mockReviewData);
 
     apiMock
         .onPost(`/favorite/0/1`)
         .reply(200, extend(mockReviewData, {
+          id: 0,
           isFavorite: false,
         }));
 
-    return changeFavorites(dispatch, () => {}, api)
+    return changeFavorites(dispatch, store.getState, api)
         .then(() => {
-          expect(dispatch).toHaveBeenCalledTimes(1);
+          expect(dispatch).toHaveBeenCalledTimes(2);
+
           expect(dispatch).toHaveBeenNthCalledWith(1, {
             type: ActionType.TOGGLE_FAVORITE,
             payload: {
               id: 0,
               isFavorite: false,
             },
+          });
+
+          expect(dispatch).toHaveBeenNthCalledWith(2, {
+            type: DataActionType.LOAD_OFFERS,
+            payload: [{
+              id: 0,
+              isFavorite: false,
+            }],
           });
         });
   });

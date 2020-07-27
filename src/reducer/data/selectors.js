@@ -2,6 +2,7 @@ import NameSpace from '../name-space.js';
 import {createSelector} from 'reselect';
 
 const NAME_SPACE = NameSpace.DATA;
+const MAX_NEARBY_COUNT = 3;
 
 export const getOffers = (state) => {
   return state[NAME_SPACE].offersList;
@@ -19,11 +20,7 @@ export const getCities = createSelector(
 );
 
 export const getNearestOffers = (state) => {
-  return state[NAME_SPACE].nearOffers;
-};
-
-export const getLoadingStatus = (state) => {
-  return state[NAME_SPACE].isLoading;
+  return state[NAME_SPACE].nearOffers.slice(0, MAX_NEARBY_COUNT);
 };
 
 export const getError = (state) => {

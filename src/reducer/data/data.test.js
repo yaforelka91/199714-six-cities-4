@@ -118,11 +118,12 @@ describe(`Reducer works correctly`, () => {
   it(`Reducer without additional parameters should return initialState`, () => {
     expect(reducer(undefined, {})).toEqual({
       offersList: [],
+      nearOffers: [],
       errorType: ``,
     });
   });
 
-  it(`Reducer should update offersList by load questions`, () => {
+  it(`Reducer should update offersList by load offers`, () => {
     expect(reducer({
       offersList: [],
     }, {
@@ -143,6 +144,17 @@ describe(`Reducer works correctly`, () => {
       errorType: `Some error`,
     });
   });
+
+  it(`Reducer should update nearby offers by load offers`, () => {
+    expect(reducer({
+      nearOffers: [],
+    }, {
+      type: ActionType.LOAD_NEAR_OFFERS,
+      payload: offersList,
+    })).toEqual({
+      nearOffers: offersList,
+    });
+  });
 });
 
 describe(`Action creators work correctly`, () => {
@@ -159,6 +171,13 @@ describe(`Action creators work correctly`, () => {
       payload: offersList,
     });
   });
+
+  it(`Action creator for get nearby offers returns action with offers payload`, () => {
+    expect(ActionCreator.loadNearOffers(offersList)).toEqual({
+      type: ActionType.LOAD_NEAR_OFFERS,
+      payload: offersList,
+    });
+  });
 });
 
 describe(`Operation works correctly`, () => {
@@ -170,7 +189,6 @@ describe(`Operation works correctly`, () => {
     apiMock
         .onGet(`/hotels`)
         .reply(200, [{
-          fake: true,
           city: {
             name: `city`,
           }
@@ -181,7 +199,6 @@ describe(`Operation works correctly`, () => {
           expect(dispatch).toHaveBeenNthCalledWith(1, {
             type: ActionType.LOAD_OFFERS,
             payload: [{
-              fake: true,
               city: {
                 name: `city`,
               }
@@ -190,6 +207,34 @@ describe(`Operation works correctly`, () => {
           expect(dispatch).toHaveBeenNthCalledWith(2, {
             type: CatalogActionType.CHANGE_CITY,
             payload: `city`,
+          });
+        });
+  });
+
+  it(`Should make a correct GET-request to /hotels/0/nearby`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const nearOffersLoader = Operation.loadNearOffers(0);
+
+    apiMock
+        .onGet(`/hotels/0/nearby`)
+        .reply(200, [{
+          id: 0,
+          city: {
+            name: `city`,
+          }
+        }]);
+
+    return nearOffersLoader(dispatch, () => {}, api)
+        .then(() => {
+          expect(dispatch).toHaveBeenNthCalledWith(1, {
+            type: ActionType.LOAD_NEAR_OFFERS,
+            payload: [{
+              id: 0,
+              city: {
+                name: `city`,
+              }
+            }],
           });
         });
   });

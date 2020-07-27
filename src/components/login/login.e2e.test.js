@@ -3,6 +3,8 @@ import {mount} from 'enzyme';
 import {Login} from './login.jsx';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
+import {Router} from 'react-router-dom';
+import history from '../../history.js';
 
 const mockStore = configureStore([]);
 
@@ -13,10 +15,12 @@ describe(`LoginE2E`, () => {
 
     const wrapper = mount(
         <Provider store={store}>
-          <Login
-            activeCity='city'
-            onFormSubmit={onFormSubmit}
-          />
+          <Router history={history}>
+            <Login
+              activeCity='city'
+              onFormSubmit={onFormSubmit}
+            />
+          </Router>
         </Provider>,
         {
           createNodeMock: () => {
@@ -25,7 +29,7 @@ describe(`LoginE2E`, () => {
         }
     );
 
-    const {_loginRef, _passwordRef} = wrapper.children().instance();
+    const {_loginRef, _passwordRef} = wrapper.children().children().instance();
 
     _loginRef.current = {
       value: `test@test.com`,

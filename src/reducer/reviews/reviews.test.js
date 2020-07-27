@@ -58,4 +58,26 @@ describe(`Operation works correctly`, () => {
           });
         });
   });
+
+  it(`Should make a correct GET-request to /comments/0`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const reviewsLoader = Operation.loadReviews(0);
+
+    apiMock
+        .onGet(`/comments/0`)
+        .reply(200, [{
+          fake: true,
+        }]);
+
+    return reviewsLoader(dispatch, () => {}, api)
+        .then(() => {
+          expect(dispatch).toHaveBeenNthCalledWith(1, {
+            type: ActionType.LOAD_REVIEWS,
+            payload: [{
+              fake: true,
+            }],
+          });
+        });
+  });
 });

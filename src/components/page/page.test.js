@@ -17,6 +17,7 @@ describe(`PageSnapshot`, () => {
               email: `test@test.com`,
               picture: `/pic.jpg`,
             }}
+            isLoading={false}
           >
             {children}
           </Page>

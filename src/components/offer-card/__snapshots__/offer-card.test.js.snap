@@ -2,7 +2,7 @@
 
 exports[`OfferCardSnapshot should render OfferCard 1`] = `
 <article
-  className="place-card cities__place-card"
+  className="place-card"
   onMouseEnter={[Function]}
 >
   <div
@@ -13,10 +13,11 @@ exports[`OfferCardSnapshot should render OfferCard 1`] = `
     </span>
   </div>
   <div
-    className="place-card__image-wrapper cities__image-wrapper"
+    className="place-card__image-wrapper"
   >
     <a
-      href="#"
+      href="/offer/0"
+      onClick={[Function]}
     >
       <img
         alt="Place image"
@@ -94,7 +95,7 @@ exports[`OfferCardSnapshot should render OfferCard 1`] = `
       className="place-card__name"
     >
       <a
-        href="#"
+        href="/offer/0"
         onClick={[Function]}
       >
         Beautiful & luxurious apartment at great location

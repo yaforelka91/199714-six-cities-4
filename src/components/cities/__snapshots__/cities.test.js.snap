@@ -125,10 +125,10 @@ exports[`CitiesSnapshot should render Cities 1`] = `
         </select>
       </form>
       <div
-        className="places__list cities__places-list tabs__content"
+        className="cities__places-list places__list tabs__content"
       >
         <article
-          className="place-card cities__place-card"
+          className="cities__place-card place-card"
           onMouseEnter={[Function]}
         >
           <div
@@ -139,10 +139,11 @@ exports[`CitiesSnapshot should render Cities 1`] = `
             </span>
           </div>
           <div
-            className="place-card__image-wrapper cities__image-wrapper"
+            className="cities__image-wrapper place-card__image-wrapper"
           >
             <a
-              href="#"
+              href="/offer/0"
+              onClick={[Function]}
             >
               <img
                 alt="Place image"
@@ -220,7 +221,7 @@ exports[`CitiesSnapshot should render Cities 1`] = `
               className="place-card__name"
             >
               <a
-                href="#"
+                href="/offer/0"
                 onClick={[Function]}
               >
                 Beautiful & luxurious apartment at great location

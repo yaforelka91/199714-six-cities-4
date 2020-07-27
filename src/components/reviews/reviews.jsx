@@ -10,11 +10,11 @@ import withReview from '../../hocs/with-review/with-review.js';
 import {getReviewsCount, getReducedReviews} from '../../reducer/reviews/selectors.js';
 
 const ReviewFormWrapped = withReview(ReviewForm);
-const Reviews = ({authorizationStatus, reviews, offerId, className, onReviewFormSubmit}) => {
+const Reviews = ({authorizationStatus, reviewsCount, reviews, offerId, className, onReviewFormSubmit}) => {
   return (
     <section className={`review${className ? ` ${className}` : ``}`}>
-      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length > 0}</span></h2>
-      {reviews.length > 0 ?
+      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviewsCount}</span></h2>
+      {reviewsCount > 0 ?
         <ul className="reviews__list">
           {
             reviews
@@ -46,8 +46,8 @@ Reviews.propTypes = reviewsTypes;
 
 const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),
-  // reviewsCount: getReviewsCount(state),
-  // reviews: getReducedReviews(state),
+  reviewsCount: getReviewsCount(state),
+  reviews: getReducedReviews(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

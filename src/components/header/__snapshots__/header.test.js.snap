@@ -14,7 +14,9 @@ exports[`HeaderSnapshot should render Header for guest 1`] = `
         className="header__left"
       >
         <a
-          className="header__logo-link header__logo-link--active"
+          className="header__logo-link"
+          href="/"
+          onClick={[Function]}
         >
           <img
             alt="6 cities logo"
@@ -70,7 +72,9 @@ exports[`HeaderSnapshot should render Header for user 1`] = `
         className="header__left"
       >
         <a
-          className="header__logo-link header__logo-link--active"
+          className="header__logo-link"
+          href="/"
+          onClick={[Function]}
         >
           <img
             alt="6 cities logo"

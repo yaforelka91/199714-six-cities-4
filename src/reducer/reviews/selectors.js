@@ -1,7 +1,7 @@
 import NameSpace from '../name-space.js';
 import {createSelector} from 'reselect';
 
-const MAX_COUNT_REVIEWS = 9;
+const MAX_COUNT_REVIEWS = 10;
 
 const NAME_SPACE = NameSpace.REVIEWS;
 

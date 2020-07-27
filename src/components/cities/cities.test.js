@@ -5,6 +5,8 @@ import Cities from './cities.jsx';
 import NameSpace from '../../reducer/name-space.js';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
 import {Provider} from 'react-redux';
+import {Router} from 'react-router-dom';
+import history from '../../history.js';
 
 const mock = {
   offers: [
@@ -78,13 +80,14 @@ describe(`CitiesSnapshot`, () => {
 
     const tree = renderer.create(
         <Provider store={store}>
-          <Cities
-            offers={offers}
-            activeItem={-1}
-            activeCity={city}
-            onActiveChange={() => {}}
-            onOfferTitleClick={() => {}}
-          />
+          <Router history={history}>
+            <Cities
+              offers={offers}
+              activeItem={-1}
+              activeCity={city}
+              onActiveChange={() => {}}
+            />
+          </Router>
         </Provider>,
         {
           createNodeMock: () => {
