@@ -19,11 +19,9 @@ describe(`CityListItemE2E`, () => {
         </Router>
     );
 
-    const cityLink = cityListItem.find(`a.locations__item-link`);
+    const cityLink = cityListItem.find(`a.locations__item-link`).at(0);
 
-    cityLink.simulate(`click`, {preventDefault() {}}, city);
-
+    cityLink.simulate(`click`);
     expect(onCityNameClick).toHaveBeenCalledTimes(1);
-    expect(onCityNameClick.mock.calls[0][0]).toEqual(`city 1`);
   });
 });

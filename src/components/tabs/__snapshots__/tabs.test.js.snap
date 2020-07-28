@@ -10,45 +10,24 @@ exports[`TabsSnapshot should render Tabs 1`] = `
     <ul
       className="tabs__list"
     >
-      <li
-        className="locations__item"
+      <span
+        className="tabs__item tabs__item--active"
+        onClick={[Function]}
       >
-        <a
-          className="locations__item-link tabs__item tabs__item--active"
-          href="/"
-          onClick={[Function]}
-        >
-          <span>
-            item 1
-          </span>
-        </a>
-      </li>
-      <li
-        className="locations__item"
+        item 1
+      </span>
+      <span
+        className="tabs__item"
+        onClick={[Function]}
       >
-        <a
-          className="locations__item-link tabs__item"
-          href="/"
-          onClick={[Function]}
-        >
-          <span>
-            item 2
-          </span>
-        </a>
-      </li>
-      <li
-        className="locations__item"
+        item 2
+      </span>
+      <span
+        className="tabs__item"
+        onClick={[Function]}
       >
-        <a
-          className="locations__item-link tabs__item"
-          href="/"
-          onClick={[Function]}
-        >
-          <span>
-            item 3
-          </span>
-        </a>
-      </li>
+        item 3
+      </span>
     </ul>
   </section>
 </div>

@@ -6,34 +6,35 @@ import Button from '../button/button.jsx';
 import {offerPageTypes} from '../../types/types.js';
 import {capitalize, extend, getRatingInPercent} from '../../utils.js';
 import {connect} from 'react-redux';
-import {getNearestOffers} from '../../reducer/data/selectors.js';
+import {getNearestOffers, getOffers} from '../../reducer/data/selectors.js';
 import {Operation} from '../../reducer/favorites/favorites.js';
 import {CardView, AppRoute} from '../../const.js';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
 import {Operation as ReviewsOperation} from '../../reducer/reviews/reviews.js';
 import {Operation as DataOperation} from '../../reducer/data/data.js';
-import {getActiveOffer} from '../../reducer/catalog/selectors.js';
+import {getActiveOffer, getActiveCard} from '../../reducer/catalog/selectors.js';
+import {ActionCreator} from '../../reducer/data/data.js';
 
 const MAX_COUNT_PICTURES = 6;
 
 class OfferPage extends PureComponent {
+
   componentDidMount() {
-    const {hotelId, onNearbyRequest, onReviewsRequest, onOfferTitleClick} = this.props;
+    const {hotelId, onOfferTitleClick, onReviewsRequest} = this.props;
 
     onOfferTitleClick(hotelId);
-    onNearbyRequest(hotelId);
     onReviewsRequest(hotelId);
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.hotelId !== this.props.hotelId) {
-      this.props.onNearbyRequest(this.props.hotelId);
       this.props.onReviewsRequest(this.props.hotelId);
     }
   }
 
   render() {
-    const {offer, offersList, onOfferTitleClick, authorizationStatus, onFavoriteButtonClick} = this.props;
+    const {offer, offersList, authorizationStatus, onFavoriteButtonClick, onNearbyRequest} = this.props;
+
     if (!offer) {
       return null;
     }
@@ -56,7 +57,7 @@ class OfferPage extends PureComponent {
 
     let offersCoords = [];
     if (offersList.length > 0) {
-      offersCoords = [...offersList, offer].map(({id, coords}) => ({id, coords})).sort((a, b) => a.id - b.id);
+      offersCoords = [...offersList, offer].map(({id, coords}) => ({id, coords}));
     } else {
       offersCoords = [offer].map(({id, coords}) => ({id, coords}));
     }
@@ -93,16 +94,16 @@ class OfferPage extends PureComponent {
                 </h1>
                 <Button
                   activeItem={Number(isFavorite)}
-                  onButtonClick={(activeStatus) => {
+                  className={`property__bookmark-button${isFavorite ? ` property__bookmark-button--active` : ``}`}
+                  onButtonClick={() => {
                     if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
                       history.push(AppRoute.LOGIN);
                     } else {
                       onFavoriteButtonClick(extend(offer, {
-                        isFavorite: activeStatus
+                        isFavorite: +!offer.isFavorite
                       }));
                     }
                   }}
-                  className={`property__bookmark-button`}
                 >
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
@@ -170,36 +171,30 @@ class OfferPage extends PureComponent {
               </div>
               <Reviews
                 className='property__reviews'
-                // onDataRequest={() => {
-                //   return onReviewsRequest(offerId);
-                // // dispatch(ReviewsOperation.loadReviews(offerId));)
-                // }}
-                // reviews={reviews}
                 offerId={offerId}
               />
             </div>
           </div>
           <Map offers={offersCoords} activeCity={offer.city.name} activeCard={offerId} className={`property__map`} />
         </section>
-        {
-          offersList.length > 0 &&
-          <div className="container">
-            <section className="near-places places">
-              <h2 className="near-places__title">Other places in the neighbourhood</h2>
-              <OfferList
-                offers={offersList}
-                onOfferTitleClick={onOfferTitleClick}
-                className='near-places__list places__list'
-                viewMode={CardView.NEAR}
-              />
-            </section>
-          </div>
-        }
+
+        <div className="container">
+          <section className="near-places places">
+            <h2 className="near-places__title">Other places in the neighbourhood</h2>
+            <OfferList
+              offers={offersList}
+              className='near-places__list places__list'
+              viewMode={CardView.NEAR}
+              onDataRequest={() => {
+                onNearbyRequest(offer.id);
+              }}
+            />
+          </section>
+        </div>
 
       </main>
     );
   }
-
 }
 
 OfferPage.propTypes = offerPageTypes;
@@ -211,10 +206,12 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onFavoriteButtonClick(hotel) {
-    dispatch(Operation.changeFavoriteStatus(hotel));
+    dispatch(Operation.changeFavoriteStatus(hotel, (offer) => {
+      dispatch(ActionCreator.setActiveCard(offer));
+    }));
   },
   onNearbyRequest(offerId) {
-    return dispatch(DataOperation.loadNearOffers(offerId));
+    dispatch(DataOperation.loadNearOffers(offerId));
   },
   onReviewsRequest(offerId) {
     return dispatch(ReviewsOperation.loadReviews(offerId));

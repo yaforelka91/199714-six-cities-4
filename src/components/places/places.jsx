@@ -4,7 +4,7 @@ import OfferList from '../offer-list/offer-list.jsx';
 import {placesTypes} from '../../types/types.js';
 import {CardView} from '../../const.js';
 
-const Places = ({offers, city, className, renderSorting, onOfferCardEnter}) => {
+const Places = ({offers, city, className, renderSorting, onOfferCardEnter, onOffersRequest}) => {
   return (
     <section className={`${className ? `${className} ` : ``}places`}>
       <h2 className="visually-hidden">Places</h2>
@@ -15,6 +15,9 @@ const Places = ({offers, city, className, renderSorting, onOfferCardEnter}) => {
         className='cities__places-list places__list tabs__content'
         viewMode={CardView.CITIES}
         onOfferCardEnter={onOfferCardEnter}
+        onDataRequest={() => {
+          onOffersRequest();
+        }}
       />
     </section>
   );

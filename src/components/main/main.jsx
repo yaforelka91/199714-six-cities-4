@@ -7,6 +7,8 @@ import {connect} from 'react-redux';
 import {getCities, getError, getOffers} from '../../reducer/data/selectors.js';
 import {getCity} from '../../reducer/catalog/selectors.js';
 import {ActionCreator} from '../../reducer/catalog/catalog.js';
+import CityListItem from '../city-list-item/city-list-item.jsx';
+import {Operation as DataOperation} from '../../reducer/data/data.js';
 
 const CitiesWrapped = withActiveItem(Cities);
 const TabsWrapped = withActiveItem(Tabs);
@@ -16,9 +18,9 @@ const Main = ({
   offersList,
   onCityNameClick,
   citiesList,
-  errorType
+  errorType,
+  onOffersRequest
 }) => {
-
   return (
     <main className={`page__main page__main--index${offersList.length === 0 ? ` page__main--index-empty` : ``}`}>
       <h1 className="visually-hidden">Cities</h1>
@@ -26,13 +28,24 @@ const Main = ({
         items={citiesList}
         classNameForList='locations__list'
         activeItem={activeCity}
-        onCityNameClick={onCityNameClick}
+        renderItem={(item, activeItem, onActiveChange) => {
+          return (
+            <CityListItem
+              city={item}
+              classNameLink={`tabs__item${activeItem === item ? ` tabs__item--active` : ``}`}
+              onCityNameClick={() => {
+                onCityNameClick(item, onActiveChange);
+              }}
+            />
+          );
+        }}
       />
       {
         errorType === `` ?
           <CitiesWrapped
             activeCity={activeCity}
             offers={offersList}
+            onOffersRequest={onOffersRequest}
           />
           :
           <p style={{fontSize: 32, textAlign: `center`}}>
@@ -61,7 +74,10 @@ const mapDispatchToProps = (dispatch) => ({
   onCityNameClick(city, onActiveChange) {
     onActiveChange(city);
     dispatch(ActionCreator.changeCity(city));
-  }
+  },
+  onOffersRequest(offerId) {
+    dispatch(DataOperation.loadOffers(offerId));
+  },
 });
 
 export {Main};

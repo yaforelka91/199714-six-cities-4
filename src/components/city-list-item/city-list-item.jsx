@@ -9,9 +9,7 @@ const CityListItem = ({city, onCityNameClick, classNameLink}) => {
       <Link
         className={`locations__item-link${classNameLink ? ` ${classNameLink}` : ``}`}
         to={AppRoute.ROOT}
-        onClick={() => {
-          onCityNameClick(city);
-        }}
+        onClick={onCityNameClick}
       >
         <span>{city}</span>
       </Link>

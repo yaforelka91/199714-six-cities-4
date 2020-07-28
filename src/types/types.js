@@ -190,6 +190,7 @@ export const reviewFormTypes = {
 
 export const reviewsTypes = {
   reviews: PropTypes.arrayOf(reviewShape).isRequired,
+  reviewsCount: PropTypes.number.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   offerId: PropTypes.number.isRequired,
   className: PropTypes.string.isRequired,
@@ -208,7 +209,7 @@ export const tabsTypes = {
   activeItem: PropTypes.string.isRequired,
   items: PropTypes.arrayOf(PropTypes.string).isRequired,
   onActiveChange: PropTypes.func.isRequired,
-  onCityNameClick: PropTypes.func.isRequired,
+  renderItem: PropTypes.func.isRequired,
   classNameForList: PropTypes.string.isRequired,
 };
 

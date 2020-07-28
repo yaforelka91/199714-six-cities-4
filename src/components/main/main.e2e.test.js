@@ -122,34 +122,6 @@ const offersList = [
 const city = `city 1`;
 
 describe(`MainE2E`, () => {
-  // it(`Should offer title be pressed`, () => {
-  //   const store = mockStore({
-  //     [NameSpace.USER]: {
-  //       authorizationStatus: AuthorizationStatus.AUTH,
-  //     }
-  //   });
-
-  //   const onOfferTitleClick = jest.fn();
-
-  //   const main = mount(
-  //       <Provider store={store}>
-  //         <Main
-  //           offersList={offersList}
-  //           activeCity={city}
-  //           citiesList={[city]}
-  //           onCityNameClick={()=>{}}
-  //           onOfferTitleClick={onOfferTitleClick}
-  //         />
-  //       </Provider>
-  //   );
-
-  //   const offerLinks = main.find(`.place-card__name a`);
-  //   offerLinks.forEach((node) => {
-  //     node.simulate(`click`);
-  //   });
-
-  //   expect(onOfferTitleClick).toHaveBeenCalledTimes(offersList.length);
-  // });
 
   it(`Should city title be pressed`, () => {
     const store = mockStore({
@@ -158,8 +130,10 @@ describe(`MainE2E`, () => {
       }
     });
 
-    const onCityNameClick = jest.fn();
-    // const callback = jest.fn();
+    const onCityNameClick = jest.fn((cityName) => {
+      callback(cityName);
+    });
+    const callback = jest.fn();
 
     const main = mount(
         <Provider store={store}>
@@ -174,12 +148,12 @@ describe(`MainE2E`, () => {
         </Provider>
     );
 
-    const cityLink = main.find(`.locations__item-link.tabs__item`).at(1);
-    cityLink.simulate(`click`, {preventDefault() {}}, `city 2`);
-    console.log(main.find(`a.locations__item-link.tabs__item`).length);
-    // expect(onCityNameClick).toHaveBeenCalledTimes(1);
-    // expect(onCityNameClick.mock.calls[0][0]).toBe(`city 1`);
+    const cityLink = main.find(`a.locations__item-link.tabs__item`).at(1);
+    cityLink.simulate(`click`, `city 1`, callback);
+
     expect(onCityNameClick).toHaveBeenCalledTimes(1);
-    expect(onCityNameClick.mock.calls[0][0]).toBe(`city 1`);
+    expect(onCityNameClick.mock.calls[0][0]).toBe(`city 2`);
+    expect(callback).toHaveBeenCalledTimes(1);
+    expect(callback.mock.calls[0][0]).toBe(`city 2`);
   });
 });

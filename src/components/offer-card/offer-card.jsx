@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import {offerCardTypes} from '../../types/types.js';
-import {capitalize, extend, getRatingInPercent} from '../../utils.js';
+import {capitalize, getRatingInPercent} from '../../utils.js';
 import Button from '../button/button.jsx';
-import {AuthorizationStatus} from '../../reducer/user/user.js';
-import history from '../../history.js';
 import {AppRoute} from '../../const.js';
 import {Link} from 'react-router-dom';
 
@@ -11,35 +9,16 @@ class OfferCard extends Component {
   constructor(props) {
     super(props);
 
-    this._handleFavoriteButtonClick = this._handleFavoriteButtonClick.bind(this);
     this._handleCardEnter = this._handleCardEnter.bind(this);
-    this._handleTitleClick = this._handleTitleClick.bind(this);
   }
 
-  shouldComponentUpdate(prevProps) {
-    return prevProps.offer.isFavorite !== this.props.offer.isFavorite;
+  shouldComponentUpdate(nextProps) {
+    return nextProps.offer.isFavorite !== this.props.offer.isFavorite;
   }
 
   _handleCardEnter() {
     const {onOfferCardEnter, offer} = this.props;
     onOfferCardEnter(offer.id);
-  }
-
-  _handleTitleClick() {
-    const {onOfferTitleClick, offer} = this.props;
-    onOfferTitleClick(offer.id);
-  }
-
-  _handleFavoriteButtonClick() {
-    const {authorizationStatus, onFavoriteButtonClick, offer} = this.props;
-
-    if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
-      history.push(AppRoute.LOGIN);
-    } else {
-      onFavoriteButtonClick(extend(offer, {
-        isFavorite: +!offer.isFavorite,
-      }));
-    }
   }
 
   render() {
@@ -48,6 +27,8 @@ class OfferCard extends Component {
       className,
       classNameForImage,
       classNameForInfo,
+      onFavoriteButtonClick,
+      onOfferTitleClick
     } = this.props;
 
     const {id, title, picture, price, type, isPremium, isFavorite, rating} = offer;
@@ -63,7 +44,7 @@ class OfferCard extends Component {
           </div>
         }
         <div className={`${classNameForImage ? `${classNameForImage} ` : ``}place-card__image-wrapper`}>
-          <Link to={`${AppRoute.OFFER}/${id}`} onClick={this._handleTitleClick}>
+          <Link to={`${AppRoute.OFFER}/${id}`} onClick={onOfferTitleClick}>
             <img className="place-card__image" src={picture} width="260" height="200" alt="Place image" />
           </Link>
         </div>
@@ -74,7 +55,7 @@ class OfferCard extends Component {
               <span className="place-card__price-text">&#47;&nbsp;night</span>
             </div>
             <Button
-              onButtonClick={this._handleFavoriteButtonClick}
+              onButtonClick={onFavoriteButtonClick}
               className={`place-card__bookmark-button${isFavorite ? ` place-card__bookmark-button--active` : ``}`}
             >
               <svg className="place-card__bookmark-icon" width="18" height="19">
@@ -90,7 +71,7 @@ class OfferCard extends Component {
             </div>
           </div>
           <h2 className="place-card__name">
-            <Link to={`${AppRoute.OFFER}/${id}`} onClick={this._handleTitleClick}>
+            <Link to={`${AppRoute.OFFER}/${id}`} onClick={onOfferTitleClick}>
               {title}
             </Link>
           </h2>
