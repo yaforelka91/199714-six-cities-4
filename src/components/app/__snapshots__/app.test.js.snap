@@ -313,7 +313,7 @@ exports[`AppSnapshot should render Main page 1`] = `
                     <span
                       style={
                         Object {
-                          "width": "98%",
+                          "width": "100%",
                         }
                       }
                     />
@@ -420,7 +420,7 @@ exports[`AppSnapshot should render Main page 1`] = `
                     <span
                       style={
                         Object {
-                          "width": "98%",
+                          "width": "100%",
                         }
                       }
                     />

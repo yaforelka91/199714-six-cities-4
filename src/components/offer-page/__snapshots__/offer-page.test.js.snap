@@ -641,7 +641,7 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
                 <span
                   style={
                     Object {
-                      "width": "82%",
+                      "width": "80%",
                     }
                   }
                 />
@@ -748,7 +748,7 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
                 <span
                   style={
                     Object {
-                      "width": "82%",
+                      "width": "80%",
                     }
                   }
                 />

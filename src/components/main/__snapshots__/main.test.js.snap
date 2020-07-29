@@ -239,7 +239,7 @@ exports[`MainSnapshot should render correctly 1`] = `
                   <span
                     style={
                       Object {
-                        "width": "82%",
+                        "width": "80%",
                       }
                     }
                   />

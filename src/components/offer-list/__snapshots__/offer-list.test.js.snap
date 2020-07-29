@@ -83,7 +83,7 @@ exports[`OfferListSnapshot should render OfferList 1`] = `
           <span
             style={
               Object {
-                "width": "82%",
+                "width": "80%",
               }
             }
           />

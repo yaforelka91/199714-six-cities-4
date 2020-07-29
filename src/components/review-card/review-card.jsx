@@ -23,7 +23,7 @@ class ReviewCard extends Component {
         <div className="reviews__info">
           <div className="reviews__rating rating">
             <div className="reviews__stars rating__stars">
-              <span style={{width: `${getRatingInPercent(rating)}%`}}></span>
+              <span style={{width: `${getRatingInPercent(rating, true)}%`}}></span>
               <span className="visually-hidden">Rating</span>
             </div>
           </div>

@@ -79,7 +79,7 @@ class OfferCard extends Component {
           </div>
           <div className="place-card__rating rating">
             <div className="place-card__stars rating__stars">
-              <span style={{width: `${getRatingInPercent(rating)}%`}}></span>
+              <span style={{width: `${getRatingInPercent(rating, true)}%`}}></span>
               <span className="visually-hidden">Rating</span>
             </div>
           </div>

@@ -98,7 +98,7 @@ exports[`PlacesSnapshot should render Places 1`] = `
             <span
               style={
                 Object {
-                  "width": "82%",
+                  "width": "80%",
                 }
               }
             />

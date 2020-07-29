@@ -41,8 +41,9 @@ export const getSortedOffers = createSelector(
     }
 );
 
-export const getRatingInPercent = (ratingValue) => {
-  return Math.round(ratingValue * 100 / 5);
+export const getRatingInPercent = (ratingValue, isInteger) => {
+
+  return isInteger ? Math.round(ratingValue) * 100 / 5 : Math.round(ratingValue * 100 / 5);
 };
 
 export const getArticleClassName = (viewMode) => {
