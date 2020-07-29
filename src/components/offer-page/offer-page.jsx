@@ -6,36 +6,39 @@ import Button from '../button/button.jsx';
 import {offerPageTypes} from '../../types/types.js';
 import {capitalize, extend, getRatingInPercent} from '../../utils.js';
 import {connect} from 'react-redux';
-import {getNearestOffers, getOffers} from '../../reducer/data/selectors.js';
-import {Operation} from '../../reducer/favorites/favorites.js';
+import {getNearestOffers} from '../../reducer/data/selectors.js';
 import {CardView, AppRoute} from '../../const.js';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
 import {Operation as ReviewsOperation} from '../../reducer/reviews/reviews.js';
+import {ActionCreator as CatalogActionCreator} from '../../reducer/catalog/catalog.js';
 import {Operation as DataOperation} from '../../reducer/data/data.js';
-import {getActiveOffer, getActiveCard} from '../../reducer/catalog/selectors.js';
-import {ActionCreator} from '../../reducer/data/data.js';
+import history from '../../history.js';
+import {getActiveOffer} from '../../reducer/catalog/selectors.js';
 
 const MAX_COUNT_PICTURES = 6;
 
 class OfferPage extends PureComponent {
-
   componentDidMount() {
-    const {hotelId, onOfferTitleClick, onReviewsRequest} = this.props;
+    const {hotelId, onReviewsRequest, onNearbyRequest, onSetActiveOffer} = this.props;
 
-    onOfferTitleClick(hotelId);
+    onSetActiveOffer(hotelId);
     onReviewsRequest(hotelId);
+    onNearbyRequest(hotelId);
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.hotelId !== this.props.hotelId) {
-      this.props.onReviewsRequest(this.props.hotelId);
+    const {hotelId, onReviewsRequest, onNearbyRequest, onSetActiveOffer} = this.props;
+
+    if (prevProps.hotelId !== hotelId) {
+      onReviewsRequest(hotelId);
+      onNearbyRequest(hotelId);
+      onSetActiveOffer(hotelId);
     }
   }
 
   render() {
     const {offer, offersList, authorizationStatus, onFavoriteButtonClick, onNearbyRequest} = this.props;
-
-    if (!offer) {
+    if (!offer.id) {
       return null;
     }
 
@@ -100,7 +103,7 @@ class OfferPage extends PureComponent {
                       history.push(AppRoute.LOGIN);
                     } else {
                       onFavoriteButtonClick(extend(offer, {
-                        isFavorite: +!offer.isFavorite
+                        isFavorite: +!offer.isFavorite,
                       }));
                     }
                   }}
@@ -191,7 +194,6 @@ class OfferPage extends PureComponent {
             />
           </section>
         </div>
-
       </main>
     );
   }
@@ -205,17 +207,15 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onFavoriteButtonClick(hotel) {
-    dispatch(Operation.changeFavoriteStatus(hotel, (offer) => {
-      dispatch(ActionCreator.setActiveCard(offer));
-    }));
-  },
   onNearbyRequest(offerId) {
     dispatch(DataOperation.loadNearOffers(offerId));
   },
   onReviewsRequest(offerId) {
-    return dispatch(ReviewsOperation.loadReviews(offerId));
-  }
+    dispatch(ReviewsOperation.loadReviews(offerId));
+  },
+  onSetActiveOffer(offerId) {
+    dispatch(CatalogActionCreator.setActiveCard(offerId));
+  },
 });
 
 export {OfferPage};

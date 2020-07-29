@@ -69,7 +69,6 @@ describe(`OfferListSnapshot`, () => {
         <Router history={history}>
           <OfferList
             offers={offers}
-            onOfferTitleClick={() => {}}
             viewMode={CardView.CITIES}
             authorizationStatus={AuthorizationStatus.AUTH}
             onFavoriteButtonClick={() => {}}

@@ -1,9 +1,13 @@
 import MockAdapter from 'axios-mock-adapter';
+import configureStore from 'redux-mock-store';
 import {createAPI} from '../../api.js';
 import {reducer, ActionType, ActionCreator, Operation} from './data.js';
 import {ActionType as CatalogActionType} from '../catalog/catalog.js';
+import NameSpace from '../name-space.js';
+import {getCity} from '../catalog/selectors.js';
 
 const api = createAPI(() => {});
+const mockStore = configureStore([]);
 
 const offersList = [
   {
@@ -186,6 +190,12 @@ describe(`Operation works correctly`, () => {
     const dispatch = jest.fn();
     const offersLoader = Operation.loadOffers();
 
+    const store = mockStore({
+      [NameSpace.CATALOG]: {
+        activeCity: ``,
+      },
+    });
+
     apiMock
         .onGet(`/hotels`)
         .reply(200, [{
@@ -194,7 +204,7 @@ describe(`Operation works correctly`, () => {
           }
         }]);
 
-    return offersLoader(dispatch, () => {}, api)
+    return offersLoader(dispatch, store.getState, api)
         .then(() => {
           expect(dispatch).toHaveBeenNthCalledWith(1, {
             type: ActionType.LOAD_OFFERS,
@@ -204,10 +214,13 @@ describe(`Operation works correctly`, () => {
               }
             }],
           });
-          expect(dispatch).toHaveBeenNthCalledWith(2, {
-            type: CatalogActionType.CHANGE_CITY,
-            payload: `city`,
-          });
+
+          if (getCity(store.getState()) === ``) {
+            expect(dispatch).toHaveBeenNthCalledWith(2, {
+              type: CatalogActionType.CHANGE_CITY,
+              payload: `city`,
+            });
+          }
         });
   });
 

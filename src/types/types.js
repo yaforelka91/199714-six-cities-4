@@ -46,9 +46,14 @@ export const reviewShape = PropTypes.shape({
 });
 
 export const appTypes = {
-  activeCard: PropTypes.oneOfType([offerShape, PropTypes.bool]).isRequired,
   authorizationStatus: PropTypes.string.isRequired,
-  onOfferTitleClick: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
+  userData: PropTypes.shape({
+    email: PropTypes.string,
+    picture: PropTypes.string,
+  }).isRequired,
+  offers: PropTypes.arrayOf(offerShape).isRequired,
+  onFavoriteButtonClick: PropTypes.func.isRequired,
 };
 
 export const buttonTypes = {
@@ -124,9 +129,9 @@ export const offerCardTypes = {
   className: PropTypes.string.isRequired,
   classNameForImage: PropTypes.string.isRequired,
   classNameForInfo: PropTypes.string.isRequired,
-  onOfferTitleClick: PropTypes.func.isRequired,
   onOfferCardEnter: PropTypes.func.isRequired,
   onFavoriteButtonClick: PropTypes.func.isRequired,
+  onDataRequest: PropTypes.func,
 };
 
 export const offerListTypes = {
@@ -134,15 +139,13 @@ export const offerListTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   className: PropTypes.string.isRequired,
   viewMode: PropTypes.oneOf([CardView.CITIES, CardView.NEAR, CardView.FAVORITES]).isRequired,
-  onOfferTitleClick: PropTypes.func.isRequired,
   onOfferCardEnter: PropTypes.func.isRequired,
   onFavoriteButtonClick: PropTypes.func.isRequired,
 };
 
 export const offerPageTypes = {
-  offer: offerShape.isRequired,
+  offer: PropTypes.oneOfType([offerShape, PropTypes.bool]).isRequired,
   offersList: PropTypes.arrayOf(offerShape).isRequired,
-  onOfferTitleClick: PropTypes.func.isRequired,
   onFavoriteButtonClick: PropTypes.func.isRequired,
 };
 

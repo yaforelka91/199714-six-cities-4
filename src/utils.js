@@ -1,5 +1,5 @@
 import {createSelector} from 'reselect';
-import {SortType, CardView} from './const.js';
+import {SortType, CardView, MONTHS_LIST} from './const.js';
 
 export const extend = (object1, object2) => {
   return Object.assign({}, object1, object2);
@@ -22,6 +22,11 @@ export const sortOffers = (sortType, offers) => {
 
 export const capitalize = (word) => {
   return word.charAt(0).toUpperCase() + word.slice(1);
+};
+
+export const getFormattedDate = (dateStr) => {
+  const date = new Date(dateStr);
+  return `${MONTHS_LIST[date.getMonth()]} ${date.getFullYear()}`;
 };
 
 export const getSortedOffers = createSelector(

@@ -62,7 +62,6 @@ describe(`OfferCardE2E`, () => {
             offer={offer}
             authorizationStatus={AuthorizationStatus.AUTH}
             onOfferCardEnter={onOfferCardEnter}
-            onOfferTitleClick={() => {}}
             onFavoriteButtonClick={() => {}}
           />
         </Router>
@@ -74,28 +73,6 @@ describe(`OfferCardE2E`, () => {
     expect(onOfferCardEnter.mock.calls[0][0]).toBe(0);
   });
 
-  it(`Check data-format in callback after title was pressed`, () => {
-    const onOfferTitleClick = jest.fn();
-
-    const card = mount(
-        <Router history={history}>
-          <OfferCard
-            offer={offer}
-            authorizationStatus={AuthorizationStatus.AUTH}
-            onOfferTitleClick={onOfferTitleClick}
-            onFavoriteButtonClick={() => {}}
-          />
-        </Router>
-    );
-
-    const link = card.find(`.place-card__name a`);
-
-    link.simulate(`click`, {preventDefault() {}}, offer.id);
-
-    expect(onOfferTitleClick).toHaveBeenCalledTimes(1);
-    expect(onOfferTitleClick.mock.calls[0][0]).toBe(0);
-  });
-
   it(`Check data-format in callback after To favorite button was pressed`, () => {
     const onFavoriteButtonClick = jest.fn();
 
@@ -104,7 +81,6 @@ describe(`OfferCardE2E`, () => {
           <OfferCard
             offer={offer}
             authorizationStatus={AuthorizationStatus.AUTH}
-            onOfferTitleClick={() => {}}
             onFavoriteButtonClick={onFavoriteButtonClick}
           />
         </Router>

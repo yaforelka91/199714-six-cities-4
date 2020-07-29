@@ -1,6 +1,8 @@
 import {extend} from '../../utils.js';
 import adaptUser from '../../adapters/user.js';
 import adaptError from '../../adapters/error.js';
+import {Operation as DataOperation} from '../data/data.js';
+
 import {Error} from '../../api.js';
 
 const AuthorizationStatus = {
@@ -82,6 +84,7 @@ const Operation = {
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
         dispatch(ActionCreator.setUserData(adaptUser(response.data)));
         dispatch(ActionCreator.catchError(``));
+        dispatch(DataOperation.loadOffers());
       })
       .catch((err) => {
         if (err.response.status === Error.BAD_REQUEST) {

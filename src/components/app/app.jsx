@@ -1,7 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../reducer/catalog/catalog.js';
-import {getActiveOffer} from '../../reducer/catalog/selectors.js';
 import {Router, Switch, Route, Redirect} from 'react-router-dom';
 import Page from '../page/page.jsx';
 import Main from '../main/main.jsx';
@@ -10,12 +8,13 @@ import {appTypes} from '../../types/types.js';
 import Login from '../login/login.jsx';
 import {getAuthorizationStatus, getUserData} from '../../reducer/user/selectors.js';
 import {Operation as UserOperation, AuthorizationStatus} from '../../reducer/user/user.js';
-import {Operation as DataOperation} from '../../reducer/data/data.js';
+import {Operation as FavoritesOperation} from '../../reducer/favorites/favorites.js';
+
 import history from '../../history.js';
 import {AppRoute} from '../../const.js';
 import {getOffers} from '../../reducer/data/selectors.js';
 
-const App = ({onOfferTitleClick, login, authorizationStatus, userData, offers}) => {
+const App = ({login, authorizationStatus, userData, offers, onFavoriteButtonClick}) => {
 
   return (
     <Router history={history}>
@@ -29,9 +28,7 @@ const App = ({onOfferTitleClick, login, authorizationStatus, userData, offers}) 
               isLoading={offers.length === 0}
               isMain={true}
             >
-              <Main
-                onOfferTitleClick={onOfferTitleClick}
-              />
+              <Main />
             </Page>
           );
         }}
@@ -40,15 +37,16 @@ const App = ({onOfferTitleClick, login, authorizationStatus, userData, offers}) 
           return (
             <Page authorizationStatus={authorizationStatus} userData={userData} isLoading={offers.length === 0}>
               <OfferPage
+                onFavoriteButtonClick={onFavoriteButtonClick}
+                authorizationStatus={authorizationStatus}
                 hotelId={+match.params.id}
-                onOfferTitleClick={onOfferTitleClick}
+                isLoading={offers.length === 0}
               />
             </Page>
           );
         }}
         />
         <Route exact path={AppRoute.LOGIN} render={() => {
-
           if (authorizationStatus === AuthorizationStatus.AUTH) {
             return <Redirect to={AppRoute.ROOT} />;
           }
@@ -71,16 +69,14 @@ const App = ({onOfferTitleClick, login, authorizationStatus, userData, offers}) 
 App.propTypes = appTypes;
 
 const mapStateToProps = (state) => ({
-  activeCard: getActiveOffer(state),
   authorizationStatus: getAuthorizationStatus(state),
   userData: getUserData(state),
   offers: getOffers(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onOfferTitleClick(offer) {
-    dispatch(ActionCreator.setActiveCard(offer));
-    dispatch(DataOperation.loadNearOffers(offer));
+  onFavoriteButtonClick(hotel) {
+    dispatch(FavoritesOperation.changeFavoriteStatus(hotel));
   },
   login(authData) {
     dispatch(UserOperation.login(authData));

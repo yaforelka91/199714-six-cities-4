@@ -1,19 +1,34 @@
 import React, {Component} from 'react';
 import {offerCardTypes} from '../../types/types.js';
-import {capitalize, getRatingInPercent} from '../../utils.js';
+import {capitalize, getRatingInPercent, extend} from '../../utils.js';
 import Button from '../button/button.jsx';
 import {AppRoute} from '../../const.js';
 import {Link} from 'react-router-dom';
+import {AuthorizationStatus} from '../../reducer/user/user.js';
+import history from '../../history.js';
 
 class OfferCard extends Component {
   constructor(props) {
     super(props);
 
     this._handleCardEnter = this._handleCardEnter.bind(this);
+    this._handleFavoriteClick = this._handleFavoriteClick.bind(this);
   }
 
   shouldComponentUpdate(nextProps) {
     return nextProps.offer.isFavorite !== this.props.offer.isFavorite;
+  }
+
+  _handleFavoriteClick() {
+    const {authorizationStatus, onFavoriteButtonClick, onDataRequest, offer} = this.props;
+
+    if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
+      history.push(AppRoute.LOGIN);
+    } else {
+      onFavoriteButtonClick(extend(offer, {
+        isFavorite: +!offer.isFavorite,
+      }), onDataRequest);
+    }
   }
 
   _handleCardEnter() {
@@ -27,8 +42,6 @@ class OfferCard extends Component {
       className,
       classNameForImage,
       classNameForInfo,
-      onFavoriteButtonClick,
-      onOfferTitleClick
     } = this.props;
 
     const {id, title, picture, price, type, isPremium, isFavorite, rating} = offer;
@@ -44,7 +57,7 @@ class OfferCard extends Component {
           </div>
         }
         <div className={`${classNameForImage ? `${classNameForImage} ` : ``}place-card__image-wrapper`}>
-          <Link to={`${AppRoute.OFFER}/${id}`} onClick={onOfferTitleClick}>
+          <Link to={`${AppRoute.OFFER}/${id}`}>
             <img className="place-card__image" src={picture} width="260" height="200" alt="Place image" />
           </Link>
         </div>
@@ -55,7 +68,7 @@ class OfferCard extends Component {
               <span className="place-card__price-text">&#47;&nbsp;night</span>
             </div>
             <Button
-              onButtonClick={onFavoriteButtonClick}
+              onButtonClick={this._handleFavoriteClick}
               className={`place-card__bookmark-button${isFavorite ? ` place-card__bookmark-button--active` : ``}`}
             >
               <svg className="place-card__bookmark-icon" width="18" height="19">
@@ -71,7 +84,7 @@ class OfferCard extends Component {
             </div>
           </div>
           <h2 className="place-card__name">
-            <Link to={`${AppRoute.OFFER}/${id}`} onClick={onOfferTitleClick}>
+            <Link to={`${AppRoute.OFFER}/${id}`}>
               {title}
             </Link>
           </h2>

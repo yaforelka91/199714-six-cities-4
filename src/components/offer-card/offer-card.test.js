@@ -65,7 +65,6 @@ describe(`OfferCardSnapshot`, () => {
           <OfferCard
             offer={offer}
             authorizationStatus={AuthorizationStatus.AUTH}
-            onOfferTitleClick={() => {}}
             onFavoriteButtonClick={() => {}}
           />
         </Router>

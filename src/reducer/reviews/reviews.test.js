@@ -23,6 +23,19 @@ describe(`Reducer works correctly`, () => {
       }]
     });
   });
+
+  it(`Reducer load reviews`, () => {
+    expect(reducer({
+      reviews: [],
+    }, {
+      type: ActionType.LOAD_REVIEWS,
+      payload: [{fake: true}],
+    })).toEqual({
+      reviews: [{
+        fake: true
+      }]
+    });
+  });
 });
 
 describe(`Action creators work correctly`, () => {
@@ -30,6 +43,13 @@ describe(`Action creators work correctly`, () => {
     expect(ActionCreator.sendReview({fake: true})).toEqual({
       type: ActionType.SEND_REVIEW,
       payload: {fake: true},
+    });
+  });
+
+  it(`Action creator for loading reviews returns action with reviews payload`, () => {
+    expect(ActionCreator.loadReviews([{fake: true}])).toEqual({
+      type: ActionType.LOAD_REVIEWS,
+      payload: [{fake: true}],
     });
   });
 });

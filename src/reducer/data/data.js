@@ -1,6 +1,7 @@
 import {extend} from '../../utils.js';
 import adaptOffer from '../../adapters/offers.js';
 import {ActionCreator as CatalogActionCreator} from '../catalog/catalog.js';
+import {getCity} from '../catalog/selectors.js';
 
 const initialState = {
   offersList: [],
@@ -42,7 +43,10 @@ const Operation = {
         });
 
         dispatch(ActionCreator.loadOffers(adaptedOffers));
-        dispatch(CatalogActionCreator.changeCity(adaptedOffers[0].city.name));
+
+        if (getCity(getState()) === ``) {
+          dispatch(CatalogActionCreator.changeCity(adaptedOffers[0].city.name));
+        }
       })
       .catch((err) => {
         const {message} = err;

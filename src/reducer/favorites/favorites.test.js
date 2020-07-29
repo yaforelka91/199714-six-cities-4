@@ -2,7 +2,6 @@ import MockAdapter from 'axios-mock-adapter';
 import configureStore from 'redux-mock-store';
 import {createAPI} from '../../api.js';
 import {reducer, ActionType, ActionCreator, Operation} from './favorites.js';
-import {ActionType as DataActionType} from '../data/data.js';
 import {extend} from '../../utils.js';
 import NameSpace from '../name-space.js';
 
@@ -41,7 +40,8 @@ describe(`Operation works correctly`, () => {
   it(`Should make a correct POST-request to /favorite`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
-    const mockReviewData = {
+    const callback = jest.fn();
+    const mockOfferData = {
       id: 0,
       isFavorite: 1
     };
@@ -55,19 +55,17 @@ describe(`Operation works correctly`, () => {
       },
     });
 
-    const changeFavorites = Operation.changeFavoriteStatus(mockReviewData);
+    const changeFavorites = Operation.changeFavoriteStatus(mockOfferData);
 
     apiMock
         .onPost(`/favorite/0/1`)
-        .reply(200, extend(mockReviewData, {
+        .reply(200, extend(mockOfferData, {
           id: 0,
           isFavorite: false,
-        }));
+        }), callback());
 
     return changeFavorites(dispatch, store.getState, api)
         .then(() => {
-          expect(dispatch).toHaveBeenCalledTimes(2);
-
           expect(dispatch).toHaveBeenNthCalledWith(1, {
             type: ActionType.TOGGLE_FAVORITE,
             payload: {
@@ -76,13 +74,7 @@ describe(`Operation works correctly`, () => {
             },
           });
 
-          expect(dispatch).toHaveBeenNthCalledWith(2, {
-            type: DataActionType.LOAD_OFFERS,
-            payload: [{
-              id: 0,
-              isFavorite: false,
-            }],
-          });
+          expect(callback).toHaveBeenCalledTimes(1);
         });
   });
 });

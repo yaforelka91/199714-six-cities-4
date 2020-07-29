@@ -1,8 +1,6 @@
 import {extend} from '../../utils.js';
 import adaptOffer from '../../adapters/offers.js';
-import {getOffers} from '../data/selectors.js';
-import {ActionCreator as DataActionCreator} from '../data/data.js';
-
+import {Operation as DataOperation} from '../data/data.js';
 
 const initialState = {
   favorites: {},
@@ -30,13 +28,10 @@ const Operation = {
         const adaptedOffer = adaptOffer(response.data);
 
         dispatch(ActionCreator.toggleFavorite(adaptedOffer));
-        callback(adaptedOffer);
+        dispatch(DataOperation.loadOffers());
 
-        const index = getOffers(getState()).map((offer) => offer.id).indexOf(adaptedOffer.id);
-
-        if (index !== -1) {
-          getOffers(getState())[index] = adaptedOffer;
-          dispatch(DataActionCreator.loadOffers(getOffers(getState())));
+        if (callback) {
+          callback();
         }
       })
     .catch((err) => {

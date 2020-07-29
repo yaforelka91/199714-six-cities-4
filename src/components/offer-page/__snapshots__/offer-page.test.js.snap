@@ -292,7 +292,7 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
             <span
               className="reviews__amount"
             >
-              5
+              1
             </span>
           </h2>
           <ul
@@ -311,66 +311,7 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
                     alt="Reviews avatar"
                     className="reviews__avatar user__avatar"
                     height="54"
-                    src="http://placekitten.com/54/54"
-                    width="54"
-                  />
-                </div>
-                <span
-                  className="reviews__user-name"
-                >
-                  John
-                </span>
-              </div>
-              <div
-                className="reviews__info"
-              >
-                <div
-                  className="reviews__rating rating"
-                >
-                  <div
-                    className="reviews__stars rating__stars"
-                  >
-                    <span
-                      style={
-                        Object {
-                          "width": "90%",
-                        }
-                      }
-                    />
-                    <span
-                      className="visually-hidden"
-                    >
-                      Rating
-                    </span>
-                  </div>
-                </div>
-                <p
-                  className="reviews__text"
-                >
-                  A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-                </p>
-                <time
-                  className="reviews__time"
-                  dateTime="2020-03-08"
-                >
-                  March 2020
-                </time>
-              </div>
-            </li>
-            <li
-              className="reviews__item"
-            >
-              <div
-                className="reviews__user user"
-              >
-                <div
-                  className="reviews__avatar-wrapper user__avatar-wrapper"
-                >
-                  <img
-                    alt="Reviews avatar"
-                    className="reviews__avatar user__avatar"
-                    height="54"
-                    src="http://placekitten.com/54/54"
+                    src="pic.jpg"
                     width="54"
                   />
                 </div>
@@ -378,124 +319,6 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
                   className="reviews__user-name"
                 >
                   Max
-                </span>
-              </div>
-              <div
-                className="reviews__info"
-              >
-                <div
-                  className="reviews__rating rating"
-                >
-                  <div
-                    className="reviews__stars rating__stars"
-                  >
-                    <span
-                      style={
-                        Object {
-                          "width": "84%",
-                        }
-                      }
-                    />
-                    <span
-                      className="visually-hidden"
-                    >
-                      Rating
-                    </span>
-                  </div>
-                </div>
-                <p
-                  className="reviews__text"
-                >
-                  A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-                </p>
-                <time
-                  className="reviews__time"
-                  dateTime="2019-04-24"
-                >
-                  April 2019
-                </time>
-              </div>
-            </li>
-            <li
-              className="reviews__item"
-            >
-              <div
-                className="reviews__user user"
-              >
-                <div
-                  className="reviews__avatar-wrapper user__avatar-wrapper"
-                >
-                  <img
-                    alt="Reviews avatar"
-                    className="reviews__avatar user__avatar"
-                    height="54"
-                    src="http://placekitten.com/54/54"
-                    width="54"
-                  />
-                </div>
-                <span
-                  className="reviews__user-name"
-                >
-                  Mike
-                </span>
-              </div>
-              <div
-                className="reviews__info"
-              >
-                <div
-                  className="reviews__rating rating"
-                >
-                  <div
-                    className="reviews__stars rating__stars"
-                  >
-                    <span
-                      style={
-                        Object {
-                          "width": "80%",
-                        }
-                      }
-                    />
-                    <span
-                      className="visually-hidden"
-                    >
-                      Rating
-                    </span>
-                  </div>
-                </div>
-                <p
-                  className="reviews__text"
-                >
-                  A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-                </p>
-                <time
-                  className="reviews__time"
-                  dateTime="2019-01-01"
-                >
-                  January 2019
-                </time>
-              </div>
-            </li>
-            <li
-              className="reviews__item"
-            >
-              <div
-                className="reviews__user user"
-              >
-                <div
-                  className="reviews__avatar-wrapper user__avatar-wrapper"
-                >
-                  <img
-                    alt="Reviews avatar"
-                    className="reviews__avatar user__avatar"
-                    height="54"
-                    src="http://placekitten.com/54/54"
-                    width="54"
-                  />
-                </div>
-                <span
-                  className="reviews__user-name"
-                >
-                  Maria
                 </span>
               </div>
               <div
@@ -524,72 +347,13 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
                 <p
                   className="reviews__text"
                 >
-                  A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
+                  Text
                 </p>
                 <time
                   className="reviews__time"
-                  dateTime="2018-05-25"
+                  dateTime="2020-07-25"
                 >
-                  May 2018
-                </time>
-              </div>
-            </li>
-            <li
-              className="reviews__item"
-            >
-              <div
-                className="reviews__user user"
-              >
-                <div
-                  className="reviews__avatar-wrapper user__avatar-wrapper"
-                >
-                  <img
-                    alt="Reviews avatar"
-                    className="reviews__avatar user__avatar"
-                    height="54"
-                    src="http://placekitten.com/54/54"
-                    width="54"
-                  />
-                </div>
-                <span
-                  className="reviews__user-name"
-                >
-                  Alice
-                </span>
-              </div>
-              <div
-                className="reviews__info"
-              >
-                <div
-                  className="reviews__rating rating"
-                >
-                  <div
-                    className="reviews__stars rating__stars"
-                  >
-                    <span
-                      style={
-                        Object {
-                          "width": "94%",
-                        }
-                      }
-                    />
-                    <span
-                      className="visually-hidden"
-                    >
-                      Rating
-                    </span>
-                  </div>
-                </div>
-                <p
-                  className="reviews__text"
-                >
-                  A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-                </p>
-                <time
-                  className="reviews__time"
-                  dateTime="2016-12-30"
-                >
-                  December 2016
+                  July 2020
                 </time>
               </div>
             </li>
@@ -796,10 +560,10 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
         Other places in the neighbourhood
       </h2>
       <div
-        className="places__list near-places__list"
+        className="near-places__list places__list"
       >
         <article
-          className="place-card near-places__card"
+          className="near-places__card place-card"
           onMouseEnter={[Function]}
         >
           <div
@@ -810,10 +574,11 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
             </span>
           </div>
           <div
-            className="place-card__image-wrapper near-places__image-wrapper"
+            className="near-places__image-wrapper place-card__image-wrapper"
           >
             <a
-              href="#"
+              href="/offer/1"
+              onClick={[Function]}
             >
               <img
                 alt="Place image"
@@ -891,7 +656,7 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
               className="place-card__name"
             >
               <a
-                href="#"
+                href="/offer/1"
                 onClick={[Function]}
               >
                 Beautiful & luxurious apartment at great location
@@ -905,7 +670,7 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
           </div>
         </article>
         <article
-          className="place-card near-places__card"
+          className="near-places__card place-card"
           onMouseEnter={[Function]}
         >
           <div
@@ -916,10 +681,11 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
             </span>
           </div>
           <div
-            className="place-card__image-wrapper near-places__image-wrapper"
+            className="near-places__image-wrapper place-card__image-wrapper"
           >
             <a
-              href="#"
+              href="/offer/2"
+              onClick={[Function]}
             >
               <img
                 alt="Place image"
@@ -997,7 +763,7 @@ exports[`OfferPageSnapshot should render OfferPage 1`] = `
               className="place-card__name"
             >
               <a
-                href="#"
+                href="/offer/2"
                 onClick={[Function]}
               >
                 Beautiful & luxurious apartment at great location
