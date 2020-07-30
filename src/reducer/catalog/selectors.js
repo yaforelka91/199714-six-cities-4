@@ -3,7 +3,6 @@ import {getOffers} from '../data/selectors.js';
 import {createSelector} from 'reselect';
 
 const NAME_SPACE = NameSpace.CATALOG;
-const MAX_OFFERS_COUNT = 3;
 
 export const getActiveCard = (state) => {
   return state[NAME_SPACE].activeCard;
@@ -28,15 +27,5 @@ export const getFilteredOffers = createSelector(
       return offers.filter((offer) => {
         return offer.city.name === city;
       });
-    }
-);
-
-export const getNearestOffers = createSelector(
-    getActiveCard,
-    getFilteredOffers,
-    (activeCard, offers) => {
-      return offers.filter((offer) => {
-        return offer.id !== activeCard;
-      }).slice(0, MAX_OFFERS_COUNT);
     }
 );

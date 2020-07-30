@@ -1,6 +1,6 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-import {Button} from './button.jsx';
+import Button from './button.jsx';
 
 describe(`ButtonE2E`, () => {
   it(`Check arguments in callback after Button was pressed`, () => {

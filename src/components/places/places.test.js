@@ -5,6 +5,8 @@ import Places from './places.jsx';
 import {Provider} from 'react-redux';
 import NameSpace from '../../reducer/name-space.js';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
+import {Router} from 'react-router-dom';
+import history from '../../history.js';
 
 const mock = {
   offers: [
@@ -78,13 +80,14 @@ describe(`PlacesSnapshot`, () => {
 
     const tree = renderer.create(
         <Provider store={store}>
-          <Places
-            offers={offers}
-            city={city}
-            onOfferCardEnter={() => {}}
-            onOfferTitleClick={() => {}}
-            renderSorting={() => {}}
-          />
+          <Router history={history}>
+            <Places
+              offers={offers}
+              city={city}
+              onOfferCardEnter={() => {}}
+              renderSorting={() => {}}
+            />
+          </Router>
         </Provider>
     ).toJSON();
 

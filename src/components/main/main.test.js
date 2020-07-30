@@ -5,6 +5,8 @@ import {Provider} from 'react-redux';
 import {Main} from './main.jsx';
 import NameSpace from '../../reducer/name-space.js';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
+import {Router} from 'react-router-dom';
+import history from '../../history.js';
 
 const mockStore = configureStore([]);
 
@@ -76,13 +78,14 @@ describe(`MainSnapshot`, () => {
 
     const tree = renderer.create(
         <Provider store={store}>
-          <Main
-            offersList={offersList}
-            activeCity={city}
-            citiesList={[city]}
-            onOfferTitleClick={() => {}}
-            onCityNameClick={()=>{}}
-          />,
+          <Router history={history}>
+            <Main
+              offersList={offersList}
+              activeCity={city}
+              citiesList={[city]}
+              onCityNameClick={()=>{}}
+            />
+          </Router>
         </Provider>,
         {
           createNodeMock: () => {
@@ -99,13 +102,14 @@ describe(`MainSnapshot`, () => {
 
     const tree = renderer.create(
         <Provider store={store}>
-          <Main
-            offersList={[]}
-            activeCity={city}
-            citiesList={[city]}
-            onCityNameClick={() => {}}
-            onOfferTitleClick={() => {}}
-          />
+          <Router history={history}>
+            <Main
+              offersList={[]}
+              activeCity={city}
+              citiesList={[city]}
+              onCityNameClick={() => {}}
+            />
+          </Router>
         </Provider>,
         {
           createNodeMock: () => {

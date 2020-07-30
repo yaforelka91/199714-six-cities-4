@@ -23,6 +23,19 @@ describe(`Reducer works correctly`, () => {
       }]
     });
   });
+
+  it(`Reducer load reviews`, () => {
+    expect(reducer({
+      reviews: [],
+    }, {
+      type: ActionType.LOAD_REVIEWS,
+      payload: [{fake: true}],
+    })).toEqual({
+      reviews: [{
+        fake: true
+      }]
+    });
+  });
 });
 
 describe(`Action creators work correctly`, () => {
@@ -30,6 +43,13 @@ describe(`Action creators work correctly`, () => {
     expect(ActionCreator.sendReview({fake: true})).toEqual({
       type: ActionType.SEND_REVIEW,
       payload: {fake: true},
+    });
+  });
+
+  it(`Action creator for loading reviews returns action with reviews payload`, () => {
+    expect(ActionCreator.loadReviews([{fake: true}])).toEqual({
+      type: ActionType.LOAD_REVIEWS,
+      payload: [{fake: true}],
     });
   });
 });
@@ -55,6 +75,28 @@ describe(`Operation works correctly`, () => {
           expect(dispatch).toHaveBeenNthCalledWith(1, {
             type: ActionType.SEND_REVIEW,
             payload: [mockReviewData],
+          });
+        });
+  });
+
+  it(`Should make a correct GET-request to /comments/0`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const reviewsLoader = Operation.loadReviews(0);
+
+    apiMock
+        .onGet(`/comments/0`)
+        .reply(200, [{
+          fake: true,
+        }]);
+
+    return reviewsLoader(dispatch, () => {}, api)
+        .then(() => {
+          expect(dispatch).toHaveBeenNthCalledWith(1, {
+            type: ActionType.LOAD_REVIEWS,
+            payload: [{
+              fake: true,
+            }],
           });
         });
   });

@@ -1,6 +1,10 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import {OfferCard} from './offer-card.jsx';
+import OfferCard from './offer-card.jsx';
+import {Router} from 'react-router-dom';
+import history from '../../history.js';
+import {AuthorizationStatus} from '../../reducer/user/user.js';
+
 const offer = {
   city: {
     name: `city`,
@@ -57,12 +61,13 @@ in this alley flowery and colorful.`
 describe(`OfferCardSnapshot`, () => {
   it(`should render OfferCard`, () => {
     const tree = renderer.create(
-        <OfferCard
-          offer={offer}
-          onOfferTitleClick={() => {}}
-          onFavoriteButtonClick={() => {}}
-          isNear={false}
-        />
+        <Router history={history}>
+          <OfferCard
+            offer={offer}
+            authorizationStatus={AuthorizationStatus.AUTH}
+            onFavoriteButtonClick={() => {}}
+          />
+        </Router>
     ).toJSON();
 
     expect(tree).toMatchSnapshot();

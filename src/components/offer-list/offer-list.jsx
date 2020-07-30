@@ -1,23 +1,33 @@
 import React from 'react';
 import OfferCard from '../offer-card/offer-card.jsx';
 import {offerListTypes} from '../../types/types.js';
+import {getArticleClassName} from '../../utils.js';
+import {connect} from 'react-redux';
+import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
+import {Operation} from '../../reducer/favorites/favorites.js';
 
 const OfferList = ({
   offers,
   className,
-  isNear,
-  onOfferTitleClick,
-  onOfferCardEnter
+  viewMode,
+  authorizationStatus,
+  onOfferCardEnter,
+  onFavoriteButtonClick,
+  onDataRequest
 }) => {
   return (
-    <div className={`places__list${className ? ` ${className}` : ``}`}>
+    <div className={`${className ? `${className}` : ``}`}>
       {offers.map((offer) => (
         <OfferCard
           key={offer.id}
           offer={offer}
-          onOfferTitleClick={onOfferTitleClick}
+          authorizationStatus={authorizationStatus}
+          className={getArticleClassName(viewMode).classNameForArticle}
+          classNameForImage={getArticleClassName(viewMode).classNameForImage}
+          classNameForInfo={getArticleClassName(viewMode).classNameForInfo}
           onOfferCardEnter={onOfferCardEnter}
-          isNear={isNear}
+          onFavoriteButtonClick={onFavoriteButtonClick}
+          onDataRequest={onDataRequest}
         />
       ))}
     </div>
@@ -27,8 +37,21 @@ const OfferList = ({
 OfferList.defaultProps = {
   onOfferCardEnter: () => {},
   className: ``,
+  viewMode: ``
 };
 
 OfferList.propTypes = offerListTypes;
 
-export default OfferList;
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onFavoriteButtonClick(hotel, callback) {
+    dispatch(Operation.changeFavoriteStatus(hotel, callback));
+  },
+});
+
+export {OfferList};
+export default connect(mapStateToProps, mapDispatchToProps)(OfferList);
+

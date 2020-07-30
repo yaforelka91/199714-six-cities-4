@@ -24,19 +24,16 @@ const init = () => {
       )
   );
 
-  store.dispatch(DataOperation.loadOffers())
-  .then(() => {
-    reactDOM.render(
-        <Provider store={store}>
-          <App/>
-        </Provider>,
+  store.dispatch(UserOperation.checkAuth());
+  store.dispatch(DataOperation.loadOffers());
 
-        document.querySelector(`#root`)
-    );
-  })
-  .then(() => {
-    store.dispatch(UserOperation.checkAuth());
-  });
+  reactDOM.render(
+      <Provider store={store}>
+        <App/>
+      </Provider>,
+
+      document.querySelector(`#root`)
+  );
 };
 
 init();

@@ -5,16 +5,6 @@ import {AuthorizationStatus} from '../../reducer/user/user.js';
 
 const reviews = [
   {
-    id: 1,
-    user: {
-      name: `Max`,
-      picture: `pic`,
-    },
-    rating: 4.2,
-    feedback: `Text`,
-    visitTime: `2018-04-24`,
-  },
-  {
     id: 2,
     user: {
       name: `Maria`,
@@ -24,6 +14,16 @@ const reviews = [
     feedback: `Text`,
     visitTime: `2019-05-25`,
   },
+  {
+    id: 1,
+    user: {
+      name: `Max`,
+      picture: `pic`,
+    },
+    rating: 4.2,
+    feedback: `Text`,
+    visitTime: `2018-04-24`,
+  },
 ];
 
 describe(`ReviewsSnapshot`, () => {
@@ -31,6 +31,7 @@ describe(`ReviewsSnapshot`, () => {
     const tree = renderer.create(
         <Reviews
           reviews={reviews}
+          reviewsCount={2}
           authorizationStatus={AuthorizationStatus.AUTH}
           offerId={1}
           onReviewFormSubmit={() => {}}
@@ -44,6 +45,7 @@ describe(`ReviewsSnapshot`, () => {
     const tree = renderer.create(
         <Reviews
           reviews={reviews}
+          reviewsCount={2}
           authorizationStatus={AuthorizationStatus.NO_AUTH}
           offerId={1}
           onReviewFormSubmit={() => {}}

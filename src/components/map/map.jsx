@@ -1,4 +1,4 @@
-import React, {PureComponent, createRef} from 'react';
+import React, {Component, createRef} from 'react';
 import leaflet from 'leaflet';
 import {mapTypes} from '../../types/types.js';
 import {IconSizes} from '../../const.js';
@@ -15,7 +15,7 @@ const ICON_ACTIVE = leaflet.icon({
 
 const ZOOM = 12;
 
-class Map extends PureComponent {
+class Map extends Component {
   constructor(props) {
     super(props);
 
@@ -28,13 +28,18 @@ class Map extends PureComponent {
     this._renderMap();
   }
 
+  shouldComponentUpdate(nextProps) {
+    return nextProps.offers.some((offer, index) => offer.id !== this.props.offers[index].id) ||
+    nextProps.activeCard !== this.props.activeCard;
+  }
+
   componentDidUpdate(prevProps) {
-    if (prevProps.activeCity !== this.props.activeCity) {
+    if (prevProps.offers.some((offer, index) => offer.id !== this.props.offers[index].id)) {
       this._clearMarkers();
       this._renderMarkers();
     }
 
-    if (prevProps.activeCard !== this.props.activeCard) {
+    if (prevProps.offers.every((offer, index) => offer.id === this.props.offers[index].id) && prevProps.activeCard !== this.props.activeCard) {
       this._updateMarkers(this.props.activeCard, prevProps.activeCard);
     }
   }

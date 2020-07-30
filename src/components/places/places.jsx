@@ -2,8 +2,9 @@
 import React from 'react';
 import OfferList from '../offer-list/offer-list.jsx';
 import {placesTypes} from '../../types/types.js';
+import {CardView} from '../../const.js';
 
-const Places = ({offers, city, className, renderSorting, onOfferCardEnter, onOfferTitleClick}) => {
+const Places = ({offers, city, className, renderSorting, onOfferCardEnter}) => {
   return (
     <section className={`${className ? `${className} ` : ``}places`}>
       <h2 className="visually-hidden">Places</h2>
@@ -11,10 +12,9 @@ const Places = ({offers, city, className, renderSorting, onOfferCardEnter, onOff
       {renderSorting()}
       <OfferList
         offers={offers}
-        isNear={false}
-        className='cities__places-list tabs__content'
+        className='cities__places-list places__list tabs__content'
+        viewMode={CardView.CITIES}
         onOfferCardEnter={onOfferCardEnter}
-        onOfferTitleClick={onOfferTitleClick}
       />
     </section>
   );

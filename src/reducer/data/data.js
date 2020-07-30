@@ -1,14 +1,17 @@
 import {extend} from '../../utils.js';
 import adaptOffer from '../../adapters/offers.js';
 import {ActionCreator as CatalogActionCreator} from '../catalog/catalog.js';
+import {getCity} from '../catalog/selectors.js';
 
 const initialState = {
   offersList: [],
+  nearOffers: [],
   errorType: ``,
 };
 
 const ActionType = {
   LOAD_OFFERS: `LOAD_OFFERS`,
+  LOAD_NEAR_OFFERS: `LOAD_NEAR_OFFERS`,
   CATCH_ERROR: `CATCH_ERROR`,
 };
 
@@ -16,6 +19,12 @@ const ActionCreator = {
   loadOffers: (offers) => {
     return {
       type: ActionType.LOAD_OFFERS,
+      payload: offers,
+    };
+  },
+  loadNearOffers: (offers) => {
+    return {
+      type: ActionType.LOAD_NEAR_OFFERS,
       payload: offers,
     };
   },
@@ -29,13 +38,29 @@ const Operation = {
   loadOffers: () => (dispatch, getState, api) => {
     return api.get(`/hotels`)
       .then((response) => {
-
         const adaptedOffers = response.data.map((offer) => {
           return adaptOffer(offer);
         });
 
         dispatch(ActionCreator.loadOffers(adaptedOffers));
-        dispatch(CatalogActionCreator.changeCity(adaptedOffers[0].city.name));
+
+        if (getCity(getState()) === ``) {
+          dispatch(CatalogActionCreator.changeCity(adaptedOffers[0].city.name));
+        }
+      })
+      .catch((err) => {
+        const {message} = err;
+        dispatch(ActionCreator.catchError(message));
+      });
+  },
+  loadNearOffers: (offerId) => (dispatch, getState, api) => {
+    return api.get(`/hotels/${offerId}/nearby`)
+      .then((response) => {
+        const adaptedOffers = response.data.map((offer) => {
+          return adaptOffer(offer);
+        });
+
+        dispatch(ActionCreator.loadNearOffers(adaptedOffers));
       })
       .catch((err) => {
         const {message} = err;
@@ -49,6 +74,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOAD_OFFERS:
       return extend(state, {
         offersList: action.payload,
+      });
+    case ActionType.LOAD_NEAR_OFFERS:
+      return extend(state, {
+        nearOffers: action.payload,
       });
     case ActionType.CATCH_ERROR:
       return extend(state, {

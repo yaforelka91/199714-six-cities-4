@@ -1,19 +1,18 @@
 import React from 'react';
 import {cityListItemTypes} from '../../types/types';
+import {Link} from 'react-router-dom';
+import {AppRoute} from '../../const';
 
 const CityListItem = ({city, onCityNameClick, classNameLink}) => {
   return (
     <li className="locations__item">
-      <a
+      <Link
         className={`locations__item-link${classNameLink ? ` ${classNameLink}` : ``}`}
-        href="#"
-        onClick={(evt) => {
-          evt.preventDefault();
-          onCityNameClick(city);
-        }}
+        to={AppRoute.ROOT}
+        onClick={onCityNameClick}
       >
         <span>{city}</span>
-      </a>
+      </Link>
     </li>
   );
 };

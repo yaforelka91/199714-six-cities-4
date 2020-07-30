@@ -1,5 +1,6 @@
 import {extend} from '../../utils.js';
 import adaptOffer from '../../adapters/offers.js';
+import {Operation as DataOperation} from '../data/data.js';
 
 const initialState = {
   favorites: {},
@@ -19,12 +20,19 @@ const ActionCreator = {
 };
 
 const Operation = {
-  changeFavoriteStatus: (hotel) => (dispatch, getState, api) => {
+  changeFavoriteStatus: (hotel, callback) => (dispatch, getState, api) => {
     return api.post(`/favorite/${hotel.id}/${hotel.isFavorite}`, {
       hotel
     })
       .then((response) => {
-        dispatch(ActionCreator.toggleFavorite(adaptOffer(response.data)));
+        const adaptedOffer = adaptOffer(response.data);
+
+        dispatch(ActionCreator.toggleFavorite(adaptedOffer));
+        dispatch(DataOperation.loadOffers());
+
+        if (callback) {
+          callback();
+        }
       })
     .catch((err) => {
       throw err;
