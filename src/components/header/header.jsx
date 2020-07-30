@@ -1,16 +1,19 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import {AuthorizationStatus} from '../../reducer/user/user';
 import {headerTypes} from '../../types/types.js';
 import {AppRoute} from '../../const';
+import {connect} from 'react-redux';
+import {getAuthorizationStatus, getUserData} from '../../reducer/user/selectors';
+import {Operation} from '../../reducer/favorites/favorites';
 
-const Header = ({authorizationStatus, userData, isMain}) => {
+const Header = ({authorizationStatus, userData, onFavoriteRequest}) => {
   return (
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            {isMain ?
+            {useLocation().pathname === AppRoute.ROOT ?
               <span className="header__logo-link header__logo-link--active">
                 <img className="header__logo" src="/img/logo.svg" alt="6 cities logo" width="81" height="41" />
               </span> :
@@ -25,6 +28,11 @@ const Header = ({authorizationStatus, userData, isMain}) => {
                 <Link
                   className="header__nav-link header__nav-link--profile"
                   to={authorizationStatus === AuthorizationStatus.NO_AUTH ? AppRoute.LOGIN : AppRoute.FAVORITES}
+                  onClick={() => {
+                    if (authorizationStatus === AuthorizationStatus.AUTH) {
+                      onFavoriteRequest();
+                    }
+                  }}
                 >
                   <div
                     className="header__avatar-wrapper user__avatar-wrapper"
@@ -43,9 +51,18 @@ const Header = ({authorizationStatus, userData, isMain}) => {
   );
 };
 
-Header.defaultProps = {
-  isMain: false,
-};
 Header.propTypes = headerTypes;
 
-export default Header;
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
+  userData: getUserData(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onFavoriteRequest() {
+    dispatch(Operation.loadFavorites());
+  },
+});
+
+export {Header};
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

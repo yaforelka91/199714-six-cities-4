@@ -1,7 +1,6 @@
-import {extend} from '../../utils.js';
+import {extend, updateOffer} from '../../utils.js';
 import adaptOffer from '../../adapters/offers.js';
 import {ActionCreator as CatalogActionCreator} from '../catalog/catalog.js';
-import {getCity} from '../catalog/selectors.js';
 
 const initialState = {
   offersList: [],
@@ -12,6 +11,7 @@ const initialState = {
 const ActionType = {
   LOAD_OFFERS: `LOAD_OFFERS`,
   LOAD_NEAR_OFFERS: `LOAD_NEAR_OFFERS`,
+  UPDATE_OFFER: `UPDATE_OFFER`,
   CATCH_ERROR: `CATCH_ERROR`,
 };
 
@@ -28,6 +28,10 @@ const ActionCreator = {
       payload: offers,
     };
   },
+  updateOffer: (editedOffer) => ({
+    type: ActionType.UPDATE_OFFER,
+    payload: editedOffer,
+  }),
   catchError: (errorMessage) => ({
     type: ActionType.CATCH_ERROR,
     payload: errorMessage,
@@ -43,10 +47,7 @@ const Operation = {
         });
 
         dispatch(ActionCreator.loadOffers(adaptedOffers));
-
-        if (getCity(getState()) === ``) {
-          dispatch(CatalogActionCreator.changeCity(adaptedOffers[0].city.name));
-        }
+        dispatch(CatalogActionCreator.changeCity(adaptedOffers[0].city.name));
       })
       .catch((err) => {
         const {message} = err;
@@ -78,6 +79,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOAD_NEAR_OFFERS:
       return extend(state, {
         nearOffers: action.payload,
+      });
+    case ActionType.UPDATE_OFFER:
+      return extend(state, {
+        offersList: updateOffer(state.offersList, action.payload),
       });
     case ActionType.CATCH_ERROR:
       return extend(state, {

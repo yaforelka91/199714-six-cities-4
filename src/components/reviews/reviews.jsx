@@ -20,7 +20,7 @@ const Reviews = ({authorizationStatus, reviewsCount, reviews, offerId, className
             reviews
             .map((review) => {
               return (
-                <ReviewCard key={review.id} review={review} />
+                <ReviewCard key={review.id} review={review} offerId={offerId} />
               );
             })
           }

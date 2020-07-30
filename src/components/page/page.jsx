@@ -1,19 +1,21 @@
 import React from 'react';
 import Header from '../header/header.jsx';
 import {pageTypes} from '../../types/types.js';
+import Footer from '../footer/footer.jsx';
 
-const Page = ({className, authorizationStatus, userData, isLoading, isMain, children}) => {
+const Page = ({className, isLoading, hasFooter, children}) => {
   return (
     <div className={`page${className ? ` ${className}` : ``}`}>
-      <Header authorizationStatus={authorizationStatus} userData={userData} isMain={isMain} />
+      <Header />
       {isLoading ? <p>Loading...</p> : children}
+      {hasFooter && <Footer />}
     </div>
   );
 };
 
 Page.defaultProps = {
+  hasFooter: false,
   className: ``,
-  isMain: false,
 };
 
 Page.propTypes = pageTypes;

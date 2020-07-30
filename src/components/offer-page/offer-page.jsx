@@ -37,7 +37,7 @@ class OfferPage extends PureComponent {
   }
 
   render() {
-    const {offer, offersList, authorizationStatus, onFavoriteButtonClick, onNearbyRequest} = this.props;
+    const {offer, offersList, authorizationStatus, onFavoriteButtonClick} = this.props;
     if (!offer.id) {
       return null;
     }
@@ -188,9 +188,6 @@ class OfferPage extends PureComponent {
               offers={offersList}
               className='near-places__list places__list'
               viewMode={CardView.NEAR}
-              onDataRequest={() => {
-                onNearbyRequest(offer.id);
-              }}
             />
           </section>
         </div>

@@ -41,6 +41,17 @@ export const getSortedOffers = createSelector(
     }
 );
 
+export const updateOffer = (offers, editedOffer) => {
+  const offersCopy = offers.slice();
+
+  return offersCopy.map((offer) => {
+    if (offer.id === editedOffer.id) {
+      return editedOffer;
+    }
+    return offer;
+  });
+};
+
 export const getRatingInPercent = (ratingValue, isInteger) => {
 
   return isInteger ? Math.round(ratingValue) * 100 / 5 : Math.round(ratingValue * 100 / 5);

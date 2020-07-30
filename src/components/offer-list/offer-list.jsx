@@ -13,10 +13,9 @@ const OfferList = ({
   authorizationStatus,
   onOfferCardEnter,
   onFavoriteButtonClick,
-  onDataRequest
 }) => {
   return (
-    <div className={`${className ? `${className}` : ``}`}>
+    <div className={`${className}`}>
       {offers.map((offer) => (
         <OfferCard
           key={offer.id}
@@ -27,7 +26,6 @@ const OfferList = ({
           classNameForInfo={getArticleClassName(viewMode).classNameForInfo}
           onOfferCardEnter={onOfferCardEnter}
           onFavoriteButtonClick={onFavoriteButtonClick}
-          onDataRequest={onDataRequest}
         />
       ))}
     </div>

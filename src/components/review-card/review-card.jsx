@@ -4,7 +4,7 @@ import {getRatingInPercent, getFormattedDate} from '../../utils.js';
 
 class ReviewCard extends Component {
   shouldComponentUpdate(nextProps) {
-    return nextProps.review.id !== this.props.review.id;
+    return nextProps.review.id !== this.props.review.id || nextProps.offerId !== this.props.offerId;
   }
 
   render() {
