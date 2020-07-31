@@ -29,4 +29,84 @@ describe(`ReviewFormSnapshot`, () => {
 
     expect(tree).toMatchSnapshot();
   });
+
+  it(`should render ReviewForm with disabled button when loading in progress`, () => {
+    const tree = renderer.create(
+        <ReviewForm
+          renderRating={() => {
+            return (
+              <Rating
+                onRatingChange={() => {}}
+              />
+            );
+          }}
+          renderTextarea={() => {
+            return (
+              <Textarea
+                onTextareaChange={() => {}}
+              />
+            );
+          }}
+          onFormSubmit={() => {}}
+          isLoading={true}
+          offerId={1}
+        />
+    ).toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
+  it(`should render valid ReviewForm`, () => {
+    const tree = renderer.create(
+        <ReviewForm
+          renderRating={() => {
+            return (
+              <Rating
+                onRatingChange={() => {}}
+              />
+            );
+          }}
+          renderTextarea={() => {
+            return (
+              <Textarea
+                onTextareaChange={() => {}}
+              />
+            );
+          }}
+          onFormSubmit={() => {}}
+          isLoading={false}
+          isValid={true}
+          offerId={1}
+        />
+    ).toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
+  it(`should render ReviewForm with error message`, () => {
+    const tree = renderer.create(
+        <ReviewForm
+          renderRating={() => {
+            return (
+              <Rating
+                onRatingChange={() => {}}
+              />
+            );
+          }}
+          renderTextarea={() => {
+            return (
+              <Textarea
+                onTextareaChange={() => {}}
+              />
+            );
+          }}
+          onFormSubmit={() => {}}
+          serverError='Some error text'
+          isValid={false}
+          offerId={1}
+        />
+    ).toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
 });

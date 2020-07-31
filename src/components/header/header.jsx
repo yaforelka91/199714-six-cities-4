@@ -5,9 +5,8 @@ import {headerTypes} from '../../types/types.js';
 import {AppRoute} from '../../const';
 import {connect} from 'react-redux';
 import {getAuthorizationStatus, getUserData} from '../../reducer/user/selectors';
-import {Operation} from '../../reducer/favorites/favorites';
 
-const Header = ({authorizationStatus, userData, onFavoriteRequest}) => {
+const Header = ({authorizationStatus, userData}) => {
   return (
     <header className="header">
       <div className="container">
@@ -28,11 +27,6 @@ const Header = ({authorizationStatus, userData, onFavoriteRequest}) => {
                 <Link
                   className="header__nav-link header__nav-link--profile"
                   to={authorizationStatus === AuthorizationStatus.NO_AUTH ? AppRoute.LOGIN : AppRoute.FAVORITES}
-                  onClick={() => {
-                    if (authorizationStatus === AuthorizationStatus.AUTH) {
-                      onFavoriteRequest();
-                    }
-                  }}
                 >
                   <div
                     className="header__avatar-wrapper user__avatar-wrapper"
@@ -58,11 +52,5 @@ const mapStateToProps = (state) => ({
   userData: getUserData(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onFavoriteRequest() {
-    dispatch(Operation.loadFavorites());
-  },
-});
-
 export {Header};
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps)(Header);

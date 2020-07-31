@@ -14,7 +14,7 @@ const Reviews = ({authorizationStatus, reviewsCount, reviews, offerId, className
   return (
     <section className={`review${className ? ` ${className}` : ``}`}>
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviewsCount}</span></h2>
-      {reviewsCount > 0 ?
+      {reviewsCount > 0 &&
         <ul className="reviews__list">
           {
             reviews
@@ -25,7 +25,6 @@ const Reviews = ({authorizationStatus, reviewsCount, reviews, offerId, className
             })
           }
         </ul>
-        : null
       }
       {
         authorizationStatus === AuthorizationStatus.AUTH &&

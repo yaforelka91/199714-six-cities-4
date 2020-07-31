@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes, {shape} from 'prop-types';
 import {CardView} from '../const';
 
 export const offerShape = PropTypes.shape({
@@ -47,7 +47,12 @@ export const reviewShape = PropTypes.shape({
 
 export const appTypes = {
   authorizationStatus: PropTypes.string.isRequired,
-  offers: PropTypes.arrayOf(offerShape).isRequired,
+  favoriteOffers: PropTypes.arrayOf(shape({
+    [PropTypes.string.isRequred]: PropTypes.arrayOf(offerShape)
+  })).isRequired,
+  isOffersLoading: PropTypes.bool.isRequired,
+  isAuthorizationInProgress: PropTypes.bool.isRequired,
+  errorType: PropTypes.string.isRequired,
   onFavoriteButtonClick: PropTypes.func.isRequired,
 };
 
@@ -68,12 +73,6 @@ export const citiesTypes = {
   onActiveChange: PropTypes.func.isRequired,
 };
 
-export const cityListTypes = {
-  citiesList: PropTypes.arrayOf(cityShape).isRequired,
-  activeCity: cityShape.isRequired,
-  onCityNameClick: PropTypes.func.isRequired,
-};
-
 export const cityListItemTypes = {
   city: PropTypes.string.isRequired,
   tagName: PropTypes.string.isRequired,
@@ -81,11 +80,19 @@ export const cityListItemTypes = {
   onCityNameClick: PropTypes.func.isRequired,
 };
 
-export const favoritesTypes = {
-  offers: PropTypes.oneOfType([PropTypes.arrayOf(offerShape), PropTypes.array]).isRequired,
-  onCityNameClick: PropTypes.func.isRequired,
-  onFavoriteRequest: PropTypes.func.isRequired,
+export const errorScreenTypes = {
+  message: PropTypes.string.isRequired,
 };
+
+export const favoritesTypes = {
+  offers: PropTypes.arrayOf(shape({
+    [PropTypes.string.isRequred]: PropTypes.arrayOf(offerShape)
+  })).isRequired,
+  onCityNameClick: PropTypes.func.isRequired,
+  onFavoritesRequest: PropTypes.func.isRequired,
+};
+
+export const footerTypes = {};
 
 export const headerTypes = {
   authorizationStatus: PropTypes.string.isRequired,
@@ -105,7 +112,6 @@ export const mainTypes = {
   offersList: PropTypes.arrayOf(offerShape).isRequired,
   activeCity: PropTypes.string.isRequired,
   citiesList: PropTypes.arrayOf(PropTypes.string).isRequired,
-  errorType: PropTypes.string.isRequired,
   onCityNameClick: PropTypes.func.isRequired,
 };
 
@@ -147,12 +153,16 @@ export const offerPageTypes = {
   offer: PropTypes.oneOfType([offerShape, PropTypes.bool]).isRequired,
   offersList: PropTypes.arrayOf(offerShape).isRequired,
   onFavoriteButtonClick: PropTypes.func.isRequired,
+  onSetActiveOffer: PropTypes.func.isRequired,
+  onReviewsRequest: PropTypes.func.isRequired,
+  onNearbyRequest: PropTypes.func.isRequired,
 };
 
 export const pageTypes = {
   className: PropTypes.string.isRequired,
   hasFooter: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  errorMessage: PropTypes.string.isRequired,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
@@ -169,6 +179,7 @@ export const placesTypes = {
 
 export const privateRouteTypes = {
   authorizationStatus: PropTypes.string.isRequired,
+  isAuthorizationInProgress: PropTypes.bool.isRequired,
   exact: PropTypes.bool.isRequired,
   path: PropTypes.string.isRequired,
   render: PropTypes.func.isRequired,

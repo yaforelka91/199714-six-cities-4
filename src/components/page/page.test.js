@@ -32,7 +32,6 @@ describe(`PageSnapshot`, () => {
                 email: `test@test.com`,
                 picture: `/pic.jpg`,
               }}
-              isLoading={false}
             >
               {children}
             </Page>
@@ -59,7 +58,6 @@ describe(`PageSnapshot`, () => {
                 email: `test@test.com`,
                 picture: `/pic.jpg`,
               }}
-              isLoading={false}
               hasFooter={true}
             >
               {children}
@@ -88,6 +86,33 @@ describe(`PageSnapshot`, () => {
                 picture: `/pic.jpg`,
               }}
               isLoading={true}
+            >
+              {children}
+            </Page>
+          </Router>
+        </Provider>
+    ).toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
+  it(`should render Page with ErrorScreen`, () => {
+    const store = mockStore({
+      [NameSpace.USER]: {
+        authorizationStatus: AuthorizationStatus.AUTH,
+        userData,
+      }
+    });
+
+    const tree = renderer.create(
+        <Provider store={store}>
+          <Router history={history}>
+            <Page
+              userData={{
+                email: `test@test.com`,
+                picture: `/pic.jpg`,
+              }}
+              errorMessage='Some error'
             >
               {children}
             </Page>

@@ -6,17 +6,24 @@ import Main from '../main/main.jsx';
 import OfferPage from '../offer-page/offer-page.jsx';
 import {appTypes} from '../../types/types.js';
 import Login from '../login/login.jsx';
-import {getAuthorizationStatus, getUserData} from '../../reducer/user/selectors.js';
+import {getAuthorizationStatus, getAuthorizationProgress} from '../../reducer/user/selectors.js';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
 import {Operation as FavoritesOperation} from '../../reducer/favorites/favorites.js';
 import history from '../../history.js';
 import {AppRoute} from '../../const.js';
-import {getOffers} from '../../reducer/data/selectors.js';
+import {getLoadingStatus, getError} from '../../reducer/data/selectors.js';
 import Favorites from '../favorites/favorites.jsx';
 import PrivateRoute from '../private-route/private-route.jsx';
 import {getGroupedFavoriteOffers} from '../../reducer/favorites/selectors.js';
 
-const App = ({authorizationStatus, offers, favoriteOffers, onFavoriteButtonClick}) => {
+const App = ({
+  authorizationStatus,
+  isOffersLoading,
+  isAuthorizationInProgress,
+  favoriteOffers,
+  errorType,
+  onFavoriteButtonClick,
+}) => {
   return (
     <Router history={history}>
       <Switch>
@@ -24,7 +31,8 @@ const App = ({authorizationStatus, offers, favoriteOffers, onFavoriteButtonClick
           return (
             <Page
               className='page--gray page--main'
-              isLoading={offers.length === 0}
+              errorMessage={errorType}
+              isLoading={isAuthorizationInProgress || isOffersLoading}
             >
               <Main />
             </Page>
@@ -33,12 +41,11 @@ const App = ({authorizationStatus, offers, favoriteOffers, onFavoriteButtonClick
         />
         <Route exact path={`${AppRoute.OFFER}/:id`} render={({match}) => {
           return (
-            <Page isLoading={offers.length === 0}>
+            <Page errorMessage={errorType} isLoading={isAuthorizationInProgress || isOffersLoading}>
               <OfferPage
                 onFavoriteButtonClick={onFavoriteButtonClick}
                 authorizationStatus={authorizationStatus}
                 hotelId={+match.params.id}
-                isLoading={offers.length === 0}
               />
             </Page>
           );
@@ -50,7 +57,7 @@ const App = ({authorizationStatus, offers, favoriteOffers, onFavoriteButtonClick
           }
 
           return (
-            <Page className='page--gray page--login' isLoading={offers.length === 0}>
+            <Page className='page--gray page--login' errorMessage={errorType} isLoading={isAuthorizationInProgress || isOffersLoading}>
               <Login />
             </Page>
           );
@@ -60,10 +67,11 @@ const App = ({authorizationStatus, offers, favoriteOffers, onFavoriteButtonClick
           exact
           path={AppRoute.FAVORITES}
           authorizationStatus={authorizationStatus}
+          isAuthorizationInProgress={isAuthorizationInProgress}
           render={() => {
             return (
-              <Page className={`${favoriteOffers.length === 0 ? `page--favorites-empty` : ``}`} hasFooter={true} isLoading={offers.length === 0}>
-                <Favorites offers={favoriteOffers} />
+              <Page className={`${favoriteOffers.length === 0 ? `page--favorites-empty` : ``}`} hasFooter={true} errorMessage={errorType} isLoading={isAuthorizationInProgress || isOffersLoading}>
+                <Favorites />
               </Page>
             );
           }}
@@ -73,13 +81,19 @@ const App = ({authorizationStatus, offers, favoriteOffers, onFavoriteButtonClick
   );
 };
 
+App.defaultProps = {
+  isAuthorizationInProgress: false,
+  isOffersLoading: false,
+  errorType: ``,
+};
 App.propTypes = appTypes;
 
 const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),
-  userData: getUserData(state),
-  offers: getOffers(state),
   favoriteOffers: getGroupedFavoriteOffers(state),
+  isAuthorizationInProgress: getAuthorizationProgress(state),
+  isOffersLoading: getLoadingStatus(state),
+  errorType: getError(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

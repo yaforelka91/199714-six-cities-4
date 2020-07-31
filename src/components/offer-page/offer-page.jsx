@@ -20,7 +20,6 @@ const MAX_COUNT_PICTURES = 6;
 class OfferPage extends PureComponent {
   componentDidMount() {
     const {hotelId, onReviewsRequest, onNearbyRequest, onSetActiveOffer} = this.props;
-
     onSetActiveOffer(hotelId);
     onReviewsRequest(hotelId);
     onNearbyRequest(hotelId);
@@ -30,15 +29,15 @@ class OfferPage extends PureComponent {
     const {hotelId, onReviewsRequest, onNearbyRequest, onSetActiveOffer} = this.props;
 
     if (prevProps.hotelId !== hotelId) {
+      onSetActiveOffer(hotelId);
       onReviewsRequest(hotelId);
       onNearbyRequest(hotelId);
-      onSetActiveOffer(hotelId);
     }
   }
 
   render() {
     const {offer, offersList, authorizationStatus, onFavoriteButtonClick} = this.props;
-    if (!offer.id) {
+    if (!offer) {
       return null;
     }
 

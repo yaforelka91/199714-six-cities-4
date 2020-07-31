@@ -45,8 +45,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onFavoriteButtonClick(hotel, callback) {
-    dispatch(Operation.changeFavoriteStatus(hotel, callback));
+  onFavoriteButtonClick(hotel) {
+    dispatch(Operation.changeFavoriteStatus(hotel));
   },
 });
 

@@ -24,9 +24,9 @@ export const capitalize = (word) => {
   return word.charAt(0).toUpperCase() + word.slice(1);
 };
 
-export const getFormattedDate = (dateStr) => {
+export const getFormattedDate = (dateStr, isFull) => {
   const date = new Date(dateStr);
-  return `${MONTHS_LIST[date.getMonth()]} ${date.getFullYear()}`;
+  return isFull ? dateStr.match(/([^T]+)/)[0] : `${MONTHS_LIST[date.getMonth()]} ${date.getFullYear()}`;
 };
 
 export const getSortedOffers = createSelector(
@@ -41,19 +41,7 @@ export const getSortedOffers = createSelector(
     }
 );
 
-export const updateOffer = (offers, editedOffer) => {
-  const offersCopy = offers.slice();
-
-  return offersCopy.map((offer) => {
-    if (offer.id === editedOffer.id) {
-      return editedOffer;
-    }
-    return offer;
-  });
-};
-
 export const getRatingInPercent = (ratingValue, isInteger) => {
-
   return isInteger ? Math.round(ratingValue) * 100 / 5 : Math.round(ratingValue * 100 / 5);
 };
 
@@ -80,6 +68,7 @@ export const getArticleClassName = (viewMode) => {
         classNameForInfo: `favorites__card-info`,
       };
   }
+
   return {
     classNameForArticle: ``,
     classNameForImage: ``,

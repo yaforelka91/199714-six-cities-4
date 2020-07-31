@@ -9,6 +9,7 @@ describe(`Reducer works correctly`, () => {
     expect(reducer(undefined, {})).toEqual({
       authorizationStatus: AuthorizationStatus.NO_AUTH,
       userData: {},
+      isAuthorizationInProgress: true,
       errorType: ``,
     });
   });
@@ -122,6 +123,17 @@ describe(`Reducer works correctly`, () => {
     });
   });
 
+  it(`Reducer should change loading status by a given value`, () => {
+    expect(reducer({
+      isAuthorizationInProgress: false
+    }, {
+      type: ActionType.CHANGE_PROGRESS_STATUS,
+      payload: true,
+    })).toEqual({
+      isAuthorizationInProgress: true
+    });
+  });
+
   it(`Reducer should set error`, () => {
     expect(reducer({
       errorType: ``,
@@ -160,6 +172,13 @@ describe(`Action creators work correctly`, () => {
     });
   });
 
+  it(`Action creator for changing loading status returns action with false payload`, () => {
+    expect(ActionCreator.changeProgressStatus(false)).toEqual({
+      type: ActionType.CHANGE_PROGRESS_STATUS,
+      payload: false,
+    });
+  });
+
   it(`Action creator for set error returns action with true payload`, () => {
     expect(ActionCreator.catchError(`Some error`)).toEqual({
       type: ActionType.CATCH_ERROR,
@@ -180,12 +199,16 @@ describe(`Operation works correctly`, () => {
 
     return checkLogin(dispatch, () => {}, api)
         .then(() => {
-          expect(dispatch).toHaveBeenCalledTimes(2);
+          expect(dispatch).toHaveBeenCalledTimes(3);
           expect(dispatch).toHaveBeenNthCalledWith(1, {
+            type: ActionType.CHANGE_PROGRESS_STATUS,
+            payload: false,
+          });
+          expect(dispatch).toHaveBeenNthCalledWith(2, {
             type: ActionType.REQUIRED_AUTHORIZATION,
             payload: AuthorizationStatus.AUTH,
           });
-          expect(dispatch).toHaveBeenNthCalledWith(2, {
+          expect(dispatch).toHaveBeenNthCalledWith(3, {
             type: ActionType.SET_USER_DATA,
             payload: {fake: true},
           });
@@ -208,16 +231,20 @@ describe(`Operation works correctly`, () => {
 
     return login(dispatch, () => {}, api)
         .then(() => {
-          expect(dispatch).toHaveBeenCalledTimes(4);
+          expect(dispatch).toHaveBeenCalledTimes(5);
           expect(dispatch).toHaveBeenNthCalledWith(1, {
+            type: ActionType.CHANGE_PROGRESS_STATUS,
+            payload: false,
+          });
+          expect(dispatch).toHaveBeenNthCalledWith(2, {
             type: ActionType.REQUIRED_AUTHORIZATION,
             payload: AuthorizationStatus.AUTH,
           });
-          expect(dispatch).toHaveBeenNthCalledWith(2, {
+          expect(dispatch).toHaveBeenNthCalledWith(3, {
             type: ActionType.SET_USER_DATA,
             payload: {fake: true},
           });
-          expect(dispatch).toHaveBeenNthCalledWith(3, {
+          expect(dispatch).toHaveBeenNthCalledWith(4, {
             type: ActionType.CATCH_ERROR,
             payload: ``,
           });

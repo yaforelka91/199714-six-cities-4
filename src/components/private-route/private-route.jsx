@@ -4,12 +4,16 @@ import {AppRoute} from '../../const.js';
 import {privateRouteTypes} from '../../types/types.js';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
 
-const PrivateRoute = ({render, path, exact, authorizationStatus}) => {
+const PrivateRoute = ({render, path, exact, authorizationStatus, isAuthorizationInProgress}) => {
   return (
     <Route
       path={path}
       exact={exact}
       render={() => {
+        if (isAuthorizationInProgress) {
+          return <p>Check autorization...</p>;
+        }
+
         return (
           authorizationStatus === AuthorizationStatus.AUTH
             ? render()
@@ -20,6 +24,9 @@ const PrivateRoute = ({render, path, exact, authorizationStatus}) => {
   );
 };
 
+PrivateRoute.defaultProps = {
+  isAuthorizationInProgress: false,
+};
 PrivateRoute.propTypes = privateRouteTypes;
 
 export default PrivateRoute;

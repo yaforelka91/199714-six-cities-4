@@ -8,6 +8,10 @@ export const getOffers = (state) => {
   return state[NAME_SPACE].offersList;
 };
 
+export const getLoadingStatus = (state) => {
+  return state[NAME_SPACE].isOffersLoading;
+};
+
 export const getCities = createSelector(
     getOffers,
     (offers) => {

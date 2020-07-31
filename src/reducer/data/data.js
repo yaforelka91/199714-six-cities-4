@@ -1,17 +1,18 @@
-import {extend, updateOffer} from '../../utils.js';
+import {extend} from '../../utils.js';
 import adaptOffer from '../../adapters/offers.js';
 import {ActionCreator as CatalogActionCreator} from '../catalog/catalog.js';
 
 const initialState = {
   offersList: [],
   nearOffers: [],
+  isOffersLoading: true,
   errorType: ``,
 };
 
 const ActionType = {
   LOAD_OFFERS: `LOAD_OFFERS`,
   LOAD_NEAR_OFFERS: `LOAD_NEAR_OFFERS`,
-  UPDATE_OFFER: `UPDATE_OFFER`,
+  CHANGE_LOADING_STATUS: `CHANGE_LOADING_STATUS`,
   CATCH_ERROR: `CATCH_ERROR`,
 };
 
@@ -28,10 +29,12 @@ const ActionCreator = {
       payload: offers,
     };
   },
-  updateOffer: (editedOffer) => ({
-    type: ActionType.UPDATE_OFFER,
-    payload: editedOffer,
-  }),
+  changeLoadingStatus: (isLoaded) => {
+    return {
+      type: ActionType.CHANGE_LOADING_STATUS,
+      payload: isLoaded,
+    };
+  },
   catchError: (errorMessage) => ({
     type: ActionType.CATCH_ERROR,
     payload: errorMessage,
@@ -45,13 +48,16 @@ const Operation = {
         const adaptedOffers = response.data.map((offer) => {
           return adaptOffer(offer);
         });
-
+        dispatch(ActionCreator.changeLoadingStatus(false));
         dispatch(ActionCreator.loadOffers(adaptedOffers));
         dispatch(CatalogActionCreator.changeCity(adaptedOffers[0].city.name));
       })
       .catch((err) => {
         const {message} = err;
+        dispatch(ActionCreator.changeLoadingStatus(false));
         dispatch(ActionCreator.catchError(message));
+
+        throw err;
       });
   },
   loadNearOffers: (offerId) => (dispatch, getState, api) => {
@@ -64,8 +70,7 @@ const Operation = {
         dispatch(ActionCreator.loadNearOffers(adaptedOffers));
       })
       .catch((err) => {
-        const {message} = err;
-        dispatch(ActionCreator.catchError(message));
+        throw err;
       });
   },
 };
@@ -80,9 +85,9 @@ const reducer = (state = initialState, action) => {
       return extend(state, {
         nearOffers: action.payload,
       });
-    case ActionType.UPDATE_OFFER:
+    case ActionType.CHANGE_LOADING_STATUS:
       return extend(state, {
-        offersList: updateOffer(state.offersList, action.payload),
+        isOffersLoading: action.payload,
       });
     case ActionType.CATCH_ERROR:
       return extend(state, {

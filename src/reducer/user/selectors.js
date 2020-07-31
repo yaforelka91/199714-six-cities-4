@@ -6,6 +6,10 @@ export const getAuthorizationStatus = (state) => {
   return state[NAME_SPACE].authorizationStatus;
 };
 
+export const getAuthorizationProgress = (state) => {
+  return state[NAME_SPACE].isAuthorizationInProgress;
+};
+
 export const getUserData = (state) => {
   return state[NAME_SPACE].userData;
 };

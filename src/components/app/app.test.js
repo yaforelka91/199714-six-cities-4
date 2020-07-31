@@ -4,9 +4,9 @@ import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 import {App} from './app.jsx';
 import NameSpace from '../../reducer/name-space.js';
-import {getActiveOffer, getFilteredOffers} from '../../reducer/catalog/selectors.js';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
 import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
+import {getGroupedFavoriteOffers} from '../../reducer/favorites/selectors.js';
 
 const mockStore = configureStore([]);
 
@@ -187,6 +187,9 @@ describe(`AppSnapshot`, () => {
       [NameSpace.DATA]: {
         offersList,
       },
+      [NameSpace.FAVORITES]: {
+        favoriteList: offersList,
+      },
       [NameSpace.USER]: {
         authorizationStatus: AuthorizationStatus.AUTH,
         userData,
@@ -197,10 +200,7 @@ describe(`AppSnapshot`, () => {
         <Provider store={store}>
           <App
             authorizationStatus={getAuthorizationStatus(store.getState())}
-            login={() => {}}
-            userData={userData}
-            offers={getFilteredOffers(store.getState())}
-            activeCard={getActiveOffer(store.getState())}
+            favoriteOffers={getGroupedFavoriteOffers(store.getState())}
             onFavoriteButtonClick={() => {}}
           />
         </Provider>,

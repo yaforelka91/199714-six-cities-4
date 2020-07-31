@@ -25,6 +25,7 @@ const init = () => {
   );
 
   store.dispatch(UserOperation.checkAuth());
+  // store.dispatch(ActionCreator.changeProgressStatus(false));
   store.dispatch(DataOperation.loadOffers());
 
   reactDOM.render(
