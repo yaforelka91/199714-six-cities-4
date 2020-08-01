@@ -9,7 +9,7 @@ import configureStore from 'redux-mock-store';
 import NameSpace from '../../reducer/name-space.js';
 
 const mockStore = configureStore([]);
-const children = <div className='children-component' />;
+const MockComponent = <div className='children-component' />;
 const userData = {
   email: `test@test.com`,
   picture: `/pic.jpg`
@@ -32,9 +32,10 @@ describe(`PageSnapshot`, () => {
                 email: `test@test.com`,
                 picture: `/pic.jpg`,
               }}
-            >
-              {children}
-            </Page>
+              renderPage={() => {
+                return MockComponent;
+              }}
+            />
           </Router>
         </Provider>
     ).toJSON();
@@ -59,9 +60,8 @@ describe(`PageSnapshot`, () => {
                 picture: `/pic.jpg`,
               }}
               hasFooter={true}
-            >
-              {children}
-            </Page>
+              renderPage={() => {}}
+            />
           </Router>
         </Provider>
     ).toJSON();
@@ -86,9 +86,8 @@ describe(`PageSnapshot`, () => {
                 picture: `/pic.jpg`,
               }}
               isLoading={true}
-            >
-              {children}
-            </Page>
+              renderPage={() => {}}
+            />
           </Router>
         </Provider>
     ).toJSON();
@@ -113,9 +112,8 @@ describe(`PageSnapshot`, () => {
                 picture: `/pic.jpg`,
               }}
               errorMessage='Some error'
-            >
-              {children}
-            </Page>
+              renderPage={() => {}}
+            />
           </Router>
         </Provider>
     ).toJSON();

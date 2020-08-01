@@ -138,7 +138,7 @@ describe(`Reducer works correctly`, () => {
     expect(reducer({
       errorType: ``,
     }, {
-      type: ActionType.CATCH_ERROR,
+      type: ActionType.CATCH_SERVER_ERROR,
       payload: `Some error`,
     })).toEqual({
       errorType: `Some error`,
@@ -180,8 +180,8 @@ describe(`Action creators work correctly`, () => {
   });
 
   it(`Action creator for set error returns action with true payload`, () => {
-    expect(ActionCreator.catchError(`Some error`)).toEqual({
-      type: ActionType.CATCH_ERROR,
+    expect(ActionCreator.catchServerError(`Some error`)).toEqual({
+      type: ActionType.CATCH_SERVER_ERROR,
       payload: `Some error`,
     });
   });
@@ -201,16 +201,16 @@ describe(`Operation works correctly`, () => {
         .then(() => {
           expect(dispatch).toHaveBeenCalledTimes(3);
           expect(dispatch).toHaveBeenNthCalledWith(1, {
-            type: ActionType.CHANGE_PROGRESS_STATUS,
-            payload: false,
-          });
-          expect(dispatch).toHaveBeenNthCalledWith(2, {
             type: ActionType.REQUIRED_AUTHORIZATION,
             payload: AuthorizationStatus.AUTH,
           });
-          expect(dispatch).toHaveBeenNthCalledWith(3, {
+          expect(dispatch).toHaveBeenNthCalledWith(2, {
             type: ActionType.SET_USER_DATA,
             payload: {fake: true},
+          });
+          expect(dispatch).toHaveBeenNthCalledWith(3, {
+            type: ActionType.CHANGE_PROGRESS_STATUS,
+            payload: false,
           });
         });
   });
@@ -233,20 +233,20 @@ describe(`Operation works correctly`, () => {
         .then(() => {
           expect(dispatch).toHaveBeenCalledTimes(5);
           expect(dispatch).toHaveBeenNthCalledWith(1, {
-            type: ActionType.CHANGE_PROGRESS_STATUS,
-            payload: false,
-          });
-          expect(dispatch).toHaveBeenNthCalledWith(2, {
             type: ActionType.REQUIRED_AUTHORIZATION,
             payload: AuthorizationStatus.AUTH,
           });
-          expect(dispatch).toHaveBeenNthCalledWith(3, {
+          expect(dispatch).toHaveBeenNthCalledWith(2, {
             type: ActionType.SET_USER_DATA,
             payload: {fake: true},
           });
-          expect(dispatch).toHaveBeenNthCalledWith(4, {
-            type: ActionType.CATCH_ERROR,
+          expect(dispatch).toHaveBeenNthCalledWith(3, {
+            type: ActionType.CATCH_SERVER_ERROR,
             payload: ``,
+          });
+          expect(dispatch).toHaveBeenNthCalledWith(5, {
+            type: ActionType.CHANGE_PROGRESS_STATUS,
+            payload: false,
           });
         });
   });

@@ -7,6 +7,7 @@ import NameSpace from '../../reducer/name-space.js';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
 import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
 import {getGroupedFavoriteOffers} from '../../reducer/favorites/selectors.js';
+import {getOffers} from '../../reducer/data/selectors.js';
 
 const mockStore = configureStore([]);
 
@@ -202,6 +203,7 @@ describe(`AppSnapshot`, () => {
             authorizationStatus={getAuthorizationStatus(store.getState())}
             favoriteOffers={getGroupedFavoriteOffers(store.getState())}
             onFavoriteButtonClick={() => {}}
+            offers={getOffers(store.getState())}
           />
         </Provider>,
         {

@@ -48,15 +48,15 @@ const Operation = {
         const adaptedOffers = response.data.map((offer) => {
           return adaptOffer(offer);
         });
-        dispatch(ActionCreator.changeLoadingStatus(false));
         dispatch(ActionCreator.loadOffers(adaptedOffers));
         dispatch(CatalogActionCreator.changeCity(adaptedOffers[0].city.name));
+        dispatch(ActionCreator.changeLoadingStatus(false));
       })
       .catch((err) => {
         const {message} = err;
-        dispatch(ActionCreator.changeLoadingStatus(false));
-        dispatch(ActionCreator.catchError(message));
 
+        dispatch(ActionCreator.catchError(message));
+        dispatch(ActionCreator.changeLoadingStatus(false));
         throw err;
       });
   },

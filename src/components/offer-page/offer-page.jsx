@@ -13,33 +13,29 @@ import {Operation as ReviewsOperation} from '../../reducer/reviews/reviews.js';
 import {ActionCreator as CatalogActionCreator} from '../../reducer/catalog/catalog.js';
 import {Operation as DataOperation} from '../../reducer/data/data.js';
 import history from '../../history.js';
-import {getActiveOffer} from '../../reducer/catalog/selectors.js';
 
 const MAX_COUNT_PICTURES = 6;
 
 class OfferPage extends PureComponent {
   componentDidMount() {
-    const {hotelId, onReviewsRequest, onNearbyRequest, onSetActiveOffer} = this.props;
-    onSetActiveOffer(hotelId);
-    onReviewsRequest(hotelId);
-    onNearbyRequest(hotelId);
+    const {offer, onReviewsRequest, onNearbyRequest, onSetActiveOffer} = this.props;
+    onSetActiveOffer(offer.id);
+    onReviewsRequest(offer.id);
+    onNearbyRequest(offer.id);
   }
 
   componentDidUpdate(prevProps) {
-    const {hotelId, onReviewsRequest, onNearbyRequest, onSetActiveOffer} = this.props;
+    const {offer, onReviewsRequest, onNearbyRequest, onSetActiveOffer} = this.props;
 
-    if (prevProps.hotelId !== hotelId) {
-      onSetActiveOffer(hotelId);
-      onReviewsRequest(hotelId);
-      onNearbyRequest(hotelId);
+    if (prevProps.offer.id !== offer.id) {
+      onSetActiveOffer(offer.id);
+      onReviewsRequest(offer.id);
+      onNearbyRequest(offer.id);
     }
   }
 
   render() {
     const {offer, offersList, authorizationStatus, onFavoriteButtonClick} = this.props;
-    if (!offer) {
-      return null;
-    }
 
     const {
       id: offerId,
@@ -198,7 +194,6 @@ class OfferPage extends PureComponent {
 OfferPage.propTypes = offerPageTypes;
 
 const mapStateToProps = (state) => ({
-  offer: getActiveOffer(state),
   offersList: getNearestOffers(state),
 });
 

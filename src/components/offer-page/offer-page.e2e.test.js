@@ -8,7 +8,7 @@ import {AuthorizationStatus} from '../../reducer/user/user.js';
 import {Router} from 'react-router-dom';
 import history from '../../history.js';
 import {AppRoute} from '../../const.js';
-import PropTypes from 'prop-types';
+import {offerShape} from '../../types/types.js';
 
 const mockStore = configureStore([]);
 
@@ -207,12 +207,11 @@ describe(`OfferPageE2E`, () => {
     const onNearbyRequest = jest.fn();
     const onSetActiveOffer = jest.fn();
 
-    const Proxy = ({hotelId}) => (
+    const Proxy = ({hotelObject}) => (
       <Provider store={store}>
         <Router history={history}>
           <OfferPage
-            hotelId={hotelId}
-            offer={offer}
+            offer={hotelObject}
             offersList={offersList}
             onFavoriteButtonClick={() => {}}
             onReviewsRequest={onReviewsRequest}
@@ -224,11 +223,11 @@ describe(`OfferPageE2E`, () => {
     );
 
     Proxy.propTypes = {
-      hotelId: PropTypes.number.isRequired,
+      hotelObject: offerShape.isRequired,
     };
 
     const wrapper = mount(
-        <Proxy hotelId={1} />
+        <Proxy hotelObject={offer} />
     );
 
     wrapper.children().children().instance().componentDidMount();
@@ -236,7 +235,7 @@ describe(`OfferPageE2E`, () => {
     expect(onNearbyRequest.mock.calls[0][0]).toBe(1);
     expect(onSetActiveOffer.mock.calls[0][0]).toBe(1);
 
-    wrapper.setProps({hotelId: 2});
+    wrapper.setProps({hotelObject: offersList[0]});
     expect(onReviewsRequest.mock.calls[1][0]).toBe(2);
     expect(onNearbyRequest.mock.calls[1][0]).toBe(2);
     expect(onSetActiveOffer.mock.calls[1][0]).toBe(2);
@@ -260,7 +259,6 @@ describe(`OfferPageE2E`, () => {
         <Provider store={store}>
           <Router history={history}>
             <OfferPage
-              hotelId={1}
               offer={offer}
               offersList={offersList}
               onFavoriteButtonClick={onFavoriteButtonClick}
@@ -356,7 +354,6 @@ describe(`OfferPageE2E`, () => {
           <Router history={history}>
             <OfferPage
               authorizationStatus={AuthorizationStatus.NO_AUTH}
-              hotelId={1}
               offer={offer}
               offersList={offersList}
               onFavoriteButtonClick={onFavoriteButtonClick}

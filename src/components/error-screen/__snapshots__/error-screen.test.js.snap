@@ -20,3 +20,34 @@ exports[`ErrorScreenSnapshot should render ErrorScreen 1`] = `
   </div>
 </section>
 `;
+
+exports[`ErrorScreenSnapshot should render ErrorScreen for 404 1`] = `
+<section>
+  <div
+    style={
+      Object {
+        "fontSize": "24",
+        "textAlign": "center",
+      }
+    }
+  >
+    <h1>
+      Oops! It is 404.
+      <br />
+      <span>
+        Page not found
+      </span>
+    </h1>
+    <p>
+      It happens because 
+      Page not found
+    </p>
+    <a
+      href="/"
+      onClick={[Function]}
+    >
+      Go to main page
+    </a>
+  </div>
+</section>
+`;

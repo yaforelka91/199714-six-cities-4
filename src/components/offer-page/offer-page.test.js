@@ -204,7 +204,6 @@ describe(`OfferPageSnapshot`, () => {
         <Provider store={store}>
           <Router history={history}>
             <OfferPage
-              hotelId={0}
               offer={offer}
               offersList={offersList}
               onFavoriteButtonClick={() => {}}

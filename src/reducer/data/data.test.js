@@ -225,11 +225,6 @@ describe(`Operation works correctly`, () => {
     return offersLoader(dispatch, store.getState, api)
         .then(() => {
           expect(dispatch).toHaveBeenNthCalledWith(1, {
-            type: ActionType.CHANGE_LOADING_STATUS,
-            payload: false,
-          });
-
-          expect(dispatch).toHaveBeenNthCalledWith(2, {
             type: ActionType.LOAD_OFFERS,
             payload: [{
               city: {
@@ -237,9 +232,13 @@ describe(`Operation works correctly`, () => {
               }
             }],
           });
-          expect(dispatch).toHaveBeenNthCalledWith(3, {
+          expect(dispatch).toHaveBeenNthCalledWith(2, {
             type: CatalogActionType.CHANGE_CITY,
             payload: `city`,
+          });
+          expect(dispatch).toHaveBeenNthCalledWith(3, {
+            type: ActionType.CHANGE_LOADING_STATUS,
+            payload: false,
           });
         });
   });

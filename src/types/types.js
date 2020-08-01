@@ -50,6 +50,7 @@ export const appTypes = {
   favoriteOffers: PropTypes.arrayOf(shape({
     [PropTypes.string.isRequred]: PropTypes.arrayOf(offerShape)
   })).isRequired,
+  offers: PropTypes.arrayOf(offerShape).isRequired,
   isOffersLoading: PropTypes.bool.isRequired,
   isAuthorizationInProgress: PropTypes.bool.isRequired,
   errorType: PropTypes.string.isRequired,
@@ -81,6 +82,7 @@ export const cityListItemTypes = {
 };
 
 export const errorScreenTypes = {
+  isNotFound: PropTypes.bool.isRequired,
   message: PropTypes.string.isRequired,
 };
 
@@ -163,10 +165,7 @@ export const pageTypes = {
   hasFooter: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
   errorMessage: PropTypes.string.isRequired,
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]).isRequired,
+  renderPage: PropTypes.func.isRequired,
 };
 
 export const placesTypes = {
