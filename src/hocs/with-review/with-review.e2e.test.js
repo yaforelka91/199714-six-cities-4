@@ -216,4 +216,25 @@ describe(`withReviewE2E`, () => {
       expect(wrapper.state().isLoading).toBe(false);
     });
   });
+
+  it(`Should clear form if offerId has been changed`, () => {
+    const offerId = 1;
+
+    const wrapper = mount(
+        <MockComponentWrapped
+          offerId={offerId}
+          onReviewFormSubmit={() => {}}
+        />
+    );
+
+    wrapper.setState({
+      review: VALID_COMMENT,
+      rating: `4`,
+      serverError: `Some error`,
+    });
+    wrapper.setProps({offerId: 2});
+    expect(wrapper.state().serverError).toBe(``);
+    expect(wrapper.state().rating).toBe(``);
+    expect(wrapper.state().review).toBe(``);
+  });
 });

@@ -18,6 +18,7 @@ const mock = {
       },
       id: 0,
       coords: [52.3909553943508, 4.85309666406198],
+      offerZoom: 12,
       title: `Beautiful & luxurious apartment at great location`,
       description: [
         `A quiet cozy and picturesque that hides behind a 
@@ -85,6 +86,10 @@ describe(`CitiesSnapshot`, () => {
               offers={offers}
               activeItem={-1}
               activeCity={city}
+              cityLocation={{
+                coords: [0, 0],
+                zoom: 1,
+              }}
               onActiveChange={() => {}}
             />
           </Router>

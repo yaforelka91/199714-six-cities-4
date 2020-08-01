@@ -12,6 +12,10 @@ export const getLoadingStatus = (state) => {
   return state[NAME_SPACE].isOffersLoading;
 };
 
+export const getNearbyOffers = (state) => {
+  return state[NAME_SPACE].nearOffers.slice(0, MAX_NEARBY_COUNT);
+};
+
 export const getCities = createSelector(
     getOffers,
     (offers) => {
@@ -22,10 +26,6 @@ export const getCities = createSelector(
       .map((cityString) => JSON.parse(cityString));
     }
 );
-
-export const getNearbyOffers = (state) => {
-  return state[NAME_SPACE].nearOffers.slice(0, MAX_NEARBY_COUNT);
-};
 
 export const getNearestOffers = createSelector(
     getOffers,

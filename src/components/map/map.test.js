@@ -15,6 +15,8 @@ describe(`MapSnapshot`, () => {
     const tree = renderer.create(
         <Map
           offers={offers}
+          city={[52, 4.8]}
+          zoom={10}
         />,
         {
           createNodeMock: () => {

@@ -20,6 +20,7 @@ const offersList = [
     },
     id: 8,
     coords: [51.202025, 6.800942],
+    offerZoom: 12,
     title: `Apartment in Dusseldorf`,
     description: [
       `A quiet cozy and picturesque that hides behind a 
@@ -73,6 +74,7 @@ const offersList = [
     },
     id: 7,
     coords: [53.553542, 9.912283],
+    offerZoom: 12,
     title: `Apartment in Hamburg`,
     description: [
       `A quiet cozy and picturesque that hides behind a 
@@ -126,6 +128,7 @@ const offersList = [
     },
     id: 9,
     coords: [51.202045625, 6.800456942],
+    offerZoom: 12,
     title: `Apartment in Dusseldorf 2`,
     description: [
       `A quiet cozy and picturesque that hides behind a 

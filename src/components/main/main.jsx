@@ -5,7 +5,7 @@ import Tabs from '../tabs/tabs.jsx';
 import withActiveItem from '../../hocs/with-active-item/with-active-item.js';
 import {connect} from 'react-redux';
 import {getCities} from '../../reducer/data/selectors.js';
-import {getCity, getFilteredOffers} from '../../reducer/catalog/selectors.js';
+import {getCity, getFilteredOffers, getCityLocation} from '../../reducer/catalog/selectors.js';
 import {ActionCreator} from '../../reducer/catalog/catalog.js';
 import CityListItem from '../city-list-item/city-list-item.jsx';
 
@@ -17,6 +17,7 @@ const Main = ({
   offersList,
   onCityNameClick,
   citiesList,
+  cityLocation,
 }) => {
   return (
     <main className={`page__main page__main--index${offersList.length === 0 ? ` page__main--index-empty` : ``}`}>
@@ -40,6 +41,7 @@ const Main = ({
       <CitiesWrapped
         activeCity={activeCity}
         offers={offersList}
+        cityLocation={cityLocation}
       />
     </main>
   );
@@ -51,6 +53,7 @@ const mapStateToProps = (state) => ({
   activeCity: getCity(state),
   offersList: getFilteredOffers(state),
   citiesList: getCities(state),
+  cityLocation: getCityLocation(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

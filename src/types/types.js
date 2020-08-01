@@ -8,6 +8,7 @@ export const offerShape = PropTypes.shape({
     zoom: PropTypes.number.isRequired,
   }).isRequired,
   id: PropTypes.number.isRequired,
+  offerZoom: PropTypes.number.isRequired,
   coords: PropTypes.arrayOf(PropTypes.number).isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -71,6 +72,10 @@ export const citiesTypes = {
   offers: PropTypes.arrayOf(offerShape).isRequired,
   activeCity: PropTypes.string.isRequired,
   activeItem: PropTypes.number.isRequired,
+  cityLocation: PropTypes.shape({
+    coords: PropTypes.arrayOf(PropTypes.number).isRequired,
+    zoom: PropTypes.number.isRequired,
+  }).isRequired,
   onActiveChange: PropTypes.func.isRequired,
 };
 
@@ -114,10 +119,16 @@ export const mainTypes = {
   offersList: PropTypes.arrayOf(offerShape).isRequired,
   activeCity: PropTypes.string.isRequired,
   citiesList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  cityLocation: PropTypes.shape({
+    coords: PropTypes.arrayOf(PropTypes.number).isRequired,
+    zoom: PropTypes.number.isRequired,
+  }).isRequired,
   onCityNameClick: PropTypes.func.isRequired,
 };
 
 export const mapTypes = {
+  city: PropTypes.arrayOf(PropTypes.number).isRequired,
+  zoom: PropTypes.number.isRequired,
   offers: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
@@ -152,10 +163,9 @@ export const offerListTypes = {
 };
 
 export const offerPageTypes = {
-  offer: PropTypes.oneOfType([offerShape, PropTypes.bool]).isRequired,
+  offer: offerShape.isRequired,
   offersList: PropTypes.arrayOf(offerShape).isRequired,
   onFavoriteButtonClick: PropTypes.func.isRequired,
-  onSetActiveOffer: PropTypes.func.isRequired,
   onReviewsRequest: PropTypes.func.isRequired,
   onNearbyRequest: PropTypes.func.isRequired,
 };

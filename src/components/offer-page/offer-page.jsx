@@ -10,7 +10,6 @@ import {getNearestOffers} from '../../reducer/data/selectors.js';
 import {CardView, AppRoute} from '../../const.js';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
 import {Operation as ReviewsOperation} from '../../reducer/reviews/reviews.js';
-import {ActionCreator as CatalogActionCreator} from '../../reducer/catalog/catalog.js';
 import {Operation as DataOperation} from '../../reducer/data/data.js';
 import history from '../../history.js';
 
@@ -18,17 +17,15 @@ const MAX_COUNT_PICTURES = 6;
 
 class OfferPage extends PureComponent {
   componentDidMount() {
-    const {offer, onReviewsRequest, onNearbyRequest, onSetActiveOffer} = this.props;
-    onSetActiveOffer(offer.id);
+    const {offer, onReviewsRequest, onNearbyRequest} = this.props;
     onReviewsRequest(offer.id);
     onNearbyRequest(offer.id);
   }
 
   componentDidUpdate(prevProps) {
-    const {offer, onReviewsRequest, onNearbyRequest, onSetActiveOffer} = this.props;
+    const {offer, onReviewsRequest, onNearbyRequest} = this.props;
 
     if (prevProps.offer.id !== offer.id) {
-      onSetActiveOffer(offer.id);
       onReviewsRequest(offer.id);
       onNearbyRequest(offer.id);
     }
@@ -36,10 +33,10 @@ class OfferPage extends PureComponent {
 
   render() {
     const {offer, offersList, authorizationStatus, onFavoriteButtonClick} = this.props;
-
     const {
       id: offerId,
       title,
+      city,
       description,
       pictures,
       price,
@@ -50,6 +47,7 @@ class OfferPage extends PureComponent {
       bedrooms,
       guests,
       services,
+      offerZoom,
       host,
     } = offer;
 
@@ -173,7 +171,13 @@ class OfferPage extends PureComponent {
               />
             </div>
           </div>
-          <Map offers={offersCoords} activeCity={offer.city.name} activeCard={offerId} className={`property__map`} />
+          <Map
+            city={city.coords}
+            zoom={offerZoom}
+            offers={offersCoords}
+            activeCard={offerId}
+            className={`property__map`}
+          />
         </section>
 
         <div className="container">
@@ -203,9 +207,6 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onReviewsRequest(offerId) {
     dispatch(ReviewsOperation.loadReviews(offerId));
-  },
-  onSetActiveOffer(offerId) {
-    dispatch(CatalogActionCreator.setActiveCard(offerId));
   },
 });
 
