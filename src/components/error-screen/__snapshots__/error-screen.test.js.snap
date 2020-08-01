@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorScreenSnapshot should render ErrorScreen 1`] = `
+<section>
+  <div
+    style={
+      Object {
+        "fontSize": "24",
+        "textAlign": "center",
+      }
+    }
+  >
+    <b>
+      Sorry, something went wrong :( Please, come back later
+    </b>
+    <p>
+      It happens because 
+      Some error message
+    </p>
+  </div>
+</section>
+`;

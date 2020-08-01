@@ -1,16 +1,18 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import {AuthorizationStatus} from '../../reducer/user/user';
 import {headerTypes} from '../../types/types.js';
 import {AppRoute} from '../../const';
+import {connect} from 'react-redux';
+import {getAuthorizationStatus, getUserData} from '../../reducer/user/selectors';
 
-const Header = ({authorizationStatus, userData, isMain}) => {
+const Header = ({authorizationStatus, userData}) => {
   return (
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            {isMain ?
+            {useLocation().pathname === AppRoute.ROOT ?
               <span className="header__logo-link header__logo-link--active">
                 <img className="header__logo" src="/img/logo.svg" alt="6 cities logo" width="81" height="41" />
               </span> :
@@ -43,9 +45,12 @@ const Header = ({authorizationStatus, userData, isMain}) => {
   );
 };
 
-Header.defaultProps = {
-  isMain: false,
-};
 Header.propTypes = headerTypes;
 
-export default Header;
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
+  userData: getUserData(state),
+});
+
+export {Header};
+export default connect(mapStateToProps)(Header);

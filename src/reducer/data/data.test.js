@@ -4,7 +4,6 @@ import {createAPI} from '../../api.js';
 import {reducer, ActionType, ActionCreator, Operation} from './data.js';
 import {ActionType as CatalogActionType} from '../catalog/catalog.js';
 import NameSpace from '../name-space.js';
-import {getCity} from '../catalog/selectors.js';
 
 const api = createAPI(() => {});
 const mockStore = configureStore([]);
@@ -123,6 +122,7 @@ describe(`Reducer works correctly`, () => {
     expect(reducer(undefined, {})).toEqual({
       offersList: [],
       nearOffers: [],
+      isOffersLoading: true,
       errorType: ``,
     });
   });
@@ -159,6 +159,17 @@ describe(`Reducer works correctly`, () => {
       nearOffers: offersList,
     });
   });
+
+  it(`Reducer should change loading status`, () => {
+    expect(reducer({
+      isOffersLoading: true,
+    }, {
+      type: ActionType.CHANGE_LOADING_STATUS,
+      payload: false,
+    })).toEqual({
+      isOffersLoading: false,
+    });
+  });
 });
 
 describe(`Action creators work correctly`, () => {
@@ -180,6 +191,13 @@ describe(`Action creators work correctly`, () => {
     expect(ActionCreator.loadNearOffers(offersList)).toEqual({
       type: ActionType.LOAD_NEAR_OFFERS,
       payload: offersList,
+    });
+  });
+
+  it(`Action creator for changing loading status returns action with false payload`, () => {
+    expect(ActionCreator.changeLoadingStatus(false)).toEqual({
+      type: ActionType.CHANGE_LOADING_STATUS,
+      payload: false,
     });
   });
 });
@@ -207,6 +225,11 @@ describe(`Operation works correctly`, () => {
     return offersLoader(dispatch, store.getState, api)
         .then(() => {
           expect(dispatch).toHaveBeenNthCalledWith(1, {
+            type: ActionType.CHANGE_LOADING_STATUS,
+            payload: false,
+          });
+
+          expect(dispatch).toHaveBeenNthCalledWith(2, {
             type: ActionType.LOAD_OFFERS,
             payload: [{
               city: {
@@ -214,13 +237,10 @@ describe(`Operation works correctly`, () => {
               }
             }],
           });
-
-          if (getCity(store.getState()) === ``) {
-            expect(dispatch).toHaveBeenNthCalledWith(2, {
-              type: CatalogActionType.CHANGE_CITY,
-              payload: `city`,
-            });
-          }
+          expect(dispatch).toHaveBeenNthCalledWith(3, {
+            type: CatalogActionType.CHANGE_CITY,
+            payload: `city`,
+          });
         });
   });
 

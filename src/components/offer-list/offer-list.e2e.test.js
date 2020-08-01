@@ -1,14 +1,10 @@
 import React from 'react';
 import {mount} from 'enzyme';
-import configureStore from 'redux-mock-store';
-import {Provider} from 'react-redux';
-import {Main} from './main.jsx';
-import NameSpace from '../../reducer/name-space.js';
-import {AuthorizationStatus} from '../../reducer/user/user.js';
+import {OfferList} from './offer-list.jsx';
 import {Router} from 'react-router-dom';
 import history from '../../history.js';
-
-const mockStore = configureStore([]);
+import {AuthorizationStatus} from '../../reducer/user/user.js';
+import {CardView} from '../../const.js';
 
 const offersList = [
   {
@@ -119,40 +115,26 @@ const offersList = [
   },
 ];
 
-const city = `city 1`;
+describe(`OffersListE2E`, () => {
+  it(`Check data in mouseenter callback`, () => {
+    const onOfferCardEnter = jest.fn();
 
-describe(`MainE2E`, () => {
-  it(`Should city title be pressed`, () => {
-    const store = mockStore({
-      [NameSpace.USER]: {
-        authorizationStatus: AuthorizationStatus.AUTH,
-      }
-    });
-
-    const onCityNameClick = jest.fn((cityName) => {
-      callback(cityName);
-    });
-    const callback = jest.fn();
-
-    const main = mount(
-        <Provider store={store}>
-          <Router history={history}>
-            <Main
-              offersList={offersList}
-              activeCity={city}
-              citiesList={[`city 1`, `city 2`]}
-              onCityNameClick={onCityNameClick}
-            />
-          </Router>
-        </Provider>
+    const wrapper = mount(
+        <Router history={history}>
+          <OfferList
+            offers={offersList}
+            onOfferCardEnter={onOfferCardEnter}
+            viewMode={CardView.CITIES}
+            authorizationStatus={AuthorizationStatus.AUTH}
+            onFavoriteButtonClick={() => {}}
+          />
+        </Router>
     );
 
-    const cityLink = main.find(`a.locations__item-link.tabs__item`).at(1);
-    cityLink.simulate(`click`, `city 1`, callback);
+    const offerCard = wrapper.find(`.cities__place-card.place-card`).at(1);
+    offerCard.simulate(`mouseenter`);
 
-    expect(onCityNameClick).toHaveBeenCalledTimes(1);
-    expect(onCityNameClick.mock.calls[0][0]).toBe(`city 2`);
-    expect(callback).toHaveBeenCalledTimes(1);
-    expect(callback.mock.calls[0][0]).toBe(`city 2`);
+    expect(onOfferCardEnter).toHaveBeenCalledTimes(1);
+    expect(onOfferCardEnter.mock.calls[0][0]).toBe(1);
   });
 });

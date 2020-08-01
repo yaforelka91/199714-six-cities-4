@@ -20,14 +20,14 @@ class OfferCard extends Component {
   }
 
   _handleFavoriteClick() {
-    const {authorizationStatus, onFavoriteButtonClick, onDataRequest, offer} = this.props;
+    const {authorizationStatus, onFavoriteButtonClick, offer} = this.props;
 
     if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
       history.push(AppRoute.LOGIN);
     } else {
       onFavoriteButtonClick(extend(offer, {
         isFavorite: +!offer.isFavorite,
-      }), onDataRequest);
+      }));
     }
   }
 

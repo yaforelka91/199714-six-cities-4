@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PrivateRouteSnapshot should render Loader 1`] = `
+<p>
+  Check autorization...
+</p>
+`;
+
+exports[`PrivateRouteSnapshot should render PivateRoute with mock component 1`] = `<div />`;

@@ -16,4 +16,18 @@ describe(`SortingSnapshot`, () => {
 
     expect(tree).toMatchSnapshot();
   });
+
+  it(`Should render open Sorting`, () => {
+    const tree = renderer.create(
+        <Sorting
+          activeSorting='popular'
+          onSortItemClick={() => {}}
+          isOpen={true}
+          onToggleMenu={() => {}}
+          onSelectMenu={() => {}}
+        />
+    ).toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
 });

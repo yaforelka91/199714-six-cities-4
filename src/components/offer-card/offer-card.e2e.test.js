@@ -5,6 +5,8 @@ import {extend} from '../../utils.js';
 import {Router} from 'react-router-dom';
 import history from '../../history.js';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
+import {AppRoute} from '../../const.js';
+import {offerShape} from '../../types/types.js';
 
 const offer = {
   city: {
@@ -135,5 +137,97 @@ describe(`OfferCardE2E`, () => {
         isSuper: true,
       },
     });
+  });
+
+  it(`Should redirect to Login page after To favorite click if user is guest`, () => {
+    const onFavoriteButtonClick = jest.fn();
+
+    const card = mount(
+        <Router history={history}>
+          <OfferCard
+            offer={offer}
+            authorizationStatus={AuthorizationStatus.NO_AUTH}
+            onFavoriteButtonClick={onFavoriteButtonClick}
+          />
+        </Router>
+    );
+
+    const button = card.find(`button.place-card__bookmark-button`);
+    button.simulate(`click`);
+
+    expect(onFavoriteButtonClick).toHaveBeenCalledTimes(0);
+    expect(history.location.pathname).toBe(AppRoute.LOGIN);
+
+    // expect(onFavoriteButtonClick.mock.calls[0][0]).toMatchObject({
+    //   city: {
+    //     name: `city 1`,
+    //     coords: [0, 0],
+    //     zoom: 1,
+    //   },
+    //   id: 0,
+    //   coords: [52.3909553943508, 4.85309666406198],
+    //   title: `Beautiful & luxurious apartment at great location`,
+    //   description: [`Text`],
+    //   picture: `http://placeimg.com/260/200/arch`,
+    //   pictures: [
+    //     `http://placeimg.com/260/200/arch`,
+    //     `http://placeimg.com/260/200/arch`,
+    //     `http://placeimg.com/260/200/arch`,
+    //     `http://placeimg.com/260/200/arch`,
+    //     `http://placeimg.com/260/200/arch`,
+    //     `http://placeimg.com/260/200/arch`
+    //   ],
+    //   price: 120,
+    //   type: `Apartment`,
+    //   isPremium: true,
+    //   isFavorite: 1,
+    //   rating: 4.1,
+    //   bedrooms: 3,
+    //   guests: 4,
+    //   services: [
+    //     `Wi-Fi`,
+    //     `Washing machine`,
+    //     `Towels`,
+    //     `Heating`,
+    //     `Coffee machine`,
+    //     `Baby seat`,
+    //     `Kitchen`,
+    //     `Dishwasher`,
+    //     `Cabel TV`,
+    //     `Fridge`,
+    //   ],
+    //   host: {
+    //     id: 1,
+    //     name: `Angelina`,
+    //     picture: `http://placekitten.com/74/74`,
+    //     isSuper: true,
+    //   },
+    // });
+  });
+
+  it(`Shouldn't rerender again if favorite status didn't change`, () => {
+    const Proxy = ({offerObject}) => (
+      <Router history={history}>
+        <OfferCard
+          offer={offerObject}
+          authorizationStatus={AuthorizationStatus.AUTH}
+          onFavoriteButtonClick={() => {}}
+        />
+      </Router>
+    );
+
+    Proxy.propTypes = {
+      offerObject: offerShape.isRequired,
+    };
+
+    const wrapper = mount(
+        <Proxy offerObject={offer} />
+    );
+
+    wrapper.setProps({offer});
+    expect(wrapper.find(`OfferCard`).instance().shouldComponentUpdate({offer})).toBe(false);
+
+    wrapper.setProps({offer: extend(offer, {isFavorite: true})});
+    expect(wrapper.find(`OfferCard`).instance().shouldComponentUpdate({offer: extend(offer, {isFavorite: true})})).toBe(true);
   });
 });

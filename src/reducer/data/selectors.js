@@ -8,6 +8,10 @@ export const getOffers = (state) => {
   return state[NAME_SPACE].offersList;
 };
 
+export const getLoadingStatus = (state) => {
+  return state[NAME_SPACE].isOffersLoading;
+};
+
 export const getCities = createSelector(
     getOffers,
     (offers) => {
@@ -19,9 +23,21 @@ export const getCities = createSelector(
     }
 );
 
-export const getNearestOffers = (state) => {
+export const getNearbyOffers = (state) => {
   return state[NAME_SPACE].nearOffers.slice(0, MAX_NEARBY_COUNT);
 };
+
+export const getNearestOffers = createSelector(
+    getOffers,
+    getNearbyOffers,
+    (allOffers, nearbyOffers) => {
+      const reducedNearbyOffers = nearbyOffers.map((offer) => offer.id);
+
+      return allOffers.filter((offer) => {
+        return reducedNearbyOffers.includes(offer.id);
+      });
+    }
+);
 
 export const getError = (state) => {
   return state[NAME_SPACE].errorType;
