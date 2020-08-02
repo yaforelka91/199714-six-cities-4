@@ -8,8 +8,6 @@ import {appTypes} from '../../types/types.js';
 import Login from '../login/login.jsx';
 import {getAuthorizationStatus, getAuthorizationProgress} from '../../reducer/user/selectors.js';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
-import {Operation as FavoritesOperation} from '../../reducer/favorites/favorites.js';
-import history from '../../history.js';
 import {AppRoute} from '../../const.js';
 import {getLoadingStatus, getError, getOffers} from '../../reducer/data/selectors.js';
 import Favorites from '../favorites/favorites.jsx';
@@ -24,7 +22,7 @@ const App = ({
   errorType,
   offers,
   favoriteOffers,
-  onFavoriteButtonClick,
+  history
 }) => {
   return (
     <Router history={history}>
@@ -53,7 +51,6 @@ const App = ({
                 if (offer) {
                   return (
                     <OfferPage
-                      onFavoriteButtonClick={onFavoriteButtonClick}
                       authorizationStatus={authorizationStatus}
                       offer={offer}
                     />
@@ -134,11 +131,5 @@ const mapStateToProps = (state) => ({
   errorType: getError(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onFavoriteButtonClick(hotel) {
-    dispatch(FavoritesOperation.changeFavoriteStatus(hotel));
-  },
-});
-
 export {App};
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);

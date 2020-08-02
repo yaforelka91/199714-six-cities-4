@@ -11,6 +11,7 @@ import {CardView, AppRoute} from '../../const.js';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
 import {Operation as ReviewsOperation} from '../../reducer/reviews/reviews.js';
 import {Operation as DataOperation} from '../../reducer/data/data.js';
+import {Operation as FavoritesOperation} from '../../reducer/favorites/favorites.js';
 import history from '../../history.js';
 
 const MAX_COUNT_PICTURES = 6;
@@ -207,6 +208,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onReviewsRequest(offerId) {
     dispatch(ReviewsOperation.loadReviews(offerId));
+  },
+  onFavoriteButtonClick(hotel) {
+    dispatch(FavoritesOperation.changeFavoriteStatus(hotel));
   },
 });
 

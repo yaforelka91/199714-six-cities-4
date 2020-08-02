@@ -55,7 +55,7 @@ export const appTypes = {
   isOffersLoading: PropTypes.bool.isRequired,
   isAuthorizationInProgress: PropTypes.bool.isRequired,
   errorType: PropTypes.string.isRequired,
-  onFavoriteButtonClick: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 export const buttonTypes = {

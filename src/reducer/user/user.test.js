@@ -3,6 +3,15 @@ import MockAdapter from 'axios-mock-adapter';
 import {createAPI} from '../../api.js';
 
 const api = createAPI(() => {});
+const serverUser = {
+  // eslint-disable-next-line camelcase
+  avatar_url: `pic.jpg`,
+  email: `qwerty@mail.ru`,
+  id: 1,
+  // eslint-disable-next-line camelcase
+  is_pro: false,
+  name: `qwerty`,
+};
 
 describe(`Reducer works correctly`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {
@@ -195,7 +204,7 @@ describe(`Operation works correctly`, () => {
 
     apiMock
         .onGet(`/login`)
-        .reply(200, {fake: true});
+        .reply(200, serverUser);
 
     return checkLogin(dispatch, () => {}, api)
         .then(() => {
@@ -206,7 +215,13 @@ describe(`Operation works correctly`, () => {
           });
           expect(dispatch).toHaveBeenNthCalledWith(2, {
             type: ActionType.SET_USER_DATA,
-            payload: {fake: true},
+            payload: {
+              email: `qwerty@mail.ru`,
+              id: 1,
+              isSuper: false,
+              name: `qwerty`,
+              picture: `pic.jpg`
+            },
           });
           expect(dispatch).toHaveBeenNthCalledWith(3, {
             type: ActionType.CHANGE_PROGRESS_STATUS,
@@ -227,7 +242,7 @@ describe(`Operation works correctly`, () => {
 
     apiMock
         .onPost(`/login`)
-        .reply(200, {fake: true});
+        .reply(200, serverUser);
 
     return login(dispatch, () => {}, api)
         .then(() => {
@@ -238,7 +253,13 @@ describe(`Operation works correctly`, () => {
           });
           expect(dispatch).toHaveBeenNthCalledWith(2, {
             type: ActionType.SET_USER_DATA,
-            payload: {fake: true},
+            payload: {
+              email: `qwerty@mail.ru`,
+              id: 1,
+              isSuper: false,
+              name: `qwerty`,
+              picture: `pic.jpg`
+            },
           });
           expect(dispatch).toHaveBeenNthCalledWith(3, {
             type: ActionType.CATCH_SERVER_ERROR,

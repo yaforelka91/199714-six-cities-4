@@ -9,6 +9,46 @@ import NameSpace from '../name-space.js';
 
 const api = createAPI(() => {});
 const mockStore = configureStore([]);
+const serverOffer = {
+  bedrooms: 1,
+  city: {
+    location: {
+      latitude: 51.225402,
+      longitude: 6.776314,
+      zoom: 13,
+    },
+    name: `Dusseldorf`,
+  },
+  description: `Text`,
+  goods: [`Fridge`, `Washer`],
+  host: {
+    // eslint-disable-next-line camelcase
+    avatar_url: `img/avatar-angelina.jpg`,
+    id: 25,
+    // eslint-disable-next-line camelcase
+    is_pro: true,
+    name: `Angelina`,
+  },
+  id: 88,
+  images: [`pic1.jpg`, `pic2.jpg`],
+  // eslint-disable-next-line camelcase
+  is_favorite: false,
+  // eslint-disable-next-line camelcase
+  is_premium: false,
+  location: {
+    latitude: 51.237402,
+    longitude: 6.779314,
+    zoom: 16,
+  },
+  // eslint-disable-next-line camelcase
+  max_adults: 3,
+  // eslint-disable-next-line camelcase
+  preview_image: `pic1`,
+  price: 205,
+  rating: 3.9,
+  title: `Nice, cozy, warm big bed apartment`,
+  type: `room`,
+};
 
 describe(`Reducer works correctly`, () => {
   it(`Reducer without additional parameters should return initialState`, () => {
@@ -62,15 +102,53 @@ describe(`Operation works correctly`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const mockOfferData = {
-      id: 0,
-      isFavorite: 1
+      bedrooms: 1,
+      city: {
+        coords: [51.225402, 6.776314],
+        name: `Dusseldorf`,
+        zoom: 13,
+      },
+      coords: [51.237402, 6.779314],
+      description: [`Text`],
+      guests: 3,
+      host: {id: 25, name: `Angelina`, picture: `img/avatar-angelina.jpg`, isSuper: true},
+      id: 88,
+      isFavorite: 1,
+      isPremium: false,
+      offerZoom: 16,
+      picture: `pic1`,
+      pictures: [`pic1.jpg`, `pic2.jpg`],
+      price: 205,
+      rating: 3.9,
+      services: [`Fridge`, `Washer`],
+      title: `Nice, cozy, warm big bed apartment`,
+      type: `room`
     };
 
     const store = mockStore({
       [NameSpace.DATA]: {
         offersList: [{
-          id: 0,
-          isFavorite: true
+          bedrooms: 1,
+          city: {
+            coords: [51.225402, 6.776314],
+            name: `Dusseldorf`,
+            zoom: 13,
+          },
+          coords: [51.237402, 6.779314],
+          description: [`Text`],
+          guests: 3,
+          host: {id: 25, name: `Angelina`, picture: `img/avatar-angelina.jpg`, isSuper: true},
+          id: 88,
+          isFavorite: true,
+          isPremium: false,
+          offerZoom: 16,
+          picture: `pic1`,
+          pictures: [`pic1.jpg`, `pic2.jpg`],
+          price: 205,
+          rating: 3.9,
+          services: [`Fridge`, `Washer`],
+          title: `Nice, cozy, warm big bed apartment`,
+          type: `room`
         }],
       },
     });
@@ -78,11 +156,9 @@ describe(`Operation works correctly`, () => {
     const changeFavorites = Operation.changeFavoriteStatus(mockOfferData);
 
     apiMock
-        .onPost(`/favorite/0/1`)
-        .reply(200, extend(mockOfferData, {
-          id: 0,
-          isFavorite: false,
-        }));
+        .onPost(`/favorite/88/1`)
+    // eslint-disable-next-line camelcase
+        .reply(200, extend(serverOffer, {is_favorite: false}));
 
     return changeFavorites(dispatch, store.getState, api)
         .then(() => {
@@ -91,8 +167,27 @@ describe(`Operation works correctly`, () => {
           expect(dispatch).toHaveBeenNthCalledWith(1, {
             type: ActionType.TOGGLE_FAVORITE,
             payload: {
-              id: 0,
+              bedrooms: 1,
+              city: {
+                coords: [51.225402, 6.776314],
+                name: `Dusseldorf`,
+                zoom: 13,
+              },
+              coords: [51.237402, 6.779314],
+              description: [`Text`],
+              guests: 3,
+              host: {id: 25, name: `Angelina`, picture: `img/avatar-angelina.jpg`, isSuper: true},
+              id: 88,
               isFavorite: false,
+              isPremium: false,
+              offerZoom: 16,
+              picture: `pic1`,
+              pictures: [`pic1.jpg`, `pic2.jpg`],
+              price: 205,
+              rating: 3.9,
+              services: [`Fridge`, `Washer`],
+              title: `Nice, cozy, warm big bed apartment`,
+              type: `room`
             },
           });
 
@@ -100,8 +195,27 @@ describe(`Operation works correctly`, () => {
             type: DataActionType.LOAD_OFFERS,
             payload: [
               {
-                id: 0,
-                isFavorite: false
+                bedrooms: 1,
+                city: {
+                  coords: [51.225402, 6.776314],
+                  name: `Dusseldorf`,
+                  zoom: 13,
+                },
+                coords: [51.237402, 6.779314],
+                description: [`Text`],
+                guests: 3,
+                host: {id: 25, name: `Angelina`, picture: `img/avatar-angelina.jpg`, isSuper: true},
+                id: 88,
+                isFavorite: false,
+                isPremium: false,
+                offerZoom: 16,
+                picture: `pic1`,
+                pictures: [`pic1.jpg`, `pic2.jpg`],
+                price: 205,
+                rating: 3.9,
+                services: [`Fridge`, `Washer`],
+                title: `Nice, cozy, warm big bed apartment`,
+                type: `room`
               }
             ],
           });
@@ -116,10 +230,7 @@ describe(`Operation works correctly`, () => {
 
     apiMock
       .onGet(`/favorite`)
-      .reply(200, [{
-        id: 0,
-        isFavorite: true,
-      }]);
+      .reply(200, [serverOffer]);
 
     return loadFavorites(dispatch, () => {}, api)
         .then(() => {
@@ -128,9 +239,28 @@ describe(`Operation works correctly`, () => {
           expect(dispatch).toHaveBeenNthCalledWith(1, {
             type: ActionType.GET_FAVORITE,
             payload: [{
-              id: 0,
-              isFavorite: true,
-            }]
+              bedrooms: 1,
+              city: {
+                coords: [51.225402, 6.776314],
+                name: `Dusseldorf`,
+                zoom: 13,
+              },
+              coords: [51.237402, 6.779314],
+              description: [`Text`],
+              guests: 3,
+              host: {id: 25, name: `Angelina`, picture: `img/avatar-angelina.jpg`, isSuper: true},
+              id: 88,
+              isFavorite: false,
+              isPremium: false,
+              offerZoom: 16,
+              picture: `pic1`,
+              pictures: [`pic1.jpg`, `pic2.jpg`],
+              price: 205,
+              rating: 3.9,
+              services: [`Fridge`, `Washer`],
+              title: `Nice, cozy, warm big bed apartment`,
+              type: `room`
+            }],
           });
         });
   });

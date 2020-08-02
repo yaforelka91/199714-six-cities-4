@@ -8,7 +8,8 @@ import {AuthorizationStatus} from '../../reducer/user/user.js';
 import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
 import {getGroupedFavoriteOffers} from '../../reducer/favorites/selectors.js';
 import {getOffers} from '../../reducer/data/selectors.js';
-
+import {createMemoryHistory} from 'history';
+import {AppRoute} from '../../const.js';
 const mockStore = configureStore([]);
 
 const offersList = [
@@ -43,7 +44,7 @@ const offersList = [
     price: 180,
     type: `Apartment`,
     isPremium: true,
-    isFavorite: false,
+    isFavorite: true,
     rating: 4.9,
     bedrooms: 4,
     guests: 6,
@@ -151,7 +152,7 @@ const offersList = [
     price: 190,
     type: `Apartment`,
     isPremium: true,
-    isFavorite: false,
+    isFavorite: true,
     rating: 4.9,
     bedrooms: 4,
     guests: 6,
@@ -185,7 +186,6 @@ describe(`AppSnapshot`, () => {
   it(`should render Main page`, () => {
     const store = mockStore({
       [NameSpace.CATALOG]: {
-        activeCard: -1,
         activeCity: offersList[0].city.name,
       },
       [NameSpace.DATA]: {
@@ -205,8 +205,74 @@ describe(`AppSnapshot`, () => {
           <App
             authorizationStatus={getAuthorizationStatus(store.getState())}
             favoriteOffers={getGroupedFavoriteOffers(store.getState())}
-            onFavoriteButtonClick={() => {}}
             offers={getOffers(store.getState())}
+            history={createMemoryHistory({initialEntries: [AppRoute.ROOT]})}
+          />
+        </Provider>,
+        {
+          createNodeMock: () => {
+            return document.createElement(`div`);
+          }
+        }
+    ).toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
+  it(`should render Login page`, () => {
+    const store = mockStore({
+      [NameSpace.CATALOG]: {
+        activeCity: offersList[0].city.name,
+      },
+      [NameSpace.DATA]: {
+        offersList,
+      },
+      [NameSpace.USER]: {
+        authorizationStatus: AuthorizationStatus.NO_AUTH,
+        userData,
+      }
+    });
+
+    const tree = renderer.create(
+        <Provider store={store}>
+          <App
+            authorizationStatus={AuthorizationStatus.NO_AUTH}
+            favoriteOffers={[]}
+            offers={getOffers(store.getState())}
+            history={createMemoryHistory({initialEntries: [AppRoute.LOGIN]}) }
+          />
+        </Provider>,
+        {
+          createNodeMock: () => {
+            return document.createElement(`div`);
+          }
+        }
+    ).toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
+  it(`should render 404 page`, () => {
+    const store = mockStore({
+      [NameSpace.CATALOG]: {
+        activeCity: offersList[0].city.name,
+      },
+      [NameSpace.DATA]: {
+        offersList,
+      },
+      [NameSpace.USER]: {
+        authorizationStatus: AuthorizationStatus.NO_AUTH,
+        userData,
+      }
+    });
+
+    const tree = renderer.create(
+        <Provider store={store}>
+          <App
+            authorizationStatus={AuthorizationStatus.NO_AUTH}
+            favoriteOffers={[]}
+            offers={getOffers(store.getState())}
+            history={createMemoryHistory({initialEntries: [`/notvalid`]}) }
           />
         </Provider>,
         {

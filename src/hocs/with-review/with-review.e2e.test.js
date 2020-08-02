@@ -51,7 +51,20 @@ describe(`withReviewE2E`, () => {
 
     apiMock
         .onPost(`/comments/${offerId}`)
-        .reply(200, [{}]);
+        .reply(200, [{
+          comment: `Comment`,
+          date: `2020-06-20T16:06:01.820Z`,
+          id: 1,
+          rating: 4,
+          user: {
+            // eslint-disable-next-line camelcase
+            avatar_url: `pic.jpg`,
+            id: 12,
+            // eslint-disable-next-line camelcase
+            is_pro: true,
+            name: `Isaac`,
+          },
+        }]);
 
     const wrapper = mount(
         <MockComponentWrapped

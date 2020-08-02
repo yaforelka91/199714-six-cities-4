@@ -119,6 +119,47 @@ const offersList = [
   },
 ];
 
+const serverOffer = {
+  bedrooms: 1,
+  city: {
+    location: {
+      latitude: 51.225402,
+      longitude: 6.776314,
+      zoom: 13,
+    },
+    name: `Dusseldorf`,
+  },
+  description: `Text`,
+  goods: [`Fridge`, `Washer`],
+  host: {
+    // eslint-disable-next-line camelcase
+    avatar_url: `img/avatar-angelina.jpg`,
+    id: 25,
+    // eslint-disable-next-line camelcase
+    is_pro: true,
+    name: `Angelina`,
+  },
+  id: 88,
+  images: [`pic1.jpg`, `pic2.jpg`],
+  // eslint-disable-next-line camelcase
+  is_favorite: false,
+  // eslint-disable-next-line camelcase
+  is_premium: false,
+  location: {
+    latitude: 51.237402,
+    longitude: 6.779314,
+    zoom: 16,
+  },
+  // eslint-disable-next-line camelcase
+  max_adults: 3,
+  // eslint-disable-next-line camelcase
+  preview_image: `pic1`,
+  price: 205,
+  rating: 3.9,
+  title: `Nice, cozy, warm big bed apartment`,
+  type: `room`,
+};
+
 describe(`Reducer works correctly`, () => {
   it(`Reducer without additional parameters should return initialState`, () => {
     expect(reducer(undefined, {})).toEqual({
@@ -218,25 +259,39 @@ describe(`Operation works correctly`, () => {
 
     apiMock
         .onGet(`/hotels`)
-        .reply(200, [{
-          city: {
-            name: `city`,
-          }
-        }]);
+        .reply(200, [serverOffer]);
 
     return offersLoader(dispatch, store.getState, api)
         .then(() => {
           expect(dispatch).toHaveBeenNthCalledWith(1, {
             type: ActionType.LOAD_OFFERS,
             payload: [{
+              bedrooms: 1,
               city: {
-                name: `city`,
-              }
+                coords: [51.225402, 6.776314],
+                name: `Dusseldorf`,
+                zoom: 13,
+              },
+              coords: [51.237402, 6.779314],
+              description: [`Text`],
+              guests: 3,
+              host: {id: 25, name: `Angelina`, picture: `img/avatar-angelina.jpg`, isSuper: true},
+              id: 88,
+              isFavorite: false,
+              isPremium: false,
+              offerZoom: 16,
+              picture: `pic1`,
+              pictures: [`pic1.jpg`, `pic2.jpg`],
+              price: 205,
+              rating: 3.9,
+              services: [`Fridge`, `Washer`],
+              title: `Nice, cozy, warm big bed apartment`,
+              type: `room`
             }],
           });
           expect(dispatch).toHaveBeenNthCalledWith(2, {
             type: CatalogActionType.CHANGE_CITY,
-            payload: `city`,
+            payload: `Dusseldorf`,
           });
           expect(dispatch).toHaveBeenNthCalledWith(3, {
             type: ActionType.CHANGE_LOADING_STATUS,
@@ -252,22 +307,34 @@ describe(`Operation works correctly`, () => {
 
     apiMock
         .onGet(`/hotels/0/nearby`)
-        .reply(200, [{
-          id: 0,
-          city: {
-            name: `city`,
-          }
-        }]);
+        .reply(200, [serverOffer]);
 
     return nearOffersLoader(dispatch, () => {}, api)
         .then(() => {
           expect(dispatch).toHaveBeenNthCalledWith(1, {
             type: ActionType.LOAD_NEAR_OFFERS,
             payload: [{
-              id: 0,
+              bedrooms: 1,
               city: {
-                name: `city`,
-              }
+                coords: [51.225402, 6.776314],
+                name: `Dusseldorf`,
+                zoom: 13,
+              },
+              coords: [51.237402, 6.779314],
+              description: [`Text`],
+              guests: 3,
+              host: {id: 25, name: `Angelina`, picture: `img/avatar-angelina.jpg`, isSuper: true},
+              id: 88,
+              isFavorite: false,
+              isPremium: false,
+              offerZoom: 16,
+              picture: `pic1`,
+              pictures: [`pic1.jpg`, `pic2.jpg`],
+              price: 205,
+              rating: 3.9,
+              services: [`Fridge`, `Washer`],
+              title: `Nice, cozy, warm big bed apartment`,
+              type: `room`
             }],
           });
         });

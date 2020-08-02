@@ -9,6 +9,7 @@ import reducer from './reducer/reducer.js';
 import {Operation as DataOperation} from './reducer/data/data.js';
 import {createAPI} from './api';
 import {AuthorizationStatus, ActionCreator, Operation as UserOperation} from './reducer/user/user.js';
+import history from './history.js';
 
 const init = () => {
   const onUnauthorized = () => {
@@ -29,7 +30,7 @@ const init = () => {
 
   reactDOM.render(
       <Provider store={store}>
-        <App/>
+        <App history={history}/>
       </Provider>,
 
       document.querySelector(`#root`)

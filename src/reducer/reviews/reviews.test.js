@@ -3,6 +3,20 @@ import {createAPI} from '../../api.js';
 import {reducer, ActionType, ActionCreator, Operation} from './reviews.js';
 
 const api = createAPI(() => {});
+const serverReview = {
+  comment: `Comment`,
+  date: `2020-06-20T16:06:01.820Z`,
+  id: 1,
+  rating: 4,
+  user: {
+    // eslint-disable-next-line camelcase
+    avatar_url: `pic.jpg`,
+    id: 12,
+    // eslint-disable-next-line camelcase
+    is_pro: true,
+    name: `Isaac`,
+  },
+};
 
 describe(`Reducer works correctly`, () => {
   it(`Reducer without additional parameters should return initialState`, () => {
@@ -59,22 +73,57 @@ describe(`Operation works correctly`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const mockReviewData = {
-      rating: 5,
-      comment: `comment`,
+      feedback: `Comment 2`,
+      rating: 4,
     };
 
     const sendComment = Operation.sendComment(mockReviewData, 1);
 
     apiMock
         .onPost(`/comments/1`)
-        .reply(200, [mockReviewData]);
+        .reply(200, [{
+          comment: `Comment 2`,
+          date: `2020-06-20T16:06:01.820Z`,
+          id: 2,
+          rating: 4,
+          user: {
+            // eslint-disable-next-line camelcase
+            avatar_url: `pic.jpg`,
+            id: 12,
+            // eslint-disable-next-line camelcase
+            is_pro: true,
+            name: `Isaac`,
+          },
+        }, serverReview]);
 
     return sendComment(dispatch, () => {}, api)
         .then(() => {
           expect(dispatch).toHaveBeenCalledTimes(1);
           expect(dispatch).toHaveBeenNthCalledWith(1, {
             type: ActionType.SEND_REVIEW,
-            payload: [mockReviewData],
+            payload: [{
+              feedback: `Comment 2`,
+              id: 2,
+              rating: 4,
+              user: {
+                id: 12,
+                isSuper: true,
+                name: `Isaac`,
+                picture: `pic.jpg`,
+              },
+              visitTime: `2020-06-20T16:06:01.820Z`
+            }, {
+              feedback: `Comment`,
+              id: 1,
+              rating: 4,
+              user: {
+                id: 12,
+                isSuper: true,
+                name: `Isaac`,
+                picture: `pic.jpg`,
+              },
+              visitTime: `2020-06-20T16:06:01.820Z`
+            }],
           });
         });
   });
@@ -86,16 +135,23 @@ describe(`Operation works correctly`, () => {
 
     apiMock
         .onGet(`/comments/0`)
-        .reply(200, [{
-          fake: true,
-        }]);
+        .reply(200, [serverReview]);
 
     return reviewsLoader(dispatch, () => {}, api)
         .then(() => {
           expect(dispatch).toHaveBeenNthCalledWith(1, {
             type: ActionType.LOAD_REVIEWS,
             payload: [{
-              fake: true,
+              feedback: `Comment`,
+              id: 1,
+              rating: 4,
+              user: {
+                id: 12,
+                isSuper: true,
+                name: `Isaac`,
+                picture: `pic.jpg`,
+              },
+              visitTime: `2020-06-20T16:06:01.820Z`
             }],
           });
         });
