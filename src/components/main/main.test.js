@@ -88,7 +88,7 @@ describe(`MainSnapshot`, () => {
                 coords: [0, 0],
                 zoom: 1,
               }}
-              onCityNameClick={()=>{}}
+              onCityNameClick={() => {}}
             />
           </Router>
         </Provider>,

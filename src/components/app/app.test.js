@@ -239,7 +239,7 @@ describe(`AppSnapshot`, () => {
             authorizationStatus={AuthorizationStatus.NO_AUTH}
             favoriteOffers={[]}
             offers={getOffers(store.getState())}
-            history={createMemoryHistory({initialEntries: [AppRoute.LOGIN]}) }
+            history={createMemoryHistory({initialEntries: [AppRoute.LOGIN]})}
           />
         </Provider>,
         {
