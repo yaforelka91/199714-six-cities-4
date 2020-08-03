@@ -15,6 +15,7 @@ import {Operation as FavoritesOperation} from '../../reducer/favorites/favorites
 import history from '../../history.js';
 
 const MAX_COUNT_PICTURES = 6;
+const MAX_NEARBY_COUNT = 3;
 
 class OfferPage extends PureComponent {
   componentDidMount() {
@@ -199,7 +200,7 @@ class OfferPage extends PureComponent {
 OfferPage.propTypes = offerPageTypes;
 
 const mapStateToProps = (state) => ({
-  offersList: getNearestOffers(state),
+  offersList: getNearestOffers(state).slice(0, MAX_NEARBY_COUNT),
 });
 
 const mapDispatchToProps = (dispatch) => ({

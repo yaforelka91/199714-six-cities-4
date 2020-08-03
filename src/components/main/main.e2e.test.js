@@ -131,10 +131,8 @@ describe(`MainE2E`, () => {
       }
     });
 
-    const onCityNameClick = jest.fn((cityName) => {
-      callback(cityName);
-    });
     const callback = jest.fn();
+    const onCityNameClick = jest.fn((cityName) => callback(cityName));
 
     const main = mount(
         <Provider store={store}>

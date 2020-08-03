@@ -9,12 +9,10 @@ const ActionType = {
 };
 
 const ActionCreator = {
-  changeCity: (city) => {
-    return {
-      type: ActionType.CHANGE_CITY,
-      payload: city,
-    };
-  },
+  changeCity: (city) => ({
+    type: ActionType.CHANGE_CITY,
+    payload: city,
+  })
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {

@@ -16,9 +16,7 @@ describe(`PrivateRouteSnapshot`, () => {
             path={AppRoute.FAVORITES}
             authorizationStatus={AuthorizationStatus.AUTH}
             isAuthorizationInProgress={true}
-            render={() => {
-              return <MockComponent />;
-            }}
+            render={() => <MockComponent />}
           />
         </MemoryRouter>
     ).toJSON();
@@ -33,9 +31,7 @@ describe(`PrivateRouteSnapshot`, () => {
             exact
             path={AppRoute.FAVORITES}
             authorizationStatus={AuthorizationStatus.AUTH}
-            render={() => {
-              return <MockComponent />;
-            }}
+            render={() => <MockComponent />}
           />
         </MemoryRouter>
     ).toJSON();

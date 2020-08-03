@@ -209,7 +209,7 @@ describe(`OfferPageE2E`, () => {
     const onReviewsRequest = jest.fn();
     const onNearbyRequest = jest.fn();
 
-    const Proxy = ({hotelObject}) => (
+    const ProxyOfferPage = ({hotelObject}) => (
       <Provider store={store}>
         <Router history={history}>
           <OfferPage
@@ -223,12 +223,12 @@ describe(`OfferPageE2E`, () => {
       </Provider>
     );
 
-    Proxy.propTypes = {
+    ProxyOfferPage.propTypes = {
       hotelObject: offerShape.isRequired,
     };
 
     const wrapper = mount(
-        <Proxy hotelObject={offer} />
+        <ProxyOfferPage hotelObject={offer} />
     );
 
     wrapper.children().children().instance().componentDidMount();
@@ -261,12 +261,8 @@ describe(`OfferPageE2E`, () => {
               offer={offer}
               offersList={offersList}
               onFavoriteButtonClick={onFavoriteButtonClick}
-              onReviewsRequest={() => {
-                return reviews;
-              }}
-              onNearbyRequest={() => {
-                return offersList;
-              }}
+              onReviewsRequest={() => reviews}
+              onNearbyRequest={() => offersList}
             />
           </Router>
         </Provider>
@@ -353,12 +349,8 @@ describe(`OfferPageE2E`, () => {
               offer={offer}
               offersList={offersList}
               onFavoriteButtonClick={onFavoriteButtonClick}
-              onReviewsRequest={() => {
-                return reviews;
-              }}
-              onNearbyRequest={() => {
-                return offersList;
-              }}
+              onReviewsRequest={() => reviews}
+              onNearbyRequest={() => offersList}
             />
           </Router>
         </Provider>

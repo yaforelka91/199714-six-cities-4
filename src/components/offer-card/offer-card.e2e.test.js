@@ -162,7 +162,7 @@ describe(`OfferCardE2E`, () => {
   });
 
   it(`Shouldn't rerender again if favorite status didn't change`, () => {
-    const Proxy = ({offerObject}) => (
+    const ProxyOfferCard = ({offerObject}) => (
       <Router history={history}>
         <OfferCard
           offer={offerObject}
@@ -172,12 +172,12 @@ describe(`OfferCardE2E`, () => {
       </Router>
     );
 
-    Proxy.propTypes = {
+    ProxyOfferCard.propTypes = {
       offerObject: offerShape.isRequired,
     };
 
     const wrapper = mount(
-        <Proxy offerObject={offer} />
+        <ProxyOfferCard offerObject={offer} />
     );
 
     wrapper.setProps({offer});

@@ -14,18 +14,14 @@ const ActionType = {
 };
 
 const ActionCreator = {
-  toggleFavorite: (hotel) => {
-    return {
-      type: ActionType.TOGGLE_FAVORITE,
-      payload: hotel,
-    };
-  },
-  getFavorite: (offers) => {
-    return {
-      type: ActionType.GET_FAVORITE,
-      payload: offers,
-    };
-  }
+  toggleFavorite: (hotel) => ({
+    type: ActionType.TOGGLE_FAVORITE,
+    payload: hotel,
+  }),
+  getFavorite: (offers) => ({
+    type: ActionType.GET_FAVORITE,
+    payload: offers,
+  }),
 };
 
 const Operation = {

@@ -69,9 +69,7 @@ describe(`withReviewE2E`, () => {
     const wrapper = mount(
         <MockComponentWrapped
           offerId={offerId}
-          onReviewFormSubmit={() => {
-            return mockPromise(() => {}, () => {}, api);
-          }}
+          onReviewFormSubmit={() => mockPromise(() => {}, () => {}, api)}
         />
     );
 
@@ -139,9 +137,7 @@ describe(`withReviewE2E`, () => {
     const wrapper = mount(
         <MockComponentWrapped
           offerId={offerId}
-          onReviewFormSubmit={() => {
-            return mockPromise(() => {}, () => {}, api);
-          }}
+          onReviewFormSubmit={() => mockPromise(() => {}, () => {}, api)}
         />
     );
 
@@ -198,9 +194,7 @@ describe(`withReviewE2E`, () => {
     const wrapper = mount(
         <MockComponentWrapped
           offerId={offerId}
-          onReviewFormSubmit={() => {
-            return mockPromise(() => {}, () => {}, api);
-          }}
+          onReviewFormSubmit={() => mockPromise(() => {}, () => {}, api)}
         />
     );
 

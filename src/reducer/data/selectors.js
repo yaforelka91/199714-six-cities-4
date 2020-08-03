@@ -2,29 +2,20 @@ import NameSpace from '../name-space.js';
 import {createSelector} from 'reselect';
 
 const NAME_SPACE = NameSpace.DATA;
-const MAX_NEARBY_COUNT = 3;
 
-export const getOffers = (state) => {
-  return state[NAME_SPACE].offersList;
-};
+export const getOffers = (state) => state[NAME_SPACE].offersList;
 
-export const getLoadingStatus = (state) => {
-  return state[NAME_SPACE].isOffersLoading;
-};
+export const getLoadingStatus = (state) => state[NAME_SPACE].isOffersLoading;
 
-export const getNearbyOffers = (state) => {
-  return state[NAME_SPACE].nearOffers.slice(0, MAX_NEARBY_COUNT);
-};
+export const getNearbyOffers = (state) => state[NAME_SPACE].nearOffers;
 
 export const getCities = createSelector(
     getOffers,
-    (offers) => {
-      return [...new Set(offers
+    (offers) => [...new Set(
+        offers
       .map((offer) => offer.city.name)
       .map((cityObject) => JSON.stringify(cityObject))
-      )]
-      .map((cityString) => JSON.parse(cityString));
-    }
+    )].map((cityString) => JSON.parse(cityString))
 );
 
 export const getNearestOffers = createSelector(
@@ -33,12 +24,8 @@ export const getNearestOffers = createSelector(
     (allOffers, nearbyOffers) => {
       const reducedNearbyOffers = nearbyOffers.map((offer) => offer.id);
 
-      return allOffers.filter((offer) => {
-        return reducedNearbyOffers.includes(offer.id);
-      });
+      return allOffers.filter((offer) => reducedNearbyOffers.includes(offer.id));
     }
 );
 
-export const getError = (state) => {
-  return state[NAME_SPACE].errorType;
-};
+export const getError = (state) => state[NAME_SPACE].errorType;

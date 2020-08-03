@@ -17,24 +17,18 @@ const ActionType = {
 };
 
 const ActionCreator = {
-  loadOffers: (offers) => {
-    return {
-      type: ActionType.LOAD_OFFERS,
-      payload: offers,
-    };
-  },
-  loadNearOffers: (offers) => {
-    return {
-      type: ActionType.LOAD_NEAR_OFFERS,
-      payload: offers,
-    };
-  },
-  changeLoadingStatus: (isLoaded) => {
-    return {
-      type: ActionType.CHANGE_LOADING_STATUS,
-      payload: isLoaded,
-    };
-  },
+  loadOffers: (offers) => ({
+    type: ActionType.LOAD_OFFERS,
+    payload: offers,
+  }),
+  loadNearOffers: (offers) => ({
+    type: ActionType.LOAD_NEAR_OFFERS,
+    payload: offers,
+  }),
+  changeLoadingStatus: (isLoaded) => ({
+    type: ActionType.CHANGE_LOADING_STATUS,
+    payload: isLoaded,
+  }),
   catchError: (errorMessage) => ({
     type: ActionType.CATCH_ERROR,
     payload: errorMessage,
@@ -45,11 +39,13 @@ const Operation = {
   loadOffers: () => (dispatch, getState, api) => {
     return api.get(`/hotels`)
       .then((response) => {
-        const adaptedOffers = response.data.map((offer) => {
-          return adaptOffer(offer);
-        });
+        const adaptedOffers = response.data.map((offer) => adaptOffer(offer));
         dispatch(ActionCreator.loadOffers(adaptedOffers));
-        dispatch(CatalogActionCreator.changeCity(adaptedOffers[0].city.name));
+
+        if (adaptedOffers.length > 0) {
+          dispatch(CatalogActionCreator.changeCity(adaptedOffers[0].city.name));
+        }
+
         dispatch(ActionCreator.changeLoadingStatus(false));
       })
       .catch((err) => {
@@ -63,9 +59,7 @@ const Operation = {
   loadNearOffers: (offerId) => (dispatch, getState, api) => {
     return api.get(`/hotels/${offerId}/nearby`)
       .then((response) => {
-        const adaptedOffers = response.data.map((offer) => {
-          return adaptOffer(offer);
-        });
+        const adaptedOffers = response.data.map((offer) => adaptOffer(offer));
 
         dispatch(ActionCreator.loadNearOffers(adaptedOffers));
       })

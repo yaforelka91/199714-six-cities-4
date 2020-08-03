@@ -42,13 +42,11 @@ const withSorting = (Component) => {
         <Component
           {...this.props}
           offers={offers}
-          renderSorting={() => {
-            return (
-              <SortingWrapped
-                activeSorting={activeSorting}
-                onSortItemClick={this._handleSortItemClick} />
-            );
-          }}
+          renderSorting={() =>
+            <SortingWrapped
+              activeSorting={activeSorting}
+              onSortItemClick={this._handleSortItemClick}
+            />}
         />
       );
     }

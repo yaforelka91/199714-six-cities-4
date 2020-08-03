@@ -91,23 +91,19 @@ const withReview = (Component) => {
         <Component
           {...this.props}
           onFormSubmit={this._handleFormSubmit}
-          renderRating={() => {
-            return (
-              <Rating
-                selectedRating={rating}
-                onRatingChange={this._handleControlChange}
-              />
-            );
-          }}
-          renderTextarea={() => {
-            return (
-              <Textarea
-                currentMessage={review}
-                maxLength={ReviewValidLength.MAXIMUM}
-                onTextareaChange={this._handleControlChange}
-              />
-            );
-          }}
+          renderRating={() =>
+            <Rating
+              selectedRating={rating}
+              onRatingChange={this._handleControlChange}
+            />
+          }
+          renderTextarea={() =>
+            <Textarea
+              currentMessage={review}
+              maxLength={ReviewValidLength.MAXIMUM}
+              onTextareaChange={this._handleControlChange}
+            />
+          }
           serverError={serverError}
           isLoading={isLoading}
           isValid={rating !== `` && review.length >= ReviewValidLength.MINIMUM && review.length <= ReviewValidLength.MAXIMUM}

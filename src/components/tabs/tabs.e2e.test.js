@@ -2,7 +2,7 @@ import React from 'react';
 import {shallow} from 'enzyme';
 import Tabs from './tabs.jsx';
 
-const tabList = [`item 1`, `item 2`, `item 3`];
+const tabsList = [`item 1`, `item 2`, `item 3`];
 
 describe(`TabsE2E`, () => {
   it(`Check has tab's item been pressed`, () => {
@@ -11,7 +11,7 @@ describe(`TabsE2E`, () => {
     const tabs = shallow(
         <Tabs
           activeItem='item 1'
-          items={tabList}
+          items={tabsList}
           onActiveChange={onActiveChange}
           renderItem={(item, activeItem, callback) => {
             return (

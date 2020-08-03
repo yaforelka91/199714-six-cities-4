@@ -1,5 +1,3 @@
-const adaptError = (errorText) => {
-  return errorText.match(/\[(.*?)\]/)[1];
-};
+const adaptError = (errorText) => errorText.match(/\[(.*?)\]/)[1];
 
 export default adaptError;

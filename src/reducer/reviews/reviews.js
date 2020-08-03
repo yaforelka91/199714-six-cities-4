@@ -11,18 +11,14 @@ const ActionType = {
 };
 
 const ActionCreator = {
-  sendReview: (reviewData) => {
-    return {
-      type: ActionType.SEND_REVIEW,
-      payload: reviewData,
-    };
-  },
-  loadReviews: (reviews) => {
-    return {
-      type: ActionType.LOAD_REVIEWS,
-      payload: reviews,
-    };
-  },
+  sendReview: (reviewData) => ({
+    type: ActionType.SEND_REVIEW,
+    payload: reviewData,
+  }),
+  loadReviews: (reviews) => ({
+    type: ActionType.LOAD_REVIEWS,
+    payload: reviews,
+  }),
 };
 
 const reducer = (state = initialState, action) => {

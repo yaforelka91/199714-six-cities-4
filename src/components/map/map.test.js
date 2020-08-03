@@ -19,9 +19,8 @@ describe(`MapSnapshot`, () => {
           zoom={10}
         />,
         {
-          createNodeMock: () => {
-            return document.createElement(`div`);
-          }
+          createNodeMock: () => document.createElement(`div`)
+
         }
     ).toJSON();
 
