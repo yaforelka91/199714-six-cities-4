@@ -25,9 +25,7 @@ const Cities = ({offers, activeCity, activeItem, cityLocation, onActiveChange}) 
               <Map
                 city={cityLocation.coords}
                 zoom={cityLocation.zoom}
-                offers={offers.map(({id, coords}) => {
-                  return ({id, coords});
-                })}
+                offers={offers.map(({id, coords}) => ({id, coords}))}
                 activeCard={activeItem}
                 className='cities__map'
               />

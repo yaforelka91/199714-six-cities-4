@@ -24,30 +24,22 @@ const ActionType = {
 };
 
 const ActionCreator = {
-  requireAuthorization: (status) => {
-    return {
-      type: ActionType.REQUIRED_AUTHORIZATION,
-      payload: status,
-    };
-  },
-  setUserData: (authData) => {
-    return {
-      type: ActionType.SET_USER_DATA,
-      payload: authData,
-    };
-  },
-  changeProgressStatus: (isLoaded) => {
-    return {
-      type: ActionType.CHANGE_PROGRESS_STATUS,
-      payload: isLoaded,
-    };
-  },
-  catchServerError: (errorMessage) => {
-    return {
-      type: ActionType.CATCH_SERVER_ERROR,
-      payload: errorMessage,
-    };
-  },
+  requireAuthorization: (status) => ({
+    type: ActionType.REQUIRED_AUTHORIZATION,
+    payload: status,
+  }),
+  setUserData: (authData) => ({
+    type: ActionType.SET_USER_DATA,
+    payload: authData,
+  }),
+  changeProgressStatus: (isLoaded) => ({
+    type: ActionType.CHANGE_PROGRESS_STATUS,
+    payload: isLoaded,
+  }),
+  catchServerError: (errorMessage) => ({
+    type: ActionType.CATCH_SERVER_ERROR,
+    payload: errorMessage,
+  }),
 };
 
 const reducer = (state = initialState, action) => {

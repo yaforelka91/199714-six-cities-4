@@ -31,9 +31,7 @@ describe(`MapE2E`, () => {
           zoom={1}
         />,
         {
-          createNodeMock: () => {
-            return document.createElement(`div`);
-          }
+          createNodeMock: () => document.createElement(`div`)
         }
     );
     const spy = jest.spyOn(wrapper.instance(), `_updateMarkers`);
@@ -54,9 +52,7 @@ describe(`MapE2E`, () => {
           zoom={1}
         />,
         {
-          createNodeMock: () => {
-            return document.createElement(`div`);
-          }
+          createNodeMock: () => document.createElement(`div`)
         }
     );
     const spy = jest.spyOn(wrapper.instance(), `_updateMarkers`);
@@ -78,9 +74,7 @@ describe(`MapE2E`, () => {
           zoom={1}
         />,
         {
-          createNodeMock: () => {
-            return document.createElement(`div`);
-          }
+          createNodeMock: () => document.createElement(`div`)
         }
     );
     const spyToClearMarkersMethod = jest.spyOn(wrapper.instance(), `_clearMarkers`);
@@ -113,9 +107,7 @@ describe(`MapE2E`, () => {
           zoom={1}
         />,
         {
-          createNodeMock: () => {
-            return document.createElement(`div`);
-          }
+          createNodeMock: () => document.createElement(`div`)
         }
     );
     const spyToClearMarkersMethod = jest.spyOn(wrapper.instance(), `_clearMarkers`);

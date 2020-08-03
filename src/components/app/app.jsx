@@ -14,6 +14,7 @@ import Favorites from '../favorites/favorites.jsx';
 import PrivateRoute from '../private-route/private-route.jsx';
 import {getGroupedFavoriteOffers} from '../../reducer/favorites/selectors.js';
 import ErrorScreen from '../error-screen/error-screen.jsx';
+import NoPlaces from '../no-places/no-places.jsx';
 
 const App = ({
   authorizationStatus,
@@ -24,6 +25,22 @@ const App = ({
   favoriteOffers,
   history
 }) => {
+
+  if (!isOffersLoading && !isAuthorizationInProgress && errorType === `` && offers.length === 0) {
+    return (
+      <div className="page page--gray page--main">
+        <main className="page__main page__main--index page__main--index-empty">
+          <div className="cities">
+            <div className="cities__places-container container">
+              <NoPlaces />
+              <div className="cities__right-section" />
+            </div>
+          </div>
+        </main>
+      </div>
+    );
+  }
+
   return (
     <Router history={history}>
       <Switch>
@@ -33,9 +50,8 @@ const App = ({
               className='page--gray page--main'
               errorMessage={errorType}
               isLoading={isAuthorizationInProgress || isOffersLoading}
-              renderPage={() => {
-                return <Main />;
-              }}
+              isOffers={offers.length > 0}
+              renderPage={() => <Main />}
             />
           );
         }}
@@ -45,6 +61,7 @@ const App = ({
             <Page
               errorMessage={errorType}
               isLoading={isAuthorizationInProgress || isOffersLoading}
+              isOffers={offers.length > 0}
               renderPage={() => {
                 const offer = offers.find((hotel) => hotel.id === +match.params.id);
 
@@ -73,9 +90,7 @@ const App = ({
               className='page--gray page--login'
               errorMessage={errorType}
               isLoading={isAuthorizationInProgress || isOffersLoading}
-              renderPage={() => {
-                return <Login />;
-              }}
+              renderPage={() => <Login />}
             />
           );
         }}
@@ -92,9 +107,7 @@ const App = ({
                 hasFooter={true}
                 errorMessage={errorType}
                 isLoading={isAuthorizationInProgress || isOffersLoading}
-                renderPage={() => {
-                  return <Favorites />;
-                }}
+                renderPage={() => <Favorites />}
               />
             );
           }}
@@ -104,9 +117,7 @@ const App = ({
             <Page
               errorMessage={errorType}
               isLoading={isAuthorizationInProgress || isOffersLoading}
-              renderPage={() => {
-                return <ErrorScreen message='page is not exist' />;
-              }}
+              renderPage={() => <ErrorScreen message='page is not exist' />}
             />
           )}
         />

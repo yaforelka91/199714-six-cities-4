@@ -41,9 +41,7 @@ class Favorites extends PureComponent {
                             <CityListItem
                               tagName='div'
                               city={currentCity}
-                              onCityNameClick={() => {
-                                onCityNameClick(currentCity);
-                              }}
+                              onCityNameClick={() => onCityNameClick(currentCity)}
                             />
                           </div>
                           <OfferList

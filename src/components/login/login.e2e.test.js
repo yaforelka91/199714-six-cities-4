@@ -23,9 +23,7 @@ describe(`LoginE2E`, () => {
           </Router>
         </Provider>,
         {
-          createNodeMock: () => {
-            return {};
-          }
+          createNodeMock: () => ({})
         }
     );
 

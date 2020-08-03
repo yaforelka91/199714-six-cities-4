@@ -32,9 +32,7 @@ describe(`PageSnapshot`, () => {
                 email: `test@test.com`,
                 picture: `/pic.jpg`,
               }}
-              renderPage={() => {
-                return MockComponent;
-              }}
+              renderPage={() => MockComponent}
             />
           </Router>
         </Provider>

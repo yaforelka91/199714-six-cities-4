@@ -8,7 +8,7 @@ const NoPlaces = ({city}) => {
         <b className="cities__status">
           No places to stay available
         </b>
-        <p className="cities__status-description">We could not find any property availbale at the moment in {city}</p>
+        <p className="cities__status-description">{`We could not find any property availbale at the moment${city ? ` in ${city}` : ``}`}</p>
       </div>
     </section>
   );

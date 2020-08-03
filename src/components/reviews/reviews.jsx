@@ -7,8 +7,9 @@ import {connect} from 'react-redux';
 import {Operation} from '../../reducer/reviews/reviews.js';
 import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
 import withReview from '../../hocs/with-review/with-review.js';
-import {getReviewsCount, getReducedReviews} from '../../reducer/reviews/selectors.js';
+import {getReviewsCount, getSortedReviews} from '../../reducer/reviews/selectors.js';
 
+const MAX_COUNT_REVIEWS = 10;
 const ReviewFormWrapped = withReview(ReviewForm);
 const Reviews = ({authorizationStatus, reviewsCount, reviews, offerId, className, onReviewFormSubmit}) => {
   return (
@@ -17,12 +18,7 @@ const Reviews = ({authorizationStatus, reviewsCount, reviews, offerId, className
       {reviewsCount > 0 &&
         <ul className="reviews__list">
           {
-            reviews
-            .map((review) => {
-              return (
-                <ReviewCard key={review.id} review={review} offerId={offerId} />
-              );
-            })
+            reviews.map((review) => <ReviewCard key={review.id} review={review} offerId={offerId} />)
           }
         </ul>
       }
@@ -46,7 +42,7 @@ Reviews.propTypes = reviewsTypes;
 const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),
   reviewsCount: getReviewsCount(state),
-  reviews: getReducedReviews(state),
+  reviews: getSortedReviews(state).slice(0, MAX_COUNT_REVIEWS),
 });
 
 const mapDispatchToProps = (dispatch) => ({

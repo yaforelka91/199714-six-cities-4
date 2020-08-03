@@ -1,4 +1,5 @@
 import PropTypes, {shape} from 'prop-types';
+import {history as historyPropTypes} from 'history-prop-types';
 import {CardView} from '../const';
 
 export const offerShape = PropTypes.shape({
@@ -55,7 +56,7 @@ export const appTypes = {
   isOffersLoading: PropTypes.bool.isRequired,
   isAuthorizationInProgress: PropTypes.bool.isRequired,
   errorType: PropTypes.string.isRequired,
-  history: PropTypes.object.isRequired,
+  history: PropTypes.shape(historyPropTypes).isRequired,
 };
 
 export const buttonTypes = {
@@ -140,7 +141,7 @@ export const mapTypes = {
 };
 
 export const noPlacesTypes = {
-  city: PropTypes.string.isRequired,
+  city: PropTypes.string,
 };
 
 export const offerCardTypes = {

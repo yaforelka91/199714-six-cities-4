@@ -31,9 +31,7 @@ const Main = ({
             <CityListItem
               city={item}
               classNameLink={`tabs__item${activeItem === item ? ` tabs__item--active` : ``}`}
-              onCityNameClick={() => {
-                onCityNameClick(item, onActiveChange);
-              }}
+              onCityNameClick={() => onCityNameClick(item, onActiveChange)}
             />
           );
         }}

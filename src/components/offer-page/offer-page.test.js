@@ -210,19 +210,13 @@ describe(`OfferPageSnapshot`, () => {
               offer={offer}
               offersList={offersList}
               onFavoriteButtonClick={() => {}}
-              onReviewsRequest={() => {
-                return reviews;
-              }}
-              onNearbyRequest={() => {
-                return offersList;
-              }}
+              onReviewsRequest={() => reviews}
+              onNearbyRequest={() => offersList}
             />
           </Router>
         </Provider>,
         {
-          createNodeMock: () => {
-            return document.createElement(`div`);
-          }
+          createNodeMock: () => document.createElement(`div`)
         }
     ).toJSON();
 

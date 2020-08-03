@@ -15,9 +15,7 @@ describe(`PrivateRoure E2E`, () => {
             exact
             path={AppRoute.FAVORITES}
             authorizationStatus={AuthorizationStatus.AUTH}
-            render={() => {
-              return <MockComponent />;
-            }}
+            render={() => <MockComponent />}
           />
         </MemoryRouter>
     );
@@ -32,9 +30,7 @@ describe(`PrivateRoure E2E`, () => {
             exact
             path={AppRoute.FAVORITES}
             authorizationStatus={AuthorizationStatus.NO_AUTH}
-            render={() => {
-              return <MockComponent />;
-            }}
+            render={() => <MockComponent />}
           />
         </MemoryRouter>
     );

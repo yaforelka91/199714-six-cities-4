@@ -5,6 +5,7 @@ import Footer from '../footer/footer.jsx';
 import ErrorScreen from '../error-screen/error-screen.jsx';
 
 const Page = ({className, hasFooter, isLoading, errorMessage, renderPage}) => {
+
   return (
     <div className={`page${className ? ` ${className}` : ``}`}>
       <Header />

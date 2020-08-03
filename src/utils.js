@@ -1,9 +1,7 @@
 import {createSelector} from 'reselect';
 import {SortType, CardView, MONTHS_LIST} from './const.js';
 
-export const extend = (object1, object2) => {
-  return Object.assign({}, object1, object2);
-};
+export const extend = (object1, object2) => Object.assign({}, object1, object2);
 
 export const sortOffers = (sortType, offers) => {
   switch (sortType) {
@@ -20,9 +18,7 @@ export const sortOffers = (sortType, offers) => {
   }
 };
 
-export const capitalize = (word) => {
-  return word.charAt(0).toUpperCase() + word.slice(1);
-};
+export const capitalize = (word) => word.charAt(0).toUpperCase() + word.slice(1);
 
 export const getFormattedDate = (dateStr, isFull) => {
   const date = new Date(dateStr);
@@ -30,15 +26,9 @@ export const getFormattedDate = (dateStr, isFull) => {
 };
 
 export const getSortedOffers = createSelector(
-    (state) => {
-      return state.sortType;
-    },
-    (state) => {
-      return state.offers;
-    },
-    (activeSorting, offers) => {
-      return sortOffers(activeSorting, offers);
-    }
+    (state) => state.sortType,
+    (state) => state.offers,
+    (activeSorting, offers) => sortOffers(activeSorting, offers)
 );
 
 export const getRatingInPercent = (ratingValue, isInteger) => {

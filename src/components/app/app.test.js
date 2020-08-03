@@ -210,9 +210,7 @@ describe(`AppSnapshot`, () => {
           />
         </Provider>,
         {
-          createNodeMock: () => {
-            return document.createElement(`div`);
-          }
+          createNodeMock: () => document.createElement(`div`)
         }
     ).toJSON();
 
@@ -243,9 +241,7 @@ describe(`AppSnapshot`, () => {
           />
         </Provider>,
         {
-          createNodeMock: () => {
-            return document.createElement(`div`);
-          }
+          createNodeMock: () => document.createElement(`div`)
         }
     ).toJSON();
 
@@ -276,9 +272,38 @@ describe(`AppSnapshot`, () => {
           />
         </Provider>,
         {
-          createNodeMock: () => {
-            return document.createElement(`div`);
-          }
+          createNodeMock: () => document.createElement(`div`)
+        }
+    ).toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
+  it(`should render placeholder if offer array is empty`, () => {
+    const store = mockStore({
+      [NameSpace.CATALOG]: {
+        activeCity: ``,
+      },
+      [NameSpace.DATA]: {
+        offersList: [],
+      },
+      [NameSpace.USER]: {
+        authorizationStatus: AuthorizationStatus.AUTH,
+        userData,
+      }
+    });
+
+    const tree = renderer.create(
+        <Provider store={store}>
+          <App
+            authorizationStatus={AuthorizationStatus.AUTH}
+            favoriteOffers={[]}
+            offers={[]}
+            history={createMemoryHistory({initialEntries: [AppRoute.ROOT]}) }
+          />
+        </Provider>,
+        {
+          createNodeMock: () => document.createElement(`div`)
         }
     ).toJSON();
 

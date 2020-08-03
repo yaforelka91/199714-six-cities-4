@@ -95,9 +95,7 @@ describe(`CitiesSnapshot`, () => {
           </Router>
         </Provider>,
         {
-          createNodeMock: () => {
-            return document.createElement(`div`);
-          }
+          createNodeMock: () => document.createElement(`div`)
         }
     ).toJSON();
 

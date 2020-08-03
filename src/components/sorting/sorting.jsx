@@ -52,9 +52,7 @@ const Sorting = ({activeSorting, isOpen, onSortItemClick, onToggleMenu, onSelect
         className="places__sorting-type"
         id="places-sorting"
         value={activeSorting}
-        onChange={(evt) => {
-          onSortItemClick(evt.target.value);
-        }}
+        onChange={(evt) => onSortItemClick(evt.target.value)}
         style={{
           clip: `rect(1px, 1px, 1px, 1px)`,
           height: `1px`,

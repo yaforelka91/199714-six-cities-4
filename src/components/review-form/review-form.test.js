@@ -8,20 +8,8 @@ describe(`ReviewFormSnapshot`, () => {
   it(`should render ReviewForm`, () => {
     const tree = renderer.create(
         <ReviewForm
-          renderRating={() => {
-            return (
-              <Rating
-                onRatingChange={() => {}}
-              />
-            );
-          }}
-          renderTextarea={() => {
-            return (
-              <Textarea
-                onTextareaChange={() => {}}
-              />
-            );
-          }}
+          renderRating={() => <Rating onRatingChange={() => {}} />}
+          renderTextarea={() => <Textarea onTextareaChange={() => {}}/>}
           onFormSubmit={() => {}}
           offerId={1}
         />
@@ -33,20 +21,8 @@ describe(`ReviewFormSnapshot`, () => {
   it(`should render ReviewForm with disabled button when loading in progress`, () => {
     const tree = renderer.create(
         <ReviewForm
-          renderRating={() => {
-            return (
-              <Rating
-                onRatingChange={() => {}}
-              />
-            );
-          }}
-          renderTextarea={() => {
-            return (
-              <Textarea
-                onTextareaChange={() => {}}
-              />
-            );
-          }}
+          renderRating={() => <Rating onRatingChange={() => {}} />}
+          renderTextarea={() => <Textarea onTextareaChange={() => {}} />}
           onFormSubmit={() => {}}
           isLoading={true}
           offerId={1}
@@ -59,20 +35,8 @@ describe(`ReviewFormSnapshot`, () => {
   it(`should render valid ReviewForm`, () => {
     const tree = renderer.create(
         <ReviewForm
-          renderRating={() => {
-            return (
-              <Rating
-                onRatingChange={() => {}}
-              />
-            );
-          }}
-          renderTextarea={() => {
-            return (
-              <Textarea
-                onTextareaChange={() => {}}
-              />
-            );
-          }}
+          renderRating={() => <Rating onRatingChange={() => {}} />}
+          renderTextarea={() => <Textarea onTextareaChange={() => {}} />}
           onFormSubmit={() => {}}
           isLoading={false}
           isValid={true}
@@ -86,20 +50,8 @@ describe(`ReviewFormSnapshot`, () => {
   it(`should render ReviewForm with error message`, () => {
     const tree = renderer.create(
         <ReviewForm
-          renderRating={() => {
-            return (
-              <Rating
-                onRatingChange={() => {}}
-              />
-            );
-          }}
-          renderTextarea={() => {
-            return (
-              <Textarea
-                onTextareaChange={() => {}}
-              />
-            );
-          }}
+          renderRating={() => <Rating onRatingChange={() => {}} />}
+          renderTextarea={() => <Textarea onTextareaChange={() => {}} />}
           onFormSubmit={() => {}}
           serverError='Some error text'
           isValid={false}
