@@ -1,7 +1,12 @@
-import React from 'react';
-import {noPlacesTypes} from '../../types/types.js';
+import * as React from 'react';
 
-const NoPlaces = ({city}) => {
+type Props = {
+  city?: string;
+}
+
+const NoPlaces: React.FC<Props> = (props: Props) => {
+  const {city} = props;
+
   return (
     <section className="cities__no-places">
       <div className="cities__status-wrapper tabs__content">
@@ -13,7 +18,5 @@ const NoPlaces = ({city}) => {
     </section>
   );
 };
-
-NoPlaces.propTypes = noPlacesTypes;
 
 export default NoPlaces;

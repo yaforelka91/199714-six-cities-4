@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import Rating from '../../components/rating/rating.jsx';
-import Textarea from '../../components/textarea/textarea.jsx';
+import Textarea from '../../components/textarea/textarea';
 import adaptError from '../../adapters/error.js';
 import {Error} from '../../api.js';
 

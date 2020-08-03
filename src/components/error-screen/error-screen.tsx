@@ -1,14 +1,23 @@
-import React, {Fragment} from 'react';
-import {errorScreenTypes} from '../../types/types.js';
-import {AppRoute} from '../../const.js';
+import * as React from 'react';
+import {AppRoute} from '../../const';
 import {Link} from 'react-router-dom';
 
-const ErrorScreen = ({message, isNotFound}) => {
+type Props = {
+  message: string;
+  isNotFound: boolean;
+};
+
+const ErrorScreen: React.FC<Props> = (props: Props) => {
+  const {
+    message,
+    isNotFound = true,
+  } = props;
+
   return (
     <section>
       <div style={{textAlign: `center`, fontSize: `24`}}>
         {isNotFound &&
-        <Fragment>
+        <>
           <h1>
             Oops! It is 404.
             <br />
@@ -16,22 +25,17 @@ const ErrorScreen = ({message, isNotFound}) => {
           </h1>
           <p>It happens because {message}</p>
           <Link to={AppRoute.ROOT}>Go to main page</Link>
-        </Fragment>
+        </>
         }
         {!isNotFound &&
-        <Fragment>
+        <>
           <b>Sorry, something went wrong :( Please, come back later</b>
           <p>It happens because {message}</p>
-        </Fragment>
+        </>
         }
       </div>
     </section>
   );
 };
-
-ErrorScreen.defaultProps = {
-  isNotFound: true,
-};
-ErrorScreen.propTypes = errorScreenTypes;
 
 export default ErrorScreen;

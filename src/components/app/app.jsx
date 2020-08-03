@@ -2,19 +2,19 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Router, Switch, Route, Redirect} from 'react-router-dom';
 import Page from '../page/page.jsx';
-import Main from '../main/main.jsx';
+import Main from '../main/main';
 import OfferPage from '../offer-page/offer-page.jsx';
 import {appTypes} from '../../types/types.js';
 import Login from '../login/login.jsx';
 import {getAuthorizationStatus, getAuthorizationProgress} from '../../reducer/user/selectors.js';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
-import {AppRoute} from '../../const.js';
+import {AppRoute} from '../../const';
 import {getLoadingStatus, getError, getOffers} from '../../reducer/data/selectors.js';
 import Favorites from '../favorites/favorites.jsx';
 import PrivateRoute from '../private-route/private-route.jsx';
 import {getGroupedFavoriteOffers} from '../../reducer/favorites/selectors.js';
-import ErrorScreen from '../error-screen/error-screen.jsx';
-import NoPlaces from '../no-places/no-places.jsx';
+import ErrorScreen from '../error-screen/error-screen';
+import NoPlaces from '../no-places/no-places';
 
 const App = ({
   authorizationStatus,

@@ -1,19 +1,31 @@
-import React from 'react';
-import OfferCard from '../offer-card/offer-card.jsx';
-import {offerListTypes} from '../../types/types.js';
-import {getArticleClassName} from '../../utils.js';
+import * as React from 'react';
+import OfferCard from '../offer-card/offer-card';
+import {getArticleClassName} from '../../utils';
 import {connect} from 'react-redux';
 import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
 import {Operation} from '../../reducer/favorites/favorites.js';
+import Offer from '../../interfaces/offer';
+import {CardView} from '../../const';
 
-const OfferList = ({
-  offers,
-  className,
-  viewMode,
-  authorizationStatus,
-  onOfferCardEnter,
-  onFavoriteButtonClick,
-}) => {
+type Props = {
+  offers: Offer[];
+  className: string;
+  viewMode: CardView.CITIES | CardView.NEAR | CardView.FAVORITES;
+  authorizationStatus: string;
+  onOfferCardEnter: () => void;
+  onFavoriteButtonClick: () => void;
+}
+
+const OfferList: React.FC<Props> = (props: Props) => {
+  const {
+    offers,
+    className = ``,
+    viewMode,
+    authorizationStatus,
+    onOfferCardEnter = () => null,
+    onFavoriteButtonClick,
+  } = props;
+
   return (
     <div className={`${className}`}>
       {offers.map((offer) => (
@@ -21,7 +33,7 @@ const OfferList = ({
           key={offer.id}
           offer={offer}
           authorizationStatus={authorizationStatus}
-          className={getArticleClassName(viewMode).classNameForArticle}
+          className={getArticleClassName(CardType.viewMode).classNameForArticle}
           classNameForImage={getArticleClassName(viewMode).classNameForImage}
           classNameForInfo={getArticleClassName(viewMode).classNameForInfo}
           onOfferCardEnter={onOfferCardEnter}
@@ -31,14 +43,6 @@ const OfferList = ({
     </div>
   );
 };
-
-OfferList.defaultProps = {
-  onOfferCardEnter: () => {},
-  className: ``,
-  viewMode: ``
-};
-
-OfferList.propTypes = offerListTypes;
 
 const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),

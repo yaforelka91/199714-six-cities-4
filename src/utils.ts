@@ -1,9 +1,9 @@
 import {createSelector} from 'reselect';
-import {SortType, CardView, MONTHS_LIST} from './const.js';
+import {SortType, CardView, MONTHS_LIST, SortingTypes} from './const';
 
 export const extend = (object1, object2) => Object.assign({}, object1, object2);
 
-export const sortOffers = (sortType, offers) => {
+export const sortOffers = (sortType: SortingTypes, offers) => {
   switch (sortType) {
     case SortType.POPULAR:
       return offers.slice();
@@ -35,7 +35,7 @@ export const getRatingInPercent = (ratingValue, isInteger) => {
   return isInteger ? Math.round(ratingValue) * 100 / 5 : Math.round(ratingValue * 100 / 5);
 };
 
-export const getArticleClassName = (viewMode) => {
+export const getArticleClassName = (viewMode: CardView) => {
   switch (viewMode) {
     case CardView.CITIES:
       return {
@@ -65,3 +65,5 @@ export const getArticleClassName = (viewMode) => {
     classNameForInfo: ``,
   };
 };
+
+export const noOperation = () => null;

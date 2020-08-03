@@ -9,7 +9,7 @@ import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
 import {getGroupedFavoriteOffers} from '../../reducer/favorites/selectors.js';
 import {getOffers} from '../../reducer/data/selectors.js';
 import {createMemoryHistory} from 'history';
-import {AppRoute} from '../../const.js';
+import {AppRoute} from '../../const';
 const mockStore = configureStore([]);
 
 const offersList = [

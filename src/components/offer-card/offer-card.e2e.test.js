@@ -1,11 +1,11 @@
 import React from 'react';
 import {mount} from 'enzyme';
 import OfferCard from './offer-card.jsx';
-import {extend} from '../../utils.js';
+import {extend} from '../../utils';
 import {Router} from 'react-router-dom';
 import history from '../../history.js';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
-import {AppRoute} from '../../const.js';
+import {AppRoute} from '../../const';
 import {offerShape} from '../../types/types.js';
 
 const offer = {

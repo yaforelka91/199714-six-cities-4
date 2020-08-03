@@ -1,6 +1,6 @@
 import React from 'react';
 import {reviewCardTypes} from '../../types/types.js';
-import {getRatingInPercent, getFormattedDate} from '../../utils.js';
+import {getRatingInPercent, getFormattedDate} from '../../utils';
 
 const ReviewCard = ({review}) => {
   const {user, rating, feedback, visitTime} = review;

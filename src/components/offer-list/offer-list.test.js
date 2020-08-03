@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import {OfferList} from './offer-list.jsx';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
-import {CardView} from '../../const.js';
+import {CardView} from '../../const';
 import {Router} from 'react-router-dom';
 import history from '../../history.js';
 

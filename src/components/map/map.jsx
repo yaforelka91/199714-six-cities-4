@@ -1,7 +1,7 @@
 import React, {Component, createRef} from 'react';
 import leaflet from 'leaflet';
 import {mapTypes} from '../../types/types.js';
-import {IconSizes} from '../../const.js';
+import {IconSizes} from '../../const';
 
 const ICON = leaflet.icon({
   iconUrl: `/img/pin.svg`,

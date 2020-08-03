@@ -1,9 +1,9 @@
 import React, {Fragment, PureComponent} from 'react';
 import {connect} from 'react-redux';
 import {favoritesTypes} from '../../types/types.js';
-import CityListItem from '../city-list-item/city-list-item.jsx';
-import OfferList from '../offer-list/offer-list.jsx';
-import {CardView} from '../../const.js';
+import CityListItem from '../city-list-item/city-list-item';
+import OfferList from '../offer-list/offer-list';
+import {CardView} from '../../const';
 import {ActionCreator} from '../../reducer/catalog/catalog.js';
 import {Operation} from '../../reducer/favorites/favorites.js';
 import {getGroupedFavoriteOffers} from '../../reducer/favorites/selectors.js';

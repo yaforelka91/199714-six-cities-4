@@ -4,7 +4,7 @@ import {Header} from './header.jsx';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
 import {MemoryRouter, Router, Route} from 'react-router-dom';
 import history from '../../history.js';
-import {AppRoute} from '../../const.js';
+import {AppRoute} from '../../const';
 
 
 describe(`HeaderSnapshot`, () => {

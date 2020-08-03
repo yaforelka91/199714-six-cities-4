@@ -1,5 +1,5 @@
 import React, {PureComponent, createRef} from 'react';
-import CityListItem from '../city-list-item/city-list-item.jsx';
+import CityListItem from '../city-list-item/city-list-item';
 import {loginTypes} from '../../types/types.js';
 import {connect} from 'react-redux';
 import {getCity} from '../../reducer/catalog/selectors.js';

@@ -1,13 +1,26 @@
-import React, {Component} from 'react';
+import * as React from 'react';
 import {offerCardTypes} from '../../types/types.js';
-import {capitalize, getRatingInPercent, extend} from '../../utils.js';
-import Button from '../button/button.jsx';
-import {AppRoute} from '../../const.js';
+import {capitalize, getRatingInPercent, extend} from '../../utils';
+import Button from '../button/button';
+import {AppRoute} from '../../const';
 import {Link} from 'react-router-dom';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
 import history from '../../history.js';
+import Offer from '../../interfaces/offer';
 
-class OfferCard extends Component {
+type Props = {
+  offer: Offer;
+  authorizationStatus: string;
+  className: string;
+  classNameForImage: string;
+  classNameForInfo: string;
+  onOfferCardEnter: string;
+  onFavoriteButtonClick: (offer: Offer) => void;
+};
+
+class OfferCard extends React.Component<Props> {
+  props: Props;
+
   constructor(props) {
     super(props);
 
@@ -32,16 +45,16 @@ class OfferCard extends Component {
   }
 
   _handleCardEnter() {
-    const {onOfferCardEnter, offer} = this.props;
+    const {onOfferCardEnter = () => null, offer} = this.props;
     onOfferCardEnter(offer.id);
   }
 
   render() {
     const {
       offer,
-      className,
-      classNameForImage,
-      classNameForInfo,
+      className = ``,
+      classNameForImage = ``,
+      classNameForInfo = ``,
     } = this.props;
 
     const {id, title, picture, price, type, isPremium, isFavorite, rating} = offer;
@@ -94,14 +107,5 @@ class OfferCard extends Component {
     );
   }
 }
-
-OfferCard.defaultProps = {
-  onOfferCardEnter: () => {},
-  className: ``,
-  classNameForImage: ``,
-  classNameForInfo: ``,
-};
-
-OfferCard.propTypes = offerCardTypes;
 
 export default OfferCard;

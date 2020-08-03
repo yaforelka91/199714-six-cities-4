@@ -2,7 +2,7 @@ import PrivateRoute from './private-route.jsx';
 import React from 'react';
 import {mount} from 'enzyme';
 import {MemoryRouter} from 'react-router';
-import {AppRoute} from '../../const.js';
+import {AppRoute} from '../../const';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
 
 const MockComponent = () => <div />;

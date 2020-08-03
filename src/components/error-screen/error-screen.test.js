@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import ErrorScreen from './error-screen.jsx';
+import ErrorScreen from './error-screen';
 import {Router} from 'react-router-dom';
 import history from '../../history.js';
 

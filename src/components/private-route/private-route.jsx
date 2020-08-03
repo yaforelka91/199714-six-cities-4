@@ -1,6 +1,6 @@
 import React from 'react';
 import {Route, Redirect} from 'react-router-dom';
-import {AppRoute} from '../../const.js';
+import {AppRoute} from '../../const';
 import {privateRouteTypes} from '../../types/types.js';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
 

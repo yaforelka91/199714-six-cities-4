@@ -1,7 +1,7 @@
 import React from 'react';
 import Map from '../map/map.jsx';
 import Places from '../places/places.jsx';
-import NoPlaces from '../no-places/no-places.jsx';
+import NoPlaces from '../no-places/no-places';
 import {citiesTypes} from '../../types/types.js';
 import withSorting from '../../hocs/with-sorting/with-sorting.js';
 

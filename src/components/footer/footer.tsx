@@ -1,6 +1,5 @@
-import React from 'react';
+import * as React from 'react';
 import {Link} from 'react-router-dom';
-import {footerTypes} from '../../types/types.js';
 import {AppRoute} from '../../const';
 
 const Footer = () => {
@@ -12,7 +11,5 @@ const Footer = () => {
     </footer>
   );
 };
-
-Footer.propTypes = footerTypes;
 
 export default Footer;

@@ -1,13 +1,13 @@
 import React, {PureComponent} from 'react';
 import Reviews from '../reviews/reviews.jsx';
 import Map from '../map/map.jsx';
-import OfferList from '../offer-list/offer-list.jsx';
-import Button from '../button/button.jsx';
+import OfferList from '../offer-list/offer-list';
+import Button from '../button/button';
 import {offerPageTypes} from '../../types/types.js';
-import {capitalize, extend, getRatingInPercent} from '../../utils.js';
+import {capitalize, extend, getRatingInPercent} from '../../utils';
 import {connect} from 'react-redux';
 import {getNearestOffers} from '../../reducer/data/selectors.js';
-import {CardView, AppRoute} from '../../const.js';
+import {CardView, AppRoute} from '../../const';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
 import {Operation as ReviewsOperation} from '../../reducer/reviews/reviews.js';
 import {Operation as DataOperation} from '../../reducer/data/data.js';

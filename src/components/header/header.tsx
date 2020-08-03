@@ -1,12 +1,21 @@
-import React from 'react';
+import * as React from 'react';
 import {Link, useLocation} from 'react-router-dom';
 import {AuthorizationStatus} from '../../reducer/user/user';
-import {headerTypes} from '../../types/types.js';
 import {AppRoute} from '../../const';
 import {connect} from 'react-redux';
 import {getAuthorizationStatus, getUserData} from '../../reducer/user/selectors';
 
-const Header = ({authorizationStatus, userData}) => {
+type Props = {
+  authorizationStatus: string;
+  userData: {
+    email: string;
+    picture: string;
+  };
+};
+
+const Header: React.FC<Props> = (props: Props) => {
+  const {authorizationStatus, userData} = props;
+
   return (
     <header className="header">
       <div className="container">
@@ -44,8 +53,6 @@ const Header = ({authorizationStatus, userData}) => {
     </header>
   );
 };
-
-Header.propTypes = headerTypes;
 
 const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),

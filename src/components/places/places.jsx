@@ -1,8 +1,8 @@
 
 import React from 'react';
-import OfferList from '../offer-list/offer-list.jsx';
+import OfferList from '../offer-list/offer-list';
 import {placesTypes} from '../../types/types.js';
-import {CardView} from '../../const.js';
+import {CardView} from '../../const';
 
 const Places = ({offers, city, className, renderSorting, onOfferCardEnter}) => {
   return (

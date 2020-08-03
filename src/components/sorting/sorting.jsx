@@ -1,5 +1,5 @@
 import React from 'react';
-import {SortType} from '../../const.js';
+import {SortType} from '../../const';
 import {sortingTypes} from '../../types/types.js';
 
 const sortItems = [
