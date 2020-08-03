@@ -4,13 +4,13 @@ import {pageTypes} from '../../types/types.js';
 import Footer from '../footer/footer.jsx';
 import ErrorScreen from '../error-screen/error-screen.jsx';
 
-const Page = ({className, hasFooter, isLoading, errorMessage, children}) => {
+const Page = ({className, hasFooter, isLoading, errorMessage, renderPage}) => {
   return (
     <div className={`page${className ? ` ${className}` : ``}`}>
       <Header />
       {isLoading && <p>Loading...</p>}
-      {!isLoading && errorMessage !== `` && <ErrorScreen message={errorMessage} />}
-      {!isLoading && errorMessage === `` && children}
+      {!isLoading && errorMessage !== `` && <ErrorScreen message={errorMessage} isNotFound={false} />}
+      {!isLoading && errorMessage === `` && renderPage()}
       {hasFooter && <Footer />}
     </div>
   );

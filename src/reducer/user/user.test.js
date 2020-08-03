@@ -3,6 +3,15 @@ import MockAdapter from 'axios-mock-adapter';
 import {createAPI} from '../../api.js';
 
 const api = createAPI(() => {});
+const serverUser = {
+  // eslint-disable-next-line camelcase
+  avatar_url: `pic.jpg`,
+  email: `qwerty@mail.ru`,
+  id: 1,
+  // eslint-disable-next-line camelcase
+  is_pro: false,
+  name: `qwerty`,
+};
 
 describe(`Reducer works correctly`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {
@@ -138,7 +147,7 @@ describe(`Reducer works correctly`, () => {
     expect(reducer({
       errorType: ``,
     }, {
-      type: ActionType.CATCH_ERROR,
+      type: ActionType.CATCH_SERVER_ERROR,
       payload: `Some error`,
     })).toEqual({
       errorType: `Some error`,
@@ -180,8 +189,8 @@ describe(`Action creators work correctly`, () => {
   });
 
   it(`Action creator for set error returns action with true payload`, () => {
-    expect(ActionCreator.catchError(`Some error`)).toEqual({
-      type: ActionType.CATCH_ERROR,
+    expect(ActionCreator.catchServerError(`Some error`)).toEqual({
+      type: ActionType.CATCH_SERVER_ERROR,
       payload: `Some error`,
     });
   });
@@ -195,22 +204,28 @@ describe(`Operation works correctly`, () => {
 
     apiMock
         .onGet(`/login`)
-        .reply(200, {fake: true});
+        .reply(200, serverUser);
 
     return checkLogin(dispatch, () => {}, api)
         .then(() => {
           expect(dispatch).toHaveBeenCalledTimes(3);
           expect(dispatch).toHaveBeenNthCalledWith(1, {
-            type: ActionType.CHANGE_PROGRESS_STATUS,
-            payload: false,
-          });
-          expect(dispatch).toHaveBeenNthCalledWith(2, {
             type: ActionType.REQUIRED_AUTHORIZATION,
             payload: AuthorizationStatus.AUTH,
           });
-          expect(dispatch).toHaveBeenNthCalledWith(3, {
+          expect(dispatch).toHaveBeenNthCalledWith(2, {
             type: ActionType.SET_USER_DATA,
-            payload: {fake: true},
+            payload: {
+              email: `qwerty@mail.ru`,
+              id: 1,
+              isSuper: false,
+              name: `qwerty`,
+              picture: `pic.jpg`
+            },
+          });
+          expect(dispatch).toHaveBeenNthCalledWith(3, {
+            type: ActionType.CHANGE_PROGRESS_STATUS,
+            payload: false,
           });
         });
   });
@@ -227,26 +242,32 @@ describe(`Operation works correctly`, () => {
 
     apiMock
         .onPost(`/login`)
-        .reply(200, {fake: true});
+        .reply(200, serverUser);
 
     return login(dispatch, () => {}, api)
         .then(() => {
           expect(dispatch).toHaveBeenCalledTimes(5);
           expect(dispatch).toHaveBeenNthCalledWith(1, {
-            type: ActionType.CHANGE_PROGRESS_STATUS,
-            payload: false,
-          });
-          expect(dispatch).toHaveBeenNthCalledWith(2, {
             type: ActionType.REQUIRED_AUTHORIZATION,
             payload: AuthorizationStatus.AUTH,
           });
-          expect(dispatch).toHaveBeenNthCalledWith(3, {
+          expect(dispatch).toHaveBeenNthCalledWith(2, {
             type: ActionType.SET_USER_DATA,
-            payload: {fake: true},
+            payload: {
+              email: `qwerty@mail.ru`,
+              id: 1,
+              isSuper: false,
+              name: `qwerty`,
+              picture: `pic.jpg`
+            },
           });
-          expect(dispatch).toHaveBeenNthCalledWith(4, {
-            type: ActionType.CATCH_ERROR,
+          expect(dispatch).toHaveBeenNthCalledWith(3, {
+            type: ActionType.CATCH_SERVER_ERROR,
             payload: ``,
+          });
+          expect(dispatch).toHaveBeenNthCalledWith(5, {
+            type: ActionType.CHANGE_PROGRESS_STATUS,
+            payload: false,
           });
         });
   });

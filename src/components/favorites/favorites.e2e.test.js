@@ -22,6 +22,7 @@ const offersList = [
         },
         id: 1,
         coords: [1, 2],
+        offerZoom: 12,
         title: `Beautiful & luxurious apartment at great location`,
         description: [
           `A quiet cozy and picturesque that hides behind a 
@@ -79,6 +80,7 @@ const offersList = [
         },
         id: 2,
         coords: [3, 4],
+        offerZoom: 12,
         title: `Beautiful & luxurious apartment at great location`,
         description: [
           `A quiet cozy and picturesque that hides behind a 

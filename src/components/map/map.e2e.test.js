@@ -27,6 +27,8 @@ describe(`MapE2E`, () => {
     const wrapper = mount(
         <Map
           offers={offersList}
+          city={[0, 0]}
+          zoom={1}
         />,
         {
           createNodeMock: () => {
@@ -48,6 +50,8 @@ describe(`MapE2E`, () => {
         <Map
           offers={offersList}
           activeCard={offersList[0].id}
+          city={[0, 0]}
+          zoom={1}
         />,
         {
           createNodeMock: () => {
@@ -70,6 +74,8 @@ describe(`MapE2E`, () => {
     const wrapper = mount(
         <Map
           offers={offersList}
+          city={[0, 0]}
+          zoom={1}
         />,
         {
           createNodeMock: () => {
@@ -103,6 +109,8 @@ describe(`MapE2E`, () => {
     const wrapper = mount(
         <Map
           offers={offersList}
+          city={[0, 0]}
+          zoom={1}
         />,
         {
           createNodeMock: () => {

@@ -4,21 +4,9 @@ import {createSelector} from 'reselect';
 
 const NAME_SPACE = NameSpace.CATALOG;
 
-export const getActiveCard = (state) => {
-  return state[NAME_SPACE].activeCard;
-};
-
 export const getCity = (state) => {
   return state[NAME_SPACE].activeCity;
 };
-
-export const getActiveOffer = createSelector(
-    getActiveCard,
-    getOffers,
-    (activeCard, offers) => {
-      return offers.find((offer) => offer.id === activeCard) || false;
-    }
-);
 
 export const getFilteredOffers = createSelector(
     getCity,
@@ -27,5 +15,16 @@ export const getFilteredOffers = createSelector(
       return offers.filter((offer) => {
         return offer.city.name === city;
       });
+    }
+);
+
+export const getCityLocation = createSelector(
+    getOffers,
+    getCity,
+    (offers, city) => {
+      return {
+        coords: offers.find((offer) => offer.city.name === city).city.coords,
+        zoom: offers.find((offer) => offer.city.name === city).city.zoom
+      };
     }
 );

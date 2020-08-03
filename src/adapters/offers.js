@@ -1,8 +1,4 @@
 const adaptOffer = (offer) => {
-  if (!offer.id) {
-    return offer;
-  }
-
   return {
     city: {
       name: offer.city.name,

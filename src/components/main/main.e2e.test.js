@@ -19,6 +19,7 @@ const offersList = [
     },
     id: 0,
     coords: [52.3909553943508, 4.85309666406198],
+    offerZoom: 12,
     title: `Beautiful & luxurious apartment at great location`,
     description: [
       `A quiet cozy and picturesque that hides behind a 
@@ -72,6 +73,7 @@ const offersList = [
     },
     id: 1,
     coords: [52.3909553943508, 4.85309666406198],
+    offerZoom: 12,
     title: `Beautiful & luxurious apartment at great location`,
     description: [
       `A quiet cozy and picturesque that hides behind a 
@@ -141,6 +143,10 @@ describe(`MainE2E`, () => {
               offersList={offersList}
               activeCity={city}
               citiesList={[`city 1`, `city 2`]}
+              cityLocation={{
+                coords: [0, 0],
+                zoom: 1,
+              }}
               onCityNameClick={onCityNameClick}
             />
           </Router>

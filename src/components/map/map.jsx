@@ -13,8 +13,6 @@ const ICON_ACTIVE = leaflet.icon({
   iconSize: [IconSizes.WIDTH, IconSizes.HEIGHT]
 });
 
-const ZOOM = 12;
-
 class Map extends Component {
   constructor(props) {
     super(props);
@@ -29,8 +27,7 @@ class Map extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return nextProps.offers.some((offer, index) => offer.id !== this.props.offers[index].id) ||
-    nextProps.activeCard !== this.props.activeCard;
+    return nextProps.offers.some((offer, index) => offer.id !== this.props.offers[index].id) || nextProps.activeCard !== this.props.activeCard;
   }
 
   componentDidUpdate(prevProps) {
@@ -61,9 +58,10 @@ class Map extends Component {
       this._mapObject.remove();
     }
 
+    const {city, zoom} = this.props;
     this._mapObject = leaflet.map(mapElement, {
-      center: [0, 0],
-      zoom: ZOOM,
+      center: city,
+      zoom,
       zoomControl: false,
       marker: true
     });
@@ -116,7 +114,6 @@ class Map extends Component {
 
   render() {
     const {className} = this.props;
-
     return (
       <section className={`${className ? `${className} ` : ``}map`}>
         <div ref={this._mapRef} style={{height: `100%`}}></div>

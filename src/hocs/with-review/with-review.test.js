@@ -19,7 +19,7 @@ MockComponent.propTypes = {
 
 const MockComponentWrapped = withReview(MockComponent);
 
-describe(`withReviewSnapshot`, ()=>{
+describe(`withReviewSnapshot`, () => {
   it(`should render withReview`, () => {
     const tree = renderer.create(
         <MockComponentWrapped

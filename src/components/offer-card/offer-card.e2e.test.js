@@ -15,6 +15,7 @@ const offer = {
     zoom: 1,
   },
   id: 0,
+  offerZoom: 12,
   coords: [52.3909553943508, 4.85309666406198],
   title: `Beautiful & luxurious apartment at great location`,
   description: [`Text`],
@@ -99,6 +100,7 @@ describe(`OfferCardE2E`, () => {
         zoom: 1,
       },
       id: 0,
+      offerZoom: 12,
       coords: [52.3909553943508, 4.85309666406198],
       title: `Beautiful & luxurious apartment at great location`,
       description: [`Text`],
@@ -157,52 +159,6 @@ describe(`OfferCardE2E`, () => {
 
     expect(onFavoriteButtonClick).toHaveBeenCalledTimes(0);
     expect(history.location.pathname).toBe(AppRoute.LOGIN);
-
-    // expect(onFavoriteButtonClick.mock.calls[0][0]).toMatchObject({
-    //   city: {
-    //     name: `city 1`,
-    //     coords: [0, 0],
-    //     zoom: 1,
-    //   },
-    //   id: 0,
-    //   coords: [52.3909553943508, 4.85309666406198],
-    //   title: `Beautiful & luxurious apartment at great location`,
-    //   description: [`Text`],
-    //   picture: `http://placeimg.com/260/200/arch`,
-    //   pictures: [
-    //     `http://placeimg.com/260/200/arch`,
-    //     `http://placeimg.com/260/200/arch`,
-    //     `http://placeimg.com/260/200/arch`,
-    //     `http://placeimg.com/260/200/arch`,
-    //     `http://placeimg.com/260/200/arch`,
-    //     `http://placeimg.com/260/200/arch`
-    //   ],
-    //   price: 120,
-    //   type: `Apartment`,
-    //   isPremium: true,
-    //   isFavorite: 1,
-    //   rating: 4.1,
-    //   bedrooms: 3,
-    //   guests: 4,
-    //   services: [
-    //     `Wi-Fi`,
-    //     `Washing machine`,
-    //     `Towels`,
-    //     `Heating`,
-    //     `Coffee machine`,
-    //     `Baby seat`,
-    //     `Kitchen`,
-    //     `Dishwasher`,
-    //     `Cabel TV`,
-    //     `Fridge`,
-    //   ],
-    //   host: {
-    //     id: 1,
-    //     name: `Angelina`,
-    //     picture: `http://placekitten.com/74/74`,
-    //     isSuper: true,
-    //   },
-    // });
   });
 
   it(`Shouldn't rerender again if favorite status didn't change`, () => {

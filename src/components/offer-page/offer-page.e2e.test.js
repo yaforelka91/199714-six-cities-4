@@ -8,7 +8,7 @@ import {AuthorizationStatus} from '../../reducer/user/user.js';
 import {Router} from 'react-router-dom';
 import history from '../../history.js';
 import {AppRoute} from '../../const.js';
-import PropTypes from 'prop-types';
+import {offerShape} from '../../types/types.js';
 
 const mockStore = configureStore([]);
 
@@ -21,6 +21,7 @@ const mock = {
     },
     id: 1,
     coords: [52.3909553943508, 4.85309666406198],
+    offerZoom: 12,
     title: `Beautiful & luxurious apartment at great location`,
     description: [
       `A quiet cozy and picturesque that hides behind a 
@@ -75,6 +76,7 @@ const mock = {
       },
       id: 2,
       coords: [1, 2],
+      offerZoom: 12,
       title: `Beautiful & luxurious apartment at great location`,
       description: [
         `A quiet cozy and picturesque that hides behind a 
@@ -128,6 +130,7 @@ const mock = {
       },
       id: 3,
       coords: [3, 4],
+      offerZoom: 12,
       title: `Beautiful & luxurious apartment at great location`,
       description: [
         `A quiet cozy and picturesque that hides behind a 
@@ -205,41 +208,36 @@ describe(`OfferPageE2E`, () => {
 
     const onReviewsRequest = jest.fn();
     const onNearbyRequest = jest.fn();
-    const onSetActiveOffer = jest.fn();
 
-    const Proxy = ({hotelId}) => (
+    const Proxy = ({hotelObject}) => (
       <Provider store={store}>
         <Router history={history}>
           <OfferPage
-            hotelId={hotelId}
-            offer={offer}
+            offer={hotelObject}
             offersList={offersList}
             onFavoriteButtonClick={() => {}}
             onReviewsRequest={onReviewsRequest}
             onNearbyRequest={onNearbyRequest}
-            onSetActiveOffer={onSetActiveOffer}
           />
         </Router>
       </Provider>
     );
 
     Proxy.propTypes = {
-      hotelId: PropTypes.number.isRequired,
+      hotelObject: offerShape.isRequired,
     };
 
     const wrapper = mount(
-        <Proxy hotelId={1} />
+        <Proxy hotelObject={offer} />
     );
 
     wrapper.children().children().instance().componentDidMount();
     expect(onReviewsRequest.mock.calls[0][0]).toBe(1);
     expect(onNearbyRequest.mock.calls[0][0]).toBe(1);
-    expect(onSetActiveOffer.mock.calls[0][0]).toBe(1);
 
-    wrapper.setProps({hotelId: 2});
+    wrapper.setProps({hotelObject: offersList[0]});
     expect(onReviewsRequest.mock.calls[1][0]).toBe(2);
     expect(onNearbyRequest.mock.calls[1][0]).toBe(2);
-    expect(onSetActiveOffer.mock.calls[1][0]).toBe(2);
   });
 
   it(`Should add offer to favorite`, () => {
@@ -260,7 +258,6 @@ describe(`OfferPageE2E`, () => {
         <Provider store={store}>
           <Router history={history}>
             <OfferPage
-              hotelId={1}
               offer={offer}
               offersList={offersList}
               onFavoriteButtonClick={onFavoriteButtonClick}
@@ -269,9 +266,6 @@ describe(`OfferPageE2E`, () => {
               }}
               onNearbyRequest={() => {
                 return offersList;
-              }}
-              onSetActiveOffer={() => {
-                return offer;
               }}
             />
           </Router>
@@ -356,7 +350,6 @@ describe(`OfferPageE2E`, () => {
           <Router history={history}>
             <OfferPage
               authorizationStatus={AuthorizationStatus.NO_AUTH}
-              hotelId={1}
               offer={offer}
               offersList={offersList}
               onFavoriteButtonClick={onFavoriteButtonClick}
@@ -365,9 +358,6 @@ describe(`OfferPageE2E`, () => {
               }}
               onNearbyRequest={() => {
                 return offersList;
-              }}
-              onSetActiveOffer={() => {
-                return offer;
               }}
             />
           </Router>

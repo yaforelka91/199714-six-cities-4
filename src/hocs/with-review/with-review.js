@@ -26,6 +26,16 @@ const withReview = (Component) => {
       this._handleFormSubmit = this._handleFormSubmit.bind(this);
     }
 
+    componentDidUpdate(prevProps) {
+      if (prevProps.offerId !== this.props.offerId) {
+        this.setState({
+          review: ``,
+          rating: ``,
+          serverError: ``,
+        });
+      }
+    }
+
     _handleControlChange(evt) {
       this.setState({
         [evt.target.name]: evt.target.value,

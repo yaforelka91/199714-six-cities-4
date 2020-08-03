@@ -20,7 +20,7 @@ const ActionType = {
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
   SET_USER_DATA: `SET_USER_DATA`,
   CHANGE_PROGRESS_STATUS: `CHANGE_PROGRESS_STATUS`,
-  CATCH_ERROR: `CATCH_ERROR`,
+  CATCH_SERVER_ERROR: `CATCH_SERVER_ERROR`,
 };
 
 const ActionCreator = {
@@ -42,9 +42,9 @@ const ActionCreator = {
       payload: isLoaded,
     };
   },
-  catchError: (errorMessage) => {
+  catchServerError: (errorMessage) => {
     return {
-      type: ActionType.CATCH_ERROR,
+      type: ActionType.CATCH_SERVER_ERROR,
       payload: errorMessage,
     };
   },
@@ -67,7 +67,7 @@ const reducer = (state = initialState, action) => {
         isAuthorizationInProgress: action.payload,
       });
 
-    case ActionType.CATCH_ERROR:
+    case ActionType.CATCH_SERVER_ERROR:
       return extend(state, {
         errorType: action.payload,
       });
@@ -80,9 +80,9 @@ const Operation = {
   checkAuth: () => (dispatch, getState, api) => {
     return api.get(`/login`)
       .then((response) => {
-        dispatch(ActionCreator.changeProgressStatus(false));
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
         dispatch(ActionCreator.setUserData(adaptUser(response.data)));
+        dispatch(ActionCreator.changeProgressStatus(false));
       })
       .catch((err) => {
         dispatch(ActionCreator.changeProgressStatus(false));
@@ -95,20 +95,19 @@ const Operation = {
       password: authData.password,
     })
       .then((response) => {
-        dispatch(ActionCreator.changeProgressStatus(false));
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
         dispatch(ActionCreator.setUserData(adaptUser(response.data)));
-        dispatch(ActionCreator.catchError(``));
+        dispatch(ActionCreator.catchServerError(``));
         dispatch(DataOperation.loadOffers());
+        dispatch(ActionCreator.changeProgressStatus(false));
       })
       .catch((err) => {
-        dispatch(ActionCreator.changeProgressStatus(false));
-
         if (err.response.status === Error.BAD_REQUEST) {
-          dispatch(ActionCreator.catchError(adaptError(err.response.data.error)));
+          dispatch(ActionCreator.catchServerError(adaptError(err.response.data.error)));
+          dispatch(ActionCreator.changeProgressStatus(false));
           return;
         }
-
+        dispatch(ActionCreator.changeProgressStatus(false));
         throw err;
       });
   },

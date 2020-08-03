@@ -19,6 +19,7 @@ const mock = {
     },
     id: 1,
     coords: [52.3909553943508, 4.85309666406198],
+    offerZoom: 12,
     title: `Beautiful & luxurious apartment at great location`,
     description: [
       `A quiet cozy and picturesque that hides behind a 
@@ -73,6 +74,7 @@ const mock = {
       },
       id: 1,
       coords: [1, 2],
+      offerZoom: 12,
       title: `Beautiful & luxurious apartment at great location`,
       description: [
         `A quiet cozy and picturesque that hides behind a 
@@ -126,6 +128,7 @@ const mock = {
       },
       id: 2,
       coords: [3, 4],
+      offerZoom: 12,
       title: `Beautiful & luxurious apartment at great location`,
       description: [
         `A quiet cozy and picturesque that hides behind a 
@@ -204,7 +207,6 @@ describe(`OfferPageSnapshot`, () => {
         <Provider store={store}>
           <Router history={history}>
             <OfferPage
-              hotelId={0}
               offer={offer}
               offersList={offersList}
               onFavoriteButtonClick={() => {}}
@@ -213,9 +215,6 @@ describe(`OfferPageSnapshot`, () => {
               }}
               onNearbyRequest={() => {
                 return offersList;
-              }}
-              onSetActiveOffer={() => {
-                return offer;
               }}
             />
           </Router>

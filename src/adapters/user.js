@@ -1,8 +1,4 @@
 const adaptUser = (user) => {
-  if (!user.id) {
-    return user;
-  }
-
   return {
     id: user.id,
     email: user.email,

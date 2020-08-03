@@ -281,9 +281,6 @@ exports[`PageSnapshot should render Page with footer 1`] = `
       </div>
     </div>
   </header>
-  <div
-    className="children-component"
-  />
   <footer
     className="footer"
   >
