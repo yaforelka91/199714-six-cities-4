@@ -5,6 +5,10 @@ type State = {
   activeItem: number | string;
 }
 
+type Props = {
+  activeItem: number | string;
+}
+
 type InjectingProps = {
   activeItem: number | string;
 }
@@ -18,7 +22,7 @@ const withActiveItem = (Component) => {
       super(props);
 
       this.state = {
-        activeItem: props.activeItem,
+        activeItem: props.activeItem ?? -1,
       };
 
       this._handleActiveChange = this._handleActiveChange.bind(this);

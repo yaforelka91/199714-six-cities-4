@@ -1,0 +1,27 @@
+import * as React from 'react';
+import * as renderer from 'react-test-renderer';
+import ReviewCard from './review-card';
+import Review from '../../interfaces/review';
+
+const review: Review = {
+  id: 1,
+  user: {
+    name: `Max`,
+    picture: `pic`,
+  },
+  rating: 4,
+  feedback: `Text`,
+  visitTime: `2019-04-24`,
+};
+
+describe(`ReviewCardSnapshot`, () => {
+  it(`should render ReviewCard`, () => {
+    const tree = renderer.create(
+        <ReviewCard
+          review={review}
+        />
+    ).toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+});

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import ReviewCard from '../review-card/review-card';
-import ReviewForm from '../review-form/review-form.tsx';
+import ReviewForm from '../review-form/review-form';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
 import {connect} from 'react-redux';
 import {Operation} from '../../reducer/reviews/reviews.js';

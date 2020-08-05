@@ -49,7 +49,7 @@ const withReview = (Component) => {
 
     _handleControlChange(evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
       this.setState({
-        [evt.currentTarget.name]: evt.currentTarget.value,
+        [evt.target.name]: evt.target.value,
       } as unknown as Pick<State, keyof State>);
     }
 

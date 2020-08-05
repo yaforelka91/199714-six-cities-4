@@ -6,8 +6,8 @@ type State = {
 };
 
 type Props = {
-  activeSorting: SortType;
-  onSortItemClick: (sortType: SortType) => void;
+  activeSorting?: SortType;
+  onSortItemClick?: (sortType: SortType) => void;
 };
 
 const withOpenMenu = (Component) => {
