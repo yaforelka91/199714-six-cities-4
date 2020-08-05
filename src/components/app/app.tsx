@@ -1,30 +1,44 @@
-import React from 'react';
+import * as React from 'react';
 import {connect} from 'react-redux';
 import {Router, Switch, Route, Redirect} from 'react-router-dom';
-import Page from '../page/page.jsx';
+import {History} from 'history';
+import Page from '../page/page';
 import Main from '../main/main';
-import OfferPage from '../offer-page/offer-page.jsx';
-import {appTypes} from '../../types/types.js';
-import Login from '../login/login.jsx';
+import OfferPage from '../offer-page/offer-page';
+import Login from '../login/login';
 import {getAuthorizationStatus, getAuthorizationProgress} from '../../reducer/user/selectors.js';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
 import {AppRoute} from '../../const';
 import {getLoadingStatus, getError, getOffers} from '../../reducer/data/selectors.js';
-import Favorites from '../favorites/favorites.jsx';
-import PrivateRoute from '../private-route/private-route.jsx';
+import Favorites from '../favorites/favorites';
+import PrivateRoute from '../private-route/private-route';
 import {getGroupedFavoriteOffers} from '../../reducer/favorites/selectors.js';
 import ErrorScreen from '../error-screen/error-screen';
 import NoPlaces from '../no-places/no-places';
+import Offer from '../../interfaces/offer';
 
-const App = ({
-  authorizationStatus,
-  isOffersLoading,
-  isAuthorizationInProgress,
-  errorType,
-  offers,
-  favoriteOffers,
-  history
-}) => {
+type Props = {
+  authorizationStatus: string;
+  favoriteOffers: {
+    [key: string]: Offer[];
+  }[];
+  offers: Offer[];
+  isOffersLoading?: boolean;
+  isAuthorizationInProgress?: boolean;
+  errorType?: string;
+  history: History;
+}
+
+const App: React.FC<Props> = (props: Props) => {
+  const {
+    authorizationStatus,
+    isOffersLoading = false,
+    isAuthorizationInProgress = false,
+    errorType = ``,
+    offers,
+    favoriteOffers,
+    history
+  } = props;
 
   if (!isOffersLoading && !isAuthorizationInProgress && errorType === `` && offers.length === 0) {
     return (
@@ -50,7 +64,6 @@ const App = ({
               className='page--gray page--main'
               errorMessage={errorType}
               isLoading={isAuthorizationInProgress || isOffersLoading}
-              isOffers={offers.length > 0}
               renderPage={() => <Main />}
             />
           );
@@ -61,7 +74,6 @@ const App = ({
             <Page
               errorMessage={errorType}
               isLoading={isAuthorizationInProgress || isOffersLoading}
-              isOffers={offers.length > 0}
               renderPage={() => {
                 const offer = offers.find((hotel) => hotel.id === +match.params.id);
 
@@ -125,13 +137,6 @@ const App = ({
     </Router>
   );
 };
-
-App.defaultProps = {
-  isAuthorizationInProgress: false,
-  isOffersLoading: false,
-  errorType: ``,
-};
-App.propTypes = appTypes;
 
 const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),

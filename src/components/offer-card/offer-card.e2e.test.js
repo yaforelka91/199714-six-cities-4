@@ -5,7 +5,7 @@ import {extend} from '../../utils';
 import {Router} from 'react-router-dom';
 import history from '../../history.js';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
-import {AppRoute} from '../../const';
+import {AppRoute} from '../../const.js';
 import {offerShape} from '../../types/types.js';
 
 const offer = {

@@ -13,18 +13,6 @@ export const MONTHS_LIST = [
   `December`
 ];
 
-export enum SortingTypes {
-  POPULAR = `popular`,
-  TO_HIGH = `to-high`,
-  TO_LOW = `to-low`,
-  TOP_RATED = `top-rated`,
-};
-
-export enum IconSizes {
-  WIDTH = 27,
-  HEIGHT = 39
-};
-
 export enum AppRoute {
   FAVORITES = `/favorites`,
   LOGIN = `/login`,
@@ -36,4 +24,18 @@ export enum CardView {
   CITIES = `cities`,
   NEAR = `near`,
   FAVORITES = `favorites`
+};
+
+export const IconConfig = {
+  WIDTH: 27,
+  HEIGHT: 39,
+  REGULAR_URL: `/img/pin.svg`,
+  ACTIVE_URL: `/img/pin-active.svg`,
+};
+
+export enum SortType {
+  POPULAR = `popular`,
+  TO_HIGH = `to-high`,
+  TO_LOW = `to-low`,
+  TOP_RATED = `top-rated`
 };

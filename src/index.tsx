@@ -4,12 +4,12 @@ import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 import {composeWithDevTools} from 'redux-devtools-extension';
-import App from './components/app/app.jsx';
+import App from './components/app/app';
 import reducer from './reducer/reducer.js';
 import {Operation as DataOperation} from './reducer/data/data.js';
 import {createAPI} from './api';
 import {AuthorizationStatus, ActionCreator, Operation as UserOperation} from './reducer/user/user.js';
-import history from './history.js';
+import history from './history';
 
 const init = () => {
   const onUnauthorized = () => {
@@ -32,7 +32,6 @@ const init = () => {
       <Provider store={store}>
         <App history={history}/>
       </Provider>,
-
       document.querySelector(`#root`)
   );
 };

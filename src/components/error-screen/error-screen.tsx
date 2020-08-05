@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 
 type Props = {
   message: string;
-  isNotFound: boolean;
+  isNotFound?: boolean;
 };
 
 const ErrorScreen: React.FC<Props> = (props: Props) => {

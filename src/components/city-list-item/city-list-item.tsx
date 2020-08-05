@@ -1,18 +1,19 @@
 import * as React from 'react';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
+import {noOperation} from '../../utils';
 
 type Props = {
   city: string;
   tagName?: keyof JSX.IntrinsicElements;
-  classNameLink: string;
-  onCityNameClick: () => void;
+  classNameLink?: string;
+  onCityNameClick?: () => void;
 };
 
 const CityListItem: React.FC<Props & React.HTMLAttributes<HTMLOrSVGElement>> = (props: Props) => {
   const {
     city,
-    onCityNameClick = () => null,
+    onCityNameClick = noOperation,
     classNameLink = ``,
     tagName: TagName = `li`,
   } = props;

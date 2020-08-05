@@ -1,6 +1,6 @@
 import * as React from 'react';
 import OfferCard from '../offer-card/offer-card';
-import {getArticleClassName} from '../../utils';
+import {getArticleClassName, noOperation} from '../../utils';
 import {connect} from 'react-redux';
 import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
 import {Operation} from '../../reducer/favorites/favorites.js';
@@ -9,10 +9,10 @@ import {CardView} from '../../const';
 
 type Props = {
   offers: Offer[];
-  className: string;
-  viewMode: CardView.CITIES | CardView.NEAR | CardView.FAVORITES;
+  className?: string;
+  viewMode: CardView;
   authorizationStatus: string;
-  onOfferCardEnter: () => void;
+  onOfferCardEnter?: () => void;
   onFavoriteButtonClick: () => void;
 }
 
@@ -22,7 +22,7 @@ const OfferList: React.FC<Props> = (props: Props) => {
     className = ``,
     viewMode,
     authorizationStatus,
-    onOfferCardEnter = () => null,
+    onOfferCardEnter = noOperation,
     onFavoriteButtonClick,
   } = props;
 
@@ -33,7 +33,7 @@ const OfferList: React.FC<Props> = (props: Props) => {
           key={offer.id}
           offer={offer}
           authorizationStatus={authorizationStatus}
-          className={getArticleClassName(CardType.viewMode).classNameForArticle}
+          className={getArticleClassName(viewMode).classNameForArticle}
           classNameForImage={getArticleClassName(viewMode).classNameForImage}
           classNameForInfo={getArticleClassName(viewMode).classNameForInfo}
           onOfferCardEnter={onOfferCardEnter}

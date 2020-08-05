@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import PrivateRoute from './private-route.jsx';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
 import {MemoryRouter} from 'react-router';
-import {AppRoute} from '../../const';
+import {AppRoute} from '../../const.js';
 
 const MockComponent = () => <div />;
 

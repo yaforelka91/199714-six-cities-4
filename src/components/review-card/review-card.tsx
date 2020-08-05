@@ -1,8 +1,13 @@
-import React from 'react';
-import {reviewCardTypes} from '../../types/types.js';
+import * as React from 'react';
 import {getRatingInPercent, getFormattedDate} from '../../utils';
+import Review from '../../interfaces/review';
 
-const ReviewCard = ({review}) => {
+type Props = {
+  review: Review;
+}
+
+const ReviewCard: React.FC<Props> = (props: Props) => {
+  const {review} = props;
   const {user, rating, feedback, visitTime} = review;
 
   return (
@@ -28,7 +33,5 @@ const ReviewCard = ({review}) => {
     </li>
   );
 };
-
-ReviewCard.propTypes = reviewCardTypes;
 
 export default ReviewCard;

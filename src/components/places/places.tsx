@@ -1,10 +1,26 @@
 
-import React from 'react';
+import * as React from 'react';
 import OfferList from '../offer-list/offer-list';
-import {placesTypes} from '../../types/types.js';
 import {CardView} from '../../const';
+import Offer from '../../interfaces/offer';
 
-const Places = ({offers, city, className, renderSorting, onOfferCardEnter}) => {
+type Props = {
+  offers: Offer[];
+  city: string;
+  className?: string;
+  renderSorting: () => React.ReactNode;
+  onOfferCardEnter: () => void;
+}
+
+const Places: React.FC<Props> = (props: Props) => {
+  const {
+    offers,
+    city,
+    className = ``,
+    renderSorting,
+    onOfferCardEnter
+  } = props;
+
   return (
     <section className={`${className ? `${className} ` : ``}places`}>
       <h2 className="visually-hidden">Places</h2>
@@ -19,11 +35,5 @@ const Places = ({offers, city, className, renderSorting, onOfferCardEnter}) => {
     </section>
   );
 };
-
-Places.defaultProps = {
-  className: ``,
-};
-
-Places.propTypes = placesTypes;
 
 export default Places;

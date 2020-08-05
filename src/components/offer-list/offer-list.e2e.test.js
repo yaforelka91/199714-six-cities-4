@@ -4,7 +4,7 @@ import {OfferList} from './offer-list.jsx';
 import {Router} from 'react-router-dom';
 import history from '../../history.js';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
-import {CardView} from '../../const';
+import {CardView} from '../../const.js';
 
 const offersList = [
   {

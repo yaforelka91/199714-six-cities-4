@@ -1,13 +1,32 @@
-import React from 'react';
-import Map from '../map/map.jsx';
-import Places from '../places/places.jsx';
+import * as React from 'react';
+import Map from '../map/map';
+import Places from '../places/places';
 import NoPlaces from '../no-places/no-places';
-import {citiesTypes} from '../../types/types.js';
-import withSorting from '../../hocs/with-sorting/with-sorting.js';
+import withSorting from '../../hocs/with-sorting/with-sorting';
+import Offer from '../../interfaces/offer.js';
 
 const PlacesWrapped = withSorting(Places);
 
-const Cities = ({offers, activeCity, activeItem, cityLocation, onActiveChange}) => {
+type Props = {
+  offers: Offer[];
+  activeCity: string;
+  activeItem: number;
+  cityLocation: {
+    coords: [number, number];
+    zoom: number;
+  };
+  onActiveChange: () => void;
+}
+
+const Cities: React.FC<Props> = (props: Props) => {
+  const {
+    offers,
+    activeCity,
+    activeItem,
+    cityLocation,
+    onActiveChange
+  } = props;
+
   return (
     <div className="cities">
       <div className={`cities__places-container container${offers.length === 0 ? ` cities__places-container--empty` : ``}`}>
@@ -35,7 +54,5 @@ const Cities = ({offers, activeCity, activeItem, cityLocation, onActiveChange}) 
     </div>
   );
 };
-
-Cities.propTypes = citiesTypes;
 
 export default Cities;

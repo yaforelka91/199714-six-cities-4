@@ -1,7 +1,17 @@
-import React, {PureComponent} from 'react';
+import * as React from 'react';
+import {SortType} from '../../const';
+
+type State = {
+  isOpen: boolean;
+};
+
+type Props = {
+  activeSorting: SortType;
+  onSortItemClick: (sortType: SortType) => void;
+};
 
 const withOpenMenu = (Component) => {
-  class WithOpenMenu extends PureComponent {
+  class WithOpenMenu extends React.PureComponent<Props, State> {
     constructor(props) {
       super(props);
 

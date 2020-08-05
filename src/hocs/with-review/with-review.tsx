@@ -1,6 +1,5 @@
-import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
-import Rating from '../../components/rating/rating.jsx';
+import * as React from 'react';
+import Rating from '../../components/rating/rating';
 import Textarea from '../../components/textarea/textarea';
 import adaptError from '../../adapters/error.js';
 import {Error} from '../../api.js';
@@ -10,8 +9,20 @@ const ReviewValidLength = {
   MAXIMUM: 300,
 };
 
+type State = {
+  rating: string;
+  review: string;
+  isLoading: boolean;
+  serverError: string;
+}
+
+type Props = {
+  offerId: number;
+  onReviewFormSubmit: (commentData: {rating: number; comment: string}, hotelId: number) => Promise<void>;
+}
+
 const withReview = (Component) => {
-  class WithReview extends PureComponent {
+  class WithReview extends React.PureComponent<Props, State> {
     constructor(props) {
       super(props);
 
@@ -36,13 +47,13 @@ const withReview = (Component) => {
       }
     }
 
-    _handleControlChange(evt) {
+    _handleControlChange(evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
       this.setState({
-        [evt.target.name]: evt.target.value,
-      });
+        [evt.currentTarget.name]: evt.currentTarget.value,
+      } as unknown as Pick<State, keyof State>);
     }
 
-    _handleFormSubmit(evt) {
+    _handleFormSubmit(evt: React.SyntheticEvent<HTMLFormElement>) {
       evt.preventDefault();
 
       const {onReviewFormSubmit, offerId} = this.props;
@@ -64,7 +75,6 @@ const withReview = (Component) => {
         });
       })
       .catch((err) => {
-
         if (err.response.status === Error.BAD_REQUEST) {
           this.setState({
             serverError: adaptError(err.response.data.error),
@@ -111,11 +121,6 @@ const withReview = (Component) => {
       );
     }
   }
-
-  WithReview.propTypes = {
-    offerId: PropTypes.number.isRequired,
-    onReviewFormSubmit: PropTypes.func.isRequired,
-  };
 
   return WithReview;
 };

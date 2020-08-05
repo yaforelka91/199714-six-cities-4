@@ -1,7 +1,24 @@
-import React from 'react';
-import {reviewFormTypes} from '../../types/types.js';
+import * as React from 'react';
 
-const ReviewForm = ({isValid, isLoading, serverError, renderRating, renderTextarea, onFormSubmit}) => {
+type Props = {
+  serverError?: string;
+  isValid?: boolean;
+  isLoading?: boolean;
+  renderRating: () => void;
+  renderTextarea: () => void;
+  onFormSubmit: () => void;
+}
+
+const ReviewForm: React.FC<Props> = (props: Props) => {
+  const {
+    isValid = false,
+    isLoading = false,
+    serverError = ``,
+    renderRating,
+    renderTextarea,
+    onFormSubmit
+  } = props;
+
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={onFormSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
@@ -17,13 +34,5 @@ const ReviewForm = ({isValid, isLoading, serverError, renderRating, renderTextar
     </form>
   );
 };
-
-ReviewForm.defaultProps = {
-  serverError: ``,
-  isValid: false,
-  isLoading: false,
-};
-
-ReviewForm.propTypes = reviewFormTypes;
 
 export default ReviewForm;

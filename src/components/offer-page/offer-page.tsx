@@ -1,9 +1,8 @@
-import React, {PureComponent} from 'react';
-import Reviews from '../reviews/reviews.jsx';
-import Map from '../map/map.jsx';
+import * as React from 'react';
+import Reviews from '../reviews/reviews';
+import Map from '../map/map';
 import OfferList from '../offer-list/offer-list';
 import Button from '../button/button';
-import {offerPageTypes} from '../../types/types.js';
 import {capitalize, extend, getRatingInPercent} from '../../utils';
 import {connect} from 'react-redux';
 import {getNearestOffers} from '../../reducer/data/selectors.js';
@@ -12,19 +11,31 @@ import {AuthorizationStatus} from '../../reducer/user/user.js';
 import {Operation as ReviewsOperation} from '../../reducer/reviews/reviews.js';
 import {Operation as DataOperation} from '../../reducer/data/data.js';
 import {Operation as FavoritesOperation} from '../../reducer/favorites/favorites.js';
-import history from '../../history.js';
+import history from '../../history';
+import Offer from '../../interfaces/offer';
 
 const MAX_COUNT_PICTURES = 6;
 const MAX_NEARBY_COUNT = 3;
 
-class OfferPage extends PureComponent {
+type Props = {
+  offer: Offer;
+  offersList: Offer[];
+  authorizationStatus: string;
+  onFavoriteButtonClick: (offer: Offer) => void;
+  onReviewsRequest: (offerId: number) => void;
+  onNearbyRequest: (offerId: number) => void;
+}
+
+class OfferPage extends React.PureComponent<Props, {}> {
+  props: Props;
+
   componentDidMount() {
     const {offer, onReviewsRequest, onNearbyRequest} = this.props;
     onReviewsRequest(offer.id);
     onNearbyRequest(offer.id);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Props) {
     const {offer, onReviewsRequest, onNearbyRequest} = this.props;
 
     if (prevProps.offer.id !== offer.id) {
@@ -91,7 +102,6 @@ class OfferPage extends PureComponent {
                   {title}
                 </h1>
                 <Button
-                  activeItem={Number(isFavorite)}
                   className={`property__bookmark-button${isFavorite ? ` property__bookmark-button--active` : ``}`}
                   onButtonClick={() => {
                     if (authorizationStatus === AuthorizationStatus.NO_AUTH) {
@@ -196,8 +206,6 @@ class OfferPage extends PureComponent {
     );
   }
 }
-
-OfferPage.propTypes = offerPageTypes;
 
 const mapStateToProps = (state) => ({
   offersList: getNearestOffers(state).slice(0, MAX_NEARBY_COUNT),

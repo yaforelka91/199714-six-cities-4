@@ -4,7 +4,7 @@ import {createAPI} from '../../api.js';
 import {reducer, ActionType, ActionCreator, Operation} from './favorites.js';
 import {ActionType as DataActionType} from '../data/data.js';
 
-import {extend} from '../../utils';
+import {extend} from '../../utils.js';
 import NameSpace from '../name-space.js';
 
 const api = createAPI(() => {});

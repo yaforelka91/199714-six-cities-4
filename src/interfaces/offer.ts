@@ -1,12 +1,12 @@
 export default interface Offer {
   city: {
     name: string;
-    coords: Array<number>;
+    coords: [number, number];
     zoom: number;
   },
   id: number;
   offerZoom: number;
-  coords: Array<number>;
+  coords: [number, number];
   title: string;
   description: Array<string>;
   picture: string;

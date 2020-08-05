@@ -1,11 +1,24 @@
-import React from 'react';
+import * as React from 'react';
 import Header from '../header/header';
-import {pageTypes} from '../../types/types.js';
 import Footer from '../footer/footer';
 import ErrorScreen from '../error-screen/error-screen';
 
-const Page = ({className, hasFooter, isLoading, errorMessage, renderPage}) => {
+type Props = {
+  className?: string;
+  hasFooter?: boolean;
+  isLoading?: boolean;
+  errorMessage?: string;
+  renderPage: () => void;
+};
 
+const Page: React.FC<Props> = (props: Props) => {
+  const {
+    className = ``,
+    hasFooter = false,
+    isLoading = false,
+    errorMessage = ``,
+    renderPage
+  } = props;
   return (
     <div className={`page${className ? ` ${className}` : ``}`}>
       <Header />
@@ -16,14 +29,5 @@ const Page = ({className, hasFooter, isLoading, errorMessage, renderPage}) => {
     </div>
   );
 };
-
-Page.defaultProps = {
-  hasFooter: false,
-  isLoading: false,
-  errorMessage: ``,
-  className: ``,
-};
-
-Page.propTypes = pageTypes;
 
 export default Page;

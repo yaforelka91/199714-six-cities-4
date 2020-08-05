@@ -1,8 +1,19 @@
-import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import {Subtract} from 'utility-types';
+
+type State = {
+  activeItem: number | string;
+}
+
+type InjectingProps = {
+  activeItem: number | string;
+}
 
 const withActiveItem = (Component) => {
-  class WithActiveItem extends PureComponent {
+  type P = React.ComponentProps<typeof Component>;
+  type T = Subtract<P, InjectingProps>;
+
+  class WithActiveItem extends React.PureComponent<T, State> {
     constructor(props) {
       super(props);
 
@@ -21,7 +32,7 @@ const withActiveItem = (Component) => {
       }
     }
 
-    _handleActiveChange(activeItem) {
+    _handleActiveChange(activeItem: string | number) {
       this.setState({
         activeItem,
       });
@@ -39,15 +50,6 @@ const withActiveItem = (Component) => {
       );
     }
   }
-
-  WithActiveItem.defaultProps = {
-    activeItem: -1,
-  };
-
-  WithActiveItem.propTypes = {
-    activeItem: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    activeCity: PropTypes.string,
-  };
 
   return WithActiveItem;
 };

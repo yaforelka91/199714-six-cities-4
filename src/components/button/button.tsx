@@ -1,18 +1,19 @@
 import * as React from 'react';
+import {noOperation} from '../../utils';
 
 type Props = {
-  className: string;
+  className?: string;
   isDisabled?: boolean;
   children: React.ReactNode;
-  onButtonClick: () => void;
+  onButtonClick?: () => void;
 };
 
 const Button: React.FC<Props> = (props: Props) => {
   const {
     className = ``,
     isDisabled = false,
-    onButtonClick = () => null,
-    children
+    children,
+    onButtonClick = noOperation
   } = props;
 
   return (

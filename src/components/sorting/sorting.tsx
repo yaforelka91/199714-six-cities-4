@@ -1,6 +1,5 @@
-import React from 'react';
+import * as React from 'react';
 import {SortType} from '../../const';
-import {sortingTypes} from '../../types/types.js';
 
 const sortItems = [
   {
@@ -20,12 +19,23 @@ const sortItems = [
     text: `Top rated first`,
   },
 ];
-const Sorting = ({activeSorting, isOpen, onSortItemClick, onToggleMenu, onSelectMenu}) => {
+
+type Props = {
+  activeSorting: string;
+  isOpen?: boolean;
+  onSortItemClick: (sortType: string) => void;
+  onToggleMenu?: () => void;
+  onSelectMenu?: () => void;
+}
+
+const Sorting: React.FC<Props> = (props: Props) => {
+  const {activeSorting, isOpen, onSortItemClick, onToggleMenu, onSelectMenu} = props;
+
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
       {`\u00A0`}
-      <span className="places__sorting-type" tabIndex="0" onClick={onToggleMenu}>
+      <span className="places__sorting-type" tabIndex={0} onClick={onToggleMenu}>
         {sortItems.find((item) => item.type === activeSorting).text}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
@@ -37,7 +47,7 @@ const Sorting = ({activeSorting, isOpen, onSortItemClick, onToggleMenu, onSelect
             <li
               key={item.type}
               className={`places__option${item.type === activeSorting ? ` places__option--active` : ``}`}
-              tabIndex="0"
+              tabIndex={0}
               onClick={() => {
                 onSortItemClick(item.type);
                 onSelectMenu();
@@ -78,7 +88,5 @@ const Sorting = ({activeSorting, isOpen, onSortItemClick, onToggleMenu, onSelect
     </form>
   );
 };
-
-Sorting.propTypes = sortingTypes;
 
 export default Sorting;

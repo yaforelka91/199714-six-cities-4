@@ -1,24 +1,23 @@
 import * as React from 'react';
-import {offerCardTypes} from '../../types/types.js';
-import {capitalize, getRatingInPercent, extend} from '../../utils';
+import {capitalize, getRatingInPercent, extend, noOperation} from '../../utils';
 import Button from '../button/button';
 import {AppRoute} from '../../const';
 import {Link} from 'react-router-dom';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
-import history from '../../history.js';
+import history from '../../history';
 import Offer from '../../interfaces/offer';
 
 type Props = {
   offer: Offer;
   authorizationStatus: string;
-  className: string;
-  classNameForImage: string;
-  classNameForInfo: string;
-  onOfferCardEnter: string;
+  className?: string;
+  classNameForImage?: string;
+  classNameForInfo?: string;
+  onOfferCardEnter?: (offerId: number) => void;
   onFavoriteButtonClick: (offer: Offer) => void;
 };
 
-class OfferCard extends React.Component<Props> {
+class OfferCard extends React.Component<Props, {}> {
   props: Props;
 
   constructor(props) {
@@ -28,7 +27,7 @@ class OfferCard extends React.Component<Props> {
     this._handleFavoriteClick = this._handleFavoriteClick.bind(this);
   }
 
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps: Props) {
     return nextProps.offer.isFavorite !== this.props.offer.isFavorite;
   }
 
@@ -45,7 +44,7 @@ class OfferCard extends React.Component<Props> {
   }
 
   _handleCardEnter() {
-    const {onOfferCardEnter = () => null, offer} = this.props;
+    const {onOfferCardEnter = noOperation, offer} = this.props;
     onOfferCardEnter(offer.id);
   }
 

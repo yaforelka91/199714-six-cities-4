@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 type Props = {
-  currentMessage: string;
-  maxLength: number;
-  onTextareaChange: () => void;
+  currentMessage?: string;
+  maxLength?: number;
+  onTextareaChange: (evt: React.ChangeEvent<HTMLTextAreaElement>) => void;
 };
 
 const Textarea: React.FC<Props> = (props: Props) => {

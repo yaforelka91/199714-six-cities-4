@@ -1,10 +1,23 @@
-import React from 'react';
-import {Route, Redirect} from 'react-router-dom';
+import * as React from 'react';
+import {Route, Redirect, RouteProps} from 'react-router-dom';
 import {AppRoute} from '../../const';
-import {privateRouteTypes} from '../../types/types.js';
 import {AuthorizationStatus} from '../../reducer/user/user.js';
 
-const PrivateRoute = ({render, path, exact, authorizationStatus, isAuthorizationInProgress}) => {
+type Props = RouteProps & {
+  authorizationStatus: string;
+  isAuthorizationInProgress?: boolean;
+  render: () => React.ReactNode;
+}
+
+const PrivateRoute: React.FC<Props> = (props: Props) => {
+  const {
+    render,
+    path,
+    exact,
+    authorizationStatus,
+    isAuthorizationInProgress = false,
+  } = props;
+
   return (
     <Route
       path={path}
@@ -23,10 +36,5 @@ const PrivateRoute = ({render, path, exact, authorizationStatus, isAuthorization
     />
   );
 };
-
-PrivateRoute.defaultProps = {
-  isAuthorizationInProgress: false,
-};
-PrivateRoute.propTypes = privateRouteTypes;
 
 export default PrivateRoute;

@@ -1,7 +1,7 @@
 import * as React from 'react';
-import Cities from '../cities/cities.jsx';
-import Tabs from '../tabs/tabs.jsx';
-import withActiveItem from '../../hocs/with-active-item/with-active-item.js';
+import Cities from '../cities/cities';
+import Tabs from '../tabs/tabs';
+import withActiveItem from '../../hocs/with-active-item/with-active-item';
 import {connect} from 'react-redux';
 import {getCities} from '../../reducer/data/selectors.js';
 import {getCity, getFilteredOffers, getCityLocation} from '../../reducer/catalog/selectors.js';
@@ -16,10 +16,10 @@ type Props = {
   activeCity: string;
   citiesList: Array<string>;
   cityLocation: {
-    coords: Array<number>;
+    coords: [number, number];
     zoom: number;
   };
-  onCityNameClick: () => void;
+  onCityNameClick: (item: string, onActiveChange: () => void) => void;
 }
 
 const Main: React.FC<Props> = (props: Props) => {

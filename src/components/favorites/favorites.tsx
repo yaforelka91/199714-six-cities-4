@@ -1,14 +1,24 @@
-import React, {Fragment, PureComponent} from 'react';
+import * as React from 'react';
 import {connect} from 'react-redux';
-import {favoritesTypes} from '../../types/types.js';
 import CityListItem from '../city-list-item/city-list-item';
 import OfferList from '../offer-list/offer-list';
 import {CardView} from '../../const';
 import {ActionCreator} from '../../reducer/catalog/catalog.js';
 import {Operation} from '../../reducer/favorites/favorites.js';
 import {getGroupedFavoriteOffers} from '../../reducer/favorites/selectors.js';
+import Offer from '../../interfaces/offer.js';
 
-class Favorites extends PureComponent {
+type Props= {
+  offers: {
+    [key: string]: Offer[];
+  }[];
+  onCityNameClick: (city: string) => void;
+  onFavoritesRequest: () => void;
+};
+
+class Favorites extends React.PureComponent<Props, {}> {
+  props: Props;
+
   componentDidMount() {
     this.props.onFavoritesRequest();
   }
@@ -21,14 +31,14 @@ class Favorites extends PureComponent {
         <div className="page__favorites-container container">
           <section className={`favorites${offers.length === 0 ? ` favorites--empty` : ``}`}>
             {offers.length === 0 ?
-              <Fragment>
+              <>
                 <h1 className="visually-hidden">Favorites (empty)</h1>
                 <div className="favorites__status-wrapper">
                   <b className="favorites__status">Nothing yet saved.</b>
                   <p className="favorites__status-description">Save properties to narrow down search or plan yor future trips.</p>
                 </div>
-              </Fragment> :
-              <Fragment>
+              </> :
+              <>
                 <h1 className="favorites__title">Saved listing</h1>
                 <ul className='favorites__list'>
                   {
@@ -54,7 +64,7 @@ class Favorites extends PureComponent {
                     })
                   }
                 </ul>
-              </Fragment>
+              </>
             }
           </section>
         </div>
@@ -62,8 +72,6 @@ class Favorites extends PureComponent {
     );
   }
 }
-
-Favorites.propTypes = favoritesTypes;
 
 const mapStateToProps = (state) => ({
   offers: getGroupedFavoriteOffers(state),

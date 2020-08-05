@@ -1,15 +1,21 @@
-import React, {Fragment} from 'react';
-import {ratingTypes} from '../../types/types';
+import * as React from 'react';
 
 const RATING_VALUES = [`perfect`, `good`, `not bad`, `badly`, `terribly`];
 
-const Rating = ({selectedRating, onRatingChange}) => {
+type Props = {
+  selectedRating?: string;
+  onRatingChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+const Rating: React.FC<Props> = (props: Props) => {
+  const {selectedRating = ``, onRatingChange} = props;
+
   return (
     <div className="reviews__rating-form form__rating">
       {RATING_VALUES.map((textLabel, index) => {
         const id = RATING_VALUES.length - index;
         return (
-          <Fragment key={textLabel}>
+          <React.Fragment key={textLabel}>
             <input
               className="form__rating-input visually-hidden"
               name="rating"
@@ -28,18 +34,13 @@ const Rating = ({selectedRating, onRatingChange}) => {
                 <use xlinkHref="#icon-star"></use>
               </svg>
             </label>
-          </Fragment>
+          </React.Fragment>
         );
       })}
     </div>
   );
 };
 
-Rating.defaultProps = {
-  selectedRating: ``,
-};
-
-Rating.propTypes = ratingTypes;
 
 export {Rating};
 export default React.memo(Rating);

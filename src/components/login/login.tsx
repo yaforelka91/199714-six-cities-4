@@ -1,29 +1,39 @@
-import React, {PureComponent, createRef} from 'react';
+import * as React from 'react';
 import CityListItem from '../city-list-item/city-list-item';
-import {loginTypes} from '../../types/types.js';
 import {connect} from 'react-redux';
 import {getCity} from '../../reducer/catalog/selectors.js';
 import {Operation} from '../../reducer/user/user.js';
 import {getError} from '../../reducer/user/selectors.js';
 
-class Login extends PureComponent {
+type Props = {
+  activeCity: string;
+  validationError?: string;
+  onFormSubmit: ({login, password}: {login: string; password: string}) => void;
+}
+
+class Login extends React.PureComponent<Props, {}> {
+  props: Props;
+
+  private loginRef: React.RefObject<HTMLInputElement>;
+  private passwordRef: React.RefObject<HTMLInputElement>;
+
   constructor(props) {
     super(props);
 
-    this._loginRef = createRef();
-    this._passwordRef = createRef();
+    this.loginRef = React.createRef();
+    this.passwordRef = React.createRef();
 
     this._handleFormSubmit = this._handleFormSubmit.bind(this);
   }
 
-  _handleFormSubmit(evt) {
+  _handleFormSubmit(evt: React.SyntheticEvent<HTMLFormElement>) {
     evt.preventDefault();
 
     const {onFormSubmit} = this.props;
 
     onFormSubmit({
-      login: this._loginRef.current.value,
-      password: this._passwordRef.current.value,
+      login: this.loginRef.current.value,
+      password: this.passwordRef.current.value,
     });
   }
 
@@ -39,11 +49,11 @@ class Login extends PureComponent {
             <form className="login__form form" action="#" method="post" onSubmit={this._handleFormSubmit}>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
-                <input className="login__input form__input" type="email" name="email" placeholder="Email" required="" ref={this._loginRef} />
+                <input className="login__input form__input" type="email" name="email" placeholder="Email" required={true} ref={this.loginRef} />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
-                <input className="login__input form__input" type="password" name="password" placeholder="Password" required="" ref={this._passwordRef} />
+                <input className="login__input form__input" type="password" name="password" placeholder="Password" required={true} ref={this.passwordRef} />
               </div>
               <button className="login__submit form__submit button" type="submit">Sign in</button>
             </form>
@@ -56,12 +66,6 @@ class Login extends PureComponent {
     );
   }
 }
-
-Login.defaultProps = {
-  validationError: ``,
-};
-
-Login.propTypes = loginTypes;
 
 const mapStateToProps = (state) => ({
   activeCity: getCity(state),
