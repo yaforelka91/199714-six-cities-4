@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Subtract} from 'utility-types';
-import {SortType} from '../../const';
+import {SortType} from '../../types';
 import Sorting from '../../components/sorting/sorting';
 import withOpenMenu from '../with-open-menu/with-open-menu';
 import {getSortedOffers} from '../../utils';
@@ -21,7 +21,6 @@ type InjectingProps = {
 
 const SortingWrapped = withOpenMenu(Sorting);
 const withSorting = (Component) => {
-
   type P = React.ComponentProps<typeof Component>;
   type T = Subtract<P, InjectingProps>;
 

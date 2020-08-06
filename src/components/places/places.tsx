@@ -1,7 +1,7 @@
 
 import * as React from 'react';
 import OfferList from '../offer-list/offer-list';
-import {CardView} from '../../const';
+import {CardView} from '../../types';
 import Offer from '../../interfaces/offer';
 
 type Props = {

@@ -1,4 +1,4 @@
-import NameSpace from '../name-space.js';
+import NameSpace from '../name-space';
 import {createSelector} from 'reselect';
 
 const NAME_SPACE = NameSpace.REVIEWS;

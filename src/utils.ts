@@ -1,5 +1,5 @@
 import {createSelector} from 'reselect';
-import {CardView, MONTHS_LIST, SortType} from './const';
+import {CardView, MONTHS_LIST, SortType} from './types';
 import Offer from './interfaces/offer';
 
 export const capitalize = (word: string): string => word.charAt(0).toUpperCase() + word.slice(1);
@@ -8,8 +8,8 @@ export const extend = (object1, object2) => Object.assign({}, object1, object2);
 
 export const getArticleClassName = (viewMode: CardView): {
   classNameForArticle: string,
-    classNameForImage: string,
-    classNameForInfo: string
+  classNameForImage: string,
+  classNameForInfo: string
 } => {
   switch (viewMode) {
     case CardView.CITIES:

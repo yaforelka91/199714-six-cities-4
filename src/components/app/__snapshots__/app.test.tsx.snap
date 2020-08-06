@@ -278,6 +278,7 @@ exports[`AppSnapshot should render Main page 1`] = `
                 >
                   <img
                     alt="User avatar"
+                    className="user__avatar"
                     src="https://htmlacademy-react-3.appspot.com/six-cities/pic1.jpg"
                   />
                 </div>

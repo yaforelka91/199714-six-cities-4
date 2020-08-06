@@ -1,13 +1,16 @@
 import * as React from 'react';
 import {mount} from 'enzyme';
 import withReview from './with-review';
-import {createAPI} from '../../api.js';
+import {createAPI} from '../../api';
 import MockAdapter from 'axios-mock-adapter';
-import {Operation} from '../../reducer/reviews/reviews.js';
-import {Error} from '../../api.js';
+import {Operation} from '../../reducer/reviews/reviews';
+import {Error} from '../../api';
 import {noOperation} from '../../utils';
 
 const VALID_COMMENT = `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`;
+const mockEvent = {
+  preventDefault: noOperation,
+};
 
 type MockComponentProps = {
   renderRating: () => React.ReactNode;
@@ -58,10 +61,10 @@ describe(`withReviewE2E`, () => {
           id: 1,
           rating: 4,
           user: {
-            // eslint-disable-next-line camelcase
-            avatar_rl: `pic.jpg`,
+            /* eslint-disable-next-line @typescript-eslint/camelcase */
+            avatar_url: `pic.jpg`,
             id: 12,
-            // eslint-disable-next-line camelcase
+            /* eslint-disable-next-line @typescript-eslint/camelcase */
             is_pro: true,
             name: `Isaac`,
           },
@@ -94,7 +97,7 @@ describe(`withReviewE2E`, () => {
 
     expect(wrapper.children().props().isValid).toEqual(true);
 
-    wrapper.children().props().onFormSubmit({preventDefault() {}});
+    wrapper.children().props().onFormSubmit(mockEvent);
 
     return wrapper.children().props().onReviewFormSubmit()
     .then(() => {
@@ -149,7 +152,7 @@ describe(`withReviewE2E`, () => {
 
     expect(wrapper.children().props().isValid).toEqual(true);
 
-    wrapper.children().props().onFormSubmit({preventDefault() {}});
+    wrapper.children().props().onFormSubmit(mockEvent);
 
     return wrapper.children().props().onReviewFormSubmit()
     .then(noOperation)
@@ -204,7 +207,7 @@ describe(`withReviewE2E`, () => {
 
     expect(wrapper.children().props().isValid).toEqual(true);
 
-    wrapper.children().props().onFormSubmit({preventDefault() {}});
+    wrapper.children().props().onFormSubmit(mockEvent);
 
     return wrapper.children().props().onReviewFormSubmit()
     .then(noOperation)

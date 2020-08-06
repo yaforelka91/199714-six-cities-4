@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {SortType} from '../../const';
+import {SortType} from '../../types';
 
-const sortItems = [
+const sortItems: {type: SortType; text: string}[] = [
   {
     type: SortType.POPULAR,
     text: `Popular`,

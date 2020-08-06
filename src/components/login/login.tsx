@@ -1,9 +1,9 @@
 import * as React from 'react';
 import CityListItem from '../city-list-item/city-list-item';
 import {connect} from 'react-redux';
-import {getCity} from '../../reducer/catalog/selectors.js';
-import {Operation} from '../../reducer/user/user.js';
-import {getError} from '../../reducer/user/selectors.js';
+import {getCity} from '../../reducer/catalog/selectors';
+import {Operation} from '../../reducer/user/user';
+import {getError} from '../../reducer/user/selectors';
 
 type Props = {
   activeCity: string;

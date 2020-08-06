@@ -47,6 +47,7 @@ exports[`PageSnapshot should render Page 1`] = `
                 >
                   <img
                     alt="User avatar"
+                    className="user__avatar"
                     src="https://htmlacademy-react-3.appspot.com/six-cities/pic.jpg"
                   />
                 </div>
@@ -115,6 +116,7 @@ exports[`PageSnapshot should render Page with ErrorScreen 1`] = `
                 >
                   <img
                     alt="User avatar"
+                    className="user__avatar"
                     src="https://htmlacademy-react-3.appspot.com/six-cities/pic.jpg"
                   />
                 </div>
@@ -198,6 +200,7 @@ exports[`PageSnapshot should render Page with Loader 1`] = `
                 >
                   <img
                     alt="User avatar"
+                    className="user__avatar"
                     src="https://htmlacademy-react-3.appspot.com/six-cities/pic.jpg"
                   />
                 </div>
@@ -266,6 +269,7 @@ exports[`PageSnapshot should render Page with footer 1`] = `
                 >
                   <img
                     alt="User avatar"
+                    className="user__avatar"
                     src="https://htmlacademy-react-3.appspot.com/six-cities/pic.jpg"
                   />
                 </div>

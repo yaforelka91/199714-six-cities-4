@@ -8,7 +8,7 @@ import {
   Map as LeafletMap,
   Marker
 } from 'leaflet';
-import {IconConfig} from '../../const';
+import {IconConfig} from '../../types';
 
 const ICON = icon({
   iconUrl: IconConfig.REGULAR_URL,

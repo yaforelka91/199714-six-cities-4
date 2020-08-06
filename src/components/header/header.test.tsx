@@ -1,10 +1,10 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
 import {Header} from './header';
-import {AuthorizationStatus} from '../../reducer/user/user.js';
+import {AuthorizationStatus} from '../../reducer/user/user';
 import {MemoryRouter, Router, Route} from 'react-router-dom';
 import history from '../../history';
-import {AppRoute} from '../../const';
+import {AppRoute} from '../../types';
 
 
 describe(`HeaderSnapshot`, () => {
@@ -15,10 +15,7 @@ describe(`HeaderSnapshot`, () => {
         >
           <Header
             authorizationStatus={AuthorizationStatus.NO_AUTH}
-            userData={{
-              email: ``,
-              picture: ``,
-            }}
+            userData={null}
           />
         </Router>
     ).toJSON();
@@ -34,8 +31,11 @@ describe(`HeaderSnapshot`, () => {
           <Header
             authorizationStatus={AuthorizationStatus.AUTH}
             userData={{
+              id: 1,
+              name: `user`,
               email: `test@test.com`,
               picture: `/pic.jpg`,
+              isSuper: true,
             }}
           />
         </Router>
@@ -53,8 +53,11 @@ describe(`HeaderSnapshot`, () => {
             <Header
               authorizationStatus={AuthorizationStatus.AUTH}
               userData={{
+                id: 1,
+                name: `user`,
                 email: `test@test.com`,
                 picture: `/pic.jpg`,
+                isSuper: true,
               }}
             />
           </Route>

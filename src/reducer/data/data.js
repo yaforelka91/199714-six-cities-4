@@ -1,6 +1,6 @@
 import {extend} from '../../utils';
-import adaptOffer from '../../adapters/offers.js';
-import {ActionCreator as CatalogActionCreator} from '../catalog/catalog.js';
+import adaptOffer from '../../adapters/offers';
+import {ActionCreator as CatalogActionCreator} from '../catalog/catalog';
 
 const initialState = {
   offersList: [],

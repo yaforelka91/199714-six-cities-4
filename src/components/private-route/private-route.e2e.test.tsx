@@ -2,12 +2,12 @@ import * as React from 'react';
 import {mount} from 'enzyme';
 import {MemoryRouter} from 'react-router';
 import PrivateRoute from './private-route';
-import {AppRoute} from '../../const';
-import {AuthorizationStatus} from '../../reducer/user/user.js';
+import {AppRoute} from '../../types';
+import {AuthorizationStatus} from '../../reducer/user/user';
 
 const MockComponent = () => <div />;
 
-describe(`PrivateRoure E2E`, () => {
+describe(`PrivateRoute E2E`, () => {
   it(`Should render component if user has been authenticated`, () => {
     const wrapper = mount(
         <MemoryRouter initialEntries={[AppRoute.FAVORITES]}>

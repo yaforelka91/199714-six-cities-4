@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
 import {Reviews} from './reviews';
-import {AuthorizationStatus} from '../../reducer/user/user.js';
+import {AuthorizationStatus} from '../../reducer/user/user';
 import {noOperation} from '../../utils';
 import Review from '../../interfaces/review';
 

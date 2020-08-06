@@ -1,4 +1,6 @@
-const adaptOffer = (offer) => ({
+import Offer from '../interfaces/offer';
+
+const adaptOffer = (offer): Offer => ({
   city: {
     name: offer.city.name,
     coords: [offer.city.location.latitude, offer.city.location.longitude],

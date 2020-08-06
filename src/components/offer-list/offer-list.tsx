@@ -2,10 +2,10 @@ import * as React from 'react';
 import OfferCard from '../offer-card/offer-card';
 import {getArticleClassName, noOperation} from '../../utils';
 import {connect} from 'react-redux';
-import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
-import {Operation} from '../../reducer/favorites/favorites.js';
+import {getAuthorizationStatus} from '../../reducer/user/selectors';
+import {Operation} from '../../reducer/favorites/favorites';
 import Offer from '../../interfaces/offer';
-import {CardView} from '../../const';
+import {CardView} from '../../types';
 
 type Props = {
   offers: Offer[];

@@ -1,11 +1,11 @@
 import MockAdapter from 'axios-mock-adapter';
 import configureStore from 'redux-mock-store';
-import {createAPI} from '../../api.js';
-import {reducer, ActionType, ActionCreator, Operation} from './favorites.js';
-import {ActionType as DataActionType} from '../data/data.js';
+import {createAPI} from '../../api';
+import {reducer, ActionType, ActionCreator, Operation} from './favorites';
+import {ActionType as DataActionType} from '../data/data';
 
 import {extend} from '../../utils';
-import NameSpace from '../name-space.js';
+import NameSpace from '../name-space';
 
 const api = createAPI(() => {});
 const mockStore = configureStore([]);

@@ -2,11 +2,11 @@ import * as React from 'react';
 import {connect} from 'react-redux';
 import CityListItem from '../city-list-item/city-list-item';
 import OfferList from '../offer-list/offer-list';
-import {CardView} from '../../const';
-import {ActionCreator} from '../../reducer/catalog/catalog.js';
-import {Operation} from '../../reducer/favorites/favorites.js';
-import {getGroupedFavoriteOffers} from '../../reducer/favorites/selectors.js';
-import Offer from '../../interfaces/offer.js';
+import {CardView} from '../../types';
+import {ActionCreator} from '../../reducer/catalog/catalog';
+import {Operation} from '../../reducer/favorites/favorites';
+import {getGroupedFavoriteOffers} from '../../reducer/favorites/selectors';
+import Offer from '../../interfaces/offer';
 
 type Props= {
   offers: {

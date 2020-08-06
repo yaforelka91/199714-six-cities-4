@@ -3,7 +3,7 @@ import * as renderer from 'react-test-renderer';
 import OfferCard from './offer-card';
 import {Router} from 'react-router-dom';
 import history from '../../history';
-import {AuthorizationStatus} from '../../reducer/user/user.js';
+import {AuthorizationStatus} from '../../reducer/user/user';
 import {noOperation} from '../../utils';
 import Offer from '../../interfaces/offer';
 

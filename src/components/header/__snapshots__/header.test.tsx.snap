@@ -100,6 +100,7 @@ exports[`HeaderSnapshot should render Header for user 1`] = `
               >
                 <img
                   alt="User avatar"
+                  className="user__avatar"
                   src="https://htmlacademy-react-3.appspot.com/six-cities/pic.jpg"
                 />
               </div>
@@ -163,6 +164,7 @@ exports[`HeaderSnapshot should render Header with Link 1`] = `
               >
                 <img
                   alt="User avatar"
+                  className="user__avatar"
                   src="https://htmlacademy-react-3.appspot.com/six-cities/pic.jpg"
                 />
               </div>

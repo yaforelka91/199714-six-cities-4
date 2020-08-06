@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {capitalize, getRatingInPercent, extend, noOperation} from '../../utils';
 import Button from '../button/button';
-import {AppRoute} from '../../const';
+import {AppRoute} from '../../types';
 import {Link} from 'react-router-dom';
-import {AuthorizationStatus} from '../../reducer/user/user.js';
+import {AuthorizationStatus} from '../../reducer/user/user';
 import history from '../../history';
 import Offer from '../../interfaces/offer';
 
@@ -27,7 +27,7 @@ class OfferCard extends React.Component<Props, {}> {
     this._handleFavoriteClick = this._handleFavoriteClick.bind(this);
   }
 
-  shouldComponentUpdate(nextProps: Props) {
+  shouldComponentUpdate(nextProps) {
     return nextProps.offer.isFavorite !== this.props.offer.isFavorite;
   }
 

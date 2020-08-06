@@ -1,5 +1,5 @@
 import {extend} from '../../utils';
-import adaptReview from '../../adapters/review.js';
+import adaptReview from '../../adapters/review';
 
 const initialState = {
   reviews: [],

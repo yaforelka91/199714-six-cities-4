@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
 import PrivateRoute from './private-route';
-import {AuthorizationStatus} from '../../reducer/user/user.js';
+import {AuthorizationStatus} from '../../reducer/user/user';
 import {MemoryRouter} from 'react-router';
-import {AppRoute} from '../../const';
+import {AppRoute} from '../../types';
 
 const MockComponent = () => <div />;
 

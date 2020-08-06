@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Rating from '../../components/rating/rating';
 import Textarea from '../../components/textarea/textarea';
-import adaptError from '../../adapters/error.js';
-import {Error} from '../../api.js';
+import adaptError from '../../adapters/error';
+import {Error} from '../../api';
 
 const ReviewValidLength = {
   MINIMUM: 50,

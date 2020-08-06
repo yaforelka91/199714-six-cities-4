@@ -1,4 +1,6 @@
-const adaptReview = (review) => ({
+import Review from '../interfaces/review';
+
+const adaptReview = (review): Review => ({
   id: review.id,
   user: {
     id: review.user.id,

@@ -1,12 +1,12 @@
 import * as React from 'react';
 import ReviewCard from '../review-card/review-card';
 import ReviewForm from '../review-form/review-form';
-import {AuthorizationStatus} from '../../reducer/user/user.js';
+import {AuthorizationStatus} from '../../reducer/user/user';
 import {connect} from 'react-redux';
-import {Operation} from '../../reducer/reviews/reviews.js';
-import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
+import {Operation} from '../../reducer/reviews/reviews';
+import {getAuthorizationStatus} from '../../reducer/user/selectors';
 import withReview from '../../hocs/with-review/with-review';
-import {getReviewsCount, getSortedReviews} from '../../reducer/reviews/selectors.js';
+import {getReviewsCount, getSortedReviews} from '../../reducer/reviews/selectors';
 import Review from '../../interfaces/review';
 
 const MAX_COUNT_REVIEWS = 10;

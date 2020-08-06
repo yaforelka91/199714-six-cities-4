@@ -3,10 +3,10 @@ import * as renderer from 'react-test-renderer';
 import {Favorites} from './favorites';
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
-import NameSpace from '../../reducer/name-space.js';
+import NameSpace from '../../reducer/name-space';
 import {Router} from 'react-router-dom';
 import history from '../../history';
-import {AuthorizationStatus} from '../../reducer/user/user.js';
+import {AuthorizationStatus} from '../../reducer/user/user';
 import {noOperation} from '../../utils';
 import Offer from '../../interfaces/offer';
 

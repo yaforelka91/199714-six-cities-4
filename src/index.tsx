@@ -5,10 +5,10 @@ import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import App from './components/app/app';
-import reducer from './reducer/reducer.js';
-import {Operation as DataOperation} from './reducer/data/data.js';
+import reducer from './reducer/reducer';
+import {Operation as DataOperation} from './reducer/data/data';
 import {createAPI} from './api';
-import {AuthorizationStatus, ActionCreator, Operation as UserOperation} from './reducer/user/user.js';
+import {AuthorizationStatus, ActionCreator, Operation as UserOperation} from './reducer/user/user';
 import history from './history';
 
 const init = () => {

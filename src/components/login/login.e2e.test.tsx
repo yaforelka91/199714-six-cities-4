@@ -5,8 +5,12 @@ import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import {Router} from 'react-router-dom';
 import history from '../../history';
+import {noOperation} from '../../utils';
 
 const mockStore = configureStore([]);
+const mockEvent = {
+  preventDefault: noOperation,
+};
 
 describe(`LoginE2E`, () => {
   it(`Check object with data after form was submit`, () => {
@@ -38,10 +42,7 @@ describe(`LoginE2E`, () => {
     };
 
     const form = wrapper.find(`.login__form.form`).at(0);
-    form.simulate(`submit`, {
-      preventDefault() {}
-    },
-    {
+    form.simulate(`submit`, mockEvent, {
       login: loginRef.current.value,
       password: passwordRef.current.value,
     });

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {SortType} from '../../const';
+import {SortType} from '../../types';
 
 type State = {
   isOpen: boolean;

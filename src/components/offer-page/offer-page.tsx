@@ -5,12 +5,12 @@ import OfferList from '../offer-list/offer-list';
 import Button from '../button/button';
 import {capitalize, extend, getRatingInPercent} from '../../utils';
 import {connect} from 'react-redux';
-import {getNearestOffers} from '../../reducer/data/selectors.js';
-import {CardView, AppRoute} from '../../const';
-import {AuthorizationStatus} from '../../reducer/user/user.js';
-import {Operation as ReviewsOperation} from '../../reducer/reviews/reviews.js';
-import {Operation as DataOperation} from '../../reducer/data/data.js';
-import {Operation as FavoritesOperation} from '../../reducer/favorites/favorites.js';
+import {getNearestOffers} from '../../reducer/data/selectors';
+import {CardView, AppRoute} from '../../types';
+import {AuthorizationStatus} from '../../reducer/user/user';
+import {Operation as ReviewsOperation} from '../../reducer/reviews/reviews';
+import {Operation as DataOperation} from '../../reducer/data/data';
+import {Operation as FavoritesOperation} from '../../reducer/favorites/favorites';
 import history from '../../history';
 import Offer from '../../interfaces/offer';
 
@@ -35,7 +35,7 @@ class OfferPage extends React.PureComponent<Props, {}> {
     onNearbyRequest(offer.id);
   }
 
-  componentDidUpdate(prevProps: Props) {
+  componentDidUpdate(prevProps) {
     const {offer, onReviewsRequest, onNearbyRequest} = this.props;
 
     if (prevProps.offer.id !== offer.id) {
@@ -64,7 +64,7 @@ class OfferPage extends React.PureComponent<Props, {}> {
       host,
     } = offer;
 
-    let offersCoords = [];
+    let offersCoords: {id: number; coords: [number, number]}[] = [];
     if (offersList.length > 0) {
       offersCoords = [...offersList, offer].map(({id, coords}) => ({id, coords}));
     } else {

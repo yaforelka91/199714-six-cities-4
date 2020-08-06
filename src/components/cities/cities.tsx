@@ -3,7 +3,7 @@ import Map from '../map/map';
 import Places from '../places/places';
 import NoPlaces from '../no-places/no-places';
 import withSorting from '../../hocs/with-sorting/with-sorting';
-import Offer from '../../interfaces/offer.js';
+import Offer from '../../interfaces/offer';
 
 const PlacesWrapped = withSorting(Places);
 

@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов» [![Build status][travis-image]][travis-url]
 
 * Студент: [Мария Извекова](https://up.htmlacademy.ru/react/4/user/199714).
-* Наставник: [Ruslan Malogulko](https://htmlacademy.ru/profile/id9728).
+* Наставник: [Владимир Турецкий](https://htmlacademy.ru/profile/id439019).
 
 ---
 

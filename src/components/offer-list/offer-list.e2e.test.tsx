@@ -3,8 +3,8 @@ import {mount} from 'enzyme';
 import {OfferList} from './offer-list';
 import {Router} from 'react-router-dom';
 import history from '../../history';
-import {AuthorizationStatus} from '../../reducer/user/user.js';
-import {CardView} from '../../const';
+import {AuthorizationStatus} from '../../reducer/user/user';
+import {CardView} from '../../types';
 import {noOperation} from '../../utils';
 import Offer from '../../interfaces/offer';
 

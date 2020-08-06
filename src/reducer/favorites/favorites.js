@@ -1,7 +1,7 @@
 import {extend} from '../../utils';
-import adaptOffer from '../../adapters/offers.js';
-import {ActionCreator as DataActionCreator} from '../data/data.js';
-import {getOffers} from '../data/selectors.js';
+import adaptOffer from '../../adapters/offers';
+import {ActionCreator as DataActionCreator} from '../data/data';
+import {getOffers} from '../data/selectors';
 
 const initialState = {
   favorites: {},

@@ -1,5 +1,5 @@
-import NameSpace from '../name-space.js';
-import {getOffers} from '../data/selectors.js';
+import NameSpace from '../name-space';
+import {getOffers} from '../data/selectors';
 import {createSelector} from 'reselect';
 
 const NAME_SPACE = NameSpace.CATALOG;

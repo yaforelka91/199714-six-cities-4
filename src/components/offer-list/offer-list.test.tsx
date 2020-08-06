@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
 import {OfferList} from './offer-list';
-import {AuthorizationStatus} from '../../reducer/user/user.js';
-import {CardView} from '../../const';
+import {AuthorizationStatus} from '../../reducer/user/user';
+import {CardView} from '../../types';
 import {Router} from 'react-router-dom';
 import history from '../../history';
 import {noOperation} from '../../utils';

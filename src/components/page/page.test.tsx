@@ -1,12 +1,12 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
 import Page from './page';
-import {AuthorizationStatus} from '../../reducer/user/user.js';
+import {AuthorizationStatus} from '../../reducer/user/user';
 import {Router} from 'react-router-dom';
 import history from '../../history';
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
-import NameSpace from '../../reducer/name-space.js';
+import NameSpace from '../../reducer/name-space';
 import {noOperation} from '../../utils';
 
 const mockStore = configureStore([]);

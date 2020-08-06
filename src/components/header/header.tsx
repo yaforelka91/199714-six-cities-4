@@ -1,21 +1,18 @@
 import * as React from 'react';
 import {Link, useLocation} from 'react-router-dom';
 import {AuthorizationStatus} from '../../reducer/user/user';
-import {AppRoute} from '../../const';
+import {AppRoute} from '../../types';
 import {connect} from 'react-redux';
 import {getAuthorizationStatus, getUserData} from '../../reducer/user/selectors';
+import User from '../../interfaces/user';
 
 type Props = {
   authorizationStatus: string;
-  userData: {
-    email: string;
-    picture: string;
-  };
+  userData: User;
 };
 
 const Header: React.FC<Props> = (props: Props) => {
   const {authorizationStatus, userData} = props;
-
   return (
     <header className="header">
       <div className="container">
@@ -40,7 +37,7 @@ const Header: React.FC<Props> = (props: Props) => {
                   <div
                     className="header__avatar-wrapper user__avatar-wrapper"
                   >
-                    {authorizationStatus === AuthorizationStatus.AUTH && <img src={`https://htmlacademy-react-3.appspot.com/six-cities${userData.picture}`} alt="User avatar" />}
+                    {authorizationStatus === AuthorizationStatus.AUTH && <img className='user__avatar' src={`https://htmlacademy-react-3.appspot.com/six-cities${userData.picture}`} alt="User avatar" />}
                   </div>
                   {authorizationStatus === AuthorizationStatus.AUTH && <span className="header__user-name user__name">{userData.email}</span>}
                   {authorizationStatus === AuthorizationStatus.NO_AUTH && <span className="header__login">Sign in</span>}

@@ -3,13 +3,13 @@ import * as renderer from 'react-test-renderer';
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 import {App} from './app';
-import NameSpace from '../../reducer/name-space.js';
-import {AuthorizationStatus} from '../../reducer/user/user.js';
-import {getAuthorizationStatus} from '../../reducer/user/selectors.js';
-import {getGroupedFavoriteOffers} from '../../reducer/favorites/selectors.js';
-import {getOffers} from '../../reducer/data/selectors.js';
+import NameSpace from '../../reducer/name-space';
+import {AuthorizationStatus} from '../../reducer/user/user';
+import {getAuthorizationStatus} from '../../reducer/user/selectors';
+import {getGroupedFavoriteOffers} from '../../reducer/favorites/selectors';
+import {getOffers} from '../../reducer/data/selectors';
 import {createMemoryHistory} from 'history';
-import {AppRoute} from '../../const';
+import {AppRoute} from '../../types';
 const mockStore = configureStore([]);
 
 const offersList = [

@@ -4,8 +4,8 @@ import OfferCard from './offer-card';
 import {extend, noOperation} from '../../utils';
 import {Router} from 'react-router-dom';
 import history from '../../history';
-import {AuthorizationStatus} from '../../reducer/user/user.js';
-import {AppRoute} from '../../const';
+import {AuthorizationStatus} from '../../reducer/user/user';
+import {AppRoute} from '../../types';
 import Offer from '../../interfaces/offer';
 
 const offer: Offer = {

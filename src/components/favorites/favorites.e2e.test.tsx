@@ -3,11 +3,11 @@ import {mount} from 'enzyme';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import {Favorites} from './favorites';
-import NameSpace from '../../reducer/name-space.js';
-import {AuthorizationStatus} from '../../reducer/user/user.js';
+import NameSpace from '../../reducer/name-space';
+import {AuthorizationStatus} from '../../reducer/user/user';
 import {Router} from 'react-router-dom';
 import history from '../../history';
-import {AppRoute} from '../../const';
+import {AppRoute} from '../../types';
 import {noOperation} from '../../utils';
 import Offer from '../../interfaces/offer';
 
