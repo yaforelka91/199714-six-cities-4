@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as renderer from 'react-test-renderer';
+import React from 'react';
+import renderer from 'react-test-renderer';
 import {Reviews} from './reviews';
 import {AuthorizationStatus} from '../../reducer/user/user';
 import {noOperation} from '../../utils';

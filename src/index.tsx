@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as reactDOM from 'react-dom';
+import React from 'react';
+import {render} from 'react-dom';
 import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
@@ -28,7 +28,7 @@ const init = () => {
   store.dispatch(UserOperation.checkAuth());
   store.dispatch(DataOperation.loadOffers());
 
-  reactDOM.render(
+  render(
       <Provider store={store}>
         <App history={history}/>
       </Provider>,

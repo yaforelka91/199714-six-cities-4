@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {PureComponent, createRef} from 'react';
 import CityListItem from '../city-list-item/city-list-item';
 import {connect} from 'react-redux';
 import {getCity} from '../../reducer/catalog/selectors';
@@ -11,7 +11,7 @@ type Props = {
   onFormSubmit: ({login, password}: {login: string; password: string}) => void;
 }
 
-class Login extends React.PureComponent<Props, {}> {
+class Login extends PureComponent<Props, {}> {
   props: Props;
 
   private loginRef: React.RefObject<HTMLInputElement>;
@@ -20,8 +20,8 @@ class Login extends React.PureComponent<Props, {}> {
   constructor(props) {
     super(props);
 
-    this.loginRef = React.createRef();
-    this.passwordRef = React.createRef();
+    this.loginRef = createRef();
+    this.passwordRef = createRef();
 
     this._handleFormSubmit = this._handleFormSubmit.bind(this);
   }

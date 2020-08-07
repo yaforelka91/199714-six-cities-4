@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import Map from '../map/map';
 import Places from '../places/places';
 import NoPlaces from '../no-places/no-places';

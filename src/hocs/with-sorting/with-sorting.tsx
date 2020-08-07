@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {PureComponent} from 'react';
 import {Subtract} from 'utility-types';
 import {SortType} from '../../types';
 import Sorting from '../../components/sorting/sorting';
@@ -24,7 +24,7 @@ const withSorting = (Component) => {
   type P = React.ComponentProps<typeof Component>;
   type T = Subtract<P, InjectingProps>;
 
-  class WithSorting extends React.PureComponent<T, State> {
+  class WithSorting extends PureComponent<T, State> {
     constructor(props) {
       super(props);
 

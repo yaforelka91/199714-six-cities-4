@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {shallow} from 'enzyme';
 import ReviewForm from './review-form';
 import {noOperation} from '../../utils';

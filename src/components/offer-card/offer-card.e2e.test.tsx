@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {mount} from 'enzyme';
 import OfferCard from './offer-card';
 import {extend, noOperation} from '../../utils';

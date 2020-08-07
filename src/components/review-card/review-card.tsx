@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {getRatingInPercent, getFormattedDate} from '../../utils';
 import Review from '../../interfaces/review';
 

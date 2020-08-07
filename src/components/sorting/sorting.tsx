@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {SortType} from '../../types';
 
 const sortItems: {type: SortType; text: string}[] = [

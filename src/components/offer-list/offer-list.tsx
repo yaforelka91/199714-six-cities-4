@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import OfferCard from '../offer-card/offer-card';
 import {getArticleClassName, noOperation} from '../../utils';
 import {connect} from 'react-redux';

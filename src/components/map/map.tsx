@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {Component, createRef} from 'react';
 import {
   icon,
   map,
@@ -31,7 +31,7 @@ type Props = {
   className?: string;
 };
 
-class Map extends React.Component<Props, {}> {
+class Map extends Component<Props, {}> {
   props: Props;
   private mapRef: React.RefObject<HTMLDivElement>;
   private markers: {id: number; marker: Marker}[];
@@ -40,7 +40,7 @@ class Map extends React.Component<Props, {}> {
   constructor(props) {
     super(props);
 
-    this.mapRef = React.createRef();
+    this.mapRef = createRef();
     this.mapObject = null;
     this.markers = [];
   }

@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as renderer from 'react-test-renderer';
+import React from 'react';
+import renderer from 'react-test-renderer';
 import configureStore from 'redux-mock-store';
 import Cities from './cities';
 import NameSpace from '../../reducer/name-space';

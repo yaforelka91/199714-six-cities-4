@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
 import CityListItem from '../city-list-item/city-list-item';
 import OfferList from '../offer-list/offer-list';
@@ -16,7 +16,7 @@ type Props= {
   onFavoritesRequest: () => void;
 };
 
-class Favorites extends React.PureComponent<Props, {}> {
+class Favorites extends PureComponent<Props, {}> {
   props: Props;
 
   componentDidMount() {

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import ErrorScreen from '../error-screen/error-screen';

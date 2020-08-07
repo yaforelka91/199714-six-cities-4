@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as renderer from 'react-test-renderer';
+import React from 'react';
+import renderer from 'react-test-renderer';
 import PrivateRoute from './private-route';
 import {AuthorizationStatus} from '../../reducer/user/user';
 import {MemoryRouter} from 'react-router';

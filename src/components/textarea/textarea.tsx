@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {memo} from 'react';
 
 type Props = {
   currentMessage?: string;
@@ -25,4 +25,4 @@ const Textarea: React.FC<Props> = (props: Props) => {
 };
 
 export {Textarea};
-export default React.memo(Textarea);
+export default memo(Textarea);

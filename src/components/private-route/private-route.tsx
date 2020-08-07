@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {Route, Redirect, RouteProps} from 'react-router-dom';
 import {AppRoute} from '../../types';
 import {AuthorizationStatus} from '../../reducer/user/user';

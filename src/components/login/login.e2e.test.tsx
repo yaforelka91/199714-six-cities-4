@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {mount} from 'enzyme';
 import {Login} from './login';
 import configureStore from 'redux-mock-store';

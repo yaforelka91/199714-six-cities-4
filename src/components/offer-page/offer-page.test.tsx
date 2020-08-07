@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as renderer from 'react-test-renderer';
+import React from 'react';
+import renderer from 'react-test-renderer';
 import {OfferPage} from './offer-page';
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';

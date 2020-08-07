@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {PureComponent} from 'react';
 import Reviews from '../reviews/reviews';
 import Map from '../map/map';
 import OfferList from '../offer-list/offer-list';
@@ -26,7 +26,7 @@ type Props = {
   onNearbyRequest: (offerId: number) => void;
 }
 
-class OfferPage extends React.PureComponent<Props, {}> {
+class OfferPage extends PureComponent<Props, {}> {
   props: Props;
 
   componentDidMount() {

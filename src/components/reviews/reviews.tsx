@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import ReviewCard from '../review-card/review-card';
 import ReviewForm from '../review-form/review-form';
 import {AuthorizationStatus} from '../../reducer/user/user';

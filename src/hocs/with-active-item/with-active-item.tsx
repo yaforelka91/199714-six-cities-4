@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {PureComponent} from 'react';
 import {Subtract} from 'utility-types';
 
 type State = {
@@ -17,7 +17,7 @@ const withActiveItem = (Component) => {
   type P = React.ComponentProps<typeof Component>;
   type T = Subtract<P, InjectingProps>;
 
-  class WithActiveItem extends React.PureComponent<T, State> {
+  class WithActiveItem extends PureComponent<T, State> {
     constructor(props) {
       super(props);
 

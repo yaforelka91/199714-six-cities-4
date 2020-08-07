@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {PureComponent} from 'react';
 import Rating from '../../components/rating/rating';
 import Textarea from '../../components/textarea/textarea';
 import adaptError from '../../adapters/error';
@@ -22,7 +22,7 @@ type Props = {
 }
 
 const withReview = (Component) => {
-  class WithReview extends React.PureComponent<Props, State> {
+  class WithReview extends PureComponent<Props, State> {
     constructor(props) {
       super(props);
 

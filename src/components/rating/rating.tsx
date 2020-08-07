@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {memo} from 'react';
 
 const RATING_VALUES = [`perfect`, `good`, `not bad`, `badly`, `terribly`];
 
@@ -43,4 +43,4 @@ const Rating: React.FC<Props> = (props: Props) => {
 
 
 export {Rating};
-export default React.memo(Rating);
+export default memo(Rating);

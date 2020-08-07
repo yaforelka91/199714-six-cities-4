@@ -1,5 +1,5 @@
 
-import * as React from 'react';
+import React from 'react';
 import OfferList from '../offer-list/offer-list';
 import {CardView} from '../../types';
 import Offer from '../../interfaces/offer';

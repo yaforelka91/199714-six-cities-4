@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {Component} from 'react';
 import {capitalize, getRatingInPercent, extend, noOperation} from '../../utils';
 import Button from '../button/button';
 import {AppRoute} from '../../types';
@@ -17,7 +17,7 @@ type Props = {
   onFavoriteButtonClick: (offer: Offer) => void;
 };
 
-class OfferCard extends React.Component<Props, {}> {
+class OfferCard extends Component<Props, {}> {
   props: Props;
 
   constructor(props) {

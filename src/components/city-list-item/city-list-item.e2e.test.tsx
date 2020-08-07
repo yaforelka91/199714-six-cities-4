@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {mount} from 'enzyme';
 import CityListItem from './city-list-item';
 import {Router} from 'react-router-dom';

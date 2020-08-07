@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {PureComponent} from 'react';
 import {SortType} from '../../types';
 
 type State = {
@@ -11,7 +11,7 @@ type Props = {
 };
 
 const withOpenMenu = (Component) => {
-  class WithOpenMenu extends React.PureComponent<Props, State> {
+  class WithOpenMenu extends PureComponent<Props, State> {
     constructor(props) {
       super(props);
 
