@@ -1,16 +1,16 @@
 import React, {memo} from 'react';
 
 type Props = {
+  onTextareaChange: (evt: React.ChangeEvent<HTMLTextAreaElement>) => void;
   currentMessage?: string;
   maxLength?: number;
-  onTextareaChange: (evt: React.ChangeEvent<HTMLTextAreaElement>) => void;
 };
 
 const Textarea: React.FC<Props> = (props: Props) => {
   const {
+    onTextareaChange,
     currentMessage = ``,
-    maxLength = 100,
-    onTextareaChange
+    maxLength = 100
   } = props;
   return (
     <textarea

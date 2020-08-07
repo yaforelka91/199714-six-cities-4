@@ -7,8 +7,8 @@ import {getError} from '../../reducer/user/selectors';
 
 type Props = {
   activeCity: string;
-  validationError?: string;
   onFormSubmit: ({login, password}: {login: string; password: string}) => void;
+  validationError?: string;
 }
 
 class Login extends PureComponent<Props, {}> {

@@ -3,12 +3,12 @@ import React, {memo} from 'react';
 const RATING_VALUES = [`perfect`, `good`, `not bad`, `badly`, `terribly`];
 
 type Props = {
-  selectedRating?: string;
   onRatingChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
+  selectedRating?: string;
 }
 
 const Rating: React.FC<Props> = (props: Props) => {
-  const {selectedRating = ``, onRatingChange} = props;
+  const {onRatingChange, selectedRating = ``} = props;
 
   return (
     <div className="reviews__rating-form form__rating">

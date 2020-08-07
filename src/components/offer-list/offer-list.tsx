@@ -9,11 +9,11 @@ import {CardView} from '../../types';
 
 type Props = {
   offers: Offer[];
-  className?: string;
   viewMode: CardView;
   authorizationStatus: string;
-  onOfferCardEnter?: () => void;
   onFavoriteButtonClick: () => void;
+  className?: string;
+  onOfferCardEnter?: () => void;
 }
 
 const OfferList: React.FC<Props> = (props: Props) => {

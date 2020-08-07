@@ -5,16 +5,16 @@ import {AuthorizationStatus} from '../../reducer/user/user';
 
 type Props = RouteProps & {
   authorizationStatus: string;
-  isAuthorizationInProgress?: boolean;
   render: () => React.ReactNode;
+  isAuthorizationInProgress?: boolean;
 }
 
 const PrivateRoute: React.FC<Props> = (props: Props) => {
   const {
+    authorizationStatus,
     render,
     path,
     exact,
-    authorizationStatus,
     isAuthorizationInProgress = false,
   } = props;
 

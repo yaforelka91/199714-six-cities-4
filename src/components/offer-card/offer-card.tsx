@@ -10,11 +10,11 @@ import Offer from '../../interfaces/offer';
 type Props = {
   offer: Offer;
   authorizationStatus: string;
+  onFavoriteButtonClick: (offer: Offer) => void;
   className?: string;
   classNameForImage?: string;
   classNameForInfo?: string;
   onOfferCardEnter?: (offerId: number) => void;
-  onFavoriteButtonClick: (offer: Offer) => void;
 };
 
 class OfferCard extends Component<Props, {}> {

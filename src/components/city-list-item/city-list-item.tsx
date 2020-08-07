@@ -5,17 +5,17 @@ import {noOperation} from '../../utils';
 
 type Props = {
   city: string;
-  tagName?: keyof JSX.IntrinsicElements;
   classNameLink?: string;
+  tagName?: keyof JSX.IntrinsicElements;
   onCityNameClick?: () => void;
 };
 
 const CityListItem: React.FC<Props & React.HTMLAttributes<HTMLOrSVGElement>> = (props: Props) => {
   const {
     city,
-    onCityNameClick = noOperation,
     classNameLink = ``,
     tagName: TagName = `li`,
+    onCityNameClick = noOperation,
   } = props;
 
   return (

@@ -7,18 +7,18 @@ import Offer from '../../interfaces/offer';
 type Props = {
   offers: Offer[];
   city: string;
-  className?: string;
   renderSorting: () => React.ReactNode;
   onOfferCardEnter: () => void;
+  className?: string;
 }
 
 const Places: React.FC<Props> = (props: Props) => {
   const {
     offers,
     city,
-    className = ``,
     renderSorting,
-    onOfferCardEnter
+    onOfferCardEnter,
+    className = ``,
   } = props;
 
   return (

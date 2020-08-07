@@ -4,20 +4,20 @@ import Footer from '../footer/footer';
 import ErrorScreen from '../error-screen/error-screen';
 
 type Props = {
+  renderPage: () => void;
   className?: string;
   hasFooter?: boolean;
   isLoading?: boolean;
   errorMessage?: string;
-  renderPage: () => void;
 };
 
 const Page: React.FC<Props> = (props: Props) => {
   const {
+    renderPage,
     className = ``,
     hasFooter = false,
     isLoading = false,
     errorMessage = ``,
-    renderPage
   } = props;
   return (
     <div className={`page${className ? ` ${className}` : ``}`}>

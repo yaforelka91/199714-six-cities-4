@@ -9,9 +9,6 @@ describe(`SortingSnapshot`, () => {
         <Sorting
           activeSorting='popular'
           onSortItemClick={noOperation}
-          isOpen={false}
-          onToggleMenu={noOperation}
-          onSelectMenu={noOperation}
         />
     ).toJSON();
 
@@ -24,8 +21,6 @@ describe(`SortingSnapshot`, () => {
           activeSorting='popular'
           onSortItemClick={noOperation}
           isOpen={true}
-          onToggleMenu={noOperation}
-          onSelectMenu={noOperation}
         />
     ).toJSON();
 

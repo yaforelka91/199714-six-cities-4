@@ -3,18 +3,18 @@ import React from 'react';
 type Props = {
   activeItem: string;
   items: string[];
-  classNameForList?: string;
   onActiveChange: () => void;
   renderItem: (item: string, activeItem: string, onActiveChange: () => void) => React.ReactNode;
+  classNameForList?: string;
 };
 
 const Tabs: React.FC<Props> = (props: Props) => {
   const {
     activeItem,
     items,
-    classNameForList = ``,
     onActiveChange,
-    renderItem
+    renderItem,
+    classNameForList = ``
   } = props;
 
   return (

@@ -11,9 +11,6 @@ describe(`Sorting E2E`, () => {
         <Sorting
           activeSorting='popular'
           onSortItemClick={onSortItemClick}
-          isOpen={false}
-          onToggleMenu={noOperation}
-          onSelectMenu={noOperation}
         />
     );
 
@@ -30,8 +27,6 @@ describe(`Sorting E2E`, () => {
         <Sorting
           activeSorting='popular'
           onSortItemClick={noOperation}
-          isOpen={false}
-          onToggleMenu={noOperation}
           onSelectMenu={onSelectMenu}
         />
     );
@@ -48,7 +43,6 @@ describe(`Sorting E2E`, () => {
         <Sorting
           activeSorting='popular'
           onSortItemClick={noOperation}
-          isOpen={false}
           onToggleMenu={onToggleMenu}
           onSelectMenu={noOperation}
         />
@@ -71,9 +65,6 @@ describe(`Sorting E2E`, () => {
         <Sorting
           activeSorting='popular'
           onSortItemClick={onSortItemClick}
-          isOpen={false}
-          onToggleMenu={noOperation}
-          onSelectMenu={noOperation}
         />
     );
 

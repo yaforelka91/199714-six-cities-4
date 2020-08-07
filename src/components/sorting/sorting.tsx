@@ -1,5 +1,6 @@
 import React from 'react';
 import {SortType} from '../../types';
+import {noOperation} from '../../utils';
 
 const sortItems: {type: SortType; text: string}[] = [
   {
@@ -22,14 +23,20 @@ const sortItems: {type: SortType; text: string}[] = [
 
 type Props = {
   activeSorting: string;
-  isOpen?: boolean;
   onSortItemClick: (sortType: string) => void;
+  isOpen?: boolean;
   onToggleMenu?: () => void;
   onSelectMenu?: () => void;
 }
 
 const Sorting: React.FC<Props> = (props: Props) => {
-  const {activeSorting, isOpen, onSortItemClick, onToggleMenu, onSelectMenu} = props;
+  const {
+    activeSorting,
+    onSortItemClick,
+    isOpen = false,
+    onSelectMenu = noOperation,
+    onToggleMenu = noOperation
+  } = props;
 
   return (
     <form className="places__sorting" action="#" method="get">

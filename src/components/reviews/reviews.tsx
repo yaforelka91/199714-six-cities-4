@@ -13,22 +13,22 @@ const MAX_COUNT_REVIEWS = 10;
 const ReviewFormWrapped = withReview(ReviewForm);
 
 type Props = {
-  reviews: Review[];
-  reviewsCount: number;
   authorizationStatus: string;
   offerId: number;
-  className?: string;
+  reviews: Review[];
+  reviewsCount: number;
   onReviewFormSubmit: (commentData: {rating: number; comment: string}, hotelId: number) => Promise<void>;
+  className?: string;
 }
 
 const Reviews: React.FC<Props> = (props: Props) => {
   const {
     authorizationStatus,
-    reviewsCount,
-    reviews,
     offerId,
-    className = ``,
-    onReviewFormSubmit
+    reviews,
+    reviewsCount,
+    onReviewFormSubmit,
+    className = ``
   } = props;
 
   return (

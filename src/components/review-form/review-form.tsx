@@ -1,22 +1,22 @@
 import React from 'react';
 
 type Props = {
-  serverError?: string;
-  isValid?: boolean;
-  isLoading?: boolean;
   renderRating: () => void;
   renderTextarea: () => void;
   onFormSubmit: () => void;
+  isLoading?: boolean;
+  isValid?: boolean;
+  serverError?: string;
 }
 
 const ReviewForm: React.FC<Props> = (props: Props) => {
   const {
-    isValid = false,
-    isLoading = false,
-    serverError = ``,
     renderRating,
     renderTextarea,
-    onFormSubmit
+    onFormSubmit,
+    isLoading = false,
+    isValid = false,
+    serverError = ``
   } = props;
 
   return (

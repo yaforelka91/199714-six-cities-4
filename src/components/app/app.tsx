@@ -22,22 +22,22 @@ type Props = {
   favoriteOffers: {
     [key: string]: Offer[];
   }[];
-  offers: Offer[];
-  isOffersLoading?: boolean;
-  isAuthorizationInProgress?: boolean;
-  errorType?: string;
   history: History;
+  offers: Offer[];
+  isAuthorizationInProgress?: boolean;
+  isOffersLoading?: boolean;
+  errorType?: string;
 }
 
 const App: React.FC<Props> = (props: Props) => {
   const {
     authorizationStatus,
-    isOffersLoading = false,
-    isAuthorizationInProgress = false,
-    errorType = ``,
-    offers,
     favoriteOffers,
-    history
+    history,
+    offers,
+    isAuthorizationInProgress = false,
+    isOffersLoading = false,
+    errorType = ``,
   } = props;
 
   if (!isOffersLoading && !isAuthorizationInProgress && errorType === `` && offers.length === 0) {
