@@ -1,17 +1,21 @@
 import React, {PureComponent} from 'react';
-import {SortType} from '../../types';
+import {Subtract} from 'utility-types';
 
 type State = {
   isOpen: boolean;
 };
 
-type Props = {
-  activeSorting?: SortType;
-  onSortItemClick?: (sortType: SortType) => void;
+type InjectingProps = {
+  isOpen: boolean;
+  onToggleMenu: () => void;
+  onSelectMenu: () => void;
 };
 
 const withOpenMenu = (Component) => {
-  class WithOpenMenu extends PureComponent<Props, State> {
+  type P = React.ComponentProps<typeof Component>;
+  type T = Subtract<P, InjectingProps>;
+
+  class WithOpenMenu extends PureComponent<T, State> {
     constructor(props) {
       super(props);
 

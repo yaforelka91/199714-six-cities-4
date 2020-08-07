@@ -1,16 +1,17 @@
 import React, {PureComponent} from 'react';
 import {Subtract} from 'utility-types';
 
-type State = {
+type Props = {
   activeItem: number | string;
 }
 
-type Props = {
+type State = {
   activeItem: number | string;
 }
 
 type InjectingProps = {
   activeItem: number | string;
+  onActiveChange: (activeItem: number | string) => void;
 }
 
 const withActiveItem = (Component) => {
@@ -22,7 +23,7 @@ const withActiveItem = (Component) => {
       super(props);
 
       this.state = {
-        activeItem: props.activeItem ?? -1,
+        activeItem: props.activeItem,
       };
 
       this._handleActiveChange = this._handleActiveChange.bind(this);
@@ -36,7 +37,7 @@ const withActiveItem = (Component) => {
       }
     }
 
-    _handleActiveChange(activeItem: string | number) {
+    _handleActiveChange(activeItem: number | string) {
       this.setState({
         activeItem,
       });
@@ -53,6 +54,10 @@ const withActiveItem = (Component) => {
         />
       );
     }
+
+    public static defaultProps = {
+      activeItem: -1,
+    };
   }
 
   return WithActiveItem;

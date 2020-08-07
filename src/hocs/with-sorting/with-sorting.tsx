@@ -5,13 +5,13 @@ import Sorting from '../../components/sorting/sorting';
 import withOpenMenu from '../with-open-menu/with-open-menu';
 import {getSortedOffers} from '../../utils';
 
+type Props = {
+  offers: {price: number; rating: number}[];
+}
+
 type State = {
   activeSorting: SortType;
   sortedOffers: {price: number; rating: number}[];
-}
-
-type Props = {
-  offers: {price: number; rating: number}[];
 }
 
 type InjectingProps = {
@@ -36,13 +36,6 @@ const withSorting = (Component) => {
       this._handleSortItemClick = this._handleSortItemClick.bind(this);
     }
 
-    _handleSortItemClick(sortType: SortType) {
-      this.setState({
-        activeSorting: sortType,
-        sortedOffers: getSortedOffers({sortType, offers: this.props.offers}),
-      });
-    }
-
     componentDidUpdate(prevProps) {
       if (prevProps.offers !== this.props.offers) {
         this.setState({
@@ -51,6 +44,12 @@ const withSorting = (Component) => {
       }
     }
 
+    _handleSortItemClick(sortType: SortType) {
+      this.setState({
+        activeSorting: sortType,
+        sortedOffers: getSortedOffers({sortType, offers: this.props.offers}),
+      });
+    }
     render() {
       const {activeSorting, sortedOffers} = this.state;
 

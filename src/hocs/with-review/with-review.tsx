@@ -1,4 +1,5 @@
 import React, {PureComponent} from 'react';
+import {Subtract} from 'utility-types';
 import Rating from '../../components/rating/rating';
 import Textarea from '../../components/textarea/textarea';
 import adaptError from '../../adapters/error';
@@ -9,6 +10,11 @@ const ReviewValidLength = {
   MAXIMUM: 300,
 };
 
+type Props = {
+  offerId: number;
+  onReviewFormSubmit: (commentData: {rating: number; comment: string}, hotelId: number) => Promise<void>;
+}
+
 type State = {
   rating: string;
   review: string;
@@ -16,13 +22,20 @@ type State = {
   serverError: string;
 }
 
-type Props = {
-  offerId: number;
-  onReviewFormSubmit: (commentData: {rating: number; comment: string}, hotelId: number) => Promise<void>;
+type InjectingProps = {
+  renderRating: () => React.ReactNode;
+  renderTextarea: () => React.ReactNode;
+  onFormSubmit: () => void;
+  isLoading: boolean;
+  isValid: boolean;
+  serverError: string;
 }
 
 const withReview = (Component) => {
-  class WithReview extends PureComponent<Props, State> {
+  type P = React.ComponentProps<typeof Component>;
+  type T = Subtract<P, InjectingProps>;
+
+  class WithReview extends PureComponent<T, State> {
     constructor(props) {
       super(props);
 
