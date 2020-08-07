@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 import {Subtract} from 'utility-types';
 
 type Props = {
-  activeItem: number | string;
+  activeItem?: number | string;
 }
 
 type State = {
@@ -16,7 +16,7 @@ type InjectingProps = {
 
 const withActiveItem = (Component) => {
   type P = React.ComponentProps<typeof Component>;
-  type T = Subtract<P, InjectingProps>;
+  type T = Props & Subtract<P, InjectingProps>;
 
   class WithActiveItem extends PureComponent<T, State> {
     constructor(props) {

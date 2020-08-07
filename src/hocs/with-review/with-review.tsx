@@ -32,7 +32,7 @@ type InjectingProps = {
 }
 
 const withReview = (Component) => {
-  type P = React.ComponentProps<typeof Component>;
+  type P = Props & React.ComponentProps<typeof Component>;
   type T = Subtract<P, InjectingProps>;
 
   class WithReview extends PureComponent<T, State> {

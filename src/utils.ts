@@ -50,7 +50,7 @@ export const getRatingInPercent = (ratingValue: number, isInteger: boolean): num
   return isInteger ? Math.round(ratingValue) * 100 / 5 : Math.round(ratingValue * 100 / 5);
 };
 
-export const sortOffers = (sortType: SortType, offers: {price: number; rating: number}[]) => {
+export const sortOffers = (sortType: SortType, offers: {price: number; rating: number}[] | Offer[]) => {
   switch (sortType) {
     case SortType.POPULAR:
       return offers.slice();
@@ -67,7 +67,7 @@ export const sortOffers = (sortType: SortType, offers: {price: number; rating: n
 
 export const getSortedOffers = createSelector(
     (state: {sortType: SortType}) => state.sortType,
-    (state: {offers: Offer[]}) => state.offers,
+    (state: {offers: {price: number; rating: number}[] | Offer[]}) => state.offers,
     (activeSorting, offers) => sortOffers(activeSorting, offers)
 );
 

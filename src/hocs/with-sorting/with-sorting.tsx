@@ -4,25 +4,26 @@ import {SortType} from '../../types';
 import Sorting from '../../components/sorting/sorting';
 import withOpenMenu from '../with-open-menu/with-open-menu';
 import {getSortedOffers} from '../../utils';
+import Offer from '../../interfaces/offer';
 
 type Props = {
-  offers: {price: number; rating: number}[];
+  offers: {price: number; rating: number}[] | Offer[];
 }
 
 type State = {
   activeSorting: SortType;
-  sortedOffers: {price: number; rating: number}[];
+  sortedOffers: {price: number; rating: number}[] | Offer[];
 }
 
 type InjectingProps = {
   renderSorting: () => React.ReactNode;
-  offers: {price: number; rating: number}[];
+  offers: {price: number; rating: number}[] | Offer[];
 }
 
 const SortingWrapped = withOpenMenu(Sorting);
 const withSorting = (Component) => {
   type P = React.ComponentProps<typeof Component>;
-  type T = Subtract<P, InjectingProps>;
+  type T = Props & Subtract<P, InjectingProps>;
 
   class WithSorting extends PureComponent<T, State> {
     constructor(props) {
@@ -50,6 +51,7 @@ const withSorting = (Component) => {
         sortedOffers: getSortedOffers({sortType, offers: this.props.offers}),
       });
     }
+
     render() {
       const {activeSorting, sortedOffers} = this.state;
 
