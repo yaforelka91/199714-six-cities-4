@@ -1,8 +1,8 @@
-import {extend} from '../../utils.js';
-import adaptUser from '../../adapters/user.js';
-import adaptError from '../../adapters/error.js';
-import {Operation as DataOperation} from '../data/data.js';
-import {Error} from '../../api.js';
+import {extend} from '../../utils';
+import adaptUser from '../../adapters/user';
+import adaptError from '../../adapters/error';
+import {Operation as DataOperation} from '../data/data';
+import {Error} from '../../api';
 
 const AuthorizationStatus = {
   AUTH: `AUTH`,

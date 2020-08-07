@@ -1,4 +1,4 @@
-import {reducer, ActionCreator, ActionType} from './catalog.js';
+import {reducer, ActionCreator, ActionType} from './catalog';
 
 describe(`Reducer works correctly`, () => {
   it(`Reducer without additional parameters should return initialState`, () => {

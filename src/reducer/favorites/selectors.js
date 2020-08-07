@@ -1,6 +1,6 @@
-import NameSpace from '../name-space.js';
+import NameSpace from '../name-space';
 import {createSelector} from 'reselect';
-import {getOffers} from '../data/selectors.js';
+import {getOffers} from '../data/selectors';
 
 const NAME_SPACE = NameSpace.FAVORITES;
 
